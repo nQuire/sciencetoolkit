@@ -30,7 +30,6 @@ public class SensorLiveXYSeries implements SettingsListener {
 
 	Timer timer;
 	SensorWrapper sensor;
-	Context context;
 	int period;
 
 	float[] currentValues;
@@ -42,8 +41,10 @@ public class SensorLiveXYSeries implements SettingsListener {
 	TimeValue[] values;
 	int head;
 	int size;
+	
+	Context context;
 
-	public SensorLiveXYSeries(SensorWrapper sensor, Context context, SensorLiveXYSeriesListener listener) {
+	public SensorLiveXYSeries(SensorWrapper sensor) {
 		values = new TimeValue[10];
 		currentValues = new float[sensor.getValueCount()];
 		showSeries = new boolean[sensor.getValueCount()];
@@ -58,8 +59,11 @@ public class SensorLiveXYSeries implements SettingsListener {
 		timer = null;
 		period = 250;
 		this.sensor = sensor;
-		this.context = context;
+	}
+	
+	public void setContext(SensorLiveXYSeriesListener listener, Context context) {
 		this.listener = listener;
+		this.context = context;
 	}
 
 	public void clear() {
@@ -126,7 +130,7 @@ public class SensorLiveXYSeries implements SettingsListener {
 
 				LineAndPointFormatter seriesFormat = new LineAndPointFormatter();
 				seriesFormat.setPointLabelFormatter(new PointLabelFormatter());
-				seriesFormat.configure(context, resource);
+				seriesFormat.configure(plot.getContext(), resource);
 				seriesFormat.setPointLabeler(null);
 				plot.addSeries(this.seriesList[i], seriesFormat);
 			}

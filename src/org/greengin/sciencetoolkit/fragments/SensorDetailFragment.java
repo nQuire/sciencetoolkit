@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,7 @@ public class SensorDetailFragment extends Fragment implements SensorWrapperListe
 	@Override
 	public void onDetach() {
 		super.onDetach();
+		
 		this.sensor.removeListener(this);
 		if (this.series.isRunning()) {
 			this.series.stop();
@@ -114,10 +116,15 @@ public class SensorDetailFragment extends Fragment implements SensorWrapperListe
 	
 
 	private void preparePlot(View view) {
+		Log.d("stk plot", "create");
 		plot = (XYPlot) view.findViewById(R.id.live_xy_plot);
 
-		plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
-		plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
+		plot.setRangeLowerBoundary(0, BoundaryMode.AUTO);
+		plot.setRangeUpperBoundary(0, BoundaryMode.AUTO);
+
+		plot.setTicksPerRangeLabel(3);
+		plot.setDomainStep(XYStepMode.SUBDIVIDE, 5);
+		plot.setDomainValueFormat(new LiveTimePlotDomainFormat());
 
 		LocalBroadcastManager.getInstance(view.getContext()).registerReceiver(new BroadcastReceiver() {
 			@Override
@@ -127,19 +134,19 @@ public class SensorDetailFragment extends Fragment implements SensorWrapperListe
 		}, new IntentFilter(SensorLiveXYSeries.SENSOR_LIVE_SERIES_UPDATE));
 
 		String settingsKey = "liveplot:" + sensor.getName();
+		Log.d("stk plot series", settingsKey);
 		if (!SettingsManager.getInstance().exists(settingsKey)) {
-			SettingsManager.getInstance().registerSettings(settingsKey, new SensorLiveXYSeries(sensor, view.getContext(), this));
+			Log.d("stk plot series", "create");
+			SettingsManager.getInstance().registerSettings(settingsKey, new SensorLiveXYSeries(sensor));
 		}
 		
 		this.series = (SensorLiveXYSeries) SettingsManager.getInstance().getSettings(settingsKey);
 
-		// reduce the number of range labels
-		plot.setTicksPerRangeLabel(3);
-		plot.setDomainStep(XYStepMode.SUBDIVIDE, 5);
-		plot.setDomainValueFormat(new LiveTimePlotDomainFormat());
-
-		// this.seriesRunnable = new SensorLiveXYSeriesRunnable(sensor, series,
-		// view.getContext());
+		if (series.isRunning()) {
+			series.stop();
+		}
+		
+		this.series.setContext(this, view.getContext());
 		if (sensor.isEnabled()) {
 			series.start();
 		}

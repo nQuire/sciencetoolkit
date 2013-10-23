@@ -5,4 +5,4 @@
     linePaint.strokeWidth="2dp"
     pointLabelFormatter.textPaint.color="#FFFFFF"
     pointLabelFormatter.textPaint.textSize="@dimen/plot_point_font_size"
-    vertexPaint.color="#000077" />
+    vertexPaint.color="#770000" />
