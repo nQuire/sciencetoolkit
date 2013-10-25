@@ -4,8 +4,8 @@ package org.greengin.sciencetoolkit.sensors.sound;
 import java.util.List;
 import java.util.Vector;
 
+import org.greengin.sciencetoolkit.SensorWrapperManager;
 import org.greengin.sciencetoolkit.sensors.BasicSensorWrapper;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

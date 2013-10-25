@@ -2,11 +2,13 @@ package org.greengin.sciencetoolkit.activities;
 
 import java.util.Locale;
 
+import org.greengin.sciencetoolkit.DataManager;
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.SensorWrapperManager;
+import org.greengin.sciencetoolkit.fragments.DataFragment;
 import org.greengin.sciencetoolkit.fragments.MonitorsFragment;
 import org.greengin.sciencetoolkit.fragments.SensorsFragment;
 import org.greengin.sciencetoolkit.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
 
 import uihelpers.SensorDisableClickListener;
 
@@ -20,12 +22,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -126,7 +125,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onSensorToggled(View view) {
 		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(view.getTag());
 		ToggleButton button = (ToggleButton) view;
-		SensorDisableClickListener.sensorToggled(view.getContext(), sensor, button);		
+		SensorDisableClickListener.sensorToggled(view.getContext(), sensor, button);
 	}
 
 	public void onSensorOpen(View view) {
@@ -134,34 +133,49 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 		intent.putExtra("sensor", (String) view.getTag());
 		startActivity(intent);
 	}
-	
+
 	public void onMonitorOpen(View view) {
 		Intent intent = new Intent(this, SensorDetailActivity.class);
 		intent.putExtra("sensor", (String) view.getTag());
 		intent.putExtra("tab", 1);
 		startActivity(intent);
 	}
+	
+	public void onDataDelete(View view) {
+		DataManager.getInstance().emptyData();
+	}
+	
+	public void onDataExport(View view) {
+		DataManager.getInstance().exportData();
+	}
+
 
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-		Fragment[] fragments;
-
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
-			this.fragments = new Fragment[] { new SensorsFragment(), new MonitorsFragment(), new DummySectionFragment() };
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			return this.fragments[position];
+			switch (position) {
+			case 0:
+				return new SensorsFragment();
+			case 1:
+				return new MonitorsFragment();
+			case 2:
+				return new DataFragment();
+			default:
+				return null;
+			}
 		}
 
 		@Override
 		public int getCount() {
-			return this.fragments.length;
+			return 3;
 		}
 
 		@Override
@@ -176,23 +190,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
 				return getString(R.string.title_home_tab_3).toUpperCase(l);
 			}
 			return null;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_home_dummy, container, false);
-			TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-			dummyTextView.setText("dummy");
-			return rootView;
 		}
 	}
 }

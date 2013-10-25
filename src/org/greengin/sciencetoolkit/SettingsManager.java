@@ -1,6 +1,9 @@
-package org.greengin.sciencetoolkit.sensors;
+package org.greengin.sciencetoolkit;
 
 import java.util.HashMap;
+
+import org.greengin.sciencetoolkit.sensors.SensorWrapper;
+import org.greengin.sciencetoolkit.sensors.SettingsListener;
 
 public class SettingsManager {
 

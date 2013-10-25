@@ -6,12 +6,12 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.SensorWrapperManager;
+import org.greengin.sciencetoolkit.SettingsManager;
 import org.greengin.sciencetoolkit.plots.SensorLiveXYSeries;
 import org.greengin.sciencetoolkit.plots.SensorLiveXYSeriesListener;
 import org.greengin.sciencetoolkit.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.sensors.SensorWrapperListener;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.sensors.SettingsManager;
 
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.XYPlot;

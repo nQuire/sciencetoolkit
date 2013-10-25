@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.fragments;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.SensorWrapperManager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

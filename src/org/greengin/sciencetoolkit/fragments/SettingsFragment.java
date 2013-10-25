@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.SettingsManager;
 import org.greengin.sciencetoolkit.sensors.SettingsListener;
-import org.greengin.sciencetoolkit.sensors.SettingsManager;
 
 import uihelpers.DateTimePickerHelper;
 

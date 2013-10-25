@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="5"
-    android:versionName="0.131023" >
+    android:versionCode="6"
+    android:versionName="0.131025" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -41,10 +42,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.activities.HomeActivity" />
         </activity>
-        
+
         <service
             android:name=".MonitorsService"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

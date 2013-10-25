@@ -1,9 +1,11 @@
-package org.greengin.sciencetoolkit.sensors;
+package org.greengin.sciencetoolkit;
 
 
 import java.util.HashMap;
 import java.util.List;
 
+import org.greengin.sciencetoolkit.sensors.RawSensorWrapper;
+import org.greengin.sciencetoolkit.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.sensors.sound.SoundSensorWrapper;
 
 
@@ -15,13 +17,6 @@ import android.hardware.SensorManager;
 
 
 public class SensorWrapperManager {
-	public static final String accelerometer = "accelerometer";
-	public static final String thermometer = "thermometer";
-	public static final String orientation = "orientation";
-	public static final String compass = "compass";
-	public static final String timer = "timer";
-	public static final String sound_intensity= "sound_intensity";
-	
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
 	
 	private static SensorWrapperManager instance; 

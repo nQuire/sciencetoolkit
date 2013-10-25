@@ -3,10 +3,10 @@ package org.greengin.sciencetoolkit.activities;
 import java.util.Locale;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.SensorWrapperManager;
 import org.greengin.sciencetoolkit.fragments.MonitorDetailFragment;
 import org.greengin.sciencetoolkit.fragments.SensorDetailFragment;
 import org.greengin.sciencetoolkit.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

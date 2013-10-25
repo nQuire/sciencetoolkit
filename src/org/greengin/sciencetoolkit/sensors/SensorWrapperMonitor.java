@@ -8,6 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
+import org.greengin.sciencetoolkit.DataManager;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -47,8 +49,8 @@ public class SensorWrapperMonitor implements SettingsListener, SensorWrapperList
 		this.context = context;
 		this.enabled = false;
 		this.manual = true;
-		this.minPeriod = 10;
-		this.period = 10;
+		this.minPeriod = 100;
+		this.period = 1000;
 		this.scheduleStart = System.currentTimeMillis() + 60000;
 		this.scheduleEnd = this.scheduleStart + 60000;
 		this.timer = null;
@@ -251,6 +253,7 @@ public class SensorWrapperMonitor implements SettingsListener, SensorWrapperList
 
 		public void save() {
 			Log.d("monitor", "" + (System.currentTimeMillis() % 10000) + " " + currentValues[0]);
+			DataManager.getInstance().save(sensor.getName(), currentValues, sensor.getValueCount());
 		}
 
 	}

@@ -1,9 +1,9 @@
 package org.greengin.sciencetoolkit.fragments;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.SensorWrapperManager;
 import org.greengin.sciencetoolkit.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.sensors.SensorWrapperListener;
-import org.greengin.sciencetoolkit.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.sensors.SensorWrapperMonitor;
 
 import android.app.Activity;
