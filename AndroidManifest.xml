@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="7"
+    android:versionName="0.131028" >
+    
+    
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
+        android:name="org.greengin.sciencetoolkit.ScienceToolkitApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.greengin.sciencetoolkit.MainActivity"
+            android:name="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity" />
         </activity>
     </application>
 

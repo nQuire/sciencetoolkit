@@ -1,10 +1,9 @@
-package org.greengin.sciencetoolkit;
+package org.greengin.sciencetoolkit.logic.sensors;
 
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 

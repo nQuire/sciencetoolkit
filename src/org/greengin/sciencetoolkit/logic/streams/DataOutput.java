@@ -11,7 +11,7 @@ public class DataOutput {
 	}	
 	
 	public void addInput(DataInput input) {
-		if (!inputs.contains(input)) {
+		if (!inputs.contains(input) && input != null) {
 			inputs.add(input);
 			onInputAdded(inputs.size() == 1, inputs.size());
 		}

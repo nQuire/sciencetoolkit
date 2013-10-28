@@ -23,7 +23,7 @@ public class SoundSensorRunnable implements Runnable {
 	private int requestedLength;
 	private int bufferLength;
 	private short buffer[];
-	private AudioRecord record = null;
+	private AudioRecord record;
 	private int fftN;
 	private FFT fft;
 	private double fftRe[];
@@ -31,6 +31,7 @@ public class SoundSensorRunnable implements Runnable {
 	public SoundSensorRunnable(Context context) {
 		this.context = context;
 		this.mediaSource = MediaRecorder.AudioSource.MIC;
+		this.record = null;
 	}
 
 	@Override

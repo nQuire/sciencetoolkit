@@ -4,5 +4,9 @@
     <string name="app_name">nQuire Science Toolkit</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="main_activity_tab_1">Sensors</string>
+    <string name="main_activity_tab_2">Data logging</string>
+    <string name="main_activity_tab_3">My data</string>
 
 </resources>
