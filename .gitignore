@@ -3,4 +3,5 @@ gen
 libs
 .settings
 .project
+project.properties
 
