@@ -9,18 +9,8 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome" />
-
-    <Button
-        android:id="@+id/start_button"
-        android:onClick="start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:text="@string/start_button_label" />
+        android:text="@string/hello_world" />
 
 </RelativeLayout>
