@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.activities;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.fragments.tab1.SensorsFragment;
+import org.greengin.sciencetoolkit.ui.fragments.sensors.SensorListFragment;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -120,7 +120,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		SensorsFragment sensorsFragment;
+		SensorListFragment sensorsFragment;
 		
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -132,7 +132,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		public Fragment getItem(int position) {
 			if (position == 0) {
 				if (sensorsFragment == null) {
-					sensorsFragment = new SensorsFragment();
+					sensorsFragment = new SensorListFragment();
 				}
 				return sensorsFragment;
 			} else {

@@ -1,10 +1,12 @@
-package org.greengin.sciencetoolkit.ui.fragments.tab1;
+package org.greengin.sciencetoolkit.ui.fragments.sensors;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataTube;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
+import org.greengin.sciencetoolkit.settings.Settings;
+import org.greengin.sciencetoolkit.settings.SettingsManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 
@@ -26,13 +28,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class SensorShortFragment extends Fragment {
+public class SensorFragment extends Fragment {
 	public static final String ARG_SENSOR = "sensor";
 
 	private String sensorId;
 	private SensorWrapper sensor;
 
-	private boolean showValue;
+	Settings settings;
+
 	DataTube showValueTube;
 	String showValueIntentFilter;
 	String[] showValueUnits;
@@ -41,11 +44,10 @@ public class SensorShortFragment extends Fragment {
 
 	BroadcastReceiver valueReceiver;
 
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-
-		Log.d("stk ssf", "attach");
 
 		this.sensorId = getArguments().getString(ARG_SENSOR);
 		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
@@ -56,8 +58,8 @@ public class SensorShortFragment extends Fragment {
 
 		this.showValueFormatMinInt = 1 + Math.max(0, (int) Math.ceil(Math.log(Math.abs(this.sensor.getMaxRange()))));
 
-		this.showValue = false;
 		this.showValueIntentFilter = "livevalue:" + this.sensorId;
+		this.settings = SettingsManager.getInstance().get(this.showValueIntentFilter);
 
 		this.showValueTube = new DataTube(sensor);
 		this.showValueTube.append(new FixedRateDataFilter(100));
@@ -75,7 +77,7 @@ public class SensorShortFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		View rootView = inflater.inflate(R.layout.fragment_short_sensor, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_sensor, container, false);
 
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
 		nameTextView.setText(this.sensor.getName());
@@ -90,7 +92,6 @@ public class SensorShortFragment extends Fragment {
 		});
 
 		toggleButton.setBackgroundDrawable(this.getResources().getDrawable(SensorUIData.getSensorToggleResource(sensor.getType())));
-		toggleButton.setChecked(this.showValue);
 
 		TextView labelTextView = (TextView) rootView.findViewById(R.id.sensor_value_label);
 		String label = SensorUIData.getValueLabelStr(sensor.getType());
@@ -99,38 +100,38 @@ public class SensorShortFragment extends Fragment {
 		this.updateView(rootView);
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
-		
-		if (showValue) {
-			showValueTube.attach();			
+
+		if (settings.getBool("show")) {
+			showValueTube.attach();
+			createPlot();
 		}
-		
+
 		return rootView;
 	}
 
-	@Override 
+	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		
+
 		this.showValueTube.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
-		
-		Log.d("stk ssf", "ondestroyview");
 	}
 
 	protected void actionToogleSensorValueView(boolean checked) {
-		this.showValue = checked;
-		if (checked) {
-			this.showValueTube.attach();
-			createPlot();
-		} else {
-			this.showValueTube.detach();
-			destroyPlot();
-		}
+		if (settings.setBool("show", checked)) {
+			if (checked) {
+				this.showValueTube.attach();
+				createPlot();
+			} else {
+				this.showValueTube.detach();
+				destroyPlot();
+			}
 
-		updateView(getView());
+			updateView(getView());
+		}
 	}
 
-	protected void createPlot() {		
+	protected void createPlot() {
 		FragmentManager fragmentManager = getChildFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -138,7 +139,7 @@ public class SensorShortFragment extends Fragment {
 		Bundle args = new Bundle();
 		args.putString(LiveSensorPlotFragment.ARG_SENSOR, sensorId);
 		fragment.setArguments(args);
-		
+
 		fragmentTransaction.replace(R.id.sensor_plot_section, fragment, "plot");
 		fragmentTransaction.commit();
 	}
@@ -152,7 +153,7 @@ public class SensorShortFragment extends Fragment {
 		if (fragment != null) {
 			fragmentTransaction.remove(fragment);
 		}
-		
+
 		fragmentTransaction.commit();
 	}
 
@@ -162,13 +163,15 @@ public class SensorShortFragment extends Fragment {
 	}
 
 	private void updateView(View view) {
-		((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(this.showValue);
-		view.findViewById(R.id.sensor_value_section).setVisibility(this.showValue ? View.VISIBLE : View.GONE);
+		boolean show = settings.getBool("show");
+		
+		((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(show);
+		view.findViewById(R.id.sensor_value_section).setVisibility(show ? View.VISIBLE : View.GONE);
 		this.updateValueView(view);
 	}
 
 	private void updateValueView(View view) {
-		if (this.showValue) {
+		if (settings.getBool("show") && view != null) {
 			((TextView) view.findViewById(R.id.sensor_value)).setText(this.currentValue);
 		}
 	}

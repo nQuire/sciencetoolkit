@@ -1,4 +1,6 @@
-package org.greengin.sciencetoolkit.ui.fragments.tab1;
+package org.greengin.sciencetoolkit.ui.fragments.sensors;
+
+import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
@@ -12,27 +14,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SensorsFragment extends Fragment {
+public class SensorListFragment extends Fragment {
 
-	public SensorsFragment() {
+	public SensorListFragment() {
 		super();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		Log.d("stk sf", "on create");
 
-		View rootView = inflater.inflate(R.layout.fragment_sensors, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_sensor_list, container, false);
 
 		FragmentManager fragmentManager = getChildFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+		List<Fragment> fragments = fragmentManager.getFragments();
+		if (fragments != null) {
+			for (Fragment fragment : fragmentManager.getFragments()) {
+				fragmentTransaction.remove(fragment);
+			}
+		}
+
 		for (String sensorId : SensorWrapperManager.getInstance().getSensors().keySet()) {
-			SensorShortFragment fragment = new SensorShortFragment();
+			SensorFragment fragment = new SensorFragment();
 
 			Bundle args = new Bundle();
-			args.putString(SensorShortFragment.ARG_SENSOR, sensorId);
+			args.putString(SensorFragment.ARG_SENSOR, sensorId);
 			fragment.setArguments(args);
 			fragmentTransaction.add(R.id.sensor_list, fragment);
 		}
