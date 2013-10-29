@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
+package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;

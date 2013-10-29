@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.settings.Settings;
+import org.greengin.sciencetoolkit.model.Model;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +29,7 @@ import android.widget.ToggleButton;
 
 public abstract class SettingsFragment extends Fragment {
 
-	Settings settings;
+	Model settings;
 	private HashMap<String, View> optionViews;
 	boolean settingsEnabled;
 	LinearLayout rootContainer;
@@ -40,7 +40,7 @@ public abstract class SettingsFragment extends Fragment {
 	}
 
 	
-	protected void setSettings(Settings settings) {
+	protected void setSettings(Model settings) {
 		this.settings = settings;
 	}
 

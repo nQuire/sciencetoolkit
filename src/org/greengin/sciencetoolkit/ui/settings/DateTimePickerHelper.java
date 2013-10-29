@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.settings;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.greengin.sciencetoolkit.settings.Settings;
+import org.greengin.sciencetoolkit.model.Model;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -19,12 +19,12 @@ import android.widget.TimePicker;
 public class DateTimePickerHelper implements OnDateSetListener, OnTimeSetListener, OnClickListener {
 
 	TextView activeView;
-	Settings settings;
+	Model settings;
 	String key;
 	String type;
 	GregorianCalendar calendar;
 
-	public DateTimePickerHelper(Settings settings, String key, String type) {
+	public DateTimePickerHelper(Model settings, String key, String type) {
 		this.settings = settings;
 		this.key = key;
 		this.type = type;

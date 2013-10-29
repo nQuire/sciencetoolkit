@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.settings.Settings;
-import org.greengin.sciencetoolkit.settings.SettingsManager;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,7 +51,7 @@ public class SensorListFragment extends Fragment {
 			}
 			fragmentTransaction.commit();
 
-			Settings showSensors = SettingsManager.getInstance().get("sensor_list");
+			Model showSensors = SettingsManager.getInstance().get("sensor_list");
 			for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
 				if (showSensors.getBool(sensorId, true)) {
 					SensorFragment fragment = new SensorFragment();

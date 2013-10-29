@@ -5,8 +5,8 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataTube;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
-import org.greengin.sciencetoolkit.settings.Settings;
-import org.greengin.sciencetoolkit.settings.SettingsManager;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 
@@ -34,7 +34,7 @@ public class SensorFragment extends Fragment {
 	private String sensorId;
 	private SensorWrapper sensor;
 
-	Settings settings;
+	Model settings;
 
 	DataTube showValueTube;
 	String showValueIntentFilter;

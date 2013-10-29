@@ -1,13 +1,13 @@
 package org.greengin.sciencetoolkit.ui.settings;
 
-import org.greengin.sciencetoolkit.settings.Settings;
+import org.greengin.sciencetoolkit.model.Model;
 
 
 import android.text.Editable;
 import android.text.TextWatcher;
 
 public class SettingsTextWatcher implements TextWatcher {
-	Settings settings;
+	Model settings;
 	String key;
 	boolean number;
 	boolean decimal;
@@ -15,11 +15,11 @@ public class SettingsTextWatcher implements TextWatcher {
 	Number min;
 	Number max;
 
-	public SettingsTextWatcher(Settings settings, String key) {
+	public SettingsTextWatcher(Model settings, String key) {
 		this(settings, key, false, false, false, null, null);
 	}
 
-	public SettingsTextWatcher(Settings settings, String key, boolean number, boolean decimal, boolean signed, Number min, Number max) {
+	public SettingsTextWatcher(Model settings, String key, boolean number, boolean decimal, boolean signed, Number min, Number max) {
 		this.settings = settings;
 		this.key = key;
 		this.number = number;

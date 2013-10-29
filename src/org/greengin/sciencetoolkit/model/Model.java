@@ -1,26 +1,38 @@
-package org.greengin.sciencetoolkit.settings;
+package org.greengin.sciencetoolkit.model;
 
 import java.util.Hashtable;
 
-public class Settings {
+public class Model {
 	Hashtable<String, Object> entries;
-	SettingsManager manager;
+	ModelChangeListener listener;
 
-	public Settings(SettingsManager manager) {
+	public Model(ModelChangeListener listener) {
 		this.entries = new Hashtable<String, Object>();
-		this.manager = manager;
+		this.listener = listener;
 	}
 
 	private boolean set(String key, Object obj, boolean suppressSave) {
 		if (obj != null && !obj.equals(entries.get(key))) {
-			if (!suppressSave) {
-				manager.modified();
-			}
 			entries.put(key, obj);
+			if (!suppressSave) {
+				this.listener.modelModified(this);
+			}
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean clear(String key) {
+		return clear(key, false);
+	}
+	
+	public boolean clear(String key, boolean suppressSave) {
+		boolean removed = entries.remove(key) != null;
+		if (removed && !suppressSave) {
+			listener.modelModified(this);
+		}
+		return removed;
 	}
 
 	private Object get(String key, Object defaultValue) {
@@ -30,7 +42,7 @@ public class Settings {
 	public boolean setInt(String key, int value) {
 		return setInt(key, value, false);
 	}
-	
+
 	public boolean setLong(String key, long value) {
 		return setLong(key, value, false);
 	}
@@ -46,12 +58,15 @@ public class Settings {
 	public boolean setBool(String key, boolean value) {
 		return setBool(key, value, false);
 	}
-
+	
+	public boolean setModel(String key, Model model) {
+		return set(key, model, false);
+	}
 
 	boolean setInt(String key, int value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
-	
+
 	boolean setLong(String key, long value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
@@ -67,11 +82,16 @@ public class Settings {
 	boolean setBool(String key, boolean value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
+	
+	public boolean setModel(String key, Model model, boolean suppressSave) {
+		return set(key, model, suppressSave);
+	}
+
 
 	public Integer getInt(String key) {
 		return getInt(key, 0);
 	}
-	
+
 	public Long getLong(String key) {
 		return getLong(key, 0);
 	}
@@ -83,7 +103,7 @@ public class Settings {
 	public Long getLong(String key, long defaultValue) {
 		return (Long) get(key, defaultValue);
 	}
-	
+
 	public Number getNumber(String key, Number defaultValue) {
 		return (Number) get(key, defaultValue);
 	}
@@ -110,6 +130,28 @@ public class Settings {
 
 	public String getString(String key, String defaultValue) {
 		return (String) get(key, defaultValue);
+	}
+	
+	
+
+	
+	public Model getModel(String key) {
+		return getModel(key, false, false);
+	}
+
+	public Model getModel(String key, boolean createIfNotExists, boolean suppressSave) {
+		if (entries.containsKey(key)) {
+			return (Model) entries.get(key); 
+		} else if (createIfNotExists) {
+			Model model = new Model(this.listener);
+			entries.put(key, model);
+			if (!suppressSave) {
+				listener.modelModified(this);
+			}
+			return model;
+		} else {
+			return null;
+		}
 	}
 
 }

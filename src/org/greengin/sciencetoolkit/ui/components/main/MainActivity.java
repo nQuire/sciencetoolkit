@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
 import android.app.ActionBar;
@@ -92,15 +93,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
-	 */ 
+	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		SensorListFragment sensorsFragment;
-		
+		DataLoggingFragment loggingFragment;
+
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
-			
+
 			sensorsFragment = null;
+			loggingFragment = null;
 		}
 
 		@Override
@@ -110,6 +113,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					sensorsFragment = new SensorListFragment();
 				}
 				return sensorsFragment;
+			} else if (position == 1) {
+				if (loggingFragment == null) {
+					loggingFragment = new DataLoggingFragment();
+				}
+				return loggingFragment;
 			} else {
 				Fragment fragment = new DummySectionFragment();
 				Bundle args = new Bundle();
@@ -161,7 +169,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			return rootView;
 		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
