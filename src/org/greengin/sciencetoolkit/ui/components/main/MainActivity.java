@@ -1,7 +1,7 @@
-package org.greengin.sciencetoolkit.ui.activities;
+package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.fragments.sensors.SensorListFragment;
+import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;

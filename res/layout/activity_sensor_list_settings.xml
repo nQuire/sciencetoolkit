@@ -10,7 +10,7 @@
     tools:context=".SensorListSettingsActivity" 
     android:id="@+id/activity_sensor_list_settings">
     
-    <fragment android:name="org.greengin.sciencetoolkit.ui.fragments.sensors.SensorListSettingsFragment"
+    <fragment android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListSettingsFragment"
             android:id="@+id/fragment_sensor_list_settings"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.activities;
+package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 
 import org.greengin.sciencetoolkit.R;
 

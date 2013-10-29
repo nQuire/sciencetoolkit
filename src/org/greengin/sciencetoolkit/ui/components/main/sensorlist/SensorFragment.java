@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.fragments.sensors;
+package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;

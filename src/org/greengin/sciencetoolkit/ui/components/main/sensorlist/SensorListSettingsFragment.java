@@ -1,8 +1,8 @@
-package org.greengin.sciencetoolkit.ui.fragments.sensors;
+package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.settings.SettingsManager;
-import org.greengin.sciencetoolkit.ui.fragments.settings.SettingsFragment;
+import org.greengin.sciencetoolkit.ui.settings.SettingsFragment;
 
 import android.app.Activity;
 import android.view.View;

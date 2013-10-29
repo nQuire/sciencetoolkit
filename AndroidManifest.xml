@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.WelcomeActivity"
             android:label="@string/title_activity_welcome" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,20 +26,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.activities.MainActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.WelcomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.activities.WelcomeActivity" />
+                android:value="org.greengin.sciencetoolkit.ui.components.WelcomeActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.activities.SensorListSettingsActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListSettingsActivity"
             android:label="@string/title_activity_sensor_list_settings"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.activities.MainActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.activities.MainActivity" />
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
     </application>
 

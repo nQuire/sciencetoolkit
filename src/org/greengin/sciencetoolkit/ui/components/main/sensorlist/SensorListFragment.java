@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.fragments.sensors;
+package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 
 import java.util.List;
 
@@ -6,7 +6,6 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.settings.Settings;
 import org.greengin.sciencetoolkit.settings.SettingsManager;
-import org.greengin.sciencetoolkit.ui.activities.SensorListSettingsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;

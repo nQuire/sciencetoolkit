@@ -1,6 +1,7 @@
-package org.greengin.sciencetoolkit.ui.activities;
+package org.greengin.sciencetoolkit.ui.components;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.components.main.MainActivity;
 
 import android.os.Bundle;
 import android.app.Activity;

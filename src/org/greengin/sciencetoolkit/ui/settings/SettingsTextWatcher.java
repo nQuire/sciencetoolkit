@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.fragments.settings;
+package org.greengin.sciencetoolkit.ui.settings;
 
 import org.greengin.sciencetoolkit.settings.Settings;
 
