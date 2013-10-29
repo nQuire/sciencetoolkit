@@ -68,29 +68,58 @@ public final class R {
         public static final int temperature_selector=0x7f020025;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000b;
+        public static final int action_settings=0x7f090016;
+        public static final int data_count=0x7f090005;
+        public static final int data_list=0x7f090006;
+        public static final int live_xy_plot=0x7f090008;
+        public static final int monitor_config_panel=0x7f09000b;
+        public static final int monitor_list=0x7f09000d;
+        public static final int monitor_status=0x7f090015;
+        public static final int monitor_toggle=0x7f09000a;
         public static final int pager=0x7f090000;
-        public static final int section_label=0x7f090003;
-        public static final int sensor_list=0x7f09000a;
-        public static final int sensor_name=0x7f090005;
-        public static final int sensor_plot_section=0x7f090009;
-        public static final int sensor_value=0x7f090008;
-        public static final int sensor_value_label=0x7f090007;
-        public static final int sensor_value_section=0x7f090006;
-        public static final int sensor_value_toggle=0x7f090004;
-        public static final int start_button=0x7f090002;
-        public static final int welcomeLabel=0x7f090001;
+        public static final int plot_config_panel=0x7f090009;
+        public static final int section_label=0x7f09000c;
+        public static final int sensor_config_panel=0x7f090007;
+        public static final int sensor_enable=0x7f090002;
+        public static final int sensor_list=0x7f090013;
+        public static final int sensor_name=0x7f090001;
+        public static final int sensor_plot_section=0x7f090012;
+        public static final int sensor_value=0x7f090011;
+        public static final int sensor_value_label=0x7f090010;
+        public static final int sensor_value_section=0x7f09000f;
+        public static final int sensor_value_toggle=0x7f09000e;
+        public static final int settings_panel=0x7f090014;
+        public static final int start_button=0x7f090004;
+        public static final int welcomeLabel=0x7f090003;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_welcome=0x7f030001;
-        public static final int fragment_main_dummy=0x7f030002;
-        public static final int fragment_plot_sensor_live=0x7f030003;
-        public static final int fragment_sensor=0x7f030004;
-        public static final int fragment_sensor_list=0x7f030005;
+        public static final int activity_home=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_sensor=0x7f030002;
+        public static final int activity_sensor_detail=0x7f030003;
+        public static final int activity_welcome=0x7f030004;
+        public static final int fragment_data=0x7f030005;
+        public static final int fragment_detail_data=0x7f030006;
+        public static final int fragment_detail_monitor=0x7f030007;
+        public static final int fragment_detail_sensor=0x7f030008;
+        public static final int fragment_home_dummy=0x7f030009;
+        public static final int fragment_main_dummy=0x7f03000a;
+        public static final int fragment_monitors=0x7f03000b;
+        public static final int fragment_plot_sensor_live=0x7f03000c;
+        public static final int fragment_sensor=0x7f03000d;
+        public static final int fragment_sensor_detail_dummy=0x7f03000e;
+        public static final int fragment_sensor_list=0x7f03000f;
+        public static final int fragment_sensors=0x7f030010;
+        public static final int fragment_settings=0x7f030011;
+        public static final int fragment_short_data=0x7f030012;
+        public static final int fragment_short_monitor=0x7f030013;
+        public static final int fragment_short_sensor=0x7f030014;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int home=0x7f080000;
+        public static final int main=0x7f080001;
+        public static final int sensor=0x7f080002;
+        public static final int sensor_detail=0x7f080003;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
