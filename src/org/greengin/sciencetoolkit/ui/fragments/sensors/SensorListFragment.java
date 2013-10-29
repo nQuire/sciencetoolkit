@@ -9,16 +9,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class SensorListFragment extends Fragment {
 
-	public SensorListFragment() {
-		super();
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,15 +44,6 @@ public class SensorListFragment extends Fragment {
 		fragmentTransaction.commit();
 
 		return rootView;
-	}
-
-	public void onDestroyView() {
-		super.onDestroyView();
-	}
-
-	public void onDetach() {
-		super.onDetach();
-		Log.d("stk sf", "on detach");
 	}
 
 }

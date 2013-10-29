@@ -24,7 +24,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +42,6 @@ public class LiveSensorPlotFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		
-		Log.d("stk plot", "attach");
-
 
 		this.sensorId = getArguments().getString(ARG_SENSOR);
 		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
@@ -56,7 +52,7 @@ public class LiveSensorPlotFragment extends Fragment {
 		this.plot = null;
 
 		this.dataTube = new DataTube(sensor);
-		this.dataTube.append(new FixedRateDataFilter(2500));
+		this.dataTube.append(new FixedRateDataFilter(250));
 		this.dataTube.setEnd(this.series);
 
 		this.seriesReceiver = new BroadcastReceiver() {
@@ -71,9 +67,7 @@ public class LiveSensorPlotFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_plot_sensor_live, container, false);
-
-		Log.d("stk plot", "create");
-
+		
 		plot = (XYPlot) rootView;
 
 		plot.setRangeLowerBoundary(0, BoundaryMode.AUTO);
@@ -94,23 +88,12 @@ public class LiveSensorPlotFragment extends Fragment {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		
-		Log.d("stk plot", "destroy");
-
 		this.dataTube.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.seriesReceiver);
 	}
 	
-	public void onDetach() {
-		super.onDetach();
-		
-		Log.d("stk plot", "detach");
-	}
-
-	
 	public void eventSeriesUpdated() {
 		if (plot != null) {
-			Log.d("stk plot", "redraw");
 			plot.redraw();
 		}
 	}
