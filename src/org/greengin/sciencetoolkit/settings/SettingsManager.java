@@ -139,6 +139,14 @@ public class SettingsManager {
 								} catch (NumberFormatException e) {
 									valueObj = null;
 								}
+							} else if ("long".equals(type)) {
+								try {
+									long valueLong = Long.parseLong(valueStr);
+									settings.setLong(entryId, valueLong, true);
+									valueObj = valueLong;
+								} catch (NumberFormatException e) {
+									valueObj = null;
+								}
 							}
 							Log.d("stk settings", "entry: " + entryId + " " + type + " " + valueObj);
 						}
@@ -191,6 +199,8 @@ public class SettingsManager {
 						entryType.setValue("bool");
 					} else if (obj instanceof String) {
 						entryType.setValue("string");
+					} else if (obj instanceof Long) {
+						entryType.setValue("long");
 					} else {
 						entryType.setValue("unknown");
 					}

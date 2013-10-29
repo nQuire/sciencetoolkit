@@ -33,7 +33,7 @@ public class SoundSensorWrapper extends SensorWrapper {
 
 	@Override
 	public String getName() {
-		return "sound";
+		return "Sound";
 	}
 
 	@Override

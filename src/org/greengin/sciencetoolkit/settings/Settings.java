@@ -30,6 +30,10 @@ public class Settings {
 	public boolean setInt(String key, int value) {
 		return setInt(key, value, false);
 	}
+	
+	public boolean setLong(String key, long value) {
+		return setLong(key, value, false);
+	}
 
 	public boolean setDouble(String key, double value) {
 		return setDouble(key, value, false);
@@ -43,7 +47,12 @@ public class Settings {
 		return setBool(key, value, false);
 	}
 
+
 	boolean setInt(String key, int value, boolean suppressSave) {
+		return set(key, value, suppressSave);
+	}
+	
+	boolean setLong(String key, long value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
@@ -62,9 +71,21 @@ public class Settings {
 	public Integer getInt(String key) {
 		return getInt(key, 0);
 	}
+	
+	public Long getLong(String key) {
+		return getLong(key, 0);
+	}
 
 	public Integer getInt(String key, int defaultValue) {
 		return (Integer) get(key, defaultValue);
+	}
+
+	public Long getLong(String key, long defaultValue) {
+		return (Long) get(key, defaultValue);
+	}
+	
+	public Number getNumber(String key, Number defaultValue) {
+		return (Number) get(key, defaultValue);
 	}
 
 	public Double getDouble(String key) {
@@ -84,7 +105,7 @@ public class Settings {
 	}
 
 	public String getString(String key) {
-		return (String) entries.get(key);
+		return getString(key, "");
 	}
 
 	public String getString(String key, String defaultValue) {

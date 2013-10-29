@@ -2,11 +2,15 @@
 <resources>
 
     <string name="app_name">nQuire Science Toolkit</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="menu_item_sensor_list_show">Select sensors</string>
+    <string name="menu_item_application_settings">Settings</string>
+    <string name="title_activity_main">Science Toolkit</string>
+    <string name="title_activity_welcome">Welcome</string>
     <string name="main_activity_tab_1">Sensors</string>
     <string name="main_activity_tab_2">Data logging</string>
     <string name="main_activity_tab_3">My data</string>
+    <string name="title_activity_sensor_list_settings">SensorListSettingsActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

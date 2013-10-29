@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:icon="@drawable/ic_action_overflow"
+        android:orderInCategory="100"
+        android:title=""
+        android:showAsAction="always">
+        <menu >
+            <item
+                android:id="@+id/action_sensor_list_show"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_sensor_list_show"/>
+            <item
+                android:id="@+id/action_application_settings"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_application_settings"/>
+        </menu>
+    </item>
+
+</menu>
