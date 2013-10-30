@@ -41,7 +41,7 @@ public abstract class AbstractModelManager implements ModelChangeListener {
 			if (create) {
 				Model model = new Model(this);
 				items.put(key, model);
-				modelModified(model);
+				model.setString("id", key);
 				return model;
 			} else {
 				return null;

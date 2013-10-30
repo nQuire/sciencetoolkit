@@ -2,13 +2,13 @@ package org.greengin.sciencetoolkit.logic.streams;
 
 import java.util.Vector;
 
-public class DataTube {
+public class DataPipe {
 
 	DataOutput origin;
 	Vector<DataInputOutput> filters;
 	DataInput end;
 	
-	public DataTube(DataOutput origin) {
+	public DataPipe(DataOutput origin) {
 		this.origin = origin;
 		this.filters = new Vector<DataInputOutput>();
 		this.end = null;

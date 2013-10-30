@@ -39,6 +39,8 @@ public class SensorListFragment extends Fragment {
 	}
 
 	private void updateView(View rootView) {
+		setHasOptionsMenu(true);
+		
 		if (rootView != null) {
 			FragmentManager fragmentManager = getChildFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

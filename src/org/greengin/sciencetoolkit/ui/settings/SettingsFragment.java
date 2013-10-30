@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -39,9 +41,10 @@ public abstract class SettingsFragment extends Fragment {
 		this.optionViews = new HashMap<String, View>();
 	}
 
-	
-	protected void setSettings(Model settings) {
-		this.settings = settings;
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		settings = SettingsManager.getInstance().get(getArguments().getString(SettingsFragmentManager.ARG_SETTINGS));
 	}
 
 	@Override
@@ -49,20 +52,21 @@ public abstract class SettingsFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 		rootContainer = (LinearLayout) rootView.findViewById(R.id.settings_panel);
 		this.createConfigOptions(rootView);
-		//this.updateView(rootView);
+		// this.updateView(rootView);
 		return rootView;
 	}
-	
+
 	protected abstract void createConfigOptions(View view);
-	
+
 	protected void addOptionText(String key, String label, String description) {
 		EditText edit = new EditText(rootContainer.getContext());
 		int inputtype = InputType.TYPE_CLASS_TEXT;
 		edit.setInputType(inputtype);
 		edit.setText(settings.getString(key));
-		edit.addTextChangedListener(new SettingsTextWatcher(settings, key));		
+		edit.addTextChangedListener(new SettingsTextWatcher(settings, key));
 		addRow(key, label, description, edit);
 	}
+
 	protected void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max) {
 		EditText edit = new EditText(rootContainer.getContext());
 		int inputtype = InputType.TYPE_CLASS_NUMBER;
@@ -75,10 +79,10 @@ public abstract class SettingsFragment extends Fragment {
 		edit.setInputType(inputtype);
 		edit.setText(settings.getNumber(key, defaultValue).toString());
 		edit.addTextChangedListener(new SettingsTextWatcher(settings, key, true, decimal, signed, min, max));
-		
+
 		addRow(key, label, description, edit);
 	}
-	
+
 	protected void addOptionToggle(String key, String label, String description, boolean defaultValue) {
 		ToggleButton toggle = new ToggleButton(rootContainer.getContext());
 		toggle.setChecked(settings.getBool(key, defaultValue));
@@ -90,13 +94,13 @@ public abstract class SettingsFragment extends Fragment {
 				settings.setBool(clickedkey, ((ToggleButton) view).isChecked());
 			}
 		});
-		
+
 		addRow(key, label, description, toggle);
 	}
-	
+
 	protected void addOptionCheckbox(String key, String label, String description, boolean defaultValue) {
 		CheckBox checkbox = new CheckBox(rootContainer.getContext());
-		
+
 		checkbox.setChecked(settings.getBool(key, defaultValue));
 		checkbox.setTag(key);
 		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -106,21 +110,34 @@ public abstract class SettingsFragment extends Fragment {
 				settings.setBool(clickedkey, checked);
 			}
 		});
-		
+
 		addRow(key, label, description, checkbox);
+	}
+
+	protected void addText(String text) {
+		LinearLayout row = new LinearLayout(rootContainer.getContext());
+		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		row.setOrientation(LinearLayout.HORIZONTAL);
+
+		TextView labelView = new TextView(rootContainer.getContext());
+		labelView.setText(text);
+		labelView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		row.addView(labelView);
+
+		rootContainer.addView(row);
 	}
 
 	protected void addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
 		Spinner spinner = new Spinner(rootContainer.getContext());
 		spinner.setTag(key);
-		
+
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootContainer.getContext(), android.R.layout.simple_spinner_item, options);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
 		spinner.setSelection(settings.getInt(key, defaultValue));
-		
+
 		addRow(key, label, description, spinner);
-		
+
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -133,9 +150,9 @@ public abstract class SettingsFragment extends Fragment {
 			}
 		});
 	}
-	
+
 	protected void addOptionDateTime(String key, String label, String description, int defaultValue) {
-		
+
 		EditText date = new EditText(rootContainer.getContext());
 		date.setClickable(true);
 		date.setFocusable(false);
@@ -150,80 +167,65 @@ public abstract class SettingsFragment extends Fragment {
 		time.setOnClickListener(new DateTimePickerHelper(settings, key, "time"));
 		time.setText(DateFormat.format("hh:mm", settings.getLong(key)));
 
-		
-		addRow(key, label, description, new View[]{date, time});
+		addRow(key, label, description, new View[] { date, time });
 	}
 
 	private void addRow(String key, String label, String description, View widget) {
-		addRow(key, label, description, new View[]{widget});
-	
+		addRow(key, label, description, new View[] { widget });
+
 	}
-		private void addRow(String key, String label, String description, View[] widgets) {
+
+	private void addRow(String key, String label, String description, View[] widgets) {
 		LinearLayout row = new LinearLayout(rootContainer.getContext());
 		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setOrientation(LinearLayout.HORIZONTAL);
-		
+
 		TextView labelView = new TextView(rootContainer.getContext());
 		labelView.setText(label);
 		labelView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		row.addView(labelView);
-		
+
 		for (View widget : widgets) {
 			row.addView(widget);
 		}
-		
+
 		LinearLayout settingView = new LinearLayout(rootContainer.getContext());
 		settingView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		settingView.setOrientation(LinearLayout.VERTICAL);
 		settingView.addView(row);
-		
+
 		TextView descriptionView = new TextView(rootContainer.getContext());
 		descriptionView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		descriptionView.setText(description);
 		descriptionView.setTextSize(8);
 		descriptionView.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
 		settingView.addView(descriptionView);
-		
+
 		rootContainer.addView(settingView);
 		this.optionViews.put(key, settingView);
 	}
 
-/*
-	public void onResume() {
-		super.onResume();
-		this.updateView(this.getView());
-	}
-
-	private void updateView(View view) {
-		this.enableSettings(this.settingsEnabled, view);
-		updateVisibleViews();
-	}
-
-	private void updateVisibleViews() {
-		for (Bundle option : options) {
-			String requires = option.getString("requires");
-			if (requires != null) {
-				boolean show = (Boolean) this.listener.getOptionValue(requires);
-				this.optionViews.get(option.getString("key")).setVisibility(show ? View.VISIBLE : View.GONE);
-			}
-		}
-	}
-
-	public void enableSettings(boolean enable) {
-		this.settingsEnabled = enable;
-		if (this.getView() != null) {
-			this.enableSettings(this.settingsEnabled, this.getView());
-		}
-	}
-
-	private void enableSettings(boolean enable, View view) {
-		view.setEnabled(enable);
-		if (view instanceof ViewGroup) {
-			ViewGroup group = (ViewGroup) view;
-			for (int i = 0; i < group.getChildCount(); i++) {
-				enableSettings(enable, group.getChildAt(i));
-			}
-		}
-	}*/
+	/*
+	 * public void onResume() { super.onResume();
+	 * this.updateView(this.getView()); }
+	 * 
+	 * private void updateView(View view) {
+	 * this.enableSettings(this.settingsEnabled, view); updateVisibleViews(); }
+	 * 
+	 * private void updateVisibleViews() { for (Bundle option : options) {
+	 * String requires = option.getString("requires"); if (requires != null) {
+	 * boolean show = (Boolean) this.listener.getOptionValue(requires);
+	 * this.optionViews.get(option.getString("key")).setVisibility(show ?
+	 * View.VISIBLE : View.GONE); } } }
+	 * 
+	 * public void enableSettings(boolean enable) { this.settingsEnabled =
+	 * enable; if (this.getView() != null) {
+	 * this.enableSettings(this.settingsEnabled, this.getView()); } }
+	 * 
+	 * private void enableSettings(boolean enable, View view) {
+	 * view.setEnabled(enable); if (view instanceof ViewGroup) { ViewGroup group
+	 * = (ViewGroup) view; for (int i = 0; i < group.getChildCount(); i++) {
+	 * enableSettings(enable, group.getChildAt(i)); } } }
+	 */
 
 }

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".SensorFragment" >
 
@@ -16,29 +15,43 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".SensorFragment" >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal" 
+            android:gravity="center_vertical">
 
             <ToggleButton
                 android:id="@+id/sensor_value_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:onClick="actionSensorViewToggle"
                 android:textOff=""
                 android:textOn="" />
 
-            <TextView
-                android:id="@+id/sensor_name"
+            <ImageButton
+                android:id="@+id/sensor_config_edit"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_edit" 
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/sensor_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/sensor_value_toggle"
+                android:layout_toLeftOf="@id/sensor_config_edit"
+                android:layout_toRightOf="@id/sensor_value_toggle"
                 android:ellipsize="none"
+                android:gravity="center"
                 android:singleLine="false"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/sensor_value_section"

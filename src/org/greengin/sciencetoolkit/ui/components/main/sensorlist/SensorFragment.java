@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.logic.streams.DataTube;
+import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -25,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -36,7 +37,7 @@ public class SensorFragment extends Fragment {
 
 	Model settings;
 
-	DataTube showValueTube;
+	DataPipe showValuePipe;
 	String showValueIntentFilter;
 	String[] showValueUnits;
 	String currentValue;
@@ -61,9 +62,9 @@ public class SensorFragment extends Fragment {
 		this.showValueIntentFilter = "livevalue:" + this.sensorId;
 		this.settings = SettingsManager.getInstance().get(this.showValueIntentFilter);
 
-		this.showValueTube = new DataTube(sensor);
-		this.showValueTube.append(new FixedRateDataFilter(100));
-		this.showValueTube.setEnd(new DataUINotifier(activity.getApplicationContext(), this.showValueIntentFilter));
+		this.showValuePipe = new DataPipe(sensor);
+		this.showValuePipe.append(new FixedRateDataFilter(100));
+		this.showValuePipe.setEnd(new DataUINotifier(activity.getApplicationContext(), this.showValueIntentFilter));
 		this.valueReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -102,9 +103,19 @@ public class SensorFragment extends Fragment {
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
 
 		if (settings.getBool("show")) {
-			showValueTube.attach();
+			showValuePipe.attach();
 			createPlot();
 		}
+		
+		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
+		editButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), SensorSettingsActivity.class);
+				intent.putExtra("sensor", sensorId);				
+		    	startActivity(intent);
+			}
+		});
 
 		return rootView;
 	}
@@ -113,17 +124,17 @@ public class SensorFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 
-		this.showValueTube.detach();
+		this.showValuePipe.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
 	}
 
 	protected void actionToogleSensorValueView(boolean checked) {
 		if (settings.setBool("show", checked)) {
 			if (checked) {
-				this.showValueTube.attach();
+				this.showValuePipe.attach();
 				createPlot();
 			} else {
-				this.showValueTube.detach();
+				this.showValuePipe.detach();
 				destroyPlot();
 			}
 

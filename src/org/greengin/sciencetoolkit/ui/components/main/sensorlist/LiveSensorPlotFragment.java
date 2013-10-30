@@ -8,7 +8,7 @@ import java.text.ParsePosition;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.logic.streams.DataTube;
+import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.ui.datafilters.SensorLiveXYSeries;
 
@@ -33,7 +33,7 @@ public class LiveSensorPlotFragment extends Fragment {
 
 	String sensorId;
 	SensorWrapper sensor;
-	DataTube dataTube;
+	DataPipe dataPipe;
 	SensorLiveXYSeries series;
 	XYPlot plot;
 	BroadcastReceiver seriesReceiver;
@@ -51,9 +51,9 @@ public class LiveSensorPlotFragment extends Fragment {
 		this.series = new SensorLiveXYSeries(this.sensor, getActivity(), filter);
 		this.plot = null;
 
-		this.dataTube = new DataTube(sensor);
-		this.dataTube.append(new FixedRateDataFilter(250));
-		this.dataTube.setEnd(this.series);
+		this.dataPipe = new DataPipe(sensor);
+		this.dataPipe.append(new FixedRateDataFilter(250));
+		this.dataPipe.setEnd(this.series);
 
 		this.seriesReceiver = new BroadcastReceiver() {
 			@Override
@@ -80,7 +80,7 @@ public class LiveSensorPlotFragment extends Fragment {
 		updateSeriesConfig();
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.seriesReceiver, new IntentFilter(filter));
-		this.dataTube.attach();
+		this.dataPipe.attach();
 
 		return rootView;
 	}
@@ -88,7 +88,7 @@ public class LiveSensorPlotFragment extends Fragment {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		this.dataTube.detach();
+		this.dataPipe.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.seriesReceiver);
 	}
 	

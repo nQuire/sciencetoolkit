@@ -2,7 +2,6 @@ package org.greengin.sciencetoolkit.ui.settings;
 
 import org.greengin.sciencetoolkit.model.Model;
 
-
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -33,18 +32,31 @@ public class SettingsTextWatcher implements TextWatcher {
 			if (decimal) {
 				double value;
 				try {
-					value = Math.max(Math.min(max.doubleValue(), Double.parseDouble(s.toString())), min.doubleValue());
+					value = Double.parseDouble(s.toString());
+					if (min != null) {
+						value = Math.max(value, min.doubleValue());
+					}
+					if (max != null) {
+						value = Math.min(value, max.doubleValue());
+					}
 				} catch (NumberFormatException e) {
-					value = min.doubleValue();
+					value = min != null ? min.doubleValue() : 0.;
 				}
 				settings.setDouble(key, value);
 			} else {
 				int value;
 				try {
-					value = Math.max(Math.min(max.intValue(), Integer.parseInt(s.toString())), min.intValue());
+					value = Integer.parseInt(s.toString());
+					if (min != null) {
+						value = Math.max(value, min.intValue());
+					}
+					if (max != null) {
+						value = Math.min(value, max.intValue());
+					}
 				} catch (NumberFormatException e) {
-					value = min.intValue();
+					value = min != null ? min.intValue() : 0;
 				}
+
 				settings.setInt(key, value);
 			}
 		} else {

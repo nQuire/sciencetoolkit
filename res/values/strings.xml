@@ -16,5 +16,9 @@
     <string name="action_settings">Settings</string>
     <string name="current_profile">Current profile:</string>
     <string name="sensors_label">Sensors:</string>
+    <string name="title_activity_sensor_settings">SensorSettingsActivity</string>
+    <string name="sensor_settings">Sensor settings</string>
+    <string name="sensor_liveview_settings">Live value settings</string>
+    <string name="sensor_liveplot_settings">Live plot settings</string>
     
 </resources>
