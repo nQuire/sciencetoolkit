@@ -16,7 +16,7 @@ public class SettingsManager extends AbstractModelManager {
 	}
 
 	private SettingsManager(Context applicationContext) {
-		super(applicationContext, "settings.xml", 2000);
+		super(applicationContext, "settings.xml", 600);
 	}
 
 	public Model get(String key) {

@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.model;
 
 import java.util.Hashtable;
+import java.util.Map.Entry;
 
 public class Model {
 	Hashtable<String, Object> entries;
@@ -22,11 +23,11 @@ public class Model {
 			return false;
 		}
 	}
-	
+
 	public boolean clear(String key) {
 		return clear(key, false);
 	}
-	
+
 	public boolean clear(String key, boolean suppressSave) {
 		boolean removed = entries.remove(key) != null;
 		if (removed && !suppressSave) {
@@ -58,7 +59,7 @@ public class Model {
 	public boolean setBool(String key, boolean value) {
 		return setBool(key, value, false);
 	}
-	
+
 	public boolean setModel(String key, Model model) {
 		return set(key, model, false);
 	}
@@ -82,11 +83,10 @@ public class Model {
 	boolean setBool(String key, boolean value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
-	
+
 	public boolean setModel(String key, Model model, boolean suppressSave) {
 		return set(key, model, suppressSave);
 	}
-
 
 	public Integer getInt(String key) {
 		return getInt(key, 0);
@@ -131,17 +131,31 @@ public class Model {
 	public String getString(String key, String defaultValue) {
 		return (String) get(key, defaultValue);
 	}
-	
-	
 
-	
+	public void copyPrimitives(Model source, boolean suppressSave) {
+		if (source != null) {
+			for (Entry<String, Object> entry : entries.entrySet()) {
+				if (entry.getValue() instanceof String || entry.getValue() instanceof Boolean || entry.getValue() instanceof Number) {
+					this.set(entry.getKey(), entry.getValue(), true);
+				}
+			}
+			if (!suppressSave) {
+				this.listener.modelModified(this);
+			}
+		}
+	}
+
 	public Model getModel(String key) {
 		return getModel(key, false, false);
 	}
 
+	public Model getModel(String key, boolean createIfNotExists) {
+		return getModel(key, createIfNotExists, false);
+	}
+
 	public Model getModel(String key, boolean createIfNotExists, boolean suppressSave) {
 		if (entries.containsKey(key)) {
-			return (Model) entries.get(key); 
+			return (Model) entries.get(key);
 		} else if (createIfNotExists) {
 			Model model = new Model(this.listener);
 			entries.put(key, model);

@@ -5,6 +5,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -60,7 +61,11 @@ public class DataLoggingFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
+		case R.id.action_data_logging_edit:
+			Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
+			intent.putExtra("mode", "edit");
+			startActivity(intent);
+			break;
 		}
 
 		return super.onOptionsItemSelected(item);

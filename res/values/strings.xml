@@ -20,5 +20,12 @@
     <string name="sensor_settings">Sensor settings</string>
     <string name="sensor_liveview_settings">Live value settings</string>
     <string name="sensor_liveplot_settings">Live plot settings</string>
-    
+    <string name="title_activity_data_logging_edit">DataLoggingEditActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="profile_title_hint">Profile name</string>
+    <string name="profile_name_label">Name</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_sensor">Add sensor</string>
+
 </resources>

@@ -19,7 +19,7 @@ public class ProfileManager extends AbstractModelManager {
 	Model settings;
 	
 	private ProfileManager(Context applicationContext) {
-		super(applicationContext, "profiles.xml", 1000);
+		super(applicationContext, "profiles.xml", 500);
 		settings = SettingsManager.getInstance().get("profiles");
 		initDefaultProfile();
 	}
