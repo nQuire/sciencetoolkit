@@ -1,7 +1,10 @@
 package org.greengin.sciencetoolkit.model;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 public class Model {
 	Hashtable<String, Object> entries;
@@ -165,6 +168,57 @@ public class Model {
 			return model;
 		} else {
 			return null;
+		}
+	}
+
+	public Vector<Model> getModels() {
+		Vector<Model> models = new Vector<Model>();
+		for (Entry<String, Object> entry : entries.entrySet()) {
+			if (entry.getValue() instanceof Model) {
+				models.add((Model) entry.getValue());
+			}
+		}
+		return models;
+	}
+
+	public Vector<Model> getModels(String orderKey) {
+		Vector<Model> models = getModels();
+		if (orderKey != null) {
+			Collections.sort(models, new ModelComparator(orderKey));
+		}
+		return models;
+	}
+
+	private static class ModelComparator implements Comparator<Model> {
+		String key;
+
+		public ModelComparator(String key) {
+			this.key = key;
+		}
+
+		@Override
+		public int compare(Model lhs, Model rhs) {
+			Object va = lhs.get(key, null);
+			Object vb = rhs.get(key, null);
+			if (va == null && vb == null) {
+				return 0;
+			} else if (va == null) {
+				return -1;
+			} else if (vb == null) {
+				return 1;
+			} else if (va instanceof String && vb instanceof String) {
+				return ((String) va).compareTo((String) vb);
+			} else if (va instanceof Long && vb instanceof Long) {
+				return ((Long) va).compareTo((Long) vb);
+			} else if (va instanceof Double && vb instanceof Double) {
+				return ((Double) va).compareTo((Double) vb);
+			} else if (va instanceof Integer && vb instanceof Integer) {
+				return ((Integer) va).compareTo((Integer) vb);
+			} else if (va instanceof Boolean && vb instanceof Boolean) {
+				return ((Boolean) va).compareTo((Boolean) vb);
+			} else {
+				return 0;
+			}
 		}
 	}
 

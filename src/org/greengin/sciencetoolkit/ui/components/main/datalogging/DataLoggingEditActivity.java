@@ -1,5 +1,8 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
+import java.util.List;
+import java.util.Vector;
+
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -9,8 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,9 +30,9 @@ public class DataLoggingEditActivity extends FragmentActivity {
 		profile = ProfileManager.getInstance().getActiveProfile();
 
 		setContentView(R.layout.activity_data_logging_edit);
+
 		if (profile != null) {
 			EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.current_profile_name);
-			edit.setText(profile.getString("title"));
 			edit.addTextChangedListener(new TextWatcher() {
 				@Override
 				public void afterTextChanged(Editable s) {
@@ -43,15 +48,45 @@ public class DataLoggingEditActivity extends FragmentActivity {
 				}
 
 			});
+
+			updateSensorList(getWindow().getDecorView());
 		}
 
 		setupActionBar();
 	}
-	
+
+	private void updateSensorList(View rootView) {
+		if (rootView != null && profile != null) {
+			EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.current_profile_name);
+			edit.setText(profile.getString("title"));
+
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+			List<Fragment> fragments = fragmentManager.getFragments();
+			if (fragments != null) {
+				for (Fragment fragment : fragmentManager.getFragments()) {
+					fragmentTransaction.remove(fragment);
+				}
+			}
+			fragmentTransaction.commit();
+
+			Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
+			for (Model profileSensor : profileSensors) {
+				ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
+				Bundle args = new Bundle();
+				args.putString("profile", profile.getString("id"));
+				args.putString("sensor", profileSensor.getString("id"));
+				fragment.setArguments(args);
+				fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
+			}
+		}
+	}
+
 	public void actionAddSensor(View view) {
 		FragmentManager fm = getSupportFragmentManager();
-        AddSensorDialogFragment dialog = new AddSensorDialogFragment();
-        dialog.show(fm, "add_sensor");
+		AddSensorDialogFragment dialog = new AddSensorDialogFragment();
+		dialog.show(fm, "add_sensor");
 	}
 
 	/**

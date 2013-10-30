@@ -43,7 +43,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			this.sensor = null;
 			this.sensorType = -1;
 		} else {
-			this.sensor = SensorWrapperManager.getInstance().getSensor(this.profileSensor.getString("sensor_id", null));
+			this.sensor = SensorWrapperManager.getInstance().getSensor(this.profileSensor.getString("id", null));
 			if (this.sensor != null) {
 				this.sensorType = this.sensor.getType();
 			} else {
@@ -56,7 +56,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		View rootView = inflater.inflate(R.layout.fragment_profile_sensor, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_profile_sensor_organize, container, false);
 
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
 		nameTextView.setText(this.sensor != null ? this.sensor.getName() : "no sensor");

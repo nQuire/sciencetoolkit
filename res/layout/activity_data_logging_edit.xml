@@ -36,24 +36,27 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#0099cc" />
-
         </RelativeLayout>
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sensors_label"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sensors_label"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:id="@+id/sensor_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
         <Button
             android:id="@+id/add_sensor"
-            android:onClick="actionAddSensor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_sensor" 
-            android:layout_gravity="center_horizontal"/>
-        
+            android:layout_gravity="center_horizontal"
+            android:onClick="actionAddSensor"
+            android:text="@string/add_sensor" />
     </LinearLayout>
-    
 
 </ScrollView>

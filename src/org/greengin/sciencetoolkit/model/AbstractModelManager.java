@@ -6,7 +6,6 @@ import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantLock;
 
 import android.content.Context;
-import android.util.Log;
 
 public abstract class AbstractModelManager implements ModelChangeListener {
 	ReentrantLock lock;
@@ -59,7 +58,6 @@ public abstract class AbstractModelManager implements ModelChangeListener {
 
 	@Override
 	public void modelModified(Model model) {
-		Log.d("stk settings", "modified");
 		lock.lock();
 		if (timer == null) {
 			timer = new Timer();
@@ -67,7 +65,6 @@ public abstract class AbstractModelManager implements ModelChangeListener {
 
 				@Override
 				public void run() {
-					Log.d("stk settings", "about to save");
 					timer = null;
 					save();
 
