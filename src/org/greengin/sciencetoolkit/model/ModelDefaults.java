@@ -7,4 +7,6 @@ public class ModelDefaults {
 
 	public static final int LIVEPLOT_PERIOD = 250; 
 	public static final int LIVEPLOT_SAMPLES = 100; 
+	
+	public static final int DATA_LOGGING_PERIOD = 1000;
 }

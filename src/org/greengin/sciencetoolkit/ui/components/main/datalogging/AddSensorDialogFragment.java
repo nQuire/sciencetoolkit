@@ -4,7 +4,6 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.model.SettingsManager;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -73,14 +72,7 @@ public class AddSensorDialogFragment extends DialogFragment {
 					
 					if (radioButton != null && profile != null) {
 						String sensorId = radioButton.getTag().toString();
-						Model profileSensors =profile.getModel("sensors", true);
-						int weight = profileSensors.getModels().size();
-						
-						Model profileSensor = profileSensors.getModel(sensorId, true);
-						profileSensor.setString("id", sensorId);
-						profileSensor.setInt("weight", weight);
-						Model sensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
-						profileSensor.getModel("sensor_settings", true).copyPrimitives(sensorSettings, false);
+						ProfileManager.getInstance().addSensor(profile, sensorId);
 					}
 					dismiss();
 				}

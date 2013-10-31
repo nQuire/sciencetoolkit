@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.settings;
+package org.greengin.sciencetoolkit.ui.modelconfig;
 
 import org.greengin.sciencetoolkit.model.Model;
 

@@ -1,11 +1,10 @@
-package org.greengin.sciencetoolkit.ui.settings;
+package org.greengin.sciencetoolkit.ui.modelconfig;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.model.SettingsManager;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -29,22 +28,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public abstract class SettingsFragment extends Fragment {
+public abstract class ModelFragment extends Fragment {
 
-	Model settings;
+	Model model;
 	private HashMap<String, View> optionViews;
 	boolean settingsEnabled;
 	LinearLayout rootContainer;
 
-	public SettingsFragment() {
+	public ModelFragment() {
 		this.settingsEnabled = true;
 		this.optionViews = new HashMap<String, View>();
 	}
-
+	
+	protected abstract Model fetchModel();
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		settings = SettingsManager.getInstance().get(getArguments().getString(SettingsFragmentManager.ARG_SETTINGS));
+		model = fetchModel();
 	}
 
 	@Override
@@ -62,12 +63,12 @@ public abstract class SettingsFragment extends Fragment {
 		EditText edit = new EditText(rootContainer.getContext());
 		int inputtype = InputType.TYPE_CLASS_TEXT;
 		edit.setInputType(inputtype);
-		edit.setText(settings.getString(key));
-		edit.addTextChangedListener(new SettingsTextWatcher(settings, key));
+		edit.setText(model.getString(key));
+		edit.addTextChangedListener(new SettingsTextWatcher(model, key));
 		addRow(key, label, description, edit);
 	}
 
-	protected void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max) {
+	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max) {
 		EditText edit = new EditText(rootContainer.getContext());
 		int inputtype = InputType.TYPE_CLASS_NUMBER;
 		if (signed) {
@@ -77,21 +78,21 @@ public abstract class SettingsFragment extends Fragment {
 			inputtype |= InputType.TYPE_NUMBER_FLAG_DECIMAL;
 		}
 		edit.setInputType(inputtype);
-		edit.setText(settings.getNumber(key, defaultValue).toString());
-		edit.addTextChangedListener(new SettingsTextWatcher(settings, key, true, decimal, signed, min, max));
+		edit.setText(model.getNumber(key, defaultValue).toString());
+		edit.addTextChangedListener(new SettingsTextWatcher(model, key, true, decimal, signed, min, max));
 
 		addRow(key, label, description, edit);
 	}
 
 	protected void addOptionToggle(String key, String label, String description, boolean defaultValue) {
 		ToggleButton toggle = new ToggleButton(rootContainer.getContext());
-		toggle.setChecked(settings.getBool(key, defaultValue));
+		toggle.setChecked(model.getBool(key, defaultValue));
 		toggle.setTag(key);
 		toggle.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				String clickedkey = (String) view.getTag();
-				settings.setBool(clickedkey, ((ToggleButton) view).isChecked());
+				model.setBool(clickedkey, ((ToggleButton) view).isChecked());
 			}
 		});
 
@@ -101,20 +102,20 @@ public abstract class SettingsFragment extends Fragment {
 	protected void addOptionCheckbox(String key, String label, String description, boolean defaultValue) {
 		CheckBox checkbox = new CheckBox(rootContainer.getContext());
 
-		checkbox.setChecked(settings.getBool(key, defaultValue));
+		checkbox.setChecked(model.getBool(key, defaultValue));
 		checkbox.setTag(key);
 		checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton view, boolean checked) {
 				String clickedkey = (String) view.getTag();
-				settings.setBool(clickedkey, checked);
+				model.setBool(clickedkey, checked);
 			}
 		});
 
 		addRow(key, label, description, checkbox);
 	}
 
-	protected void addText(String text) {
+	public void addText(String text) {
 		LinearLayout row = new LinearLayout(rootContainer.getContext());
 		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setOrientation(LinearLayout.HORIZONTAL);
@@ -127,14 +128,14 @@ public abstract class SettingsFragment extends Fragment {
 		rootContainer.addView(row);
 	}
 
-	protected void addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
+	public void addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
 		Spinner spinner = new Spinner(rootContainer.getContext());
 		spinner.setTag(key);
 
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootContainer.getContext(), android.R.layout.simple_spinner_item, options);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
-		spinner.setSelection(settings.getInt(key, defaultValue));
+		spinner.setSelection(model.getInt(key, defaultValue));
 
 		addRow(key, label, description, spinner);
 
@@ -142,7 +143,7 @@ public abstract class SettingsFragment extends Fragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				String changekey = (String) parentView.getTag();
-				settings.setInt(changekey, position);
+				model.setInt(changekey, position);
 			}
 
 			@Override
@@ -157,15 +158,15 @@ public abstract class SettingsFragment extends Fragment {
 		date.setClickable(true);
 		date.setFocusable(false);
 		date.setKeyListener(null);
-		date.setOnClickListener(new DateTimePickerHelper(settings, key, "date"));
-		date.setText(DateFormat.format("dd/MM/yy", settings.getLong(key)));
+		date.setOnClickListener(new DateTimePickerHelper(model, key, "date"));
+		date.setText(DateFormat.format("dd/MM/yy", model.getLong(key)));
 
 		EditText time = new EditText(rootContainer.getContext());
 		time.setClickable(true);
 		time.setFocusable(false);
 		time.setKeyListener(null);
-		time.setOnClickListener(new DateTimePickerHelper(settings, key, "time"));
-		time.setText(DateFormat.format("hh:mm", settings.getLong(key)));
+		time.setOnClickListener(new DateTimePickerHelper(model, key, "time"));
+		time.setText(DateFormat.format("hh:mm", model.getLong(key)));
 
 		addRow(key, label, description, new View[] { date, time });
 	}
@@ -204,28 +205,4 @@ public abstract class SettingsFragment extends Fragment {
 		rootContainer.addView(settingView);
 		this.optionViews.put(key, settingView);
 	}
-
-	/*
-	 * public void onResume() { super.onResume();
-	 * this.updateView(this.getView()); }
-	 * 
-	 * private void updateView(View view) {
-	 * this.enableSettings(this.settingsEnabled, view); updateVisibleViews(); }
-	 * 
-	 * private void updateVisibleViews() { for (Bundle option : options) {
-	 * String requires = option.getString("requires"); if (requires != null) {
-	 * boolean show = (Boolean) this.listener.getOptionValue(requires);
-	 * this.optionViews.get(option.getString("key")).setVisibility(show ?
-	 * View.VISIBLE : View.GONE); } } }
-	 * 
-	 * public void enableSettings(boolean enable) { this.settingsEnabled =
-	 * enable; if (this.getView() != null) {
-	 * this.enableSettings(this.settingsEnabled, this.getView()); } }
-	 * 
-	 * private void enableSettings(boolean enable, View view) {
-	 * view.setEnabled(enable); if (view instanceof ViewGroup) { ViewGroup group
-	 * = (ViewGroup) view; for (int i = 0; i < group.getChildCount(); i++) {
-	 * enableSettings(enable, group.getChildAt(i)); } } }
-	 */
-
 }

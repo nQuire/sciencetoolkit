@@ -1,5 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
+import java.util.Vector;
+
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
@@ -28,17 +30,16 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 	private String profileId;
 	private Model profile;
 
-
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
 		this.profileId = getArguments().getString("profile");
 		this.profileSensorId = getArguments().getString("sensor");
-		
+
 		this.profile = ProfileManager.getInstance().get(this.profileId);
 		this.profileSensor = this.profile == null ? null : this.profile.getModel("sensors", true).getModel(this.profileSensorId);
-		
+
 		if (this.profileSensor == null) {
 			this.sensor = null;
 			this.sensorType = -1;
@@ -74,11 +75,66 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 			}
 		});
 
+		Vector<Model> sensors = this.profile.getModel("sensors", true).getModels("weight");
+		int index = sensors.indexOf(this.profileSensor);
+
+		ImageButton upButton = (ImageButton) rootView.findViewById(R.id.sensor_config_up);
+		if (index > 0) {
+			upButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					moveSensorUp();
+				}
+			});
+		} else {
+			upButton.setEnabled(false);
+			upButton.setVisibility(View.GONE);
+		}
+
+		ImageButton downButton = (ImageButton) rootView.findViewById(R.id.sensor_config_down);
+		if (index >= 0 && index < sensors.size() - 1) {
+			downButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					moveSensorDown();
+				}
+			});
+		} else {
+			downButton.setEnabled(false);
+			downButton.setVisibility(View.GONE);
+		}
+
 		return rootView;
+	}
+
+	private void moveSensorUp() {
+		Vector<Model> sensors = this.profile.getModel("sensors", true).getModels("weight");
+		int index = sensors.indexOf(this.profileSensor);
+		if (index > 0) {
+			swapSensor(sensors, index, index - 1);
+		}
+	}
+
+	private void moveSensorDown() {
+		Vector<Model> sensors = this.profile.getModel("sensors", true).getModels("weight");
+		int index = sensors.indexOf(this.profileSensor);
+		if (index >= 0 && index < sensors.size() - 1) {
+			swapSensor(sensors, index, index + 1);
+		}
+	}
+
+	private void swapSensor(Vector<Model> sensors, int from, int to) {
+		Model swap = sensors.get(to);
+		sensors.set(to, this.profileSensor);
+		sensors.set(from, swap);
+		for (int i = 0; i < sensors.size(); i++) {
+			sensors.get(i).setInt("weight", i, true);
+		}
+		profile.fireModifiedEvent();
 	}
 
 }

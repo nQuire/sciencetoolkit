@@ -62,7 +62,7 @@ public class ModelDeserializer {
 				Element eElement = (Element) nNode;
 				if ("item".equals(eElement.getTagName())) {
 					String itemId = eElement.getAttribute("id");
-					Model model = xml2model(eElement, listener);
+					Model model = xml2model(eElement, listener, null);
 					models.put(itemId, model);
 				}
 			}
@@ -81,7 +81,7 @@ public class ModelDeserializer {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				if ("item".equals(eElement.getTagName())) {
-					Model model = xml2model(eElement, listener);
+					Model model = xml2model(eElement, listener, null);
 					models.add(model);
 				}
 			}
@@ -90,8 +90,15 @@ public class ModelDeserializer {
 		return models;
 	}
 
-	public static Model xml2model(Element modelElement, ModelChangeListener listener) {
-		Model model = new Model(listener);
+	public static Model xml2model(Element modelElement, ModelChangeListener listener, Model parent) {
+
+		Model model;
+		
+		if (parent == null) {
+			model = new Model(listener);
+		} else {
+			model = new Model(parent);
+		}
 
 		NodeList nSubList = modelElement.getChildNodes();
 
@@ -109,7 +116,7 @@ public class ModelDeserializer {
 					if ("model".equals(type)) {
 						Node nValueNode = eSubElement.getFirstChild();
 						if (nValueNode != null && nValueNode.getNodeType() == Node.ELEMENT_NODE) {
-							Model submodel = xml2model((Element) nValueNode, listener);
+							Model submodel = xml2model((Element) nValueNode, listener, model);
 							model.setModel(entryId, submodel, true);
 						}
 					} else {

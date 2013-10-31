@@ -70,7 +70,7 @@ public abstract class AbstractModelManager implements ModelChangeListener {
 					save();
 
 				}
-			}, 10000);
+			}, saveDelay);
 		}
 		lock.unlock();
 	}

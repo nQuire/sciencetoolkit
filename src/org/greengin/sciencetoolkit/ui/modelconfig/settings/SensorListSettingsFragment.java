@@ -1,11 +1,10 @@
-package org.greengin.sciencetoolkit.ui.settings.fragments;
+package org.greengin.sciencetoolkit.ui.modelconfig.settings;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.ui.settings.SettingsFragment;
 
 import android.view.View;
 
-public class SensorListSettingsFragment extends SettingsFragment {
+public class SensorListSettingsFragment extends AbstractSettingsFragment {
 
 	
 	@Override

@@ -1,9 +1,11 @@
-package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
+package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.modelconfig.ProfileModelFragmentManager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,25 +14,29 @@ import android.widget.TextView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 
-public class SensorSettingsActivity extends FragmentActivity {
+public class ProfileSensorSettingsActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sensor_settings);
+		setContentView(R.layout.activity_profile_sensor_settings);
 		
+		String profileId = this.getIntent().getExtras().getString("profile");
 		String sensorId = this.getIntent().getExtras().getString("sensor");
+		
+		Model profile = ProfileManager.getInstance().get(profileId);
+		
 		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+
 		if (sensor != null) {
-			TextView sensorNameView = (TextView)getWindow().getDecorView().findViewById(R.id.sensor_name);
-			sensorNameView.setText(sensor.getName());
-			SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.sensor_settings, "sensor:" + sensorId);
-			SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.sensor_liveview_settings, "liveview:" + sensorId);
-			SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.sensor_liveplot_settings, "liveplot:" + sensorId);
+			TextView sensorNameView = (TextView)getWindow().getDecorView().findViewById(R.id.profile_sensor_name);
+			sensorNameView.setText(profile.getString("title") + " / " + sensor.getName());
+			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_period_settings, new String[]{"period", profileId, sensorId});
+			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_settings, new String[]{"sensor", profileId, sensorId});
 		}
 		setupActionBar();
 	}
-
+	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */

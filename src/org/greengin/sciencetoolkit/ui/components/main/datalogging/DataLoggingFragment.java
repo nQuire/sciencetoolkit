@@ -1,13 +1,21 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
 
+import java.util.List;
+import java.util.Vector;
+
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.TextView.BufferType;
 
 public class DataLoggingFragment extends Fragment {
 
@@ -43,6 +52,44 @@ public class DataLoggingFragment extends Fragment {
 				nameView.setText("No profile selected");
 			} else {
 				nameView.setText(profile.getString("title"));
+				
+				TextView noSensorsNotice = (TextView)rootView.findViewById(R.id.no_sensors_notice);
+				Vector<Model> sensors = profile.getModel("sensors", true).getModels("weight");
+				if (sensors.size() == 0) {
+					String pre = getResources().getString(R.string.no_sensor_notice_pre);
+					String post = getResources().getString(R.string.no_sensor_notice_post);
+					
+					SpannableString text = new SpannableString(pre + " " + post);
+					Drawable d = getResources().getDrawable(R.drawable.ic_overflow); 
+		            d.setBounds(0, 0, 32, 32); 
+		            ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE); 
+		            
+		            text.setSpan(span, pre.length(), pre.length() + 1, 0);
+					noSensorsNotice.setText(text, BufferType.SPANNABLE);
+					noSensorsNotice.setVisibility(View.VISIBLE);
+				} else {
+					noSensorsNotice.setVisibility(View.GONE);
+
+					FragmentManager fragmentManager = getChildFragmentManager();
+					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+					List<Fragment> fragments = fragmentManager.getFragments();
+					if (fragments != null) {
+						for (Fragment fragment : fragmentManager.getFragments()) {
+							fragmentTransaction.remove(fragment);
+						}
+					}
+					fragmentTransaction.commit();
+
+					Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
+					for (Model profileSensor : profileSensors) {
+						ProfileSensorFragment fragment = new ProfileSensorFragment();
+						Bundle args = new Bundle();
+						args.putString("profile", profile.getString("id"));
+						args.putString("sensor", profileSensor.getString("id"));
+						fragment.setArguments(args);
+						fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
+					}
+				}
 			}
 		}
 	}

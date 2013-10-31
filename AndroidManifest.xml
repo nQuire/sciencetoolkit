@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
     android:versionCode="9"
-    android:versionName="0.131030" >
+    android:versionName="0.131031" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -58,6 +58,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
-    </application>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.ProfileSensorSettingsActivity"
+            android:label="@string/title_activity_data_logging_edit"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
+        </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.settings;
+package org.greengin.sciencetoolkit.ui.modelconfig;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

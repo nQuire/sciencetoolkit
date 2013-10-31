@@ -8,19 +8,40 @@ import java.util.Vector;
 
 
 public class Model {
+	Model parent;
 	Hashtable<String, Object> entries;
 	ModelChangeListener listener;
 
-	public Model(ModelChangeListener listener) {
-		this.entries = new Hashtable<String, Object>();
+	private Model(Model parent, ModelChangeListener listener) {
+		this.parent = parent;
 		this.listener = listener;
+		this.entries = new Hashtable<String, Object>();
+	}
+	public Model(Model parent) {
+		this(parent, parent.listener);
+	}
+	
+	public Model(ModelChangeListener listener) {
+		this(null, listener);
+	}
+	
+	public Model getParent() {
+		return parent;
+	}
+	
+	public Model getRootParent() {
+		return parent == null ? this : parent.getRootParent();
+	}
+	
+	public void fireModifiedEvent() {
+		this.listener.modelModified(this);
 	}
 
 	private boolean set(String key, Object obj, boolean suppressSave) {
 		if (obj != null && !obj.equals(entries.get(key))) {
 			entries.put(key, obj);
 			if (!suppressSave) {
-				this.listener.modelModified(this);
+				fireModifiedEvent();
 			}
 			return true;
 		} else {
@@ -68,7 +89,7 @@ public class Model {
 		return set(key, model, false);
 	}
 
-	boolean setInt(String key, int value, boolean suppressSave) {
+	public boolean setInt(String key, int value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
@@ -161,7 +182,7 @@ public class Model {
 		if (entries.containsKey(key)) {
 			return (Model) entries.get(key);
 		} else if (createIfNotExists) {
-			Model model = new Model(this.listener);
+			Model model = new Model(this);
 			entries.put(key, model);
 			if (!suppressSave) {
 				listener.modelModified(this);

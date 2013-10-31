@@ -1,11 +1,10 @@
-package org.greengin.sciencetoolkit.ui.settings.fragments;
+package org.greengin.sciencetoolkit.ui.modelconfig.settings;
 
 import org.greengin.sciencetoolkit.model.ModelDefaults;
-import org.greengin.sciencetoolkit.ui.settings.SettingsFragment;
 
 import android.view.View;
 
-public class LiveViewSettingsFragment extends SettingsFragment {
+public class LiveViewSettingsFragment extends AbstractSettingsFragment {
 
 	@Override
 	protected void createConfigOptions(View view) {

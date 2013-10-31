@@ -8,6 +8,7 @@ import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -74,10 +75,13 @@ public class ProfileSensorFragment extends Fragment {
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				Intent intent = new Intent(getActivity(), ProfileSensorSettingsActivity.class);
+				intent.putExtra("profile", profileId);				
+				intent.putExtra("sensor", profileSensorId);				
+		    	startActivity(intent);
 			}
 		});
-
+		
 		return rootView;
 	}
 

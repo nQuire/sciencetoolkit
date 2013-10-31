@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.settings.SettingsFragmentManager;
+import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

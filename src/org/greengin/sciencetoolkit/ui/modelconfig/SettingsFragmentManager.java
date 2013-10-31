@@ -1,12 +1,10 @@
-package org.greengin.sciencetoolkit.ui.settings;
+package org.greengin.sciencetoolkit.ui.modelconfig;
 
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.ui.settings.fragments.DeviceSensorSettingsFragment;
-import org.greengin.sciencetoolkit.ui.settings.fragments.LivePlotSettingsFragment;
-import org.greengin.sciencetoolkit.ui.settings.fragments.LiveViewSettingsFragment;
-import org.greengin.sciencetoolkit.ui.settings.fragments.SensorListSettingsFragment;
-import org.greengin.sciencetoolkit.ui.settings.fragments.SoundSensorSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.LivePlotSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.LiveViewSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.SensorListSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.SensorSettingsFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -19,8 +17,8 @@ public class SettingsFragmentManager {
 		manager.beginTransaction().replace(container, get(settingsId)).commit();
 	}
 	
-	public static SettingsFragment get(String settingsId) {
-		SettingsFragment fragment = null;
+	public static AbstractSettingsFragment get(String settingsId) {
+		AbstractSettingsFragment fragment = null;
 		Bundle args = new Bundle();
 		args.putString(ARG_SETTINGS, settingsId);
 
@@ -30,10 +28,7 @@ public class SettingsFragmentManager {
 			} else if (settingsId.startsWith("sensor:")) {
 				String sensorId = getKeyParam(settingsId, 1);
 				args.putString(ARG_SENSOR, sensorId);
-				SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
-				if (sensor != null) {
-					fragment = sensor.getType() == SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND ? new SoundSensorSettingsFragment() : new DeviceSensorSettingsFragment();
-				}
+				fragment = new SensorSettingsFragment();
 			} else if (settingsId.startsWith("liveview:")) {
 				fragment = new LiveViewSettingsFragment();
 			} else if (settingsId.startsWith("liveplot:")) {

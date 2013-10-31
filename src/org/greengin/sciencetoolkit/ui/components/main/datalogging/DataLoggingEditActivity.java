@@ -6,8 +6,10 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,7 @@ import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends FragmentActivity {
+public class DataLoggingEditActivity extends FragmentActivity implements NotificationListener {
 
 	Model profile;
 
@@ -48,38 +50,53 @@ public class DataLoggingEditActivity extends FragmentActivity {
 				}
 
 			});
-
-			updateSensorList(getWindow().getDecorView());
 		}
 
 		setupActionBar();
 	}
 
-	private void updateSensorList(View rootView) {
-		if (rootView != null && profile != null) {
-			EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.current_profile_name);
-			edit.setText(profile.getString("title"));
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateTitle();
+		updateList();
+		ProfileManager.getInstance().registerDirectListener(this);
+	}
 
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+	@Override
+	public void onPause() {
+		super.onPause();
+		ProfileManager.getInstance().unregisterDirectListener(this);
+	}
 
-			List<Fragment> fragments = fragmentManager.getFragments();
-			if (fragments != null) {
-				for (Fragment fragment : fragmentManager.getFragments()) {
-					fragmentTransaction.remove(fragment);
-				}
+	private void updateTitle() {
+		View rootView = getWindow().getDecorView();
+		EditText edit = (EditText) rootView.findViewById(R.id.current_profile_name);
+		edit.setText(profile.getString("title"));
+	}
+
+	private void updateList() {
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+		List<Fragment> fragments = fragmentManager.getFragments();
+		if (fragments != null) {
+			Log.d("stk updatelist", "fr " + fragments.size());
+			for (Fragment fragment : fragments) {
+				fragmentTransaction.remove(fragment);
 			}
-			fragmentTransaction.commit();
+		}
+		fragmentTransaction.commit();
 
-			Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
-			for (Model profileSensor : profileSensors) {
-				ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
-				Bundle args = new Bundle();
-				args.putString("profile", profile.getString("id"));
-				args.putString("sensor", profileSensor.getString("id"));
-				fragment.setArguments(args);
-				fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
-			}
+		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
+		Log.d("stk updatelist", "ps " + profileSensors .size());
+		for (Model profileSensor : profileSensors) {
+			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
+			Bundle args = new Bundle();
+			args.putString("profile", profile.getString("id"));
+			args.putString("sensor", profileSensor.getString("id"));
+			fragment.setArguments(args);
+			fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
 		}
 	}
 
@@ -120,6 +137,11 @@ public class DataLoggingEditActivity extends FragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void notificationReveiced(String msg) {
+		updateList();
 	}
 
 }
