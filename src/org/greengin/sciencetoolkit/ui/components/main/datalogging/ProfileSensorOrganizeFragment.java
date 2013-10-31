@@ -6,12 +6,17 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +67,9 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
 		nameTextView.setText(this.sensor != null ? this.sensor.getName() : "no sensor");
 
+		TextView periodTextView = (TextView) rootView.findViewById(R.id.sensor_period);
+		periodTextView.setText(Integer.toString(this.profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD)) + " ms");
+
 		ToggleButton toggleButton = (ToggleButton) rootView.findViewById(R.id.sensor_value_toggle);
 		toggleButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -75,7 +83,10 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent = new Intent(getActivity(), ProfileSensorSettingsActivity.class);
+				intent.putExtra("profile", profileId);
+				intent.putExtra("sensor", profileSensorId);
+				startActivity(intent);
 			}
 		});
 
@@ -107,6 +118,23 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			downButton.setEnabled(false);
 			downButton.setVisibility(View.GONE);
 		}
+
+		ImageButton discardButton = (ImageButton) rootView.findViewById(R.id.sensor_config_discard);
+		discardButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (sensor != null) {
+					String removeMsg = String.format(getResources().getString(R.string.remove_sensor_dlg_msg), sensor.getName());
+					CharSequence styledRemoveMsg = Html.fromHtml(removeMsg);
+					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.remove_sensor_dlg_title).setMessage(styledRemoveMsg).setPositiveButton(R.string.remove_sensor_dlg_yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							ProfileManager.getInstance().removeSensor(profile, profileSensorId);
+						}
+					}).setNegativeButton(R.string.cancel, null).show();
+				}
+			}
+		});
 
 		return rootView;
 	}

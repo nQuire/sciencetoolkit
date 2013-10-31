@@ -4,6 +4,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 
@@ -61,6 +62,9 @@ public class ProfileSensorFragment extends Fragment {
 
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
 		nameTextView.setText(this.sensor != null ? this.sensor.getName() : "no sensor");
+
+		TextView periodTextView = (TextView) rootView.findViewById(R.id.sensor_period);
+		periodTextView.setText(Integer.toString(this.profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD)) + " ms");
 
 		ToggleButton toggleButton = (ToggleButton) rootView.findViewById(R.id.sensor_value_toggle);
 		toggleButton.setOnClickListener(new OnClickListener() {

@@ -31,5 +31,9 @@
     <string name="no_sensor_notice_post">on the right top corner.</string>
     <string name="profile_sensor_period_settings">Data logging settings</string>
     <string name="profile_sensor_settings">Sensor settings</string>
+    <string name="remove_sensor_dlg_title">Remove sensor</string>
+    <string name="remove_sensor_dlg_msg">Do you want to remove sensor &lt;i>%1s&lt;/i> from this profile?</string>
+    <string name="remove_sensor_dlg_yes">Remove</string>
+    
 
 </resources>

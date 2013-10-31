@@ -72,7 +72,7 @@ public class ProfileManager extends AbstractModelManager implements Notification
 	}
 	
 	public void addSensor(Model profile, String sensorId) {
-		Model profileSensors = profile.getModel("sensors", false);
+		Model profileSensors = profile.getModel("sensors", true, true);
 		int weight = profileSensors.getModels().size();
 		
 		Model profileSensor = profileSensors.getModel(sensorId, true, true);
@@ -82,6 +82,11 @@ public class ProfileManager extends AbstractModelManager implements Notification
 		Model profileSensorSettings = profileSensor.getModel("sensor_settings", true, true);
 		profileSensorSettings.copyPrimitives(sensorSettings, true);
 		this.modelModified(profile);
+	}
+	
+	public void removeSensor(Model profile, String sensorId) {
+		Model profileSensors = profile.getModel("sensors", true, true);
+		profileSensors.clear(sensorId);
 	}
 
 	public Model get(String key) {

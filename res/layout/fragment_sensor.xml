@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:onClick="actionSensorViewToggle"
                 android:textOff=""
                 android:textOn="" />
@@ -37,20 +37,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_action_edit" 
-                android:gravity="center_vertical"/>
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_edit" />
 
             <TextView
                 android:id="@+id/sensor_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/sensor_value_toggle"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/sensor_config_edit"
                 android:layout_toRightOf="@id/sensor_value_toggle"
                 android:ellipsize="none"
                 android:gravity="center"
                 android:singleLine="false"
                 android:textStyle="bold" />
+
         </RelativeLayout>
 
         <LinearLayout

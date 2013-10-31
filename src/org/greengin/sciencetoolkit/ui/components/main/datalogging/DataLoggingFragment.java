@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -25,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends Fragment {
+public class DataLoggingFragment extends Fragment implements NotificationListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,21 @@ public class DataLoggingFragment extends Fragment {
 			if (profile == null) {
 				nameView.setText("No profile selected");
 			} else {
-				nameView.setText(profile.getString("title"));
+				nameView.setText(profile.getString("title"));				
+				
+				FragmentManager fragmentManager = getChildFragmentManager();
+				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+				List<Fragment> fragments = fragmentManager.getFragments();
+				if (fragments != null) {
+					for (Fragment fragment : fragments) {
+						fragmentTransaction.remove(fragment);
+					}
+				}
+				fragmentTransaction.commit();
 				
 				TextView noSensorsNotice = (TextView)rootView.findViewById(R.id.no_sensors_notice);
 				Vector<Model> sensors = profile.getModel("sensors", true).getModels("weight");
+				
 				if (sensors.size() == 0) {
 					String pre = getResources().getString(R.string.no_sensor_notice_pre);
 					String post = getResources().getString(R.string.no_sensor_notice_post);
@@ -69,16 +81,6 @@ public class DataLoggingFragment extends Fragment {
 					noSensorsNotice.setVisibility(View.VISIBLE);
 				} else {
 					noSensorsNotice.setVisibility(View.GONE);
-
-					FragmentManager fragmentManager = getChildFragmentManager();
-					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-					List<Fragment> fragments = fragmentManager.getFragments();
-					if (fragments != null) {
-						for (Fragment fragment : fragmentManager.getFragments()) {
-							fragmentTransaction.remove(fragment);
-						}
-					}
-					fragmentTransaction.commit();
 
 					Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
 					for (Model profileSensor : profileSensors) {
@@ -98,6 +100,13 @@ public class DataLoggingFragment extends Fragment {
 	public void onResume() {
 		super.onResume();
 		updateView(getView());
+		ProfileManager.getInstance().registerDirectListener(this);
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		ProfileManager.getInstance().unregisterDirectListener(this);
 	}
 
 	@Override
@@ -116,6 +125,11 @@ public class DataLoggingFragment extends Fragment {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void notificationReveiced(String msg) {
+		updateView(getView());
 	}
 
 }
