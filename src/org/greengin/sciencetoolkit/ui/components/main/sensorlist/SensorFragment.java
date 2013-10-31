@@ -6,7 +6,9 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
+import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 
@@ -20,7 +22,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,7 @@ public class SensorFragment extends Fragment {
 
 	Model settings;
 
+	FixedRateDataFilter periodFilter;
 	DataPipe showValuePipe;
 	String showValueIntentFilter;
 	String[] showValueUnits;
@@ -44,6 +46,7 @@ public class SensorFragment extends Fragment {
 	int showValueFormatMinInt;
 
 	BroadcastReceiver valueReceiver;
+	NotificationListener periodListener;
 
 
 	@Override
@@ -59,21 +62,35 @@ public class SensorFragment extends Fragment {
 
 		this.showValueFormatMinInt = 1 + Math.max(0, (int) Math.ceil(Math.log(Math.abs(this.sensor.getMaxRange()))));
 
-		this.showValueIntentFilter = "livevalue:" + this.sensorId;
+		this.showValueIntentFilter = "liveview:" + this.sensorId;
 		this.settings = SettingsManager.getInstance().get(this.showValueIntentFilter);
 
+		this.periodFilter = new FixedRateDataFilter(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
 		this.showValuePipe = new DataPipe(sensor);
-		this.showValuePipe.append(new FixedRateDataFilter(100));
+		this.showValuePipe.append(this.periodFilter);
 		this.showValuePipe.setEnd(new DataUINotifier(activity.getApplicationContext(), this.showValueIntentFilter));
 		this.valueReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.d("stk ssf", "msg");
 				eventDataReceived(intent.getFloatArrayExtra("values"), intent.getIntExtra("valueCount", 0));
 			}
 		};
+		
+		this.periodListener = new NotificationListener() {
+			@Override
+			public void notificationReveiced(String msg) {
+				periodFilter.setPeriod(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
+			}
+		};
+		SettingsManager.getInstance().registerDirectListener(this.showValueIntentFilter, periodListener);		
 	}
 
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		SettingsManager.getInstance().unregisterDirectListener(this.showValueIntentFilter, periodListener);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);

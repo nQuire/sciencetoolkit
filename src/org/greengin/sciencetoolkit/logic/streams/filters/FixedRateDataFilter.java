@@ -57,16 +57,18 @@ public class FixedRateDataFilter extends DataInputOutput {
 		if (timer != null) {
 			stop();
 		}
-		timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				if (hasData) {
-					fireInput(currentValue, currentValueCount);
+		if (this.period > 0) {
+			timer = new Timer();
+			timer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					if (hasData) {
+						fireInput(currentValue, currentValueCount);
+					}
 				}
-			}
 
-		}, 0, this.period);
+			}, 0, this.period);
+		}
 	}
 
 	private void stop() {

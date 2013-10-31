@@ -15,9 +15,8 @@ public class ScienceToolkitApplication extends Application {
         super.onCreate();
         Context context = this.getApplicationContext();
         
-        SensorWrapperManager.init(context);
         SettingsManager.init(context);
+        SensorWrapperManager.init(context);
         ProfileManager.init(context);
     }
-
 }

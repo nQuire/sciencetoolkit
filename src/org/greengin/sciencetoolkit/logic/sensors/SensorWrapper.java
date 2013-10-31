@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.logic.sensors;
 import org.greengin.sciencetoolkit.logic.streams.DataOutput;
 
 public abstract class SensorWrapper extends DataOutput {
-
+	
 	public boolean isEnabled() {
 		return this.hasInputs();
 	}

@@ -10,6 +10,10 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.SettingsManager;
+import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
 import org.greengin.sciencetoolkit.ui.datafilters.SensorLiveXYSeries;
 
 import com.androidplot.xy.BoundaryMode;
@@ -34,10 +38,14 @@ public class LiveSensorPlotFragment extends Fragment {
 	String sensorId;
 	SensorWrapper sensor;
 	DataPipe dataPipe;
+	FixedRateDataFilter periodFilter;
 	SensorLiveXYSeries series;
 	XYPlot plot;
-	BroadcastReceiver seriesReceiver;
 	String filter;
+	BroadcastReceiver seriesReceiver;
+	NotificationListener notificationListener;
+
+	Model settings;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -48,11 +56,14 @@ public class LiveSensorPlotFragment extends Fragment {
 
 		this.filter = "liveplot:" + this.sensorId;
 
+		this.settings = SettingsManager.getInstance().get(this.filter);
+
 		this.series = new SensorLiveXYSeries(this.sensor, getActivity(), filter);
 		this.plot = null;
 
+		this.periodFilter = new FixedRateDataFilter(settings.getInt("period", ModelDefaults.LIVEPLOT_PERIOD));
 		this.dataPipe = new DataPipe(sensor);
-		this.dataPipe.append(new FixedRateDataFilter(250));
+		this.dataPipe.append(this.periodFilter);
 		this.dataPipe.setEnd(this.series);
 
 		this.seriesReceiver = new BroadcastReceiver() {
@@ -61,13 +72,20 @@ public class LiveSensorPlotFragment extends Fragment {
 				eventSeriesUpdated();
 			}
 		};
-		
+
+		this.notificationListener = new NotificationListener() {
+			@Override
+			public void notificationReveiced(String msg) {
+				updatePlotConfig();
+			}
+		};
+		SettingsManager.getInstance().registerDirectListener(this.filter, this.notificationListener);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_plot_sensor_live, container, false);
-		
+
 		plot = (XYPlot) rootView;
 
 		plot.setRangeLowerBoundary(0, BoundaryMode.AUTO);
@@ -76,8 +94,8 @@ public class LiveSensorPlotFragment extends Fragment {
 		plot.setTicksPerRangeLabel(3);
 		plot.setDomainStep(XYStepMode.SUBDIVIDE, 5);
 		plot.setDomainValueFormat(new LiveTimePlotDomainFormat());
-		
-		updateSeriesConfig();
+
+		updatePlotConfig();
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.seriesReceiver, new IntentFilter(filter));
 		this.dataPipe.attach();
@@ -91,14 +109,22 @@ public class LiveSensorPlotFragment extends Fragment {
 		this.dataPipe.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.seriesReceiver);
 	}
-	
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		SettingsManager.getInstance().unregisterDirectListener(this.filter, this.notificationListener);
+	}
+
 	public void eventSeriesUpdated() {
 		if (plot != null) {
 			plot.redraw();
 		}
 	}
-	
-	public void updateSeriesConfig() {
+
+	public void updatePlotConfig() {
+		this.periodFilter.setPeriod(settings.getInt("period", ModelDefaults.LIVEPLOT_PERIOD));
+		this.series.updateConfiguration();
 		this.series.updateSeries(plot);
 	}
 

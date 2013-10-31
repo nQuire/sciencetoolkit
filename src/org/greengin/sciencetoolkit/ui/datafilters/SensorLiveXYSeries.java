@@ -1,6 +1,5 @@
 package org.greengin.sciencetoolkit.ui.datafilters;
 
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -9,6 +8,9 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
 import org.greengin.sciencetoolkit.logic.streams.DataInput;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 
 import android.content.Context;
@@ -32,38 +34,62 @@ public class SensorLiveXYSeries implements DataInput {
 	TimeValue[] values;
 	int head;
 	int size;
-	
-	
-	String[] seriesTitle;
 
+	String[] seriesTitle;
+	Model settings;
 	Context context;
 	String filter;
 
 	public SensorLiveXYSeries(SensorWrapper sensor, Context context, String filter) {
-		values = new TimeValue[100];
-		Arrays.fill(values, null);
+		this.values = null;
 
 		valueCount = sensor.getValueCount();
 		showSeries = new boolean[valueCount];
-		Arrays.fill(showSeries, true);
+
+		settings = SettingsManager.getInstance().get(filter);
+		head = 0;
+		size = 0;
+
+		updateConfiguration();
 
 		seriesList = new SensorLiveXYSeries_[valueCount];
 		for (int i = 0; i < seriesList.length; i++) {
 			seriesList[i] = new SensorLiveXYSeries_(i);
 		}
 
-		head = 0;
-		size = 0;
 		timer = null;
 
 		this.context = context;
 		this.filter = filter;
-		
+
 		seriesTitle = new String[valueCount];
 		String[] labels = SensorUIData.getValueLabels(sensor.getType());
 		String[] units = SensorUIData.getValueUnits(sensor.getType());
 		for (int i = 0; i < valueCount; i++) {
 			seriesTitle[i] = labels[i] + "\n" + units[i];
+		}
+	}
+
+	public void updateConfiguration() {
+		for (int i = 0; i < valueCount; i++) {
+			this.showSeries[i] = settings.getBool("show:" + i, true);
+
+		}
+
+		int newCapacity = settings.getInt("samples", ModelDefaults.LIVEPLOT_SAMPLES);
+		int currentCapacity = values != null ? values.length : 0;
+		if (newCapacity != currentCapacity) {
+			TimeValue[] nvalues = new TimeValue[newCapacity];
+			int nsize = Math.min(newCapacity, this.size);
+
+			for (int i = 0; i < nsize; i++) {
+				int pos = (currentCapacity + head - 1 - i) % currentCapacity;
+				nvalues[nsize - 1 - i] = values[pos];
+			}
+
+			values = nvalues;
+			size = nsize;
+			head = nsize == newCapacity ? 0 : nsize;
 		}
 	}
 
