@@ -18,8 +18,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" 
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
             <ToggleButton
                 android:id="@+id/sensor_value_toggle"
@@ -53,7 +53,6 @@
                 android:gravity="center"
                 android:singleLine="false"
                 android:textStyle="bold" />
-
         </RelativeLayout>
 
         <LinearLayout
@@ -63,15 +62,17 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/sensor_value_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp" />
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:gravity="right"/>
 
                 <TextView
                     android:id="@+id/sensor_value"

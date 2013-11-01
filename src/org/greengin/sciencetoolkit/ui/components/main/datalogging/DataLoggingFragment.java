@@ -1,10 +1,13 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
-
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.CurrentSessionDataListener;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
@@ -13,8 +16,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
@@ -22,11 +23,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends Fragment implements NotificationListener {
+public class DataLoggingFragment extends Fragment implements NotificationListener, CurrentSessionDataListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,31 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 		View rootView = inflater.inflate(R.layout.fragment_data_logging, container, false);
 
 		updateView(rootView);
+		
+		rootView.findViewById(R.id.data_logging_start).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				DataLogger.getInstance().start();
+				updateButtons(view.getRootView());
+			}
+		});
+		
+		rootView.findViewById(R.id.data_logging_stop).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				DataLogger.getInstance().stop();
+				updateButtons(view.getRootView());
+			}
+		});
 
+		DataLogger.getInstance().registerListener(this);
+		
 		return rootView;
+	}
+	
+	public void onDestroyView() {
+		super.onDestroyView();
+		DataLogger.getInstance().unregisterListener(this);
 	}
 
 	private void updateView(View rootView) {
@@ -52,31 +77,32 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 			if (profile == null) {
 				nameView.setText("No profile selected");
 			} else {
-				nameView.setText(profile.getString("title"));				
-				
-				FragmentManager fragmentManager = getChildFragmentManager();
-				FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-				List<Fragment> fragments = fragmentManager.getFragments();
+				nameView.setText(profile.getString("title"));
+
+				List<Fragment> fragments = getChildFragmentManager().getFragments();
 				if (fragments != null) {
 					for (Fragment fragment : fragments) {
-						fragmentTransaction.remove(fragment);
+						getChildFragmentManager().beginTransaction().remove(fragment).commit();
 					}
 				}
-				fragmentTransaction.commit();
-				
-				TextView noSensorsNotice = (TextView)rootView.findViewById(R.id.no_sensors_notice);
+
+				TextView noSensorsNotice = (TextView) rootView.findViewById(R.id.no_sensors_notice);
 				Vector<Model> sensors = profile.getModel("sensors", true).getModels("weight");
-				
+
+				View buttonsContainer = rootView.findViewById(R.id.data_logging_buttons);
+
 				if (sensors.size() == 0) {
+					buttonsContainer.setVisibility(View.GONE);
+
 					String pre = getResources().getString(R.string.no_sensor_notice_pre);
 					String post = getResources().getString(R.string.no_sensor_notice_post);
-					
+
 					SpannableString text = new SpannableString(pre + " " + post);
-					Drawable d = getResources().getDrawable(R.drawable.ic_overflow); 
-		            d.setBounds(0, 0, 32, 32); 
-		            ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE); 
-		            
-		            text.setSpan(span, pre.length(), pre.length() + 1, 0);
+					Drawable d = getResources().getDrawable(R.drawable.ic_overflow);
+					d.setBounds(0, 0, 32, 32);
+					ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+
+					text.setSpan(span, pre.length(), pre.length() + 1, 0);
 					noSensorsNotice.setText(text, BufferType.SPANNABLE);
 					noSensorsNotice.setVisibility(View.VISIBLE);
 				} else {
@@ -89,11 +115,37 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 						args.putString("profile", profile.getString("id"));
 						args.putString("sensor", profileSensor.getString("id"));
 						fragment.setArguments(args);
-						fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
+						getChildFragmentManager().beginTransaction().add(R.id.sensor_list, fragment).commit();
 					}
+
+					buttonsContainer.setVisibility(View.VISIBLE);
+					updateButtons(rootView);
+					updateValueCount(rootView);
 				}
 			}
 		}
+	}
+
+	private void updateButtons(View rootView) {
+		boolean running = DataLogger.getInstance().isRunning();
+		
+		rootView.findViewById(R.id.data_logging_start).setEnabled(!running);
+		rootView.findViewById(R.id.data_logging_stop).setEnabled(running);
+	}
+	
+
+	private void updateValueCount(View rootView) {
+		TextView textView = (TextView) rootView.findViewById(R.id.data_logging_value_count);
+		StringBuffer sb = new StringBuffer();
+		Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getValueCount().entrySet().iterator();
+		while(it.hasNext()) {
+			Entry<String, Integer> entry = it.next();
+			sb.append(entry.getKey()).append(": ").append(entry.getValue());
+			if (it.hasNext()) {
+				sb.append("\n");
+			}
+		}
+		textView.setText(sb.toString());
 	}
 
 	@Override
@@ -102,7 +154,7 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 		updateView(getView());
 		ProfileManager.getInstance().registerDirectListener(this);
 	}
-	
+
 	@Override
 	public void onStop() {
 		super.onStop();
@@ -130,6 +182,11 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 	@Override
 	public void notificationReveiced(String msg) {
 		updateView(getView());
+	}
+
+	@Override
+	public void currentSessionDataAdded() {
+		updateValueCount(getView());		
 	}
 
 }

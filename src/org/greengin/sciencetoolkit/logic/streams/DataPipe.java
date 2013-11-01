@@ -14,7 +14,7 @@ public class DataPipe {
 		this.end = null;
 	}
 	
-	public void append(DataInputOutput filter) {
+	public void addFilter(DataInputOutput filter) {
 		this.filters.add(filter);
 	}
 	

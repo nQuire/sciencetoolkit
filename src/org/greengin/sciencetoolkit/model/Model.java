@@ -159,12 +159,14 @@ public class Model {
 
 	public void copyPrimitives(Model source, boolean suppressSave) {
 		if (source != null) {
-			for (Entry<String, Object> entry : entries.entrySet()) {
-				if (entry.getValue() instanceof String || entry.getValue() instanceof Boolean || entry.getValue() instanceof Number) {
-					this.set(entry.getKey(), entry.getValue(), true);
+			boolean modified = false;
+			for (Entry<String, Object> entry : source.entries.entrySet()) {
+				if (!"id".equals(entry.getKey()) && (entry.getValue() instanceof String || entry.getValue() instanceof Boolean || entry.getValue() instanceof Number)) {
+					modified = this.set(entry.getKey(), entry.getValue(), true) || modified;
 				}
 			}
-			if (!suppressSave) {
+			
+			if (modified && !suppressSave) {
 				this.listener.modelModified(this);
 			}
 		}

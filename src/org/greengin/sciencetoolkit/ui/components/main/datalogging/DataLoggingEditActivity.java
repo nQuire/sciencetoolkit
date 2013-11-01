@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -76,27 +75,26 @@ public class DataLoggingEditActivity extends FragmentActivity implements Notific
 	}
 
 	private void updateList() {
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-		List<Fragment> fragments = fragmentManager.getFragments();
+		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		if (fragments != null) {
 			Log.d("stk updatelist", "fr " + fragments.size());
 			for (Fragment fragment : fragments) {
-				fragmentTransaction.remove(fragment);
+				if (fragment instanceof ProfileSensorOrganizeFragment) {
+					getSupportFragmentManager().beginTransaction().detach(fragment).remove(fragment).commit();
+				}
 			}
 		}
-		fragmentTransaction.commit();
+		//getSupportFragmentManager().popBackStackImmediate();
 
 		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
-		Log.d("stk updatelist", "ps " + profileSensors .size());
+		Log.d("stk updatelist", "ps " + profileSensors.size());
 		for (Model profileSensor : profileSensors) {
 			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
 			Bundle args = new Bundle();
 			args.putString("profile", profile.getString("id"));
 			args.putString("sensor", profileSensor.getString("id"));
 			fragment.setArguments(args);
-			fragmentManager.beginTransaction().add(R.id.sensor_list, fragment).commit();
+			getSupportFragmentManager().beginTransaction().add(R.id.sensor_list, fragment).commit();
 		}
 	}
 

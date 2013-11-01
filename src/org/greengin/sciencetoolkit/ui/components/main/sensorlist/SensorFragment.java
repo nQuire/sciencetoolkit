@@ -67,7 +67,7 @@ public class SensorFragment extends Fragment {
 
 		this.periodFilter = new FixedRateDataFilter(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
 		this.showValuePipe = new DataPipe(sensor);
-		this.showValuePipe.append(this.periodFilter);
+		this.showValuePipe.addFilter(this.periodFilter);
 		this.showValuePipe.setEnd(new DataUINotifier(activity.getApplicationContext(), this.showValueIntentFilter));
 		this.valueReceiver = new BroadcastReceiver() {
 			@Override

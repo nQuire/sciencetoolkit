@@ -24,6 +24,8 @@ public class SettingsTextWatcher implements TextWatcher {
 		this.number = number;
 		this.decimal = decimal;
 		this.signed = signed;
+		this.min = min;
+		this.max = max;
 	}
 
 	@Override

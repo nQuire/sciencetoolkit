@@ -63,7 +63,7 @@ public class LiveSensorPlotFragment extends Fragment {
 
 		this.periodFilter = new FixedRateDataFilter(settings.getInt("period", ModelDefaults.LIVEPLOT_PERIOD));
 		this.dataPipe = new DataPipe(sensor);
-		this.dataPipe.append(this.periodFilter);
+		this.dataPipe.addFilter(this.periodFilter);
 		this.dataPipe.setEnd(this.series);
 
 		this.seriesReceiver = new BroadcastReceiver() {
