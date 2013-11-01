@@ -74,14 +74,12 @@
                     android:id="@+id/data_logging_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="actionStartLogging"
                     android:text="@string/data_logging_start" />
 
                 <Button
                     android:id="@+id/data_logging_stop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="actionStopLogging"
                     android:text="@string/data_logging_stop" />
             </LinearLayout>
 

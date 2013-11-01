@@ -19,7 +19,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:onClick="actionSensorViewToggle"
             android:textOff=""
             android:textOn="" />
 

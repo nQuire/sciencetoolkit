@@ -4,11 +4,11 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public class SensorListSettingsActivity extends FragmentActivity {
+public class SensorListSettingsActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class SensorListSettingsActivity extends FragmentActivity {
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	@Override

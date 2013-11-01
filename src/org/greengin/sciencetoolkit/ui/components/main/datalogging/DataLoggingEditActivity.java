@@ -15,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends FragmentActivity implements NotificationListener {
+public class DataLoggingEditActivity extends ActionBarActivity implements NotificationListener {
 
 	Model profile;
 
@@ -109,7 +109,7 @@ public class DataLoggingEditActivity extends FragmentActivity implements Notific
 	 */
 	private void setupActionBar() {
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 	}
 
