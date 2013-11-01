@@ -12,7 +12,7 @@
         android:id="@+id/welcomeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to ScienceToolkit!" />
+        android:text="@string/welcome" />
 
     <Button
         android:id="@+id/start_button"
@@ -21,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/welcomeLabel"
         android:layout_below="@+id/welcomeLabel"
-        android:text="Start" />
+        android:text="@string/welcome_start" />
 
 </RelativeLayout>
