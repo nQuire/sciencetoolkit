@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stkapp="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:icon="@drawable/ic_action_overflow"
+        android:orderInCategory="100"
+        android:title=""
+        stkapp:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_data_view_mode"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_data_view_mode"/>
+            <item
+                android:id="@+id/action_data_view_range"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_data_view_range"/>
+            <item
+                android:id="@+id/action_application_settings"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_application_settings"/>
+        </menu>
+    </item>
+</menu>

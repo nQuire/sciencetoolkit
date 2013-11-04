@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.datalogging;
+package org.greengin.sciencetoolkit.ui.components.main.datalogging.edit;
 
 import java.util.List;
 import java.util.Vector;

@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.datalogging;
+package org.greengin.sciencetoolkit.ui.components.main.datalogging.edit;
 
 import java.util.Vector;
 
@@ -9,6 +9,7 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
+import org.greengin.sciencetoolkit.ui.components.main.datalogging.config.ProfileSensorSettingsActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;

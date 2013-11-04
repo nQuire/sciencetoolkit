@@ -6,6 +6,17 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import android.hardware.Sensor;
 
 public class SensorUIData {
+	
+	private static final String[][] LABELS = new String[][] {
+		new String[] { "x", "y", "z" },
+		new String[] { "Temperature" },
+		new String[] { "Light level" },
+		new String[] { "Pressure" },
+		new String[] { "Proximity" },
+		new String[] { "Rel. humidity" },
+		new String[] {"Sound level", "Max. freq."},
+		new String[] { "values" }
+	};
 
 	@SuppressWarnings("deprecation")
 	public static int getSensorToggleResource(int type) {
@@ -58,22 +69,22 @@ public class SensorUIData {
 		case Sensor.TYPE_GAME_ROTATION_VECTOR:
 		case Sensor.TYPE_ROTATION_VECTOR:
 		case Sensor.TYPE_GRAVITY:
-			return new String[] { "x", "y", "z" };
+			return LABELS[0];
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
-			return new String[] { "Temperature" };
+			return LABELS[1];
 		case Sensor.TYPE_LIGHT:
-			return new String[] { "Light level" };
+			return LABELS[2];
 		case Sensor.TYPE_PRESSURE:
-			return new String[] { "Pressure" };
+			return LABELS[3];
 		case Sensor.TYPE_PROXIMITY:
-			return new String[] { "Proximity" };
+			return LABELS[4];
 		case Sensor.TYPE_RELATIVE_HUMIDITY:
-			return new String[] { "Rel. humidity" };
+			return LABELS[5];
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
-			return new String[] {"Sound level", "Max. freq."};
+			return LABELS[6];
 		default:
-			return new String[] { "values" };
+			return LABELS[7];
 		}
 	}
 

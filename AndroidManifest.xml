@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="11"
-    android:versionName="0.131101C" >
+    android:versionCode="13"
+    android:versionName="0.131104B" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -35,7 +35,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.WelcomeActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListSettingsActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.choose.SensorListSettingsActivity"
             android:label="@string/title_activity_sensor_list_settings"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
@@ -43,7 +43,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorSettingsActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.sensorlist.config.SensorSettingsActivity"
             android:label="@string/title_activity_sensor_settings"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
@@ -51,7 +51,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingEditActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity"
             android:label="@string/title_activity_data_logging_edit"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
@@ -59,8 +59,16 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.ProfileSensorSettingsActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.config.ProfileSensorSettingsActivity"
             android:label="@string/title_activity_data_logging_edit"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity"
+            android:label="@string/title_activity_data_view"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

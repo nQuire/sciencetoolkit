@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;

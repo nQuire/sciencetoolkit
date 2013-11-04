@@ -35,6 +35,7 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String[] DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR = new String[] { "sensor", "Count(sensor)" };
 	public static final String DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR_GROUP_BY = "sensor";
 	public static final String[] DATA_TABLE_QUERY_ALL_COLUMNS = new String[] { "profile", "sensor", "timestamp", "data" };
+	public static final String[] DATA_TABLE_QUERY_LIST_VIEW_COLUMNS = new String[] { "ROWID as _id", "sensor", "timestamp", "data" };
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE = "profile=?";
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR = "profile=? AND sensor=?";
 	public static final String DATA_TABLE_DELETE_ALL = "DELETE FROM data";
@@ -90,7 +91,7 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 	}
 
-	protected String getExternalSensorId(String internalSensorId) {
+	public String getExternalSensorId(String internalSensorId) {
 		if (!this.sensorIdsCacheI2E.containsKey(internalSensorId)) {
 			String externalId;
 			Cursor cursor = getReadableDatabase().query(SENSORS_TABLE_NAME, SENSORS_TABLE_QUERY_COLUMNS_I2E, SENSORS_TABLE_QUERY_WHERE_I2E, new String[] { internalSensorId }, null, null, null, "1");
@@ -209,5 +210,12 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 		}
 		return null;
 	}
+	
+	public Cursor getListViewCursor(String profileId) {
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_LIST_VIEW_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
+		cursor.moveToFirst();
+		return cursor;
+	}
+
 
 }

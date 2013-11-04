@@ -18,6 +18,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class DataLogger extends BroadcastReceiver implements DataLoggerListener {
@@ -170,4 +171,11 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 		}
 	}
 
+	public Cursor getListViewCursor(String profileId) {
+		return this.helper.getListViewCursor(profileId);
+	}
+	
+	public String sensorName(String dbSensorId) {
+		return this.helper.getExternalSensorId(dbSensorId);
+	}
 }

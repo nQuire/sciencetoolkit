@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -63,19 +64,14 @@ public class DataFragment extends Fragment {
 
 		this.updateView(rootView);
 
-		ImageButton discardButton = (ImageButton) rootView.findViewById(R.id.profile_data_discard);
-		discardButton.setOnClickListener(new OnClickListener() {
+		ImageButton viewButton = (ImageButton) rootView.findViewById(R.id.profile_data_view);
+		viewButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (profileId != null) {
-					String deleteMsg = String.format(getResources().getString(R.string.delete_profile_data_dlg_msg), profile.getString("title"));
-					CharSequence styledDeleteMsg = Html.fromHtml(deleteMsg);
-					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_data_dlg_yes, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							DataLogger.getInstance().deleteData(profileId);
-						}
-					}).setNegativeButton(R.string.cancel, null).show();
+					Intent intent = new Intent(getActivity(), DataViewActivity.class);
+					intent.putExtra("profile", profileId);
+					startActivity(intent);
 				}
 			}
 		});
@@ -91,6 +87,23 @@ public class DataFragment extends Fragment {
 						CharSequence styledExportMsg = Html.fromHtml(exportMsg);
 						new AlertDialog.Builder(v.getContext()).setIcon(R.drawable.ic_action_save).setTitle(R.string.export_data_dlg_title).setMessage(styledExportMsg).setPositiveButton(R.string.export_data_dlg_yes, new ShareClickListener(profile.getString("title"), exportFile)).setNegativeButton(R.string.export_data_dlg_no, null).show();
 					}
+				}
+			}
+		});
+
+		ImageButton discardButton = (ImageButton) rootView.findViewById(R.id.profile_data_discard);
+		discardButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (profileId != null) {
+					String deleteMsg = String.format(getResources().getString(R.string.delete_profile_data_dlg_msg), profile.getString("title"));
+					CharSequence styledDeleteMsg = Html.fromHtml(deleteMsg);
+					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_data_dlg_yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							DataLogger.getInstance().deleteData(profileId);
+						}
+					}).setNegativeButton(R.string.cancel, null).show();
 				}
 			}
 		});
@@ -155,7 +168,7 @@ public class DataFragment extends Fragment {
 			String shareMenuTitle = getResources().getString(R.string.export_menu_title);
 			String subject = String.format(getResources().getString(R.string.export_payload_subject), profileTitle);
 			String body = getResources().getString(R.string.export_payload_body);
-			
+
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
 			sendIntent.setType("*/*");

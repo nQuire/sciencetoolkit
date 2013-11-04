@@ -1,31 +1,47 @@
-package org.greengin.sciencetoolkit.ui.components.main.sensorlist;
+package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.view.MenuItem;
 
-public class SensorListSettingsActivity extends ActionBarActivity {
+public class DataViewActivity extends ActionBarActivity {
 
+	String profileId;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sensor_list_settings);
-		SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.settings_container, "sensor_list");
+		
+		profileId = getIntent().getExtras().getString("profile");
+		
+		setContentView(R.layout.activity_data_view);
+		
+		Bundle args = new Bundle();
+		args.putString("profile", profileId);
+		Fragment fragment = new ListViewFragment();
+		fragment.setArguments(args);
+		
+		getSupportFragmentManager().beginTransaction().replace(R.id.view_container, fragment).commit();
 		
 		setupActionBar();
 	}
 
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
 	private void setupActionBar() {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.data_view, menu);
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -42,4 +58,5 @@ public class SensorListSettingsActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

@@ -10,6 +10,7 @@ import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
+import org.greengin.sciencetoolkit.ui.components.main.sensorlist.config.SensorSettingsActivity;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 
 import android.app.Activity;
