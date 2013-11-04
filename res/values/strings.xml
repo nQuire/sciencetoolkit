@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en" tools:ignore="MissingTranslation" >
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation" tools:locale="en">
 
     <string name="app_name">nQuire Science Toolkit</string>
     <string name="menu_item_application_settings">Settings</string>
@@ -36,5 +36,14 @@
     <string name="data_logging_stop">Stop logging</string>
     <string name="welcome">Welcome to ScienceToolkit!</string>
     <string name="welcome_start">Start</string>
+    <string name="delete_all_data">Delete all data</string>
+    <string name="data_count_none">No data logged.</string>
+    <string name="data_count_one">One sample logged.</string>
+    <string name="data_count_many">%1d samples logged.</string>
+    <string name="delete_all_data_dlg_title">Delete all data</string>
+    <string name="delete_all_data_dlg_msg">Do you want to delete all logged data? This will affect all your profiles.</string>
+    <string name="delete_data_dlg_yes">Delete</string>
+    <string name="delete_profile_data_dlg_title">Delete profile data</string>
+    <string name="delete_profile_data_dlg_msg">Do you want to delete all data from profile &lt;i>%1s&lt;/i>?</string>
     
 </resources>

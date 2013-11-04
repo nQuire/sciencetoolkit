@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.components.main.data.DataListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
@@ -13,11 +14,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -98,35 +95,25 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	 */
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		SensorListFragment sensorsFragment;
-		DataLoggingFragment loggingFragment;
-
+		Fragment[] fragments;
+		
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 
-			sensorsFragment = null;
-			loggingFragment = null;
+			fragments = new Fragment[]{null, null, null};
 		}
+		
 
 		@Override
 		public Fragment getItem(int position) {
-			if (position == 0) {
-				if (sensorsFragment == null) {
-					sensorsFragment = new SensorListFragment();
+			if (fragments[position] == null) {
+				switch (position) {
+				case 0: fragments[0] = new SensorListFragment(); break;
+				case 1: fragments[1] = new DataLoggingFragment(); break;
+				case 2: fragments[2] = new DataListFragment(); break;
 				}
-				return sensorsFragment;
-			} else if (position == 1) {
-				if (loggingFragment == null) {
-					loggingFragment = new DataLoggingFragment();
-				}
-				return loggingFragment;
-			} else {
-				Fragment fragment = new DummySectionFragment();
-				Bundle args = new Bundle();
-				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-				fragment.setArguments(args);
-				return fragment;
-			}
+			} 
+			return fragments[position];
 		}
 
 		@Override
@@ -146,29 +133,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 				return getString(R.string.main_activity_tab_3);
 			}
 			return null;
-		}
-	}
-
-	/**
-	 * A dummy fragment representing a section of the app, but that simply
-	 * displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		public DummySectionFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_dummy, container, false);
-			TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-			return rootView;
 		}
 	}
 

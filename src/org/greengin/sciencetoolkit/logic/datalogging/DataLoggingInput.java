@@ -2,20 +2,18 @@ package org.greengin.sciencetoolkit.logic.datalogging;
 
 import org.greengin.sciencetoolkit.logic.streams.DataInput;
 
-import android.util.Log;
-
 public class DataLoggingInput implements DataInput {
 
 	String profileId;
 	String sessionId;
 	String sensorId;
-	DataLogger logger;
+	ScienceToolkitSQLiteOpenHelper helper;
 
-	public DataLoggingInput(String profileId, String sessionId, String sensorId, DataLogger logger) {
+	public DataLoggingInput(String profileId, String sessionId, String sensorId, ScienceToolkitSQLiteOpenHelper helper) {
 		this.profileId = profileId;
 		this.sessionId = sessionId;
 		this.sensorId = sensorId;
-		this.logger = logger;
+		this.helper = helper;
 	}
 
 	@Override
@@ -28,8 +26,7 @@ public class DataLoggingInput implements DataInput {
 
 			bf.append(values[i]);
 		}
-		logger.dataAdded(sensorId);
-		Log.d("stk data", this.profileId + " " + this.sessionId + " " + this.sensorId + " " + bf.toString());
+		helper.save(profileId, sensorId, bf.toString());
 	}
 
 }

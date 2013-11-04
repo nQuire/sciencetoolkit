@@ -13,8 +13,8 @@ import android.support.v4.content.LocalBroadcastManager;
 public class NotificationListenerAggregator extends BroadcastReceiver {
 	ReentrantLock lock;
 	String filter;
-	Vector<NotificationListener> directListeners;
-	Vector<NotificationListener> uilisteners;
+	Vector<ModelNotificationListener> directListeners;
+	Vector<ModelNotificationListener> uilisteners;
 	boolean uilisteneractivated;
 
 	Context applicationContext;
@@ -23,15 +23,15 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 	public NotificationListenerAggregator(Context applicationContext, String filter) {
 		this.applicationContext = applicationContext;
 		this.filter = filter;
-		uilisteners = new Vector<NotificationListener>();
-		directListeners = new Vector<NotificationListener>();
+		uilisteners = new Vector<ModelNotificationListener>();
+		directListeners = new Vector<ModelNotificationListener>();
 		lock = new ReentrantLock();
 		uilisteneractivated = false;
 	}
 
 	public void fireEvent(String msg) {
-		for (NotificationListener listener : directListeners) {
-			listener.notificationReveiced(msg);
+		for (ModelNotificationListener listener : directListeners) {
+			listener.modelNotificationReveiced(msg);
 		}
 		
 		if (uilisteneractivated) {
@@ -41,17 +41,17 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 		}
 	}
 
-	public void addDirectListener(NotificationListener listener) {
+	public void addDirectListener(ModelNotificationListener listener) {
 		if (!directListeners.contains(listener)) {
 			directListeners.add(listener);
 		}
 	}
 
-	public void removeDirectListener(NotificationListener listener) {
+	public void removeDirectListener(ModelNotificationListener listener) {
 		directListeners.remove(listener);
 	}
 
-	public void addUIListener(NotificationListener listener) {
+	public void addUIListener(ModelNotificationListener listener) {
 		lock.lock();
 		if (!uilisteners.contains(listener)) {
 			uilisteners.add(listener);
@@ -63,7 +63,7 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 		lock.unlock();
 	}
 
-	public void removeUIListener(NotificationListener listener) {
+	public void removeUIListener(ModelNotificationListener listener) {
 		lock.lock();
 		uilisteners.remove(listener);
 		if (uilisteners.size() == 0) {
@@ -76,8 +76,8 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String msg = intent.getExtras().getString("msg");
-		for (NotificationListener listener : uilisteners) {
-			listener.notificationReveiced(msg);
+		for (ModelNotificationListener listener : uilisteners) {
+			listener.modelNotificationReveiced(msg);
 		}
 	}
 

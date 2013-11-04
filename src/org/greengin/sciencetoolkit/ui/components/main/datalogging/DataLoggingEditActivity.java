@@ -6,10 +6,9 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends ActionBarActivity implements NotificationListener {
+public class DataLoggingEditActivity extends ActionBarActivity implements ModelNotificationListener {
 
 	Model profile;
 
@@ -77,17 +76,14 @@ public class DataLoggingEditActivity extends ActionBarActivity implements Notifi
 	private void updateList() {
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		if (fragments != null) {
-			Log.d("stk updatelist", "fr " + fragments.size());
 			for (Fragment fragment : fragments) {
 				if (fragment instanceof ProfileSensorOrganizeFragment) {
 					getSupportFragmentManager().beginTransaction().detach(fragment).remove(fragment).commit();
 				}
 			}
 		}
-		//getSupportFragmentManager().popBackStackImmediate();
 
 		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
-		Log.d("stk updatelist", "ps " + profileSensors.size());
 		for (Model profileSensor : profileSensors) {
 			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
 			Bundle args = new Bundle();
@@ -138,7 +134,7 @@ public class DataLoggingEditActivity extends ActionBarActivity implements Notifi
 	}
 
 	@Override
-	public void notificationReveiced(String msg) {
+	public void modelNotificationReveiced(String msg) {
 		updateList();
 	}
 

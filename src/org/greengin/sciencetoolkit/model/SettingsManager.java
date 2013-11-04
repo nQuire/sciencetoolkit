@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit.model;
 
 import java.util.Hashtable;
 
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
 
 import android.content.Context;
@@ -39,19 +39,19 @@ public class SettingsManager extends AbstractModelManager {
 		}
 	}
 	
-	public void registerUIListener(String key, NotificationListener listener) {
+	public void registerUIListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).addUIListener(listener);
 	}
 
-	public void unregisterUIListener(String key, NotificationListener listener) {
+	public void unregisterUIListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).removeUIListener(listener);
 	}
 
-	public void registerDirectListener(String key, NotificationListener listener) {
+	public void registerDirectListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).addDirectListener(listener);
 	}
 
-	public void unregisterDirectListener(String key, NotificationListener listener) {
+	public void unregisterDirectListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).removeDirectListener(listener);
 	}
 

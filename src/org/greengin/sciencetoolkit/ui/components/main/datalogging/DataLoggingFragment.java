@@ -6,11 +6,11 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.CurrentSessionDataListener;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerListener;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends Fragment implements NotificationListener, CurrentSessionDataListener {
+public class DataLoggingFragment extends Fragment implements ModelNotificationListener, DataLoggerListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,17 +59,10 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 				updateButtons(view.getRootView());
 			}
 		});
-
-		DataLogger.getInstance().registerListener(this);
 		
 		return rootView;
 	}
 	
-	public void onDestroyView() {
-		super.onDestroyView();
-		DataLogger.getInstance().unregisterListener(this);
-	}
-
 	private void updateView(View rootView) {
 		if (rootView != null) {
 			TextView nameView = (TextView) rootView.findViewById(R.id.current_profile_name);
@@ -137,7 +130,7 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 	private void updateValueCount(View rootView) {
 		TextView textView = (TextView) rootView.findViewById(R.id.data_logging_value_count);
 		StringBuffer sb = new StringBuffer();
-		Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getValueCount().entrySet().iterator();
+		Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId()).entrySet().iterator();
 		while(it.hasNext()) {
 			Entry<String, Integer> entry = it.next();
 			sb.append(entry.getKey()).append(": ").append(entry.getValue());
@@ -153,12 +146,14 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 		super.onResume();
 		updateView(getView());
 		ProfileManager.getInstance().registerDirectListener(this);
+		DataLogger.getInstance().registerListener(this);
 	}
 
 	@Override
-	public void onStop() {
-		super.onStop();
+	public void onPause() {
+		super.onPause();
 		ProfileManager.getInstance().unregisterDirectListener(this);
+		DataLogger.getInstance().unregisterListener(this);
 	}
 
 	@Override
@@ -180,12 +175,12 @@ public class DataLoggingFragment extends Fragment implements NotificationListene
 	}
 
 	@Override
-	public void notificationReveiced(String msg) {
+	public void modelNotificationReveiced(String msg) {
 		updateView(getView());
 	}
 
 	@Override
-	public void currentSessionDataAdded() {
+	public void dataLoggerDataModified(String msg) {
 		updateValueCount(getView());		
 	}
 

@@ -9,7 +9,6 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 public class SoundSensorRunnable implements Runnable {
 	private Lock recordLock = new ReentrantLock();
@@ -55,8 +54,6 @@ public class SoundSensorRunnable implements Runnable {
 					this.fft = new FFT(this.fftN);
 					this.fftRe = new double[this.fftN];
 					
-					Log.d("fftn", "" + fftN + " " + this.bufferLength);
-
 					if (record != null) {
 						record.stop();
 						record.release();

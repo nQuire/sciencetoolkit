@@ -19,83 +19,80 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class DataLogger extends BroadcastReceiver {
-	private static final String DATA_LOGGING_CURRENT_SESSION = "data_logging_current_session";
-	
+public class DataLogger extends BroadcastReceiver implements DataLoggerListener {
+	private static final String DATA_LOGGING_NEW_DATA = "DATA_LOGGING_NEW_DATA";
+
 	private static DataLogger instance;
-	
+
 	public static void init(Context applicationContext) {
 		instance = new DataLogger(applicationContext);
 	}
-	
+
 	public static DataLogger getInstance() {
 		return instance;
 	}
-	
+
 	ReentrantLock runningLock;
 	ReentrantLock listenersLock;
-	
+
 	Context applicationContext;
-	
+
 	String profileId;
 	Model profile;
 	boolean running;
 	Vector<DataPipe> pipes;
-	Hashtable<String, Integer> dataCount;
-	Vector<CurrentSessionDataListener> listeners;
+	Vector<DataLoggerListener> listeners;
 	ScienceToolkitSQLiteOpenHelper helper;
-	
+
 	public DataLogger(Context applicationContext) {
 		this.applicationContext = applicationContext;
-		
+
 		runningLock = new ReentrantLock();
 		listenersLock = new ReentrantLock();
 		pipes = new Vector<DataPipe>();
-		dataCount = new Hashtable<String, Integer>();
-		listeners = new Vector<CurrentSessionDataListener>();
-		helper = new ScienceToolkitSQLiteOpenHelper(applicationContext);
+		listeners = new Vector<DataLoggerListener>();
+		helper = new ScienceToolkitSQLiteOpenHelper(applicationContext, this);
 	}
-	
-	public void registerListener(CurrentSessionDataListener listener) {
+
+	public void registerListener(DataLoggerListener listener) {
 		listenersLock.lock();
 		if (!listeners.contains(listener)) {
 			listeners.add(listener);
 			if (listeners.size() == 1) {
-				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(this, new IntentFilter(DataLogger.DATA_LOGGING_CURRENT_SESSION));
+				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(this, new IntentFilter(DataLogger.DATA_LOGGING_NEW_DATA));
 			}
 		}
-		
-		listenersLock.unlock();		
+
+		listenersLock.unlock();
 	}
-	
-	public void unregisterListener(CurrentSessionDataListener listener) {
+
+	public void unregisterListener(DataLoggerListener listener) {
 		listenersLock.lock();
 		listeners.remove(listener);
 		if (listeners.size() == 0) {
 			LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(this);
 		}
 	}
-	
+
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	private void setProfile(Model profile) {
 		this.profile = profile;
 		this.profileId = profile.getString("id");
 		this.running = false;
 	}
-	
+
 	public void start() {
 		start(ProfileManager.getInstance().getActiveProfile());
 	}
-	
+
 	private void start(Model profile) {
 		runningLock.lock();
 		if (!running) {
 			setProfile(profile);
 			running = true;
-			dataCount.clear();
 			pipes.clear();
 			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
 				String sensorId = profileSensor.getString("id");
@@ -104,55 +101,68 @@ public class DataLogger extends BroadcastReceiver {
 				Model profileSensorSettings = profileSensor.getModel("sensor_settings");
 				Model globalSensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
 				globalSensorSettings.copyPrimitives(profileSensorSettings, false);
-				
+
 				if (sensor != null) {
 					DataPipe pipe = new DataPipe(sensor);
 					pipe.addFilter(new FixedRateDataFilter(period));
-					pipe.setEnd(new DataLoggingInput(profileId, "*", sensorId, this));
+					pipe.setEnd(new DataLoggingInput(profileId, "*", sensorId, this.helper));
 					pipes.add(pipe);
-					dataCount.put(sensorId, 0);
 				}
 			}
-			
+
 			for (DataPipe pipe : pipes) {
 				pipe.attach();
 			}
-			
+
 		}
 		runningLock.unlock();
 	}
-	
+
 	public void stop() {
 		runningLock.lock();
-		
+
 		if (running) {
 			for (DataPipe pipe : pipes) {
 				pipe.detach();
 			}
-			pipes.clear();			
+			pipes.clear();
 			running = false;
 		}
-		
+
 		runningLock.unlock();
 	}
-	
-	public Hashtable<String, Integer> getValueCount() {
-		return this.dataCount;
+
+	public int getSampleCount(String profileId) {
+		return this.helper.dataCount(profileId);
 	}
 
-	public void dataAdded(String sensorId) {
-		dataCount.put(sensorId, dataCount.get(sensorId) + 1);
+	public Hashtable<String, Integer> getDetailedSampleCount(String profileId) {
+		return this.helper.detailedDataCount(profileId);
+	}
+
+	public void deleteAllData() {
+		this.helper.emptyData(null);
+	}
+
+	public void deleteData(String profileId) {
+		this.helper.emptyData(profileId);
+	}
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		String msg = intent.getExtras().getString("msg");
+		for (DataLoggerListener listener : listeners) {
+			listener.dataLoggerDataModified(msg);
+		}
+	}
+
+	@Override
+	public void dataLoggerDataModified(String msg) {
 		if (listeners.size() > 0) {
-			Intent intent = new Intent(DataLogger.DATA_LOGGING_CURRENT_SESSION);
+			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_DATA);
+			intent.putExtra("msg", msg);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		for (CurrentSessionDataListener listener : listeners) {
-			listener.currentSessionDataAdded();
-		}
-	}
-	
+
 }

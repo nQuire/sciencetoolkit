@@ -10,11 +10,13 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 	SQLiteDatabase db;
 	Vector<ProfileSensorTimeValue> pendingValues;
 	Thread thread;
+	DataLoggerListener listener;
 
-	public AsynchSQLiteWriterRunnable(SQLiteDatabase db) {
+	public AsynchSQLiteWriterRunnable(SQLiteDatabase db, DataLoggerListener listener) {
 		this.db = db;
 		this.thread = null;
-		pendingValues = new Vector<ProfileSensorTimeValue>();
+		this.pendingValues = new Vector<ProfileSensorTimeValue>();
+		this.listener = listener;
 	}
 
 	public void addData(String profileId, String sensorId, String data) {
@@ -29,6 +31,7 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 	public void run() {
 		Vector<ProfileSensorTimeValue> toWrite = pendingValues;
 		pendingValues = new Vector<ProfileSensorTimeValue>();
+		Vector<String> profiles = new Vector<String>();
 
 		try {
 			db.beginTransaction();
@@ -38,6 +41,10 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 				cv.put("sensor", v.sensorId);
 				cv.put("timestamp", v.time);
 				cv.put("data", v.data);
+				
+				if (!profiles.contains(v.profileId)) {
+					profiles.add(v.profileId);
+				}
 
 				db.insert(ScienceToolkitSQLiteOpenHelper.DATA_TABLE_NAME, null, cv);
 			}
@@ -48,6 +55,9 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 			db.endTransaction();
 		}
 		
+		for (String profile : profiles) {
+			listener.dataLoggerDataModified(profile);
+		}
 		this.thread = null;
 	}
 

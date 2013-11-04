@@ -1,8 +1,6 @@
 package org.greengin.sciencetoolkit.model;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -19,7 +17,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import android.content.Context;
-import android.util.Log;
 
 public class ModelSerializer {
 	public static void model2xml(Hashtable<String, Model> models, Context applicationContext, String file) {
@@ -31,16 +28,6 @@ public class ModelSerializer {
 
 			StreamResult result = new StreamResult(new File(applicationContext.getFilesDir(), file));
 			transformer.transform(source, result);
-			Log.d("stk models", "saved: " + file);
-			
-			File f = new File(applicationContext.getFilesDir(), file);
-			BufferedReader br = new BufferedReader(new FileReader(f));
-			String line;
-			while ((line = br.readLine()) != null) {
-				Log.d("stk save", line);
-			}
-			br.close();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

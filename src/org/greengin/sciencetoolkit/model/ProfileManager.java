@@ -1,14 +1,15 @@
 package org.greengin.sciencetoolkit.model;
 
 import java.util.Map.Entry;
+import java.util.Set;
 
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
 
 import android.content.Context;
 import android.util.Log;
 
-public class ProfileManager extends AbstractModelManager implements NotificationListener {
+public class ProfileManager extends AbstractModelManager implements ModelNotificationListener {
 
 	private static ProfileManager instance;
 	
@@ -23,12 +24,12 @@ public class ProfileManager extends AbstractModelManager implements Notification
 	NotificationListenerAggregator listeners;
 	
 	Model settings;
-	String activeProfile;
+	String activeProfileId;
 	
 	private ProfileManager(Context applicationContext) {
 		super(applicationContext, "profiles.xml", 500);
 		settings = SettingsManager.getInstance().get("profiles");
-		activeProfile = settings.getString("current_profile", null);
+		activeProfileId = settings.getString("current_profile", null);
 		listeners = new NotificationListenerAggregator(applicationContext, "profiles:notifications");
 		SettingsManager.getInstance().registerDirectListener("profiles", this);
 		initDefaultProfile();
@@ -94,8 +95,16 @@ public class ProfileManager extends AbstractModelManager implements Notification
 	}
 	
 	public Model getActiveProfile() {
-		Model profile = get(activeProfile);
+		Model profile = get(activeProfileId);
 		return profile;
+	}
+	
+	public String getActiveProfileId() {
+		return activeProfileId;
+	}
+	
+	public Set<String> getProfileIds() {
+		return items.keySet();
 	}
 	
 	
@@ -118,28 +127,28 @@ public class ProfileManager extends AbstractModelManager implements Notification
 	}
 
 	@Override
-	public void notificationReveiced(String msg) {
+	public void modelNotificationReveiced(String msg) {
 		String profile = settings.getString("current_profile", null);
-		boolean changed = profile == null ? activeProfile != null : !profile.equals(activeProfile);
+		boolean changed = profile == null ? activeProfileId != null : !profile.equals(activeProfileId);
 		if (changed) {
-			this.activeProfile = profile;
+			this.activeProfileId = profile;
 			listeners.fireEvent("switch");
 		}
 	}
 	
-	public void registerUIListener(NotificationListener listener) {
+	public void registerUIListener(ModelNotificationListener listener) {
 		listeners.addUIListener(listener);
 	}
 
-	public void unregisterUIListener(NotificationListener listener) {
+	public void unregisterUIListener(ModelNotificationListener listener) {
 		listeners.removeUIListener(listener);
 	}
 
-	public void registerDirectListener(NotificationListener listener) {
+	public void registerDirectListener(ModelNotificationListener listener) {
 		listeners.addDirectListener(listener);
 	}
 
-	public void unregisterDirectListener(NotificationListener listener) {
+	public void unregisterDirectListener(ModelNotificationListener listener) {
 		listeners.removeDirectListener(listener);
 	}
 }

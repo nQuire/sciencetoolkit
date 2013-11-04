@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
-
+import java.util.Hashtable;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,49 +12,53 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-import android.util.Log;
 
 public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
+
 	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "sciencetoolkit";
 
 	public static final String SENSORS_TABLE_NAME = "sensors";
 	public static final String SENSORS_TABLE_CREATE = "CREATE TABLE " + SENSORS_TABLE_NAME + " (name TEXT);";
-	public static final String[] SENSORS_TABLE_QUERY_COLUMNS = new String[] { "ROWID" };
-	public static final String SENSORS_TABLE_QUERY_WHERE = "name=?";
+	public static final String[] SENSORS_TABLE_QUERY_COLUMNS_E2I = new String[] { "ROWID" };
+	public static final String SENSORS_TABLE_QUERY_WHERE_E2I = "name=?";
+	public static final String[] SENSORS_TABLE_QUERY_COLUMNS_I2E = new String[] { "name" };
+	public static final String SENSORS_TABLE_QUERY_WHERE_I2E = "ROWID=?";
 
-	// v1: 	CREATE TABLE data (sensor INTEGER, timestamp INTEGER, data TEXT);
-	// v2: 	CREATE TABLE data (profile INTEGER, sensor INTEGER, timestamp INTEGER, data TEXT);
+	// v1: CREATE TABLE data (sensor INTEGER, timestamp INTEGER, data TEXT);
+	// v2: CREATE TABLE data (profile INTEGER, sensor INTEGER, timestamp
+	// INTEGER, data TEXT);
 
 	public static final String DATA_TABLE_NAME = "data";
 	public static final String DATA_TABLE_CREATE = "CREATE TABLE " + DATA_TABLE_NAME + " (profile INTEGER, sensor INTEGER, timestamp INTEGER, data TEXT);";
 	public static final String[] DATA_TABLE_QUERY_COUNT_COLUMNS = new String[] { "Count(ROWID)" };
+	public static final String[] DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR = new String[] { "sensor", "Count(sensor)" };
+	public static final String DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR_GROUP_BY = "sensor";
 	public static final String[] DATA_TABLE_QUERY_ALL_COLUMNS = new String[] { "profile", "sensor", "timestamp", "data" };
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE = "profile=?";
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR = "profile=? AND sensor=?";
 	public static final String DATA_TABLE_DELETE_ALL = "DELETE FROM data";
+	public static final String DATA_TABLE_DELETE_PROFILE = "DELETE FROM data WHERE profile=?";
 
 	Context context;
-	HashMap<String, String> sensorIdsCache;
+	HashMap<String, String> sensorIdsCacheE2I;
+	HashMap<String, String> sensorIdsCacheI2E;
 	AsynchSQLiteWriterRunnable runnable;
-	
-	public ScienceToolkitSQLiteOpenHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.sensorIdsCache = new HashMap<String, String>();
-		this.context = context;
-		this.runnable = new AsynchSQLiteWriterRunnable(getWritableDatabase());
-	}
+	DataLoggerListener listener;
 
-	/*public void fireDataEvent() {
-		Intent i = new Intent(DataManager.DATA_MODIFIED);
-		LocalBroadcastManager.getInstance(context).sendBroadcast(i);
-	}*/
+	public ScienceToolkitSQLiteOpenHelper(Context context, DataLoggerListener listener) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.sensorIdsCacheE2I = new HashMap<String, String>();
+		this.sensorIdsCacheI2E = new HashMap<String, String>();
+		this.context = context;
+		this.runnable = new AsynchSQLiteWriterRunnable(getWritableDatabase(), listener);
+		this.listener = listener;
+	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(SENSORS_TABLE_CREATE);
 		db.execSQL(DATA_TABLE_CREATE);
-		Log.d("stkdb", "tables created");
 	}
 
 	@Override
@@ -66,31 +70,65 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	}
 
 	protected String getInternalSensorId(String sensorId) {
-		Log.d("stkdb", "request id: " + sensorId);
-		if (!this.sensorIdsCache.containsKey(sensorId)) {
+		if (!this.sensorIdsCacheE2I.containsKey(sensorId)) {
 			String internalId;
-			Cursor cursor = getReadableDatabase().query(SENSORS_TABLE_NAME, SENSORS_TABLE_QUERY_COLUMNS, SENSORS_TABLE_QUERY_WHERE, new String[] { sensorId }, null, null, null, "1");
+			Cursor cursor = getReadableDatabase().query(SENSORS_TABLE_NAME, SENSORS_TABLE_QUERY_COLUMNS_E2I, SENSORS_TABLE_QUERY_WHERE_E2I, new String[] { sensorId }, null, null, null, "1");
 			if (cursor.getCount() == 1) {
 				cursor.moveToFirst();
 				internalId = cursor.getString(0);
-				Log.d("stkdb", "found in db: " + internalId);
 			} else {
 				ContentValues values = new ContentValues();
 				values.put("name", sensorId);
 				internalId = "" + getWritableDatabase().insert(SENSORS_TABLE_NAME, null, values);
-				Log.d("stkdb", "added in db: " + internalId);
 			}
 
-			this.sensorIdsCache.put(sensorId, internalId);
+			this.sensorIdsCacheE2I.put(sensorId, internalId);
+			this.sensorIdsCacheI2E.put(internalId, sensorId);
 			return internalId;
 		} else {
-			Log.d("stkdb", "found in cache: " + this.sensorIdsCache.get(sensorId));
-			return this.sensorIdsCache.get(sensorId);
+			return this.sensorIdsCacheE2I.get(sensorId);
+		}
+	}
+
+	protected String getExternalSensorId(String internalSensorId) {
+		if (!this.sensorIdsCacheI2E.containsKey(internalSensorId)) {
+			String externalId;
+			Cursor cursor = getReadableDatabase().query(SENSORS_TABLE_NAME, SENSORS_TABLE_QUERY_COLUMNS_I2E, SENSORS_TABLE_QUERY_WHERE_I2E, new String[] { internalSensorId }, null, null, null, "1");
+			if (cursor.getCount() == 0) {
+				return null;
+			} else {
+				cursor.moveToFirst();
+				externalId = cursor.getString(0);
+				this.sensorIdsCacheI2E.put(internalSensorId, externalId);
+				this.sensorIdsCacheE2I.put(externalId, internalSensorId);
+				return externalId;
+			}
+		} else {
+			return this.sensorIdsCacheI2E.get(internalSensorId);
 		}
 	}
 
 	public int dataCount() {
 		return dataCount(null);
+	}
+
+	public Hashtable<String, Integer> detailedDataCount(String profileId) {
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR_GROUP_BY, null, null);
+
+		Hashtable<String, Integer> result = new Hashtable<String, Integer>();
+
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+				String internalSensorId = cursor.getString(0);
+				String externalSensorId = getExternalSensorId(internalSensorId);
+				int count = cursor.getInt(1);
+				result.put(externalSensorId, count);
+				cursor.moveToNext();
+			}
+		}
+
+		return result;
 	}
 
 	public int dataCount(String profileId) {
@@ -103,10 +141,8 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 		if (cursor.getCount() == 1) {
 			cursor.moveToFirst();
-			Log.d("stkdb", "data: " + cursor.getInt(0) + " for " + profileId);
 			return cursor.getInt(0);
 		} else {
-			Log.d("stkdb", "data count not found for " + profileId);
 			return 0;
 		}
 	}
@@ -114,63 +150,60 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	public void save(String profileId, String sensorId, String data) {
 		String internalSensorId = getInternalSensorId(sensorId);
 		this.runnable.addData(profileId, internalSensorId, data);
-		//this.fireDataEvent();
 	}
 
-	public void emptyData() {
-		getWritableDatabase().execSQL(DATA_TABLE_DELETE_ALL);
-		//fireDataEvent();
+	public void emptyData(String profileId) {
+		if (profileId == null) {
+			getWritableDatabase().delete(DATA_TABLE_NAME, null, null);
+		} else {
+			getWritableDatabase().delete(DATA_TABLE_NAME, DATA_TABLE_QUERY_WHERE_PROFILE, new String[]{profileId});
+		}
+		
+		listener.dataLoggerDataModified("all");
 	}
 
 	public void exportData() {
 		String state = Environment.getExternalStorageState();
-		Log.d("stkdb", "export state: " + state);
-		Log.d("stkdb", Environment.getExternalStorageDirectory().getAbsolutePath());
-		
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 			File export = null;
 			for (int i = 0;; i++) {
-				Log.d("stkdb", "export try: " + "science_toolkit_" + i + ".csv");
 				export = new File(path, "science_toolkit_" + i + ".csv");
 				if (!export.exists()) {
 					break;
 				}
 			}
 
-			Log.d("stkdb", "export file: " + export.getAbsolutePath());
-
 			try {
-				
+
 				BufferedWriter bw = new BufferedWriter(new FileWriter(export));
 
 				Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, null, null, null, null, null);
 				if (cursor.getCount() > 0) {
 					cursor.moveToFirst();
-					while(!cursor.isAfterLast()) {
+					while (!cursor.isAfterLast()) {
 						bw.write(cursor.getString(0));
 						bw.write(" , ");
 						bw.write(cursor.getString(1));
 						bw.write(" , ");
 						bw.write(cursor.getString(2));
-						
+
 						String[] parts = cursor.getString(3).split("\\|");
 						for (int i = 0; i < 3; i++) {
 							bw.write(" , ");
 							bw.write(i < parts.length ? parts[i] : "");
 						}
 						bw.write("\n");
-						
+
 						cursor.moveToNext();
 					}
 				}
-				
+
 				bw.close();
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 

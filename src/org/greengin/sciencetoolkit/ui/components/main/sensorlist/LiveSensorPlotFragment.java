@@ -13,7 +13,7 @@ import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.datafilters.SensorLiveXYSeries;
 
 import com.androidplot.xy.BoundaryMode;
@@ -43,7 +43,7 @@ public class LiveSensorPlotFragment extends Fragment {
 	XYPlot plot;
 	String filter;
 	BroadcastReceiver seriesReceiver;
-	NotificationListener notificationListener;
+	ModelNotificationListener notificationListener;
 
 	Model settings;
 
@@ -73,13 +73,12 @@ public class LiveSensorPlotFragment extends Fragment {
 			}
 		};
 
-		this.notificationListener = new NotificationListener() {
+		this.notificationListener = new ModelNotificationListener() {
 			@Override
-			public void notificationReveiced(String msg) {
+			public void modelNotificationReveiced(String msg) {
 				updatePlotConfig();
 			}
 		};
-		SettingsManager.getInstance().registerDirectListener(this.filter, this.notificationListener);
 	}
 
 	@Override
@@ -97,24 +96,28 @@ public class LiveSensorPlotFragment extends Fragment {
 
 		updatePlotConfig();
 
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.seriesReceiver, new IntentFilter(filter));
-		this.dataPipe.attach();
 
 		return rootView;
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		SettingsManager.getInstance().registerDirectListener(this.filter, this.notificationListener);
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.seriesReceiver, new IntentFilter(filter));
+		this.dataPipe.attach();
+		plot.redraw();
+		updatePlotConfig();
+	}
 
 	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
+	public void onPause() {
+		super.onPause();
 		this.dataPipe.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.seriesReceiver);
-	}
-
-	@Override
-	public void onDetach() {
-		super.onDetach();
 		SettingsManager.getInstance().unregisterDirectListener(this.filter, this.notificationListener);
 	}
+
 
 	public void eventSeriesUpdated() {
 		if (plot != null) {

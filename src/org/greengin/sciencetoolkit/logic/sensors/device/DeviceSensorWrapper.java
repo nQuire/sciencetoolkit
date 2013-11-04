@@ -4,14 +4,15 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 
-public class DeviceSensorWrapper extends SensorWrapper implements SensorEventListener, NotificationListener {
+public class DeviceSensorWrapper extends SensorWrapper implements SensorEventListener, ModelNotificationListener {
 
 	public static final int[] DELAY_MODE_VALUES = new int[] { SensorManager.SENSOR_DELAY_FASTEST, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_NORMAL };
 
@@ -116,7 +117,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 
 	@Override
 	public int getMinDelay() {
-		return this.sensor.getMinDelay();
+		return Build.VERSION.SDK_INT >= 9 ? this.sensor.getMinDelay() : 0;
 	}
 
 	@Override
@@ -140,7 +141,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	}
 
 	@Override
-	public void notificationReveiced(String msg) {
+	public void modelNotificationReveiced(String msg) {
 		this.updateDelay();
 	}
 }

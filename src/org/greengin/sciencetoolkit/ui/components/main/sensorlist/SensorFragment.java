@@ -8,7 +8,7 @@ import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.model.notifications.NotificationListener;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 
@@ -19,8 +19,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +44,7 @@ public class SensorFragment extends Fragment {
 	int showValueFormatMinInt;
 
 	BroadcastReceiver valueReceiver;
-	NotificationListener periodListener;
+	ModelNotificationListener periodListener;
 
 
 	@Override
@@ -76,19 +74,33 @@ public class SensorFragment extends Fragment {
 			}
 		};
 		
-		this.periodListener = new NotificationListener() {
+		this.periodListener = new ModelNotificationListener() {
 			@Override
-			public void notificationReveiced(String msg) {
+			public void modelNotificationReveiced(String msg) {
 				periodFilter.setPeriod(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
 			}
 		};
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 		SettingsManager.getInstance().registerDirectListener(this.showValueIntentFilter, periodListener);		
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
+
+		if (settings.getBool("show")) {
+			showValuePipe.attach();
+			createPlot();
+		}
 	}
 
 	@Override
-	public void onDetach() {
-		super.onDetach();
+	public void onPause() {
+		super.onPause();
+		this.showValuePipe.detach();
+		destroyPlot();
 		SettingsManager.getInstance().unregisterDirectListener(this.showValueIntentFilter, periodListener);
+		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
 	}
 	
 	@Override
@@ -117,12 +129,6 @@ public class SensorFragment extends Fragment {
 
 		this.updateView(rootView);
 
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
-
-		if (settings.getBool("show")) {
-			showValuePipe.attach();
-			createPlot();
-		}
 		
 		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
 		editButton.setOnClickListener(new OnClickListener() {
@@ -141,8 +147,6 @@ public class SensorFragment extends Fragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 
-		this.showValuePipe.detach();
-		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
 	}
 
 	protected void actionToogleSensorValueView(boolean checked) {
@@ -160,29 +164,19 @@ public class SensorFragment extends Fragment {
 	}
 
 	protected void createPlot() {
-		FragmentManager fragmentManager = getChildFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
 		LiveSensorPlotFragment fragment = new LiveSensorPlotFragment();
 		Bundle args = new Bundle();
 		args.putString(LiveSensorPlotFragment.ARG_SENSOR, sensorId);
 		fragment.setArguments(args);
 
-		fragmentTransaction.replace(R.id.sensor_plot_section, fragment, "plot");
-		fragmentTransaction.commit();
+		getChildFragmentManager().beginTransaction().replace(R.id.sensor_plot_section, fragment, "plot").commit();
 	}
 
 	protected void destroyPlot() {
-		FragmentManager fragmentManager = getChildFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-		Fragment fragment = fragmentManager.findFragmentByTag("plot");
-
+		Fragment fragment = getChildFragmentManager().findFragmentByTag("plot");
 		if (fragment != null) {
-			fragmentTransaction.remove(fragment);
+			getChildFragmentManager().beginTransaction().remove(fragment).commit();
 		}
-
-		fragmentTransaction.commit();
 	}
 
 	protected void eventDataReceived(float[] values, int valueCount) {
