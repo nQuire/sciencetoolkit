@@ -95,7 +95,7 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 			String externalId;
 			Cursor cursor = getReadableDatabase().query(SENSORS_TABLE_NAME, SENSORS_TABLE_QUERY_COLUMNS_I2E, SENSORS_TABLE_QUERY_WHERE_I2E, new String[] { internalSensorId }, null, null, null, "1");
 			if (cursor.getCount() == 0) {
-				return null;
+				return "";
 			} else {
 				cursor.moveToFirst();
 				externalId = cursor.getString(0);
@@ -156,13 +156,13 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 		if (profileId == null) {
 			getWritableDatabase().delete(DATA_TABLE_NAME, null, null);
 		} else {
-			getWritableDatabase().delete(DATA_TABLE_NAME, DATA_TABLE_QUERY_WHERE_PROFILE, new String[]{profileId});
+			getWritableDatabase().delete(DATA_TABLE_NAME, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId });
 		}
-		
+
 		listener.dataLoggerDataModified("all");
 	}
 
-	public void exportData() {
+	public File exportData(String profileId) {
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -178,13 +178,13 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 				BufferedWriter bw = new BufferedWriter(new FileWriter(export));
 
-				Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, null, null, null, null, null);
+				Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
 				if (cursor.getCount() > 0) {
 					cursor.moveToFirst();
 					while (!cursor.isAfterLast()) {
 						bw.write(cursor.getString(0));
 						bw.write(" , ");
-						bw.write(cursor.getString(1));
+						bw.write(getExternalSensorId(cursor.getString(1)));
 						bw.write(" , ");
 						bw.write(cursor.getString(2));
 
@@ -201,10 +201,13 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 				bw.close();
 
+				return export;
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		return null;
 	}
 
 }

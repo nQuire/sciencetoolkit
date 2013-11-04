@@ -30,7 +30,7 @@
     <string name="profile_sensor_period_settings">Data logging settings</string>
     <string name="profile_sensor_settings">Sensor settings</string>
     <string name="remove_sensor_dlg_title">Remove sensor</string>
-    <string name="remove_sensor_dlg_msg">Do you want to remove sensor &lt;i>%1s&lt;/i> from this profile?</string>
+    <string name="remove_sensor_dlg_msg">Do you want to remove sensor &lt;i>%1$s&lt;/i> from this profile?</string>
     <string name="remove_sensor_dlg_yes">Remove</string>
     <string name="data_logging_start">Start logging</string>
     <string name="data_logging_stop">Stop logging</string>
@@ -45,5 +45,12 @@
     <string name="delete_data_dlg_yes">Delete</string>
     <string name="delete_profile_data_dlg_title">Delete profile data</string>
     <string name="delete_profile_data_dlg_msg">Do you want to delete all data from profile &lt;i>%1s&lt;/i>?</string>
-    
+    <string name="export_data_dlg_title">Data exported to CSV</string>
+    <string name="export_data_dlg_msg">Data for profile &lt;i>%1$s&lt;/i> saved to file:&lt;br/>&lt;br/>&lt;tt>%2$s&lt;/tt>&lt;br/>&lt;br/>Do you want to share this file?</string>
+    <string name="export_data_dlg_yes">Share</string>
+    <string name="export_data_dlg_no">Close</string>
+    <string name="export_menu_title">Share CSV data</string>
+    <string name="export_payload_subject">nQuire Science Toolkit data: %1$s</string>
+    <string name="export_payload_body"></string>
+
 </resources>

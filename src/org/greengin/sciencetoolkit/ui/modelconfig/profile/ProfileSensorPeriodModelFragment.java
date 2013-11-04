@@ -16,8 +16,7 @@ public class ProfileSensorPeriodModelFragment extends AbstractProfileConfigFragm
 
 	@Override
 	protected void createConfigOptions(View view) {
-		addOptionNumber("period", "Period", "The time (ms.) between samples logged for this sensor.", false, false, ModelDefaults.DATA_LOGGING_PERIOD, 10, null);
+		addOptionNumber("period", "Period", "The time (ms.) between samples logged for this sensor.", false, false, ModelDefaults.DATA_LOGGING_PERIOD, ModelDefaults.DATA_LOGGING_MIN_PERIOD, null);
 	}
-
 	
 }

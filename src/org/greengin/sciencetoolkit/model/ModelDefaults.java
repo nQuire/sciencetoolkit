@@ -9,4 +9,5 @@ public class ModelDefaults {
 	public static final int LIVEPLOT_SAMPLES = 100; 
 	
 	public static final int DATA_LOGGING_PERIOD = 1000;
+	public static final int DATA_LOGGING_MIN_PERIOD = 100;
 }

@@ -1,5 +1,6 @@
 package org.greengin.sciencetoolkit.logic.datalogging;
 
+import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
@@ -148,6 +149,10 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 		this.helper.emptyData(profileId);
 	}
 
+	public File exportData(String profileId) {
+		return this.helper.exportData(profileId);
+	}
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		String msg = intent.getExtras().getString("msg");

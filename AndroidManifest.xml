@@ -66,6 +66,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
-        </application>
+    </application>
 
 </manifest>
