@@ -12,6 +12,7 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity;
+import org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -44,7 +45,7 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 		View rootView = inflater.inflate(R.layout.fragment_data_logging, container, false);
 
 		updateView(rootView);
-		
+
 		rootView.findViewById(R.id.data_logging_start).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -52,7 +53,7 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 				updateButtons(view.getRootView());
 			}
 		});
-		
+
 		rootView.findViewById(R.id.data_logging_stop).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -60,10 +61,10 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 				updateButtons(view.getRootView());
 			}
 		});
-		
+
 		return rootView;
 	}
-	
+
 	private void updateView(View rootView) {
 		if (rootView != null) {
 			TextView nameView = (TextView) rootView.findViewById(R.id.current_profile_name);
@@ -122,17 +123,16 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 
 	private void updateButtons(View rootView) {
 		boolean running = DataLogger.getInstance().isRunning();
-		
+
 		rootView.findViewById(R.id.data_logging_start).setEnabled(!running);
 		rootView.findViewById(R.id.data_logging_stop).setEnabled(running);
 	}
-	
 
 	private void updateValueCount(View rootView) {
 		TextView textView = (TextView) rootView.findViewById(R.id.data_logging_value_count);
 		StringBuffer sb = new StringBuffer();
 		Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId()).entrySet().iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Entry<String, Integer> entry = it.next();
 			sb.append(entry.getKey()).append(": ").append(entry.getValue());
 			if (it.hasNext()) {
@@ -165,11 +165,17 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_data_logging_edit:
+		case R.id.action_data_logging_edit: {
 			Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
 			intent.putExtra("mode", "edit");
 			startActivity(intent);
 			break;
+		}
+		case R.id.action_data_logging_switch: {
+			Intent intent = new Intent(getActivity(), SwitchProfileActivity.class);
+			startActivity(intent);
+			break;
+		}
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -182,7 +188,7 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 
 	@Override
 	public void dataLoggerDataModified(String msg) {
-		updateValueCount(getView());		
+		updateValueCount(getView());
 	}
 
 }

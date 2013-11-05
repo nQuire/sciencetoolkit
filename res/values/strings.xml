@@ -55,5 +55,8 @@
     <string name="export_payload_subject">nQuire Science Toolkit data: %1$s</string>
     <string name="export_payload_body"></string>
     <string name="title_activity_data_view">View my data</string>
-
+    <string name="title_activity_switch_profile">Switch profile</string>
+    <string name="switch_profile">Switch</string>
+    <string name="switch_profile_active">Active profile</string>
+    
 </resources>

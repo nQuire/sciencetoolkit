@@ -49,11 +49,6 @@ public class DataFragment extends Fragment {
 	}
 
 	@Override
-	public void onDetach() {
-		super.onDetach();
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 
@@ -109,11 +104,6 @@ public class DataFragment extends Fragment {
 		});
 
 		return rootView;
-	}
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
 	}
 
 	private void updateView(View view) {

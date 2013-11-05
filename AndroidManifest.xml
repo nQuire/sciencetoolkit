@@ -74,6 +74,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity"
+            android:label="@string/title_activity_switch_profile"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

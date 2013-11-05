@@ -71,9 +71,7 @@ public class AddSensorDialogFragment extends DialogFragment implements OnChecked
 			ok.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					for (String sensorId : chosen) {
-						ProfileManager.getInstance().addSensor(profile, sensorId);
-					}
+					ProfileManager.getInstance().addSensors(profile, chosen);
 					dismiss();
 				}
 			});

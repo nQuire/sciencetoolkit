@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.model;
 
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Vector;
 
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
@@ -12,7 +13,7 @@ import android.util.Log;
 public class ProfileManager extends AbstractModelManager implements ModelNotificationListener {
 
 	private static ProfileManager instance;
-	
+
 	public static void init(Context applicationContext) {
 		instance = new ProfileManager(applicationContext);
 	}
@@ -22,10 +23,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	NotificationListenerAggregator listeners;
-	
+
 	Model settings;
 	String activeProfileId;
-	
+
 	private ProfileManager(Context applicationContext) {
 		super(applicationContext, "profiles.xml", 500);
 		settings = SettingsManager.getInstance().get("profiles");
@@ -35,22 +36,22 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		initDefaultProfile();
 		checkDataConsistency();
 	}
-	
+
 	private void initDefaultProfile() {
 		if (settings.getBool("create_default", true) && items.size() == 0) {
 			Model defaultProfile = createEmptyProfile();
 			defaultProfile.setString("title", "Default");
-			
+
 			settings.setBool("create_default", false);
 			settings.setString("current_profile", defaultProfile.getString("id"));
 		}
 	}
-	
+
 	private void checkDataConsistency() {
-		for(Entry<String, Model> entry : items.entrySet()) {
+		for (Entry<String, Model> entry : items.entrySet()) {
 			String id = entry.getKey();
 			Model model = entry.getValue();
-			
+
 			if (id.length() == 0) {
 				Log.d("stk profiles", "empty id");
 			} else {
@@ -60,31 +61,53 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 		}
 	}
-	
+
 	private Model createEmptyProfile() {
 		String id = getNewId();
 		Model profile = new Model(this);
 		items.put(id, profile);
-		
+
 		profile.setString("id", id);
 		profile.getModel("sensors", true, true);
 		modelModified(profile);
 		return profile;
 	}
-	
+
 	public void addSensor(Model profile, String sensorId) {
+		addSensor(profile, sensorId, false);
+	}
+
+	public void addSensor(Model profile, String sensorId, boolean suppressSave) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		int weight = profileSensors.getModels().size();
-		
+
 		Model profileSensor = profileSensors.getModel(sensorId, true, true);
 		profileSensor.setString("id", sensorId, true);
 		profileSensor.setInt("weight", weight, true);
 		Model sensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
 		Model profileSensorSettings = profileSensor.getModel("sensor_settings", true, true);
 		profileSensorSettings.copyPrimitives(sensorSettings, true);
-		this.modelModified(profile);
+
+		if (!suppressSave) {
+			this.modelModified(profile);
+		}
 	}
-	
+
+	public void addSensors(Model profile, Vector<String> sensorIds) {
+		addSensors(profile, sensorIds, false);
+	}
+
+	public void addSensors(Model profile, Vector<String> sensorIds, boolean suppressSave) {
+		for (String sensorId : sensorIds) {
+			addSensor(profile, sensorId, true);
+		}
+
+		if (sensorIds.size() > 0 && !suppressSave) {
+			this.modelModified(profile);
+		}
+	}
+
+
 	public void removeSensor(Model profile, String sensorId) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		profileSensors.clear(sensorId);
@@ -93,21 +116,20 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public Model get(String key) {
 		return get(key, false);
 	}
-	
+
 	public Model getActiveProfile() {
 		Model profile = get(activeProfileId);
 		return profile;
 	}
-	
+
 	public String getActiveProfileId() {
 		return activeProfileId;
 	}
-	
+
 	public Set<String> getProfileIds() {
 		return items.keySet();
 	}
-	
-	
+
 	private String getNewId() {
 		for (int i = 1;; i++) {
 			String test = Integer.toString(i);
@@ -116,11 +138,11 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 		}
 	}
-	
+
 	@Override
 	public void modelModified(Model model) {
 		super.modelModified(model);
-		
+
 		Model profile = model.getRootParent();
 		String profileId = profile.getString("id", null);
 		listeners.fireEvent(profileId);
@@ -135,7 +157,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			listeners.fireEvent("switch");
 		}
 	}
-	
+
 	public void registerUIListener(ModelNotificationListener listener) {
 		listeners.addUIListener(listener);
 	}
