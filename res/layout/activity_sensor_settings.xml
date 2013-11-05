@@ -20,12 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#0099cc" />
+            android:textColor="@color/value_text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sensor_settings" />
+            android:text="@string/sensor_settings"
+            style="@style/settings_header_text" />
 
         <LinearLayout
             android:id="@+id/sensor_settings"
@@ -37,7 +38,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sensor_liveview_settings" />
+            android:text="@string/sensor_liveview_settings"
+            style="@style/settings_header_text" />
 
         <LinearLayout
             android:id="@+id/sensor_liveview_settings"
@@ -49,7 +51,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sensor_liveplot_settings" />
+            android:text="@string/sensor_liveplot_settings"
+            style="@style/settings_header_text" />
 
         <LinearLayout
             android:id="@+id/sensor_liveplot_settings"

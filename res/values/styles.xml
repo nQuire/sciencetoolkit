@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,6 +15,14 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="settings_header_text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/settings_header_text_size</item>
+        <item name="android:textColor">@color/settings_header_text</item>
+        <item name="android:paddingTop">@dimen/settings_header_padding_top</item>
+        <item name="android:paddingBottom">@dimen/settings_header_padding_bottom</item>
     </style>
 
 </resources>

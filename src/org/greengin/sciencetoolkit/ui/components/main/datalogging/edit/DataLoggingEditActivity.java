@@ -78,7 +78,7 @@ public class DataLoggingEditActivity extends ActionBarActivity implements ModelN
 		if (fragments != null) {
 			for (Fragment fragment : fragments) {
 				if (fragment instanceof ProfileSensorOrganizeFragment) {
-					getSupportFragmentManager().beginTransaction().detach(fragment).remove(fragment).commit();
+					getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 				}
 			}
 		}

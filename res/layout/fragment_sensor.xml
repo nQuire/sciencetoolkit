@@ -77,7 +77,7 @@
                     android:id="@+id/sensor_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#0099cc"
+                    android:textColor="@color/value_text"
                     android:typeface="monospace" />
             </LinearLayout>
 

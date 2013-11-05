@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="settings_header_text">#004055</color>
+    <color name="value_text">#0099cc</color>
+</resources>

@@ -9,20 +9,20 @@
     <string name="menu_item_data_logging_new">New profile</string>
     <string name="menu_item_data_view_mode">Select visualization</string>
     <string name="menu_item_data_view_range">Select data range</string>
-    <string name="title_activity_main">Science Toolkit</string>
-    <string name="title_activity_welcome">Welcome</string>
+    <string name="title_activity_main">nQuire Science Toolkit</string>
+    <string name="title_activity_welcome">nQuire Science Toolkit</string>
     <string name="main_activity_tab_1">Sensors</string>
     <string name="main_activity_tab_2">Data logging</string>
     <string name="main_activity_tab_3">My data</string>
-    <string name="title_activity_sensor_list_settings">SensorListSettingsActivity</string>
+    <string name="title_activity_sensor_list_settings">Show/hide sensors</string>
     <string name="action_settings">Settings</string>
     <string name="current_profile">Current profile:</string>
     <string name="sensors_label">Sensors:</string>
-    <string name="title_activity_sensor_settings">SensorSettingsActivity</string>
+    <string name="title_activity_sensor_settings">Edit sensor configuration</string>
     <string name="sensor_settings">Sensor settings</string>
     <string name="sensor_liveview_settings">Live value settings</string>
     <string name="sensor_liveplot_settings">Live plot settings</string>
-    <string name="title_activity_data_logging_edit">DataLoggingEditActivity</string>
+    <string name="title_activity_data_logging_edit">Edit profile</string>
     <string name="profile_title_hint">Profile name</string>
     <string name="profile_name_label">Name</string>
     <string name="cancel">Cancel</string>
@@ -54,7 +54,6 @@
     <string name="export_menu_title">Share CSV data</string>
     <string name="export_payload_subject">nQuire Science Toolkit data: %1$s</string>
     <string name="export_payload_body"></string>
-    <string name="title_activity_data_view">DataViewActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_data_view">View my data</string>
 
 </resources>

@@ -17,7 +17,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-
+	
+	private static int mLastTab = -1;
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -33,6 +34,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	 */
 	ViewPager mViewPager;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
+				mLastTab = position;
 				actionBar.setSelectedNavigationItem(position);
 			}
 		});
@@ -69,6 +72,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 			// the TabListener interface, as the callback (listener) for when
 			// this tab is selected.
 			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
+		}
+	}
+	
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (mLastTab >= 0) {
+			getSupportActionBar().setSelectedNavigationItem(mLastTab);
 		}
 	}
 

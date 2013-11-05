@@ -34,7 +34,7 @@
                 android:layout_toRightOf="@id/current_profile_label"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#0099cc" />
+                android:textColor="@color/value_text" />
         </RelativeLayout>
 
         <TextView

@@ -1,5 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging.edit;
 
+import java.util.Vector;
+
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
@@ -12,18 +14,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class AddSensorDialogFragment extends DialogFragment {
+public class AddSensorDialogFragment extends DialogFragment implements OnCheckedChangeListener {
 
 	public AddSensorDialogFragment() {
 		super();
 	}
 
-	RadioGroup group;
+	Vector<String> chosen;
 	Button ok;
 	Model profile;
 
@@ -38,15 +40,19 @@ public class AddSensorDialogFragment extends DialogFragment {
 			LinearLayout ll = (LinearLayout) view.findViewById(R.id.add_sensor_list);
 			ll.removeAllViews();
 
-			group = new RadioGroup(view.getContext());
+			chosen = new Vector<String>();
 
 			Model sensorsInProfile = profile.getModel("sensors");
 			for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
 				if (sensorsInProfile == null || sensorsInProfile.getModel(sensorId) == null) {
-					RadioButton button = new RadioButton(view.getContext());
-					button.setTag(sensorId);
-					button.setText(sensorId);
-					group.addView(button);
+
+					CheckBox checkbox = new CheckBox(view.getContext());
+					checkbox.setChecked(false);
+					checkbox.setTag(sensorId);
+					checkbox.setText(sensorId);
+					checkbox.setOnCheckedChangeListener(this);
+
+					ll.addView(checkbox);
 				}
 			}
 
@@ -55,7 +61,6 @@ public class AddSensorDialogFragment extends DialogFragment {
 
 			Button cancel = (Button) view.findViewById(R.id.cancel);
 			cancel.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View view) {
 					dismiss();
@@ -64,32 +69,30 @@ public class AddSensorDialogFragment extends DialogFragment {
 			});
 
 			ok.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View view) {
-					int id = group.getCheckedRadioButtonId();
-					View radioButton = group.findViewById(id);
-					
-					if (radioButton != null && profile != null) {
-						String sensorId = radioButton.getTag().toString();
+					for (String sensorId : chosen) {
 						ProfileManager.getInstance().addSensor(profile, sensorId);
 					}
 					dismiss();
 				}
-
 			});
-
-			group.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-				@Override
-				public void onCheckedChanged(RadioGroup rg, int checked) {
-					((Button) getView().findViewById(R.id.ok)).setEnabled(true);
-				}
-			});
-			ll.addView(group);
 		}
 
 		return view;
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		String sensorId = (String) buttonView.getTag();
+		if (isChecked) {
+			if (!chosen.contains(sensorId)) {
+				chosen.add(sensorId);
+			}
+		} else {
+			chosen.remove(sensorId);
+		}
+		ok.setEnabled(chosen.size() > 0);
 	}
 
 }
