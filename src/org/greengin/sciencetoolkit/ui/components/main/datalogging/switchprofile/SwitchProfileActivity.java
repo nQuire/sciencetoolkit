@@ -2,10 +2,12 @@ package org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile
 
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.ParentListActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.CreateProfileDialogFragment;
 
 import android.os.Bundle;
@@ -15,11 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-public class SwitchProfileActivity extends ActionBarActivity implements ModelNotificationListener {
+public class SwitchProfileActivity extends ParentListActivity implements ModelNotificationListener {
+
+	public SwitchProfileActivity(int childrenContainerId) {
+		super(R.id.profile_list);
+	}
 
 	String selectedForChange;
 	Button ok;
@@ -72,7 +77,7 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 	@Override
 	public void onResume() {
 		super.onResume();
-		updateList();
+		updateView();
 		ProfileManager.getInstance().registerDirectListener(this);
 	}
 
@@ -87,29 +92,13 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 			ProfileManager.getInstance().switchActiveProfile(this.selectedForChange);
 		}
 	}
-
-	private void updateList() {
+	
+	private void updateView() {
 		selectedForChange = null;
 		updateSwitchButton();
-
-		List<Fragment> fragments = getSupportFragmentManager().getFragments();
-		if (fragments != null) {
-			for (Fragment fragment : fragments) {
-				if (fragment instanceof SwitchProfileFragment) {
-					getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-				}
-			}
-		}
-
-		Set<String> profileIds = ProfileManager.getInstance().getProfileIds();
-		for (String profileId : profileIds) {
-			SwitchProfileFragment fragment = new SwitchProfileFragment();
-			Bundle args = new Bundle();
-			args.putString(SwitchProfileFragment.ARG_PROFILE, profileId);
-			fragment.setArguments(args);
-			getSupportFragmentManager().beginTransaction().add(R.id.profile_list, fragment).commit();
-		}
+		updateChildrenList();
 	}
+
 
 	private void updateSwitchButton() {
 		boolean enabled = selectedForChange != null && !selectedForChange.equals(ProfileManager.getInstance().getActiveProfileId());
@@ -119,7 +108,7 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 	@Override
 	public void modelNotificationReveiced(String msg) {
 		if ("list".equals(msg)) {
-			updateList();
+			updateView();
 		}
 	}
 
@@ -137,6 +126,21 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 			}
 			updateSwitchButton();
 		}
+	}
+
+	@Override
+	protected List<Fragment> getUpdatedFragmentChildren() {
+		Vector<Fragment> fragments = new Vector<Fragment>();
+		Set<String> profileIds = ProfileManager.getInstance().getProfileIds();
+		for (String profileId : profileIds) {
+			SwitchProfileFragment fragment = new SwitchProfileFragment();
+			Bundle args = new Bundle();
+			args.putString(SwitchProfileFragment.ARG_PROFILE, profileId);
+			fragment.setArguments(args);
+			fragments.add(fragment);
+		}
+		
+		return fragments;
 	}
 
 }

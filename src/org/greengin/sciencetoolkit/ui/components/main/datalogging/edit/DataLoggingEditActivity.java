@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.ParentListActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,11 +17,14 @@ import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends ActionBarActivity implements ModelNotificationListener {
+public class DataLoggingEditActivity extends ParentListActivity implements ModelNotificationListener {
+
+	public DataLoggingEditActivity() {
+		super(R.id.sensor_list);
+	}
 
 	String profileId;
 	Model profile;
@@ -57,7 +61,7 @@ public class DataLoggingEditActivity extends ActionBarActivity implements ModelN
 	public void onResume() {
 		super.onResume();
 		updateTitle();
-		updateList();
+		updateChildrenList();
 		ProfileManager.getInstance().registerDirectListener(this);
 	}
 
@@ -73,26 +77,6 @@ public class DataLoggingEditActivity extends ActionBarActivity implements ModelN
 		edit.setText(profile.getString("title"));
 	}
 
-	private void updateList() {
-		List<Fragment> fragments = getSupportFragmentManager().getFragments();
-		if (fragments != null) {
-			for (Fragment fragment : fragments) {
-				if (fragment instanceof ProfileSensorOrganizeFragment) {
-					getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-				}
-			}
-		}
-
-		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
-		for (Model profileSensor : profileSensors) {
-			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
-			Bundle args = new Bundle();
-			args.putString("profile", profile.getString("id"));
-			args.putString("sensor", profileSensor.getString("id"));
-			fragment.setArguments(args);
-			getSupportFragmentManager().beginTransaction().add(R.id.sensor_list, fragment).commit();
-		}
-	}
 
 	public void actionAddSensor(View view) {
 		FragmentManager fm = getSupportFragmentManager();
@@ -135,7 +119,24 @@ public class DataLoggingEditActivity extends ActionBarActivity implements ModelN
 
 	@Override
 	public void modelNotificationReveiced(String msg) {
-		updateList();
+		updateChildrenList();
+	}
+
+	@Override
+	protected List<Fragment> getUpdatedFragmentChildren() {
+		Vector<Fragment> fragments = new Vector<Fragment>();
+		
+		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
+		for (Model profileSensor : profileSensors) {
+			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
+			Bundle args = new Bundle();
+			args.putString("profile", profile.getString("id"));
+			args.putString("sensor", profileSensor.getString("id"));
+			fragment.setArguments(args);
+			fragments.add(fragment);
+		}
+		
+		return fragments;
 	}
 
 }
