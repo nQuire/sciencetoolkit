@@ -6,10 +6,13 @@ import java.util.Set;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.components.main.datalogging.CreateProfileDialogFragment;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -18,13 +21,14 @@ import android.os.Build;
 
 public class SwitchProfileActivity extends ActionBarActivity implements ModelNotificationListener {
 
-	String currentProfileId;
-	
+	String selectedForChange;
+	Button ok;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_switch_profile);
-		// Show the Up button in the action bar.
+		ok = (Button) getWindow().getDecorView().findViewById(R.id.ok);
 		setupActionBar();
 	}
 
@@ -48,6 +52,9 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.action_data_logging_new:
+			CreateProfileDialogFragment.showCreateProfileDialog(getSupportFragmentManager(), false);
+			break;
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
 			// activity, the Up button is shown. Use NavUtils to allow users
@@ -61,19 +68,30 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		updateList();
+		ProfileManager.getInstance().registerDirectListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+		ProfileManager.getInstance().unregisterDirectListener(this);
 	}
 	
+	public void onClickOkButton(View view) {
+		if (this.selectedForChange != null) {
+			ProfileManager.getInstance().switchActiveProfile(this.selectedForChange);
+		}
+	}
+
 	private void updateList() {
+		selectedForChange = null;
+		updateSwitchButton();
+
 		List<Fragment> fragments = getSupportFragmentManager().getFragments();
 		if (fragments != null) {
 			for (Fragment fragment : fragments) {
@@ -93,8 +111,32 @@ public class SwitchProfileActivity extends ActionBarActivity implements ModelNot
 		}
 	}
 
+	private void updateSwitchButton() {
+		boolean enabled = selectedForChange != null && !selectedForChange.equals(ProfileManager.getInstance().getActiveProfileId());
+		ok.setEnabled(enabled);
+	}
+
 	@Override
 	public void modelNotificationReveiced(String msg) {
+		if ("list".equals(msg)) {
+			updateList();
+		}
+	}
+
+	public void requestSelectedForChange(String profileId) {
+		if (!profileId.equals(this.selectedForChange)) {
+			this.selectedForChange = profileId;
+			
+			List<Fragment> fragments = getSupportFragmentManager().getFragments();
+			if (fragments != null) {
+				for (Fragment fragment : fragments) {
+					if (fragment instanceof SwitchProfileFragment) {
+						((SwitchProfileFragment)fragment).setSelectedForChangeProfile(this.selectedForChange);
+					}
+				}
+			}
+			updateSwitchButton();
+		}
 	}
 
 }

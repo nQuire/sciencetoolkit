@@ -144,12 +144,6 @@ public class SensorFragment extends Fragment {
 		return rootView;
 	}
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-
-	}
-
 	protected void actionToogleSensorValueView(boolean checked) {
 		if (settings.setBool("show", checked)) {
 			if (checked) {

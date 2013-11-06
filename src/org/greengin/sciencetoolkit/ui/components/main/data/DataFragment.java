@@ -93,7 +93,7 @@ public class DataFragment extends Fragment {
 				if (profileId != null) {
 					String deleteMsg = String.format(getResources().getString(R.string.delete_profile_data_dlg_msg), profile.getString("title"));
 					CharSequence styledDeleteMsg = Html.fromHtml(deleteMsg);
-					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_data_dlg_yes, new DialogInterface.OnClickListener() {
+					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							DataLogger.getInstance().deleteData(profileId);

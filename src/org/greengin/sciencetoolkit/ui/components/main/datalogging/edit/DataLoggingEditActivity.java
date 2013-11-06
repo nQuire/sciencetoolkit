@@ -22,12 +22,15 @@ import android.text.TextWatcher;
 
 public class DataLoggingEditActivity extends ActionBarActivity implements ModelNotificationListener {
 
+	String profileId;
 	Model profile;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		profile = ProfileManager.getInstance().getActiveProfile();
+		
+		profileId = getIntent().getExtras().getString("profile");
+		profile = ProfileManager.getInstance().get(profileId);
 
 		setContentView(R.layout.activity_data_logging_edit);
 

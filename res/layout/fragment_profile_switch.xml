@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
+        android:layout_marginTop="@dimen/activity_vertical_margin" >
 
         <RadioButton
             android:id="@+id/profile_switch"

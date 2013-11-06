@@ -1,9 +1,17 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:stkapp="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_overflow"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        stkapp:showAsAction="always"
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/action_data_logging_new"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_data_logging_new"/>
+        </menu>
+    </item>
 
 </menu>

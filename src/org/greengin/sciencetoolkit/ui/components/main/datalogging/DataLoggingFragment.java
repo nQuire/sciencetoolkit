@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity;
 
@@ -30,7 +31,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends Fragment implements ModelNotificationListener, DataLoggerListener {
+public class DataLoggingFragment extends ParentListFragment implements ModelNotificationListener, DataLoggerListener {
+
+	public DataLoggingFragment() {
+		super(R.id.sensor_list);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,24 +74,19 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 		if (rootView != null) {
 			TextView nameView = (TextView) rootView.findViewById(R.id.current_profile_name);
 			Model profile = ProfileManager.getInstance().getActiveProfile();
+
+			TextView noSensorsNotice = (TextView) rootView.findViewById(R.id.no_sensors_notice);
+			View buttonsContainer = rootView.findViewById(R.id.data_logging_buttons);
+
 			if (profile == null) {
 				nameView.setText("No profile selected");
+				noSensorsNotice.setVisibility(View.GONE);
+				buttonsContainer.setVisibility(View.GONE);
 			} else {
 				nameView.setText(profile.getString("title"));
 
-				List<Fragment> fragments = getChildFragmentManager().getFragments();
-				if (fragments != null) {
-					for (Fragment fragment : fragments) {
-						getChildFragmentManager().beginTransaction().remove(fragment).commit();
-					}
-				}
-
-				TextView noSensorsNotice = (TextView) rootView.findViewById(R.id.no_sensors_notice);
-				Vector<Model> sensors = profile.getModel("sensors", true).getModels("weight");
-
-				View buttonsContainer = rootView.findViewById(R.id.data_logging_buttons);
-
-				if (sensors.size() == 0) {
+				int sensorCount = profile.getModel("sensors", true).getModels().size();
+				if (sensorCount == 0) {
 					buttonsContainer.setVisibility(View.GONE);
 
 					String pre = getResources().getString(R.string.no_sensor_notice_pre);
@@ -102,22 +102,13 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 					noSensorsNotice.setVisibility(View.VISIBLE);
 				} else {
 					noSensorsNotice.setVisibility(View.GONE);
-
-					Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
-					for (Model profileSensor : profileSensors) {
-						ProfileSensorFragment fragment = new ProfileSensorFragment();
-						Bundle args = new Bundle();
-						args.putString("profile", profile.getString("id"));
-						args.putString("sensor", profileSensor.getString("id"));
-						fragment.setArguments(args);
-						getChildFragmentManager().beginTransaction().add(R.id.sensor_list, fragment).commit();
-					}
-
 					buttonsContainer.setVisibility(View.VISIBLE);
 					updateButtons(rootView);
-					updateValueCount(rootView);
 				}
 			}
+
+			updateChildrenList();
+			updateValueCount(rootView);
 		}
 	}
 
@@ -130,16 +121,21 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 
 	private void updateValueCount(View rootView) {
 		TextView textView = (TextView) rootView.findViewById(R.id.data_logging_value_count);
-		StringBuffer sb = new StringBuffer();
-		Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId()).entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<String, Integer> entry = it.next();
-			sb.append(entry.getKey()).append(": ").append(entry.getValue());
-			if (it.hasNext()) {
-				sb.append("\n");
+
+		if (ProfileManager.getInstance().getActiveProfileId() != null) {
+			StringBuffer sb = new StringBuffer();
+			Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId()).entrySet().iterator();
+			while (it.hasNext()) {
+				Entry<String, Integer> entry = it.next();
+				sb.append(entry.getKey()).append(": ").append(entry.getValue());
+				if (it.hasNext()) {
+					sb.append("\n");
+				}
 			}
+			textView.setText(sb.toString());
+		} else {
+			textView.setText("");
 		}
-		textView.setText(sb.toString());
 	}
 
 	@Override
@@ -167,7 +163,7 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 		switch (item.getItemId()) {
 		case R.id.action_data_logging_edit: {
 			Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
-			intent.putExtra("mode", "edit");
+			intent.putExtra("profile", ProfileManager.getInstance().getActiveProfileId());
 			startActivity(intent);
 			break;
 		}
@@ -176,6 +172,9 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 			startActivity(intent);
 			break;
 		}
+		case R.id.action_data_logging_new:
+			CreateProfileDialogFragment.showCreateProfileDialog(getChildFragmentManager(), true);
+			break;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -189,6 +188,24 @@ public class DataLoggingFragment extends Fragment implements ModelNotificationLi
 	@Override
 	public void dataLoggerDataModified(String msg) {
 		updateValueCount(getView());
+	}
+
+	@Override
+	protected List<Fragment> getUpdatedFragmentChildren() {
+		Vector<Fragment> fragments = new Vector<Fragment>();
+		Model profile = ProfileManager.getInstance().getActiveProfile();
+		if (profile != null) {
+			Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
+			for (Model profileSensor : profileSensors) {
+				ProfileSensorFragment fragment = new ProfileSensorFragment();
+				Bundle args = new Bundle();
+				args.putString("profile", profile.getString("id"));
+				args.putString("sensor", profileSensor.getString("id"));
+				fragment.setArguments(args);
+				fragments.add(fragment);
+			}
+		}
+		return fragments;
 	}
 
 }

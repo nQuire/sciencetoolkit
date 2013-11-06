@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
 
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
 
@@ -25,12 +26,12 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	NotificationListenerAggregator listeners;
 
 	Model settings;
-	String activeProfileId;
+	Model appSettings;
 
 	private ProfileManager(Context applicationContext) {
 		super(applicationContext, "profiles.xml", 500);
 		settings = SettingsManager.getInstance().get("profiles");
-		activeProfileId = settings.getString("current_profile", null);
+		appSettings = SettingsManager.getInstance().get("app");
 		listeners = new NotificationListenerAggregator(applicationContext, "profiles:notifications");
 		SettingsManager.getInstance().registerDirectListener("profiles", this);
 		initDefaultProfile();
@@ -38,11 +39,13 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	private void initDefaultProfile() {
-		if (settings.getBool("create_default", true) && items.size() == 0) {
+		if (appSettings.getBool("create_default", true) && items.size() == 0) {
 			Model defaultProfile = createEmptyProfile();
-			defaultProfile.setString("title", "Default");
+			defaultProfile.setString("title", "Default", true);
+			modelModified(defaultProfile);
+			listeners.fireEvent("list");
 
-			settings.setBool("create_default", false);
+			appSettings.setBool("create_default", false);
 			settings.setString("current_profile", defaultProfile.getString("id"));
 		}
 	}
@@ -67,10 +70,39 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		Model profile = new Model(this);
 		items.put(id, profile);
 
-		profile.setString("id", id);
+		profile.setString("id", id, true);
 		profile.getModel("sensors", true, true);
-		modelModified(profile);
 		return profile;
+	}
+
+	public void createProfile(String title, boolean makeActive) {
+		Model newProfile = createEmptyProfile();
+		newProfile.setString("title", title, true);
+		modelModified(newProfile);
+		listeners.fireEvent("list");
+
+		if (makeActive) {
+			switchActiveProfile(newProfile.getString("id"));
+		}
+	}
+
+	public void deleteProfile(String profileId) {
+		this.remove(profileId);
+		listeners.fireEvent("list");
+		DataLogger.getInstance().deleteData(profileId);
+	}
+
+	public void switchActiveProfile(String profileId) {
+		if (profileId != null && !profileId.equals(settings.getString("current_profile"))) {
+			if (DataLogger.getInstance().isRunning()) {
+				DataLogger.getInstance().stop();
+			}
+			settings.setString("current_profile", profileId);
+		}
+	}
+
+	public int profileCount() {
+		return this.items.size();
 	}
 
 	public void addSensor(Model profile, String sensorId) {
@@ -107,7 +139,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		}
 	}
 
-
 	public void removeSensor(Model profile, String sensorId) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		profileSensors.clear(sensorId);
@@ -118,12 +149,11 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	public Model getActiveProfile() {
-		Model profile = get(activeProfileId);
-		return profile;
+		return get(getActiveProfileId());
 	}
 
 	public String getActiveProfileId() {
-		return activeProfileId;
+		return settings.getString("current_profile");
 	}
 
 	public Set<String> getProfileIds() {
@@ -143,19 +173,16 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void modelModified(Model model) {
 		super.modelModified(model);
 
-		Model profile = model.getRootParent();
-		String profileId = profile.getString("id", null);
-		listeners.fireEvent(profileId);
+		if (model != null) {
+			Model profile = model.getRootParent();
+			String profileId = profile.getString("id", null);
+			listeners.fireEvent(profileId);
+		}
 	}
 
 	@Override
 	public void modelNotificationReveiced(String msg) {
-		String profile = settings.getString("current_profile", null);
-		boolean changed = profile == null ? activeProfileId != null : !profile.equals(activeProfileId);
-		if (changed) {
-			this.activeProfileId = profile;
-			listeners.fireEvent("switch");
-		}
+		listeners.fireEvent("switch");
 	}
 
 	public void registerUIListener(ModelNotificationListener listener) {
