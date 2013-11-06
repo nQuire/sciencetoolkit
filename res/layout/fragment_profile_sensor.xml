@@ -12,15 +12,13 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <ToggleButton
-            android:id="@+id/sensor_value_toggle"
+        <ImageView
+            android:id="@+id/sensor_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:textOff=""
-            android:textOn="" />
+            android:layout_gravity="center_vertical" />
 
         <ImageButton
             android:id="@+id/sensor_config_edit"
@@ -38,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_toLeftOf="@id/sensor_config_edit"
-            android:layout_toRightOf="@id/sensor_value_toggle"
+            android:layout_toRightOf="@id/sensor_image"
             android:baselineAligned="false"
             android:gravity="center_vertical|fill_vertical"
             android:orientation="vertical" >
@@ -47,9 +45,9 @@
                 android:id="@+id/sensor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:ellipsize="none"
                 android:gravity="center"
-            	android:layout_gravity="center"
                 android:singleLine="false"
                 android:textStyle="bold" />
 
@@ -57,8 +55,8 @@
                 android:id="@+id/sensor_period"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="none"
                 android:layout_gravity="center"
+                android:ellipsize="none"
                 android:gravity="center"
                 android:singleLine="true"
                 android:textColor="@color/value_text" />

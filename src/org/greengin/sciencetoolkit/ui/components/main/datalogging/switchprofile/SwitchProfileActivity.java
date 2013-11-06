@@ -22,7 +22,7 @@ import android.os.Build;
 
 public class SwitchProfileActivity extends ParentListActivity implements ModelNotificationListener {
 
-	public SwitchProfileActivity(int childrenContainerId) {
+	public SwitchProfileActivity() {
 		super(R.id.profile_list);
 	}
 

@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 public class ProfileSensorFragment extends Fragment {
 	public static final String ARG_SENSOR = "sensor";
@@ -58,7 +58,7 @@ public class ProfileSensorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-
+ 
 		View rootView = inflater.inflate(R.layout.fragment_profile_sensor, container, false);
 
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
@@ -67,14 +67,8 @@ public class ProfileSensorFragment extends Fragment {
 		TextView periodTextView = (TextView) rootView.findViewById(R.id.sensor_period);
 		periodTextView.setText(Integer.toString(this.profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD)) + " ms");
 
-		ToggleButton toggleButton = (ToggleButton) rootView.findViewById(R.id.sensor_value_toggle);
-		toggleButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View button) {
-			}
-		});
-
-		toggleButton.setBackgroundDrawable(this.getResources().getDrawable(SensorUIData.getSensorToggleResource(this.sensorType)));
+		ImageView image = (ImageView) rootView.findViewById(R.id.sensor_image);
+		image.setImageResource(SensorUIData.getSensorResource(this.sensorType));
 
 		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
 		editButton.setOnClickListener(new OnClickListener() {

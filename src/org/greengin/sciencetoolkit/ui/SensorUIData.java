@@ -30,7 +30,7 @@ public class SensorUIData {
 			return R.drawable.temperature_selector;
 		case Sensor.TYPE_GAME_ROTATION_VECTOR:
 		case Sensor.TYPE_ROTATION_VECTOR:
-			return R.drawable.rotate_selector;
+			return R.drawable.rotation_selector;
 		case Sensor.TYPE_GRAVITY:
 			return R.drawable.gravity_selector;
 		case Sensor.TYPE_GYROSCOPE:
@@ -51,6 +51,44 @@ public class SensorUIData {
 			return R.drawable.humidity_selector;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
 			return R.drawable.sound_selector;
+			default:
+				return 0;
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static int getSensorResource(int type) {
+		switch (type ) {
+		case Sensor.TYPE_ACCELEROMETER:
+		case Sensor.TYPE_LINEAR_ACCELERATION:
+		case Sensor.TYPE_SIGNIFICANT_MOTION:
+			return R.drawable.acceleration;		
+		case Sensor.TYPE_AMBIENT_TEMPERATURE:
+		case Sensor.TYPE_TEMPERATURE:
+			return R.drawable.temperature;
+		case Sensor.TYPE_GAME_ROTATION_VECTOR:
+		case Sensor.TYPE_ROTATION_VECTOR:
+			return R.drawable.rotation;
+		case Sensor.TYPE_GRAVITY:
+			return R.drawable.gravity;
+		case Sensor.TYPE_GYROSCOPE:
+		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
+			return R.drawable.gyroscope;
+		case Sensor.TYPE_LIGHT:
+			return R.drawable.light;
+		case Sensor.TYPE_MAGNETIC_FIELD:
+		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+			return R.drawable.magnet;
+		case Sensor.TYPE_ORIENTATION:
+			return R.drawable.compass;
+		case Sensor.TYPE_PRESSURE:
+			return R.drawable.pressure;
+		case Sensor.TYPE_PROXIMITY:
+			return R.drawable.proximity;
+		case Sensor.TYPE_RELATIVE_HUMIDITY:
+			return R.drawable.humidity;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
+			return R.drawable.sound;
 			default:
 				return 0;
 		}
