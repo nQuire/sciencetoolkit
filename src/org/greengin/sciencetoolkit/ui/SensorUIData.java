@@ -6,25 +6,16 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import android.hardware.Sensor;
 
 public class SensorUIData {
-	
-	private static final String[][] LABELS = new String[][] {
-		new String[] { "x", "y", "z" },
-		new String[] { "Temperature" },
-		new String[] { "Light level" },
-		new String[] { "Pressure" },
-		new String[] { "Proximity" },
-		new String[] { "Rel. humidity" },
-		new String[] {"Sound level", "Max. freq."},
-		new String[] { "values" }
-	};
+
+	private static final String[][] LABELS = new String[][] { new String[] { "x", "y", "z" }, new String[] { "Temperature" }, new String[] { "Light level" }, new String[] { "Pressure" }, new String[] { "Proximity" }, new String[] { "Rel. humidity" }, new String[] { "Sound level", "Max. freq." }, new String[] { "Latitude", "Longitude", "Altitude", "Precision"}, new String[] { "values" } };
 
 	@SuppressWarnings("deprecation")
 	public static int getSensorToggleResource(int type) {
-		switch (type ) {
+		switch (type) {
 		case Sensor.TYPE_ACCELEROMETER:
 		case Sensor.TYPE_LINEAR_ACCELERATION:
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
-			return R.drawable.acceleration_selector;		
+			return R.drawable.acceleration_selector;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
 			return R.drawable.temperature_selector;
@@ -51,18 +42,20 @@ public class SensorUIData {
 			return R.drawable.humidity_selector;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
 			return R.drawable.sound_selector;
-			default:
-				return 0;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_LOCATION:
+			return R.drawable.gyroscope_selector;
+		default:
+			return 0;
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static int getSensorResource(int type) {
-		switch (type ) {
+		switch (type) {
 		case Sensor.TYPE_ACCELEROMETER:
 		case Sensor.TYPE_LINEAR_ACCELERATION:
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
-			return R.drawable.acceleration;		
+			return R.drawable.acceleration;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
 			return R.drawable.temperature;
@@ -89,11 +82,13 @@ public class SensorUIData {
 			return R.drawable.humidity;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
 			return R.drawable.sound;
-			default:
-				return 0;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_LOCATION:
+			return R.drawable.gyroscope;
+		default:
+			return 0;
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static String[] getValueLabels(int type) {
 		switch (type) {
@@ -121,8 +116,10 @@ public class SensorUIData {
 			return LABELS[5];
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
 			return LABELS[6];
-		default:
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_LOCATION:
 			return LABELS[7];
+		default:
+			return LABELS[8];
 		}
 	}
 
@@ -140,7 +137,7 @@ public class SensorUIData {
 		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
 			return new String[] { "rad/s", "rad/s", "rad/s" };
 		case Sensor.TYPE_LIGHT:
-			return  new String[] { "lx" };
+			return new String[] { "lx" };
 		case Sensor.TYPE_MAGNETIC_FIELD:
 		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
 			return new String[] { "μT", "μT", "μT" };
@@ -155,12 +152,14 @@ public class SensorUIData {
 		case Sensor.TYPE_RELATIVE_HUMIDITY:
 			return new String[] { "%" };
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
-			return new String[] {"dB", "Hz"};
+			return new String[] { "dB", "Hz" };
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_LOCATION:
+			return new String[] { "°", "°", "m", "m" };
 		default:
-			return new String[] { "?", "?", "?" };
+			return new String[] { "?", "?", "?", "?" };
 		}
 	}
-	
+
 	public static String getValueLabelStr(int type) {
 		String[] labels = getValueLabels(type);
 		StringBuffer labelstr = new StringBuffer();
@@ -170,7 +169,7 @@ public class SensorUIData {
 			}
 			labelstr.append(labels[i]).append(":");
 		}
-		
+
 		return labelstr.toString();
 	}
 

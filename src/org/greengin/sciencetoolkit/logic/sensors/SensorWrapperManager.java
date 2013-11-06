@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.location.LocationSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 
 
@@ -18,6 +19,7 @@ import android.hardware.SensorManager;
 
 public class SensorWrapperManager {
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
+	public static final int CUSTOM_SENSOR_TYPE_LOCATION = 1002;
 	
 	private static SensorWrapperManager instance; 
 	
@@ -40,13 +42,17 @@ public class SensorWrapperManager {
 		this.sensorIds = new Vector<String>();
 		
 		for(Sensor sensor : deviceSensors) {
-			this.sensors.put(sensor.getName(), new DeviceSensorWrapper(sensor, sensorManager));
-			this.sensorIds.add(sensor.getName());
+			addSensor(new DeviceSensorWrapper(sensor, sensorManager));
 		}
 		
-		this.sensors.put("Sound", new SoundSensorWrapper(applicationContext));
-		this.sensorIds.add("Sound");
+		addSensor(new SoundSensorWrapper(applicationContext));
+		addSensor(new LocationSensorWrapper(applicationContext));
 	}	
+	
+	private void addSensor(SensorWrapper sensor) {
+		this.sensors.put(sensor.getName(), sensor);
+		this.sensorIds.add(sensor.getName());
+	}
 	
 	public HashMap<String, SensorWrapper> getSensors() {
 		return this.sensors;
