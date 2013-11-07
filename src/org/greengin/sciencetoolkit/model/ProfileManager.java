@@ -81,7 +81,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		modelModified(newProfile);
 		listeners.fireEvent("list");
 
-		if (makeActive) {
+		if (makeActive && !DataLogger.getInstance().isRunning()) {
 			switchActiveProfile(newProfile.getString("id"));
 		}
 	}
