@@ -7,6 +7,7 @@
     <string name="menu_item_data_logging_edit">Edit profile</string>
     <string name="menu_item_data_logging_switch">Switch profile</string>
     <string name="menu_item_data_logging_new">New profile</string>
+    <string name="menu_item_data_file_management">Manage CSV files</string>
     <string name="menu_item_data_view_mode">Select visualization</string>
     <string name="menu_item_data_view_range">Select data range</string>
     <string name="title_activity_main">nQuire Science Toolkit</string>
@@ -62,5 +63,5 @@
     <string name="switch_profile_active">Active profile</string>
     <string name="create_new_profile">Create new profile</string>
     <string name="create_profile">Create</string>
-    
+
 </resources>

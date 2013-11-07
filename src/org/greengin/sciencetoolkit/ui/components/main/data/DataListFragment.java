@@ -16,6 +16,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -96,9 +99,9 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		dataFragments.clear();
-		
+
 		Vector<Fragment> fragments = new Vector<Fragment>();
-		
+
 		for (String profileId : ProfileManager.getInstance().getProfileIds()) {
 			DataFragment fragment = new DataFragment();
 			Bundle args = new Bundle();
@@ -107,9 +110,21 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 			fragments.add(fragment);
 			dataFragments.put(profileId, fragment);
 		}
-		
+
 		return fragments;
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.data, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
 
 }
