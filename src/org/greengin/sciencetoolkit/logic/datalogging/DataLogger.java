@@ -21,8 +21,9 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class DataLogger extends BroadcastReceiver implements DataLoggerListener {
+public class DataLogger implements DataLoggerDataListener {
 	private static final String DATA_LOGGING_NEW_DATA = "DATA_LOGGING_NEW_DATA";
+	private static final String DATA_LOGGING_NEW_STATUS = "DATA_LOGGING_NEW_STATUS";
 
 	private static DataLogger instance;
 
@@ -43,7 +44,11 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 	Model profile;
 	boolean running;
 	Vector<DataPipe> pipes;
-	Vector<DataLoggerListener> listeners;
+	Vector<DataLoggerDataListener> dataListeners;
+	BroadcastReceiver dataReceiver;
+	Vector<DataLoggerStatusListener> statusListeners;
+	BroadcastReceiver statusReceiver;
+	
 	ScienceToolkitSQLiteOpenHelper helper;
 
 	public DataLogger(Context applicationContext) {
@@ -52,29 +57,69 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 		runningLock = new ReentrantLock();
 		listenersLock = new ReentrantLock();
 		pipes = new Vector<DataPipe>();
-		listeners = new Vector<DataLoggerListener>();
 		helper = new ScienceToolkitSQLiteOpenHelper(applicationContext, this);
+		
+		dataListeners = new Vector<DataLoggerDataListener>();
+		statusListeners = new Vector<DataLoggerStatusListener>();
+
+		dataReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				String msg = intent.getExtras().getString("msg");
+				for (DataLoggerDataListener listener : dataListeners) {
+					listener.dataLoggerDataModified(msg);
+				}
+			}			
+		};
+		statusReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				for (DataLoggerStatusListener listener : statusListeners) {
+					listener.dataLoggerStatusModified();
+				}
+			}			
+		};
 	}
 
-	public void registerListener(DataLoggerListener listener) {
+	public void registerDataListener(DataLoggerDataListener listener) {
 		listenersLock.lock();
-		if (!listeners.contains(listener)) {
-			listeners.add(listener);
-			if (listeners.size() == 1) {
-				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(this, new IntentFilter(DataLogger.DATA_LOGGING_NEW_DATA));
+		if (!dataListeners.contains(listener)) {
+			dataListeners.add(listener);
+			if (dataListeners.size() == 1) {
+				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(dataReceiver, new IntentFilter(DataLogger.DATA_LOGGING_NEW_DATA));
 			}
 		}
 
 		listenersLock.unlock();
 	}
 
-	public void unregisterListener(DataLoggerListener listener) {
+	public void unregisterDataListener(DataLoggerDataListener listener) {
 		listenersLock.lock();
-		listeners.remove(listener);
-		if (listeners.size() == 0) {
-			LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(this);
+		
+		if (dataListeners.remove(listener) && dataListeners.size() == 0) {
+			LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(dataReceiver);
 		}
 	}
+	
+	public void registerStatusListener(DataLoggerStatusListener listener) {
+		listenersLock.lock();
+		if (!statusListeners.contains(listener)) {
+			statusListeners.add(listener);
+			if (dataListeners.size() == 1) {
+				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(statusReceiver, new IntentFilter(DataLogger.DATA_LOGGING_NEW_STATUS));
+			}
+		}
+
+		listenersLock.unlock();
+	}
+
+	public void unregisterStatusListener(DataLoggerStatusListener listener) {
+		listenersLock.lock();
+		if (statusListeners.remove(listener) && statusListeners.size() == 0) {
+			LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(statusReceiver);
+		}
+	}
+
 
 	public boolean isRunning() {
 		return running;
@@ -115,7 +160,8 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 			for (DataPipe pipe : pipes) {
 				pipe.attach();
 			}
-
+			
+			statusModified();			
 		}
 		runningLock.unlock();
 	}
@@ -129,6 +175,8 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 			}
 			pipes.clear();
 			running = false;
+			
+			statusModified();
 		}
 
 		runningLock.unlock();
@@ -154,17 +202,16 @@ public class DataLogger extends BroadcastReceiver implements DataLoggerListener 
 		return this.helper.exportData(profileId);
 	}
 	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		String msg = intent.getExtras().getString("msg");
-		for (DataLoggerListener listener : listeners) {
-			listener.dataLoggerDataModified(msg);
+	private void statusModified() {
+		if (statusListeners.size() > 0) {
+			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_STATUS);
+			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
 
 	@Override
 	public void dataLoggerDataModified(String msg) {
-		if (listeners.size() > 0) {
+		if (dataListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_DATA);
 			intent.putExtra("msg", msg);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);

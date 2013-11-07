@@ -3,6 +3,8 @@ package org.greengin.sciencetoolkit.ui.components.main.datalogging.edit;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
@@ -26,7 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ProfileSensorOrganizeFragment extends Fragment {
+public class ProfileSensorOrganizeFragment extends Fragment implements DataLoggerStatusListener {
 	public static final String ARG_SENSOR = "sensor";
 
 	private int sensorType;
@@ -35,6 +37,11 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 	private Model profileSensor;
 	private String profileId;
 	private Model profile;
+
+	ImageButton editButton;
+	ImageButton upButton;
+	ImageButton downButton;
+	ImageButton discardButton;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -74,7 +81,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 		ImageView image = (ImageView) rootView.findViewById(R.id.sensor_image);
 		image.setImageResource(SensorUIData.getSensorResource(this.sensorType));
 
-		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
+		editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -88,7 +95,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 		Vector<Model> sensors = this.profile.getModel("sensors", true).getModels("weight");
 		int index = sensors.indexOf(this.profileSensor);
 
-		ImageButton upButton = (ImageButton) rootView.findViewById(R.id.sensor_config_up);
+		upButton = (ImageButton) rootView.findViewById(R.id.sensor_config_up);
 		if (index > 0) {
 			upButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -101,7 +108,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			upButton.setVisibility(View.GONE);
 		}
 
-		ImageButton downButton = (ImageButton) rootView.findViewById(R.id.sensor_config_down);
+		downButton = (ImageButton) rootView.findViewById(R.id.sensor_config_down);
 		if (index >= 0 && index < sensors.size() - 1) {
 			downButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -114,7 +121,7 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			downButton.setVisibility(View.GONE);
 		}
 
-		ImageButton discardButton = (ImageButton) rootView.findViewById(R.id.sensor_config_discard);
+		discardButton = (ImageButton) rootView.findViewById(R.id.sensor_config_discard);
 		discardButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -131,7 +138,21 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			}
 		});
 
+		updateButtons();
+
 		return rootView;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateButtons();
+		DataLogger.getInstance().registerStatusListener(this);
+	}
+	
+	public void onPause() {
+		super.onResume();
+		DataLogger.getInstance().unregisterStatusListener(this);
 	}
 
 	private void moveSensorUp() {
@@ -158,6 +179,18 @@ public class ProfileSensorOrganizeFragment extends Fragment {
 			sensors.get(i).setInt("weight", i, true);
 		}
 		profile.fireModifiedEvent();
+	}
+
+	private void updateButtons() {
+		boolean enabled = !DataLogger.getInstance().isRunning();
+		upButton.setEnabled(enabled);
+		downButton.setEnabled(enabled);
+		discardButton.setEnabled(enabled);
+	}
+
+	@Override
+	public void dataLoggerStatusModified() {
+		updateButtons();
 	}
 
 }

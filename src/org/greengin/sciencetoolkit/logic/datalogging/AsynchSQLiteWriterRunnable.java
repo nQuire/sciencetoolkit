@@ -10,9 +10,9 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 	SQLiteDatabase db;
 	Vector<ProfileSensorTimeValue> pendingValues;
 	Thread thread;
-	DataLoggerListener listener;
+	DataLoggerDataListener listener;
 
-	public AsynchSQLiteWriterRunnable(SQLiteDatabase db, DataLoggerListener listener) {
+	public AsynchSQLiteWriterRunnable(SQLiteDatabase db, DataLoggerDataListener listener) {
 		this.db = db;
 		this.thread = null;
 		this.pendingValues = new Vector<ProfileSensorTimeValue>();

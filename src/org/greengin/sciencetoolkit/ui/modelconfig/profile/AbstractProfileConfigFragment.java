@@ -2,11 +2,11 @@ package org.greengin.sciencetoolkit.ui.modelconfig.profile;
 
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.ui.modelconfig.ModelFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.DataLoggerDependentModelFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.ProfileModelFragmentManager;
 
 
-public abstract class AbstractProfileConfigFragment extends ModelFragment {
+public abstract class AbstractProfileConfigFragment extends DataLoggerDependentModelFragment {
 
 	String[] arguments;
 	String type;
@@ -23,4 +23,9 @@ public abstract class AbstractProfileConfigFragment extends ModelFragment {
 	}
 	
 	protected abstract Model fetchProfileConfigModel();
+	
+	@Override
+	protected boolean settingsEnabledWhileLoggingData() {
+		return !profileId.equals(ProfileManager.getInstance().getActiveProfileId());
+	}
 }

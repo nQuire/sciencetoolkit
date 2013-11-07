@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.ParentListActivity;
@@ -20,7 +22,7 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-public class SwitchProfileActivity extends ParentListActivity implements ModelNotificationListener {
+public class SwitchProfileActivity extends ParentListActivity implements ModelNotificationListener, DataLoggerStatusListener {
 
 	public SwitchProfileActivity() {
 		super(R.id.profile_list);
@@ -78,13 +80,20 @@ public class SwitchProfileActivity extends ParentListActivity implements ModelNo
 	public void onResume() {
 		super.onResume();
 		updateView();
+		DataLogger.getInstance().registerStatusListener(this);
 		ProfileManager.getInstance().registerDirectListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+		DataLogger.getInstance().unregisterStatusListener(this);
 		ProfileManager.getInstance().unregisterDirectListener(this);
+	}
+
+	@Override
+	public void dataLoggerStatusModified() {
+		updateSwitchButton();
 	}
 	
 	public void onClickOkButton(View view) {
@@ -101,7 +110,7 @@ public class SwitchProfileActivity extends ParentListActivity implements ModelNo
 
 
 	private void updateSwitchButton() {
-		boolean enabled = selectedForChange != null && !selectedForChange.equals(ProfileManager.getInstance().getActiveProfileId());
+		boolean enabled = !DataLogger.getInstance().isRunning() && selectedForChange != null && !selectedForChange.equals(ProfileManager.getInstance().getActiveProfileId());
 		ok.setEnabled(enabled);
 	}
 

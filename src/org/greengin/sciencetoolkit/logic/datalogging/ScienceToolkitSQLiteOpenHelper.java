@@ -45,9 +45,9 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	HashMap<String, String> sensorIdsCacheE2I;
 	HashMap<String, String> sensorIdsCacheI2E;
 	AsynchSQLiteWriterRunnable runnable;
-	DataLoggerListener listener;
+	DataLoggerDataListener listener;
 
-	public ScienceToolkitSQLiteOpenHelper(Context context, DataLoggerListener listener) {
+	public ScienceToolkitSQLiteOpenHelper(Context context, DataLoggerDataListener listener) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.sensorIdsCacheE2I = new HashMap<String, String>();
 		this.sensorIdsCacheI2E = new HashMap<String, String>();

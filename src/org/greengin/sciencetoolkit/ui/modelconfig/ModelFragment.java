@@ -53,7 +53,6 @@ public abstract class ModelFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 		rootContainer = (LinearLayout) rootView.findViewById(R.id.settings_panel);
 		this.createConfigOptions(rootView);
-		// this.updateView(rootView);
 		return rootView;
 	}
 
@@ -204,5 +203,22 @@ public abstract class ModelFragment extends Fragment {
 
 		rootContainer.addView(settingView);
 		this.optionViews.put(key, settingView);
+	}
+	
+	public void setSettingsEnabled(boolean enabled) {
+		View root = getView();
+		if (root != null) {
+			setSettingsEnabled(root, enabled);
+		}
+	}
+	
+	private void setSettingsEnabled(View view, boolean enabled) {
+		view.setEnabled(enabled);
+		if (view instanceof ViewGroup) {
+			ViewGroup group = (ViewGroup) view;
+			for (int i = 0; i < group.getChildCount(); i++) {
+				setSettingsEnabled(group.getChildAt(i), enabled);
+			}
+		}
 	}
 }

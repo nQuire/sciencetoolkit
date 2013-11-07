@@ -2,6 +2,8 @@ package org.greengin.sciencetoolkit.ui.modelconfig.settings;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 
@@ -18,4 +20,16 @@ public abstract class AbstractSensorSettingsFragment extends AbstractSettingsFra
 	}
 	
 	
+	@Override
+	protected boolean settingsEnabledWhileLoggingData() {
+		Model profile = ProfileManager.getInstance().getActiveProfile();
+		if (profile != null) {
+			Model sensors = profile.getModel("sensors");
+			if (sensors != null) {
+				return sensors.getModel(sensor.getName()) == null;
+			}
+		}
+		
+		return true;
+	}
 }

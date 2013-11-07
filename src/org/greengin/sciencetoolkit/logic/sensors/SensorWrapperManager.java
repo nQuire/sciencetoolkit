@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
-import org.greengin.sciencetoolkit.logic.sensors.location.LocationSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 
 
@@ -46,7 +45,7 @@ public class SensorWrapperManager {
 		}
 		
 		addSensor(new SoundSensorWrapper(applicationContext));
-		addSensor(new LocationSensorWrapper(applicationContext));
+		//addSensor(new LocationSensorWrapper(applicationContext));
 	}	
 	
 	private void addSensor(SensorWrapper sensor) {

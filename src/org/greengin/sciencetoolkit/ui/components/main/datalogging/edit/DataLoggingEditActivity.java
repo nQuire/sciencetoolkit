@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +23,7 @@ import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends ParentListActivity implements ModelNotificationListener {
+public class DataLoggingEditActivity extends ParentListActivity implements ModelNotificationListener, DataLoggerStatusListener {
 
 	public DataLoggingEditActivity() {
 		super(R.id.sensor_list);
@@ -29,25 +32,33 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 	String profileId;
 	Model profile;
 
+	EditText edit;
+	Button add;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		profileId = getIntent().getExtras().getString("profile");
 		profile = ProfileManager.getInstance().get(profileId);
 
 		setContentView(R.layout.activity_data_logging_edit);
 
+		View rootView = getWindow().getDecorView();
+		edit = (EditText) rootView.findViewById(R.id.current_profile_name);
+		add = (Button) rootView.findViewById(R.id.add_sensor);
+
 		if (profile != null) {
-			EditText edit = (EditText) getWindow().getDecorView().findViewById(R.id.current_profile_name);
 			edit.addTextChangedListener(new TextWatcher() {
 				@Override
 				public void afterTextChanged(Editable s) {
 					profile.setString("title", s.toString());
 				}
+
 				@Override
 				public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 				}
+
 				@Override
 				public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 				}
@@ -62,21 +73,29 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 		super.onResume();
 		updateTitle();
 		updateChildrenList();
+		updateSettingsEnabled();
 		ProfileManager.getInstance().registerDirectListener(this);
+		DataLogger.getInstance().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		ProfileManager.getInstance().unregisterDirectListener(this);
+		DataLogger.getInstance().unregisterStatusListener(this);
 	}
 
 	private void updateTitle() {
-		View rootView = getWindow().getDecorView();
-		EditText edit = (EditText) rootView.findViewById(R.id.current_profile_name);
-		edit.setText(profile.getString("title"));
+		if (profile != null) {
+			edit.setText(profile.getString("title"));
+		}
 	}
 
+	private void updateSettingsEnabled() {
+		boolean enabled = profile != null && !DataLogger.getInstance().isRunning();
+		add.setEnabled(enabled);
+		edit.setEnabled(enabled);
+	}
 
 	public void actionAddSensor(View view) {
 		FragmentManager fm = getSupportFragmentManager();
@@ -88,9 +107,7 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override
@@ -125,7 +142,7 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
-		
+
 		Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
 		for (Model profileSensor : profileSensors) {
 			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
@@ -135,8 +152,13 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 			fragment.setArguments(args);
 			fragments.add(fragment);
 		}
-		
+
 		return fragments;
+	}
+
+	@Override
+	public void dataLoggerStatusModified() {
+		updateSettingsEnabled();
 	}
 
 }

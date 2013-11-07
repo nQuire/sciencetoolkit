@@ -1,6 +1,8 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -22,7 +24,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 
-public class SwitchProfileFragment extends Fragment implements ModelNotificationListener {
+public class SwitchProfileFragment extends Fragment implements ModelNotificationListener, DataLoggerStatusListener {
 	public static final String ARG_PROFILE = "profile";
 
 	private String profileId;
@@ -98,15 +100,18 @@ public class SwitchProfileFragment extends Fragment implements ModelNotification
 	}
 
 	private void updateView(View view) {
+		updateRadioView(view);
 		updateTitleView(view);
 		updateStatusView(view);
 		updateDiscardView(view);
 	}
 
+	private void updateRadioView(View view) {
+		radio.setEnabled(!DataLogger.getInstance().isRunning());
+	}
+
 	private void updateTitleView(View view) {
-		if (view != null) {
-			radio.setText(this.profile.getString("title"));
-		}
+		radio.setText(this.profile.getString("title"));
 	}
 
 	private void updateStatusView(View view) {
@@ -129,12 +134,14 @@ public class SwitchProfileFragment extends Fragment implements ModelNotification
 		super.onResume();
 		updateView(getView());
 		ProfileManager.getInstance().registerDirectListener(this);
+		DataLogger.getInstance().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		ProfileManager.getInstance().unregisterDirectListener(this);
+		DataLogger.getInstance().unregisterStatusListener(this);
 	}
 
 	@Override
@@ -149,7 +156,13 @@ public class SwitchProfileFragment extends Fragment implements ModelNotification
 		}
 	}
 
+	@Override
+	public void dataLoggerStatusModified() {
+		updateRadioView(getView());
+	}
+
 	public void setSelectedForChangeProfile(String profileId) {
 		radio.setChecked(this.profileId.equals(profileId));
 	}
+
 }

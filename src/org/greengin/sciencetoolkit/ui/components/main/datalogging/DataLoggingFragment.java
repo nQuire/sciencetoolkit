@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerListener;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -31,7 +31,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends ParentListFragment implements ModelNotificationListener, DataLoggerListener {
+public class DataLoggingFragment extends ParentListFragment implements ModelNotificationListener, DataLoggerDataListener {
 
 	public DataLoggingFragment() {
 		super(R.id.sensor_list);
@@ -143,14 +143,14 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		super.onResume();
 		updateView(getView());
 		ProfileManager.getInstance().registerDirectListener(this);
-		DataLogger.getInstance().registerListener(this);
+		DataLogger.getInstance().registerDataListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		ProfileManager.getInstance().unregisterDirectListener(this);
-		DataLogger.getInstance().unregisterListener(this);
+		DataLogger.getInstance().unregisterDataListener(this);
 	}
 
 	@Override
