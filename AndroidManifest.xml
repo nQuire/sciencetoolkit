@@ -83,6 +83,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.main.data.files.FileManagementActivity"
+            android:label="@string/title_activity_file_management"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
+        
     </application>
 
 </manifest>

@@ -5,23 +5,36 @@ import org.greengin.sciencetoolkit.R;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 
 public class FileManagementActivity extends ActionBarActivity {
-
+	
+	Button[] buttons;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_file_management);
 		
+		View root = getWindow().getDecorView();
+		buttons = new Button[] {(Button) root.findViewById(R.id.share_files), (Button) root.findViewById(R.id.delete_files)}; 
 		setupActionBar();
+		
+		for (Button b : buttons) {
+			b.setEnabled(false);
+		}
+		
+		
 	}
 
 	private void setupActionBar() {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,4 +60,11 @@ public class FileManagementActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void onClickShareButton(View view) {
+		
+	}
+	
+	public void onClickDeleteButton(View view) {
+		
+	}
 }

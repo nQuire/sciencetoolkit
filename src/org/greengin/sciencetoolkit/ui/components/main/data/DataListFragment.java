@@ -10,9 +10,11 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
+import org.greengin.sciencetoolkit.ui.components.main.data.files.FileManagementActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -122,6 +124,10 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.action_data_file_management: {
+			Intent intent = new Intent(getActivity(), FileManagementActivity.class);
+	    	startActivity(intent);
+		}
 		}
 
 		return super.onOptionsItemSelected(item);
