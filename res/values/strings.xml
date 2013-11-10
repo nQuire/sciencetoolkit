@@ -37,7 +37,8 @@
     <string name="remove_sensor_dlg_yes">Remove</string>
     <string name="data_logging_start">Start logging</string>
     <string name="data_logging_stop">Stop logging</string>
-    <string name="welcome">Welcome to ScienceToolkit!</string>
+    <string name="welcome">nQuire Science Toolkit</string>
+    <string name="welcome_link">http://nquire.wordpress.com/</string>
     <string name="welcome_start">Start</string>
     <string name="delete_all_data">Delete all data</string>
     <string name="data_count_none">No data logged.</string>

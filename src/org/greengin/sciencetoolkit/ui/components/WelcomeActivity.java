@@ -1,16 +1,20 @@
 package org.greengin.sciencetoolkit.ui.components;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
 import org.greengin.sciencetoolkit.ui.components.main.MainActivity;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends ControlledRotationActivity {
 
+	public WelcomeActivity() {
+		super(0);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

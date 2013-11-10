@@ -8,19 +8,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".WelcomeActivity" >
 
-    <TextView
-        android:id="@+id/welcomeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome" />
-
     <Button
         android:id="@+id/start_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:onClick="actionStart"
+        android:text="@string/welcome_start" />
+
+    <TextView
+        android:id="@+id/welcome_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/welcomeLabel"
-        android:layout_below="@+id/welcomeLabel"
-        android:text="@string/welcome_start" />
+        android:layout_above="@id/start_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:autoLink="web"
+        android:text="@string/welcome_link" />
+
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/welcome_link"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/welcome"
+            android:textSize="18sp"
+            android:textStyle="bold" 
+            android:drawableTop="@drawable/ic_welcome"
+            android:drawablePadding="@dimen/activity_vertical_margin"
+            />
+    </LinearLayout>
 
 </RelativeLayout>
