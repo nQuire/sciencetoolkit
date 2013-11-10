@@ -1,8 +1,5 @@
 package org.greengin.sciencetoolkit.logic.datalogging;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -11,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 
 public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
@@ -162,54 +158,12 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 		listener.dataLoggerDataModified("all");
 	}
-
-	public File exportData(String profileId) {
-		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-			File export = null;
-			for (int i = 0;; i++) {
-				export = new File(path, "science_toolkit_" + i + ".csv");
-				if (!export.exists()) {
-					break;
-				}
-			}
-
-			try {
-
-				BufferedWriter bw = new BufferedWriter(new FileWriter(export));
-
-				Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
-				if (cursor.getCount() > 0) {
-					cursor.moveToFirst();
-					while (!cursor.isAfterLast()) {
-						bw.write(cursor.getString(0));
-						bw.write(" , ");
-						bw.write(getExternalSensorId(cursor.getString(1)));
-						bw.write(" , ");
-						bw.write(cursor.getString(2));
-
-						String[] parts = cursor.getString(3).split("\\|");
-						for (int i = 0; i < 3; i++) {
-							bw.write(" , ");
-							bw.write(i < parts.length ? parts[i] : "");
-						}
-						bw.write("\n");
-
-						cursor.moveToNext();
-					}
-				}
-
-				bw.close();
-
-				return export;
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
+	
+	public Cursor getDataCursor(String profileId) {
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
+		return cursor;
 	}
+
 	
 	public Cursor getListViewCursor(String profileId) {
 		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_LIST_VIEW_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);

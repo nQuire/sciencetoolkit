@@ -50,12 +50,16 @@
     <string name="delete_profile_data_dlg_msg">Do you want to delete all data from profile &lt;i>%1s&lt;/i>?</string>
     <string name="delete_profile_dlg_title">Delete profile</string>
     <string name="delete_profile_dlg_msg">Do you want to delete profile &lt;i>%1s&lt;/i>?&lt;br/>&lt;br/>Data logged for this profile will also be deleted.</string>
+    <string name="delete_csv_dlg_title">Delete selected files</string>
+    <string name="delete_csv_dlg_msg">Do you want to delete the selected files permanently?</string>
     <string name="export_data_dlg_title">Data exported to CSV</string>
     <string name="export_data_dlg_msg">Data for profile &lt;i>%1$s&lt;/i> saved to file:&lt;br/>&lt;br/>&lt;tt>%2$s&lt;/tt>&lt;br/>&lt;br/>Do you want to share this file?</string>
     <string name="export_data_dlg_yes">Share</string>
     <string name="export_data_dlg_no">Close</string>
     <string name="export_menu_title">Share CSV data</string>
     <string name="export_payload_subject">nQuire Science Toolkit data: %1$s</string>
+    <string name="export_payload_count_s">nQuire Science Toolkit data: 1 file</string>
+    <string name="export_payload_count_p">nQuire Science Toolkit data: %1$d files</string>
     <string name="export_payload_body"></string>
     <string name="title_activity_data_view">View my data</string>
     <string name="title_activity_switch_profile">Switch profile</string>

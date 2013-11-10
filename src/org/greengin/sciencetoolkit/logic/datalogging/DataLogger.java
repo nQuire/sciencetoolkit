@@ -199,7 +199,8 @@ public class DataLogger implements DataLoggerDataListener {
 	}
 
 	public File exportData(String profileId) {
-		return this.helper.exportData(profileId);
+		Cursor cursor = this.helper.getDataCursor(profileId);
+		return CsvManager.exportCSV(this, cursor);
 	}
 	
 	private void statusModified() {
