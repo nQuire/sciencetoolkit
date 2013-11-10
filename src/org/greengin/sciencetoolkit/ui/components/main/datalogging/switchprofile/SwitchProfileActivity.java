@@ -152,4 +152,9 @@ public class SwitchProfileActivity extends ParentListActivity implements ModelNo
 		return fragments;
 	}
 
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return child instanceof SwitchProfileFragment;
+	}
+
 }

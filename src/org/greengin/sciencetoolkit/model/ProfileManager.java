@@ -39,13 +39,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	private void initDefaultProfile() {
+		appSettings.setBool("create_default", true);
+		
 		if (appSettings.getBool("create_default", true) && items.size() == 0) {
 			Model defaultProfile = createEmptyProfile();
 			defaultProfile.setString("title", "Default", true);
 			modelModified(defaultProfile);
 			listeners.fireEvent("list");
 
-			appSettings.setBool("create_default", false);
 			settings.setString("current_profile", defaultProfile.getString("id"));
 		}
 	}

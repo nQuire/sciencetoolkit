@@ -1,34 +1,48 @@
 package org.greengin.sciencetoolkit.ui;
 
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentTransaction;
 
-public abstract class ParentListActivity extends ActionBarActivity {
+public abstract class ParentListActivity extends ControlledRotationActivity {
+
 
 	int childrenContainerId;
-	List<Fragment> children;
+	ReentrantLock lock;
+
 
 	public ParentListActivity(int childrenContainerId) {
 		super();
 		this.childrenContainerId = childrenContainerId;
-		children = null;
+		this.lock = new ReentrantLock();
 	}
 
+
+
 	protected void updateChildrenList() {
-		if (children != null) {
-			for (Fragment fragment : children) {
-				getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+		lock.lock();
+		
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		
+		List<Fragment> list = getSupportFragmentManager().getFragments();
+		if (list != null) {
+			for (Fragment fragment : list) {
+				ft.remove(fragment);
 			}
 		}
 		
-		children = getUpdatedFragmentChildren();
-		for (Fragment fragment : children) {
-			getSupportFragmentManager().beginTransaction().add(childrenContainerId, fragment).commit();
+		for (Fragment fragment : getUpdatedFragmentChildren()) {
+			ft.add(childrenContainerId, fragment);
 		}
+		
+		ft.commit();
+		
+		lock.unlock();
 	}
 
 	protected abstract List<Fragment> getUpdatedFragmentChildren();
+	protected abstract boolean removeChildFragmentOnUpdate(Fragment child);
 
 }

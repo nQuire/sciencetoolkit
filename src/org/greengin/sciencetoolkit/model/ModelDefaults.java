@@ -1,6 +1,8 @@
 package org.greengin.sciencetoolkit.model;
 
 public class ModelDefaults {
+	public static final int APP_SCREEN_ORIENTATION = 0;
+	
 	public static final int SENSOR_DELAY = 2; 
 
 	public static final int LIVEVIEW_PERIOD = 100; 

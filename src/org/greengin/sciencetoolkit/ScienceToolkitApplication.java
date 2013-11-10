@@ -21,4 +21,5 @@ public class ScienceToolkitApplication extends Application {
         ProfileManager.init(context);
         DataLogger.init(context);
     }
+    
 }

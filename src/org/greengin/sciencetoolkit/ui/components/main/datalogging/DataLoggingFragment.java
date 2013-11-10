@@ -207,5 +207,11 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		}
 		return fragments;
 	}
+	
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return child instanceof ProfileSensorFragment;
+	}
+
 
 }

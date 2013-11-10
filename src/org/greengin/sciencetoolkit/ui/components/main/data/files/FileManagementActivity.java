@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.files;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,9 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 
-public class FileManagementActivity extends ActionBarActivity {
+public class FileManagementActivity extends ControlledRotationActivity {
 	
 	Button[] buttons;
 	

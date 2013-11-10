@@ -64,5 +64,7 @@
     <string name="switch_profile_active">Active profile</string>
     <string name="create_new_profile">Create new profile</string>
     <string name="create_profile">Create</string>
+    <string name="title_activity_app_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

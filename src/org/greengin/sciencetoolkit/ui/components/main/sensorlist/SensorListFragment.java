@@ -50,7 +50,7 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 		updateChildrenList();
 		SettingsManager.getInstance().registerDirectListener("sensor_list", this);
 	}
-	
+
 	public void onPause() {
 		super.onPause();
 		SettingsManager.getInstance().unregisterDirectListener("sensor_list", this);
@@ -64,10 +64,12 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_sensor_list_show:
+		case R.id.action_sensor_list_show: {
 			Intent intent = new Intent(getActivity(), SensorListSettingsActivity.class);
 			startActivity(intent);
 			break;
+		}
+
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -76,9 +78,9 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
-		
+
 		Model showSensors = SettingsManager.getInstance().get("sensor_list");
-		
+
 		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
 			if (showSensors.getBool(sensorId, true)) {
 				SensorFragment fragment = new SensorFragment();
@@ -88,8 +90,13 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 				fragments.add(fragment);
 			}
 		}
-		
+
 		return fragments;
+	}
+
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return child instanceof SensorFragment;
 	}
 
 	@Override

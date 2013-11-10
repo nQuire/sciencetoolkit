@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.sensorlist.choose;
+package org.greengin.sciencetoolkit.ui.components.appsettings;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
@@ -8,24 +8,22 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-public class SensorListSettingsActivity extends ControlledRotationActivity {
+public class AppSettingsActivity extends ControlledRotationActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sensor_list_settings);
-		SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.settings_container, "sensor_list");
+		setContentView(R.layout.activity_app_settings);
 		
 		setupActionBar();
+		
+		SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.app_settings, "app");
 	}
 
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
 	private void setupActionBar() {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -42,4 +40,5 @@ public class SensorListSettingsActivity extends ControlledRotationActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 }

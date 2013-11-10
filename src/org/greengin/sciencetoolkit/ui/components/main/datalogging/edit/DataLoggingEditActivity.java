@@ -155,10 +155,17 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 
 		return fragments;
 	}
+	
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return child instanceof ProfileSensorOrganizeFragment;
+	}
+
 
 	@Override
 	public void dataLoggerStatusModified() {
 		updateSettingsEnabled();
 	}
+
 
 }

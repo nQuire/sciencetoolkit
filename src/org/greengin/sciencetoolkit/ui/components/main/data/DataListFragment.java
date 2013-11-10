@@ -115,6 +115,12 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 
 		return fragments;
 	}
+	
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return child instanceof DataFragment;
+	}
+
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -132,5 +138,6 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 
 		return super.onOptionsItemSelected(item);
 	}
+
 
 }

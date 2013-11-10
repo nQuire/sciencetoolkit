@@ -1,10 +1,13 @@
 package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
+import org.greengin.sciencetoolkit.ui.components.appsettings.AppSettingsActivity;
 import org.greengin.sciencetoolkit.ui.components.main.data.DataListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,11 +16,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-	
+public class MainActivity extends ControlledRotationActivity implements ActionBar.TabListener {
+
 	private static int mLastTab = -1;
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,7 +36,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	 */
 	ViewPager mViewPager;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,8 +75,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
 		}
 	}
-	
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -108,23 +108,28 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		Fragment[] fragments;
-		
+
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
 
-			fragments = new Fragment[]{null, null, null};
+			fragments = new Fragment[] { null, null, null };
 		}
-		
 
 		@Override
 		public Fragment getItem(int position) {
 			if (fragments[position] == null) {
 				switch (position) {
-				case 0: fragments[0] = new SensorListFragment(); break;
-				case 1: fragments[1] = new DataLoggingFragment(); break;
-				case 2: fragments[2] = new DataListFragment(); break;
+				case 0:
+					fragments[0] = new SensorListFragment();
+					break;
+				case 1:
+					fragments[1] = new DataLoggingFragment();
+					break;
+				case 2:
+					fragments[2] = new DataListFragment();
+					break;
 				}
-			} 
+			}
 			return fragments[position];
 		}
 
@@ -161,6 +166,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+			
+		case R.id.action_application_settings: {
+			Intent i = new Intent(getApplicationContext(), AppSettingsActivity.class);
+			startActivity(i);
+		}
 		}
 		return super.onOptionsItemSelected(item);
 	}

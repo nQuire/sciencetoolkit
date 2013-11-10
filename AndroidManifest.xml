@@ -91,7 +91,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
-        
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.appsettings.AppSettingsActivity"
+            android:label="@string/title_activity_app_settings" 
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

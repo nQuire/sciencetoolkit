@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.AppSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.LivePlotSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.LiveViewSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.SensorListSettingsFragment;
@@ -23,7 +24,9 @@ public class SettingsFragmentManager {
 		args.putString(ARG_SETTINGS, settingsId);
 
 		if (settingsId != null) {
-			if (settingsId.equals("sensor_list")) {
+			if (settingsId.equals("app")) {
+				fragment = new AppSettingsFragment();
+			} else if (settingsId.equals("sensor_list")) {
 				fragment = new SensorListSettingsFragment();
 			} else if (settingsId.startsWith("sensor:")) {
 				String sensorId = getKeyParam(settingsId, 1);

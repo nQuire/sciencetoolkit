@@ -1,15 +1,15 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 
-public class DataViewActivity extends ActionBarActivity {
+public class DataViewActivity extends ControlledRotationActivity {
 
 	String profileId;
 	

@@ -5,6 +5,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
 import org.greengin.sciencetoolkit.ui.modelconfig.ProfileModelFragmentManager;
 
 import android.os.Bundle;
@@ -12,9 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 
-public class ProfileSensorSettingsActivity extends ActionBarActivity {
+public class ProfileSensorSettingsActivity extends ControlledRotationActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
