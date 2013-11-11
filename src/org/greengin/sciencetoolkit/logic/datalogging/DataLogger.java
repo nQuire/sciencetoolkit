@@ -223,6 +223,11 @@ public class DataLogger implements DataLoggerDataListener {
 		return this.helper.getListViewCursor(profileId);
 	}
 	
+	public Cursor getListViewCursor(String profileId, long from, long to) {
+		return this.helper.getListViewCursor(profileId, from, to);
+	}
+
+	
 	public String sensorName(String dbSensorId) {
 		return this.helper.getExternalSensorId(dbSensorId);
 	}

@@ -13,7 +13,6 @@ import org.greengin.sciencetoolkit.ui.SensorUIData;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ListViewFragment extends Fragment {
+public class ListViewFragment extends DataViewFragment {
 
 	String profileId;
 	Cursor cursor;
@@ -33,10 +32,8 @@ public class ListViewFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setHasOptionsMenu(true);
 		
 		this.profileId = getArguments().getString("profile");
-		this.cursor = DataLogger.getInstance().getListViewCursor(profileId);
 		this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", getResources().getConfiguration().locale);
 	}
 
@@ -46,7 +43,7 @@ public class ListViewFragment extends Fragment {
 
 		View rootView = inflater.inflate(R.layout.fragment_data_view_list, container, false);
 
-		this.adapter = new CustomAdapter(this.getActivity(), this.cursor);
+		this.adapter = new CustomAdapter(this.getActivity(), getCursor());
 		
 		ListView view = (ListView) rootView.findViewById(R.id.data_list);
 		view.setAdapter(this.adapter);
@@ -54,9 +51,16 @@ public class ListViewFragment extends Fragment {
 		return rootView;
 	}
 	
+		
+	
+	@Override 
+	public void onDestroy() {
+		super.onDestroy();
+	}
+	
 	private class CustomAdapter extends CursorAdapter {
 		public CustomAdapter(Context context, Cursor cursor) {
-			super(context, cursor, 0);//CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			super(context, cursor, 0);
 		}
 
 		@Override
@@ -98,5 +102,10 @@ public class ListViewFragment extends Fragment {
 			
 			return ll;
 		}
+	}
+
+	@Override
+	protected void updateDataRange() {
+		adapter.changeCursor(getCursor());
 	}
 }

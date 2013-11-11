@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.SeekBarTransfo
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.TransformSeekBar;
 
 
+import android.util.Log;
 import android.view.View;
 
 public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment {
@@ -44,13 +45,21 @@ public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment
 		
 		RangeTransform transform = new RangeTransform();
 		
+		if (model.getBool("track_to", true) && model.getLong("to", timeMax) < timeMax) {
+			model.setLong("to", timeMax);
+		}
+		
 		fromEdit = addOptionDateTimeMillis("from", null, null, timeMin);
 		fromBar = addOptionSeekbar("from", "from_bar", null, null, timeMin, transform);
 		
 		toEdit = addOptionDateTimeMillis("to", null, null, timeMax);
 		toBar = addOptionSeekbar("to", "to_bar", null, null, timeMax, transform);
 		
-		this.setSettingsEnabled(enabled && timeGap > 0);
+	}
+	
+	@Override
+	public boolean settingsShouldBeEnabled() {
+		return timeGap > 0;
 	}
 
 	@Override
@@ -87,7 +96,12 @@ public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment
 					toBar.updateValue();
 				}
 			}
+			
+			if ("to".equals(leading)) {
+				model.setBool("track_to", to >= timeMax);
+			}
 		}
+		
 	}
 	
 	private void updateTimeFromEdit(String modelKey, long defaultValue, DateTimeHelperPair sourceEdit, TransformSeekBar sourceBar) {

@@ -8,7 +8,6 @@ import java.util.GregorianCalendar;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.modelconfig.ModelKeyChangeListener;
 import org.greengin.sciencetoolkit.ui.modelconfig.OnSecondsSetListener;
-import org.greengin.sciencetoolkit.ui.modelconfig.SecondsPickerDialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;

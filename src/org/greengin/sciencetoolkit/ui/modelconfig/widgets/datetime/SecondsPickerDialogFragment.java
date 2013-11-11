@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.modelconfig;
+package org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime;
 
 import java.util.GregorianCalendar;
 
@@ -6,6 +6,7 @@ import net.simonvt.numberpicker.NumberPicker;
 import net.simonvt.numberpicker.NumberPicker.Formatter;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.modelconfig.OnSecondsSetListener;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

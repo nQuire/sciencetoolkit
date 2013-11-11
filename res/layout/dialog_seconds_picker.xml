@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center"
-    tools:context=".SecondsPickerDialogFragment" >
+    tools:context=".DataViewRangeDialogFragment" >
 
     <net.simonvt.numberpicker.NumberPicker
         android:id="@+id/hourPicker"

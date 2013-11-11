@@ -36,7 +36,6 @@ public class DataViewActivity extends ControlledRotationActivity {
 			updateFragment();
 		}
 
-
 		setupActionBar();
 	}
 
@@ -70,6 +69,7 @@ public class DataViewActivity extends ControlledRotationActivity {
 			Intent intent = new Intent(this, DataViewRangeActivity.class);
 			intent.putExtra("profile", profileId);
 			startActivity(intent);
+			return true;
 		}
 
 		}
