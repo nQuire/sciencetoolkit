@@ -1,16 +1,19 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime.DateTimeHelperPair;
+import org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime.DateTimePickerHelper;
+import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.NumberModelSeekBarTransformWrapper;
+import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.SeekBarTransform;
+import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.TransformSeekBar;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +31,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public abstract class ModelFragment extends Fragment {
+public abstract class ModelFragment extends Fragment implements ModelKeyChangeListener {
 
-	Model model;
-	private HashMap<String, View> optionViews;
+	protected Model model;
 	boolean settingsEnabled;
 	LinearLayout rootContainer;
 
 	public ModelFragment() {
 		this.settingsEnabled = true;
-		this.optionViews = new HashMap<String, View>();
 	}
-	
+
 	protected abstract Model fetchModel();
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -63,8 +64,8 @@ public abstract class ModelFragment extends Fragment {
 		int inputtype = InputType.TYPE_CLASS_TEXT;
 		edit.setInputType(inputtype);
 		edit.setText(model.getString(key));
-		edit.addTextChangedListener(new SettingsTextWatcher(model, key));
-		addRow(key, label, description, edit);
+		edit.addTextChangedListener(new SettingsTextWatcher(model, key, this));
+		addRow(label, description, edit);
 	}
 
 	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max) {
@@ -78,9 +79,9 @@ public abstract class ModelFragment extends Fragment {
 		}
 		edit.setInputType(inputtype);
 		edit.setText(model.getNumber(key, defaultValue).toString());
-		edit.addTextChangedListener(new SettingsTextWatcher(model, key, true, decimal, signed, min, max));
+		edit.addTextChangedListener(new SettingsTextWatcher(model, key, true, decimal, signed, min, max, this));
 
-		addRow(key, label, description, edit);
+		addRow(label, description, edit);
 	}
 
 	protected void addOptionToggle(String key, String label, String description, boolean defaultValue) {
@@ -91,14 +92,16 @@ public abstract class ModelFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				String clickedkey = (String) view.getTag();
-				model.setBool(clickedkey, ((ToggleButton) view).isChecked());
+				if (model.setBool(clickedkey, ((ToggleButton) view).isChecked())) {
+					modelKeyModified(clickedkey);
+				}
 			}
 		});
 
-		addRow(key, label, description, toggle);
+		addRow(label, description, toggle);
 	}
 
-	protected void addOptionCheckbox(String key, String label, String description, boolean defaultValue) {
+	protected CheckBox addOptionCheckbox(String key, String label, String description, boolean defaultValue) {
 		CheckBox checkbox = new CheckBox(rootContainer.getContext());
 
 		checkbox.setChecked(model.getBool(key, defaultValue));
@@ -107,14 +110,18 @@ public abstract class ModelFragment extends Fragment {
 			@Override
 			public void onCheckedChanged(CompoundButton view, boolean checked) {
 				String clickedkey = (String) view.getTag();
-				model.setBool(clickedkey, checked);
+				if (model.setBool(clickedkey, checked)) {
+					modelKeyModified(clickedkey);
+				}
 			}
 		});
 
-		addRow(key, label, description, checkbox);
+		addRow(label, description, checkbox);
+		
+		return checkbox;
 	}
 
-	public void addText(String text) {
+	public TextView addText(String text) {
 		LinearLayout row = new LinearLayout(rootContainer.getContext());
 		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setOrientation(LinearLayout.HORIZONTAL);
@@ -125,9 +132,11 @@ public abstract class ModelFragment extends Fragment {
 		row.addView(labelView);
 
 		rootContainer.addView(row);
+		
+		return labelView;
 	}
 
-	public void addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
+	public Spinner addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
 		Spinner spinner = new Spinner(rootContainer.getContext());
 		spinner.setTag(key);
 
@@ -136,54 +145,86 @@ public abstract class ModelFragment extends Fragment {
 		spinner.setAdapter(dataAdapter);
 		spinner.setSelection(model.getInt(key, defaultValue));
 
-		addRow(key, label, description, spinner);
+		addRow(label, description, spinner);
 
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 				String changekey = (String) parentView.getTag();
-				model.setInt(changekey, position);
+				if (model.setInt(changekey, position)) {
+					modelKeyModified(changekey);
+				}				
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
+		
+		return spinner;
 	}
 
-	protected void addOptionDateTime(String key, String label, String description, int defaultValue) {
+	protected DateTimeHelperPair addOptionDateTime(String key, String label, String description, long defaultValue) {
+		return addOptionDateTime(key, label, description, false, defaultValue);
+	}
+
+	protected DateTimeHelperPair addOptionDateTime(String key, String label, String description, boolean includeSeconds, long defaultValue) {
 
 		EditText date = new EditText(rootContainer.getContext());
 		date.setClickable(true);
 		date.setFocusable(false);
 		date.setKeyListener(null);
-		date.setOnClickListener(new DateTimePickerHelper(model, key, "date"));
-		date.setText(DateFormat.format("dd/MM/yy", model.getLong(key)));
+		
+		DateTimePickerHelper dateHelper = new DateTimePickerHelper(getActivity(), date, model, key, "date", defaultValue, this);
+		date.setOnClickListener(dateHelper);
 
+		String timeType = includeSeconds ? "millis" : "time";
+		
 		EditText time = new EditText(rootContainer.getContext());
 		time.setClickable(true);
 		time.setFocusable(false);
 		time.setKeyListener(null);
-		time.setOnClickListener(new DateTimePickerHelper(model, key, "time"));
-		time.setText(DateFormat.format("hh:mm", model.getLong(key)));
+		
+		DateTimePickerHelper timeHelper = new DateTimePickerHelper(getActivity(), time, model, key, timeType, defaultValue, this); 
+		time.setOnClickListener(timeHelper);
 
-		addRow(key, label, description, new View[] { date, time });
+		View[] views = new View[] { date, time };
+		addRow(label, description, views);
+		
+		return new DateTimeHelperPair(dateHelper, timeHelper);		
 	}
 
-	private void addRow(String key, String label, String description, View widget) {
-		addRow(key, label, description, new View[] { widget });
-
+	protected DateTimeHelperPair addOptionDateTimeMillis(String key, String label, String description, long defaultValue) {
+		return addOptionDateTime(key, label, description, true, defaultValue);
+	}
+	
+	protected TransformSeekBar addOptionSeekbar(String modelKey, String widgetKey, String label, String description, Number defaultValue, SeekBarTransform transform) {
+		TransformSeekBar bar = new TransformSeekBar(rootContainer.getContext());
+		bar.setMax(1000000);
+		bar.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		NumberModelSeekBarTransformWrapper wrapper = new NumberModelSeekBarTransformWrapper(model, modelKey, widgetKey, "long", defaultValue, this, transform);
+		bar.setTransform(wrapper);
+		
+		addRow(label, description, bar);
+		return bar;
 	}
 
-	private void addRow(String key, String label, String description, View[] widgets) {
+
+	private void addRow(String label, String description, View widget) {
+		addRow(label, description, new View[] { widget });
+	}
+
+	private void addRow(String label, String description, View[] widgets) {
 		LinearLayout row = new LinearLayout(rootContainer.getContext());
 		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setOrientation(LinearLayout.HORIZONTAL);
 
-		TextView labelView = new TextView(rootContainer.getContext());
-		labelView.setText(label);
-		labelView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		row.addView(labelView);
+		if (label != null) {
+			TextView labelView = new TextView(rootContainer.getContext());
+			labelView.setText(label);
+			labelView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			row.addView(labelView);
+		}
 
 		for (View widget : widgets) {
 			row.addView(widget);
@@ -194,24 +235,25 @@ public abstract class ModelFragment extends Fragment {
 		settingView.setOrientation(LinearLayout.VERTICAL);
 		settingView.addView(row);
 
-		TextView descriptionView = new TextView(rootContainer.getContext());
-		descriptionView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		descriptionView.setText(description);
-		descriptionView.setTextSize(8);
-		descriptionView.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
-		settingView.addView(descriptionView);
+		if (description != null) {
+			TextView descriptionView = new TextView(rootContainer.getContext());
+			descriptionView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			descriptionView.setText(description);
+			descriptionView.setTextSize(8);
+			descriptionView.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
+			settingView.addView(descriptionView);
+		}
 
 		rootContainer.addView(settingView);
-		this.optionViews.put(key, settingView);
 	}
-	
+
 	public void setSettingsEnabled(boolean enabled) {
 		View root = getView();
 		if (root != null) {
 			setSettingsEnabled(root, enabled);
 		}
 	}
-	
+
 	private void setSettingsEnabled(View view, boolean enabled) {
 		view.setEnabled(enabled);
 		if (view instanceof ViewGroup) {
@@ -220,5 +262,8 @@ public abstract class ModelFragment extends Fragment {
 				setSettingsEnabled(group.getChildAt(i), enabled);
 			}
 		}
+	}
+
+	public void modelKeyModified(String widgetTey) {
 	}
 }

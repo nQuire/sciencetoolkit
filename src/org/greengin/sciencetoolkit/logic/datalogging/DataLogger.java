@@ -226,4 +226,8 @@ public class DataLogger implements DataLoggerDataListener {
 	public String sensorName(String dbSensorId) {
 		return this.helper.getExternalSensorId(dbSensorId);
 	}
+	
+	public boolean getRange(long[] values, String profileId) {
+		return this.helper.getRange(values, profileId);
+	}
 }

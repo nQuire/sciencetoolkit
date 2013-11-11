@@ -32,6 +32,7 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	public static final String DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR_GROUP_BY = "sensor";
 	public static final String[] DATA_TABLE_QUERY_ALL_COLUMNS = new String[] { "profile", "sensor", "timestamp", "data" };
 	public static final String[] DATA_TABLE_QUERY_LIST_VIEW_COLUMNS = new String[] { "ROWID as _id", "sensor", "timestamp", "data" };
+	public static final String[] DATA_TABLE_QUERY_RANGE = new String[] { "MIN(timestamp) as mintime", "MAX(timestamp) as maxtime" };
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE = "profile=?";
 	public static final String DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR = "profile=? AND sensor=?";
 	public static final String DATA_TABLE_DELETE_ALL = "DELETE FROM data";
@@ -158,18 +159,28 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 		listener.dataLoggerDataModified("all");
 	}
-	
+
 	public Cursor getDataCursor(String profileId) {
 		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
 		return cursor;
 	}
 
-	
 	public Cursor getListViewCursor(String profileId) {
 		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_LIST_VIEW_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
 		cursor.moveToFirst();
 		return cursor;
 	}
 
+	public boolean getRange(long[] values, String profileId) {
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_RANGE, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
+		if (cursor.getCount() == 1) {
+			cursor.moveToFirst();
+			values[0] = cursor.getLong(0);
+			values[1] = cursor.getLong(1);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

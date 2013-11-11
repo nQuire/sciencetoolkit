@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 
 public class SettingsTextWatcher implements TextWatcher {
+	ModelKeyChangeListener listener;
 	Model settings;
 	String key;
 	boolean number;
@@ -14,11 +15,11 @@ public class SettingsTextWatcher implements TextWatcher {
 	Number min;
 	Number max;
 
-	public SettingsTextWatcher(Model settings, String key) {
-		this(settings, key, false, false, false, null, null);
+	public SettingsTextWatcher(Model settings, String key, ModelKeyChangeListener listener) {
+		this(settings, key, false, false, false, null, null, listener);
 	}
 
-	public SettingsTextWatcher(Model settings, String key, boolean number, boolean decimal, boolean signed, Number min, Number max) {
+	public SettingsTextWatcher(Model settings, String key, boolean number, boolean decimal, boolean signed, Number min, Number max, ModelKeyChangeListener listener) {
 		this.settings = settings;
 		this.key = key;
 		this.number = number;
@@ -26,10 +27,13 @@ public class SettingsTextWatcher implements TextWatcher {
 		this.signed = signed;
 		this.min = min;
 		this.max = max;
+		this.listener = listener;
 	}
 
 	@Override
 	public void afterTextChanged(Editable s) {
+		boolean modified = false;
+
 		if (number) {
 			if (decimal) {
 				double value;
@@ -44,7 +48,7 @@ public class SettingsTextWatcher implements TextWatcher {
 				} catch (NumberFormatException e) {
 					value = min != null ? min.doubleValue() : 0.;
 				}
-				settings.setDouble(key, value);
+				modified = settings.setDouble(key, value);
 			} else {
 				int value;
 				try {
@@ -59,10 +63,14 @@ public class SettingsTextWatcher implements TextWatcher {
 					value = min != null ? min.intValue() : 0;
 				}
 
-				settings.setInt(key, value);
+				modified = settings.setInt(key, value);
 			}
 		} else {
-			settings.setString(key, s.toString());
+			modified = settings.setString(key, s.toString());
+		}
+
+		if (modified && listener != null) {
+			listener.modelKeyModified(key);
 		}
 	}
 

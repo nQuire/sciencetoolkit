@@ -54,9 +54,8 @@
         <TextView
             android:id="@+id/no_sensors_notice"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:gravity="center_horizontal"
             android:paddingTop="@dimen/activity_vertical_margin" />
 
         <LinearLayout

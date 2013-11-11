@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    tools:context=".SecondsPickerDialogFragment" >
+
+    <net.simonvt.numberpicker.NumberPicker
+        android:id="@+id/hourPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":" />
+
+    <net.simonvt.numberpicker.NumberPicker
+        android:id="@+id/minPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":" />
+
+    <net.simonvt.numberpicker.NumberPicker
+        android:id="@+id/secPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="." />
+
+    <net.simonvt.numberpicker.NumberPicker
+        android:id="@+id/msPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

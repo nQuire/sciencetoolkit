@@ -1,8 +1,11 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,23 +15,38 @@ import android.support.v4.app.NavUtils;
 public class DataViewActivity extends ControlledRotationActivity {
 
 	String profileId;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		profileId = getIntent().getExtras().getString("profile");
-		
+
 		setContentView(R.layout.activity_data_view);
-		
+
+		Model viewSettings = SettingsManager.getInstance().get("view_data_activity");
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			profileId = getIntent().getExtras().getString("profile");
+			viewSettings.setString("profile", profileId);
+		} else {
+			profileId = viewSettings.getString("profile", null);
+		}
+
+		if (profileId != null) {
+			updateFragment();
+		}
+
+
+		setupActionBar();
+	}
+
+	private void updateFragment() {
 		Bundle args = new Bundle();
 		args.putString("profile", profileId);
 		Fragment fragment = new ListViewFragment();
 		fragment.setArguments(args);
-		
+
 		getSupportFragmentManager().beginTransaction().replace(R.id.view_container, fragment).commit();
-		
-		setupActionBar();
 	}
 
 	private void setupActionBar() {
@@ -37,7 +55,6 @@ public class DataViewActivity extends ControlledRotationActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.data_view, menu);
 		return true;
 	}
@@ -46,15 +63,15 @@ public class DataViewActivity extends ControlledRotationActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+
+		case R.id.action_data_view_range: {
+			Intent intent = new Intent(this, DataViewRangeActivity.class);
+			intent.putExtra("profile", profileId);
+			startActivity(intent);
+		}
+
 		}
 		return super.onOptionsItemSelected(item);
 	}
