@@ -100,7 +100,7 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		updateChildrenList();
 	}
 

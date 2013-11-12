@@ -75,7 +75,7 @@ public class LiveSensorPlotFragment extends Fragment {
 
 		this.notificationListener = new ModelNotificationListener() {
 			@Override
-			public void modelNotificationReveiced(String msg) {
+			public void modelNotificationReceived(String msg) {
 				updatePlotConfig();
 			}
 		};

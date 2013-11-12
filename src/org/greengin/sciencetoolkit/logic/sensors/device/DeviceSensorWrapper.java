@@ -141,7 +141,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		this.updateDelay();
 	}
 }

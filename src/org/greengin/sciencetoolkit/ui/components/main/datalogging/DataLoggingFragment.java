@@ -181,7 +181,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		updateView(getView());
 	}
 

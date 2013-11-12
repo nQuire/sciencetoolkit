@@ -31,7 +31,7 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 
 	public void fireEvent(String msg) {
 		for (ModelNotificationListener listener : directListeners) {
-			listener.modelNotificationReveiced(msg);
+			listener.modelNotificationReceived(msg);
 		}
 		
 		if (uilisteneractivated) {
@@ -77,7 +77,7 @@ public class NotificationListenerAggregator extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		String msg = intent.getExtras().getString("msg");
 		for (ModelNotificationListener listener : uilisteners) {
-			listener.modelNotificationReveiced(msg);
+			listener.modelNotificationReceived(msg);
 		}
 	}
 

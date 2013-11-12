@@ -182,7 +182,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		listeners.fireEvent("switch");
 	}
 

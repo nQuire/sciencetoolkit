@@ -1,24 +1,20 @@
 package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
-import org.greengin.sciencetoolkit.ui.components.appsettings.AppSettingsActivity;
+import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.components.main.data.DataListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 
-public class MainActivity extends ControlledRotationActivity implements ActionBar.TabListener {
+public class MainActivity extends SettingsControlledActivity implements ActionBar.TabListener {
 
 	private static int mLastTab = -1;
 	/**
@@ -44,8 +40,6 @@ public class MainActivity extends ControlledRotationActivity implements ActionBa
 		// Set up the action bar.
 		final ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		// Show the Up button in the action bar.
-		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
@@ -151,28 +145,6 @@ public class MainActivity extends ControlledRotationActivity implements ActionBa
 			}
 			return null;
 		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-			
-		case R.id.action_application_settings: {
-			Intent i = new Intent(getApplicationContext(), AppSettingsActivity.class);
-			startActivity(i);
-		}
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 }

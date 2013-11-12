@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
+import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.components.main.MainActivity;
 
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class WelcomeActivity extends ControlledRotationActivity {
+public class WelcomeActivity extends SettingsControlledActivity {
 
 	public WelcomeActivity() {
 		super(0);

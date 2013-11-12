@@ -92,7 +92,7 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		if ("list".equals(msg)) {
 			updateChildrenList();
 		}

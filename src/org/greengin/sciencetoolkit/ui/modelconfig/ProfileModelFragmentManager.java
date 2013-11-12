@@ -1,8 +1,8 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
-import org.greengin.sciencetoolkit.ui.modelconfig.profile.ProfileDataRangeModelFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.profile.ProfileSensorConfigModelFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.profile.ProfileSensorPeriodModelFragment;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview.ProfileDataRangeSettingsFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +27,7 @@ public class ProfileModelFragmentManager {
 			} else if ("sensor".equals(type)) {
 				fragment = new ProfileSensorConfigModelFragment();
 			} else if ("datarange".equals(type)) {
-				fragment = new ProfileDataRangeModelFragment();
+				fragment = new ProfileDataRangeSettingsFragment();
 			}
 			
 			if (fragment != null) {

@@ -145,7 +145,7 @@ public class SwitchProfileFragment extends Fragment implements ModelNotification
 	}
 
 	@Override
-	public void modelNotificationReveiced(String msg) {
+	public void modelNotificationReceived(String msg) {
 		if ("switch".equals(msg)) {
 			updateStatusView(getView());
 			updateDiscardView(getView());

@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-public abstract class ParentListActivity extends ControlledRotationActivity {
+public abstract class ParentListActivity extends SettingsControlledActivity {
 
 
 	int childrenContainerId;

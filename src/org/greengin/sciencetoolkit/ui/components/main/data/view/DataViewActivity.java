@@ -1,55 +1,45 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
+import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
 
-public class DataViewActivity extends ControlledRotationActivity {
+public class DataViewActivity extends SettingsControlledActivity {
+
+	/**
+	 * The {@link android.support.v4.view.PagerAdapter} that will provide
+	 * fragments for each of the sections. We use a
+	 * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
+	 * will keep every loaded fragment in memory. If this becomes too memory
+	 * intensive, it may be best to switch to a
+	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+	 */
+	SectionsPagerAdapter mSectionsPagerAdapter;
+
+	/**
+	 * The {@link ViewPager} that will host the section contents.
+	 */
+	ViewPager mViewPager;
 
 	String profileId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_data_view);
 
-		Model viewSettings = SettingsManager.getInstance().get("view_data_activity");
+		profileId = getIntent().getExtras().getString("profile");
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			profileId = getIntent().getExtras().getString("profile");
-			viewSettings.setString("profile", profileId);
-		} else {
-			profileId = viewSettings.getString("profile", null);
-		}
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-		if (profileId != null) {
-			updateFragment();
-		}
-
-		setupActionBar();
-	}
-
-	private void updateFragment() {
-		Bundle args = new Bundle();
-		args.putString("profile", profileId);
-		Fragment fragment = new ListViewFragment();
-		fragment.setArguments(args);
-
-		getSupportFragmentManager().beginTransaction().replace(R.id.view_container, fragment).commit();
-	}
-
-	private void setupActionBar() {
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setAdapter(mSectionsPagerAdapter);
 	}
 
 	@Override
@@ -58,22 +48,40 @@ public class DataViewActivity extends ControlledRotationActivity {
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
 
-		case R.id.action_data_view_range: {
-			Intent intent = new Intent(this, DataViewRangeActivity.class);
-			intent.putExtra("profile", profileId);
-			startActivity(intent);
-			return true;
+	/**
+	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+	 * one of the sections/tabs/pages.
+	 */
+	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+		public SectionsPagerAdapter(FragmentManager fm) {
+			super(fm);
 		}
 
+		@Override
+		public Fragment getItem(int position) {
+			Bundle args = new Bundle();
+			args.putString("profile", profileId);
+			Fragment fragment = position == 0 ? new VisualizationContainerFragment() : new VisualizationConfigFragment();
+			fragment.setArguments(args);
+			return fragment;
 		}
-		return super.onOptionsItemSelected(item);
+
+		@Override
+		public int getCount() {
+			return 2;
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			switch (position) {
+			case 0:
+				return getString(R.string.data_view_activity_visualization_tab);
+			case 1:
+				return getString(R.string.data_view_activity_config_tab);
+			}
+			return null;
+		}
 	}
-
 }

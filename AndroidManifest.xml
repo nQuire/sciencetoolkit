@@ -68,14 +68,6 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity"
-            android:label="@string/title_activity_data_view"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
-        </activity>
-        <activity
             android:name="org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity"
             android:label="@string/title_activity_switch_profile"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
@@ -100,12 +92,12 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewRangeActivity"
-            android:label="@string/title_activity_data_view_range"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity" >
+            android:name="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity"
+            android:label="@string/title_activity_data_view"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity" />
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
     </application>
 

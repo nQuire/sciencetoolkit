@@ -1,31 +1,37 @@
 package org.greengin.sciencetoolkit.ui;
 
+import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.components.appsettings.AppSettingsActivity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 
-public class ControlledRotationActivity extends ActionBarActivity {
+public class SettingsControlledActivity extends ActionBarActivity {
 
 	ModelNotificationListener controlledRotationListener;
 	int controlledRotationLastValue;
 	boolean controlledRotationActive;
 
-	public ControlledRotationActivity() {
+	public SettingsControlledActivity() {
 		this(-1);
 		this.controlledRotationLastValue = -1;
 	}
 
-	public ControlledRotationActivity(int overrideSettings) {
+	public SettingsControlledActivity(int overrideSettings) {
 		this.controlledRotationLastValue = overrideSettings;
 		this.controlledRotationActive = overrideSettings < 0;
 
 		if (this.controlledRotationActive) {
 			this.controlledRotationListener = new ModelNotificationListener() {
 				@Override
-				public void modelNotificationReveiced(String msg) {
+				public void modelNotificationReceived(String msg) {
 					updateScreenOrientationValue();
 				}
 			};
@@ -35,6 +41,33 @@ public class ControlledRotationActivity extends ActionBarActivity {
 			this.controlledRotationListener = null;
 			updateScreenOrientation();
 		}
+	}
+	
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setupActionBar();
+	}
+
+	private void setupActionBar() {
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		case R.id.action_application_settings: {
+			Intent intent = new Intent(getApplicationContext(), AppSettingsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

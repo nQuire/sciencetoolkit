@@ -77,7 +77,7 @@ public class SensorFragment extends Fragment {
 		
 		this.periodListener = new ModelNotificationListener() {
 			@Override
-			public void modelNotificationReveiced(String msg) {
+			public void modelNotificationReceived(String msg) {
 				periodFilter.setPeriod(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
 			}
 		};

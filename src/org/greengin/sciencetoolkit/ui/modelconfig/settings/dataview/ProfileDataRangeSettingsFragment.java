@@ -1,16 +1,19 @@
-package org.greengin.sciencetoolkit.ui.modelconfig.profile;
+package org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview;
 
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
+import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime.DateTimeHelperPair;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.SeekBarTransform;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.TransformSeekBar;
 
 
-import android.util.Log;
+import android.app.Activity;
 import android.view.View;
 
-public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment {
+public class ProfileDataRangeSettingsFragment extends AbstractSettingsFragment {
+	
+	String profileId;
 	
 	long timeMin;
 	long timeMax;
@@ -21,13 +24,13 @@ public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment
 	
 	DateTimeHelperPair toEdit;
 	TransformSeekBar toBar;
-	
-	
-	@Override
-	protected Model fetchProfileConfigModel() {
-		return profile.getModel("datarange", true);
-	}
 
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		profileId = getArguments().getString(SettingsFragmentManager.ARG_PROFILE);
+	}
+	
 	@Override
 	protected void createConfigOptions(View view) {
 		long[] values = new long[2];
@@ -49,11 +52,11 @@ public class ProfileDataRangeModelFragment extends AbstractProfileConfigFragment
 			model.setLong("to", timeMax);
 		}
 		
-		fromEdit = addOptionDateTimeMillis("from", null, null, timeMin);
-		fromBar = addOptionSeekbar("from", "from_bar", null, null, timeMin, transform);
+		fromEdit = addOptionDateTimeMillis("from", "From", null, timeMin);
+		fromBar = addOptionSeekbar("from", "from_bar", null, "Date from which data is shown.", timeMin, transform);
 		
-		toEdit = addOptionDateTimeMillis("to", null, null, timeMax);
-		toBar = addOptionSeekbar("to", "to_bar", null, null, timeMax, transform);
+		toEdit = addOptionDateTimeMillis("to", "Until", null, timeMax);
+		toBar = addOptionSeekbar("to", "to_bar", null, "Date until which data is shown", timeMax, transform);
 		
 	}
 	

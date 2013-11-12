@@ -6,8 +6,7 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.CsvManager;
-import org.greengin.sciencetoolkit.ui.ControlledRotationActivity;
-import org.greengin.sciencetoolkit.ui.components.appsettings.AppSettingsActivity;
+import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,16 +14,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
-import android.support.v4.app.NavUtils;
 
-public class FileManagementActivity extends ControlledRotationActivity implements OnCheckedChangeListener {
+public class FileManagementActivity extends SettingsControlledActivity implements OnCheckedChangeListener {
 
 	Button[] buttons;
 	Vector<String> selected;
@@ -38,8 +35,6 @@ public class FileManagementActivity extends ControlledRotationActivity implement
 		View root = getWindow().getDecorView();
 		buttons = new Button[] { (Button) root.findViewById(R.id.share_files), (Button) root.findViewById(R.id.delete_files) };
 		selected = new Vector<String>();
-
-		setupActionBar();
 
 		updateList();
 	}
@@ -65,10 +60,6 @@ public class FileManagementActivity extends ControlledRotationActivity implement
 		updateButtons();
 	}
 
-	private void setupActionBar() {
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	}
-
 	private void updateButtons() {
 		boolean enabled = selected.size() > 0;
 		for (Button b : buttons) {
@@ -80,21 +71,6 @@ public class FileManagementActivity extends ControlledRotationActivity implement
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.file_management, menu);
 		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
-		case R.id.action_application_settings: {
-			Intent intent = new Intent(getApplicationContext(), AppSettingsActivity.class);
-			startActivity(intent);
-		}
-
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	public void onClickShareButton(View view) {
