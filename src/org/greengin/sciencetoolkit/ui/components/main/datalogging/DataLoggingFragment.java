@@ -67,6 +67,15 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				updateButtons(view.getRootView());
 			}
 		});
+		
+		rootView.findViewById(R.id.profile_edit).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
+				intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.getInstance().getActiveProfileId());
+				startActivity(intent);
+			}
+		});
 
 		return rootView;
 	}
@@ -208,11 +217,10 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		}
 		return fragments;
 	}
-	
+
 	@Override
 	protected boolean removeChildFragmentOnUpdate(Fragment child) {
 		return child instanceof ProfileSensorFragment;
 	}
-
 
 }

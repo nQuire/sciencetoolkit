@@ -177,7 +177,7 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
 	public Cursor getPlotViewCursor(String profileId, String sensorId, long from, long to) {
-		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_PLOT_VIEW_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR_RANGE, new String[] { profileId, sensorId, String.valueOf(from), String.valueOf(to) }, null, null, null);
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_PLOT_VIEW_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR_RANGE, new String[] { profileId, getInternalSensorId(sensorId), String.valueOf(from), String.valueOf(to) }, null, null, null);
 		cursor.moveToFirst();
 		return cursor;
 	}

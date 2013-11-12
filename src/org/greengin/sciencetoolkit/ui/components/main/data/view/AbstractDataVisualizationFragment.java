@@ -65,6 +65,7 @@ public abstract class AbstractDataVisualizationFragment extends ParentListFragme
 		return DataLogger.getInstance().getListViewCursor(profileId, from, to);
 	}
 
+
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		return null;

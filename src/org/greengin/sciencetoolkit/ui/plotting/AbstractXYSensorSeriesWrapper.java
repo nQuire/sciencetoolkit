@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.plotting;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.ui.SensorUIData;
 
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.PointLabelFormatter;
@@ -30,6 +31,8 @@ public abstract class AbstractXYSensorSeriesWrapper {
 		for (int i = 0; i < seriesList.length; i++) {
 			seriesList[i] = new SensorXYSeries(i);
 		}
+		
+		seriesTitle = SensorUIData.getValueLabels(sensor.getType());
 	}
 
 	private boolean updateShowSeries() {

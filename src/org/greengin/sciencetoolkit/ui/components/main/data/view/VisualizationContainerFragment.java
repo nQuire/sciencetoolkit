@@ -5,6 +5,7 @@ import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations.ListVisualizationFragment;
+import org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations.PlotVisualizationFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,8 +45,12 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 
 				Fragment fragment = null;
 				switch (v) {
+				case 0:
+					fragment = new PlotVisualizationFragment();
+					break;
 				default:
 					fragment = new ListVisualizationFragment();
+					break;
 				}
 
 				if (fragment != null) {
