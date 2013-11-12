@@ -9,6 +9,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 public class SoundSensorRunnable implements Runnable {
 	private Lock recordLock = new ReentrantLock();
@@ -35,6 +36,8 @@ public class SoundSensorRunnable implements Runnable {
 
 	@Override
 	public void run() {
+		Log.d("stk sound", "run");
+
 		this.enabled = true;
 
 		android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
@@ -65,12 +68,16 @@ public class SoundSensorRunnable implements Runnable {
 
 				recordLock.unlock();
 
+				
+				recordLock.lock();
+				
 				if (record == null) {
 					this.record = new AudioRecord(this.mediaSource, this.freq, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, 2 * this.bufferLength);
 					record.startRecording();
 				}
-
 				record.read(buffer, 0, bufferLength);
+
+				recordLock.unlock();
 
 				float value = 0;
 				int is;
@@ -99,12 +106,8 @@ public class SoundSensorRunnable implements Runnable {
 				}
 			}
 		}
-
-		if (record != null) {
-			record.stop();
-			record.release();
-			record = null;
-		}
+		
+		Log.d("stk sound", "about to finish " + (record != null));
 	}
 
 	public int getFreq() {
@@ -116,7 +119,15 @@ public class SoundSensorRunnable implements Runnable {
 	}
 
 	public void stopSensor() {
+		Log.d("stk sound", "stop");
+		recordLock.lock();
 		this.enabled = false;
+		if (record != null) {
+			record.stop();
+			record.release();
+			record = null;
+		}
+		recordLock.unlock();
 	}
 
 	public int getLength() {

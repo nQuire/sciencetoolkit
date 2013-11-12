@@ -9,6 +9,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.CreateProfileDialogFragment;
 
@@ -121,7 +122,7 @@ public class SwitchProfileActivity extends ParentListActivity implements ModelNo
 		for (String profileId : profileIds) {
 			SwitchProfileFragment fragment = new SwitchProfileFragment();
 			Bundle args = new Bundle();
-			args.putString(SwitchProfileFragment.ARG_PROFILE, profileId);
+			args.putString(Arguments.ARG_PROFILE, profileId);
 			fragment.setArguments(args);
 			fragments.add(fragment);
 		}

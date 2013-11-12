@@ -33,12 +33,15 @@ public class SettingsManager extends AbstractModelManager {
 	@Override
 	public void modelModified(Model model) {
 		super.modelModified(model);
-		NotificationListenerAggregator aggregator = getAggregator(model.getString("id"), false);
-		if (aggregator != null) {
-			aggregator.fireEvent(model.getString("id"));
+
+		if (model != null) {
+			NotificationListenerAggregator aggregator = getAggregator(model.getString("id"), false);
+			if (aggregator != null) {
+				aggregator.fireEvent(model.getString("id"));
+			}
 		}
 	}
-	
+
 	public void registerUIListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).addUIListener(listener);
 	}

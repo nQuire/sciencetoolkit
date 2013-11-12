@@ -5,6 +5,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.modelconfig.ProfileModelFragmentManager;
 
@@ -19,8 +20,8 @@ public class ProfileSensorSettingsActivity extends SettingsControlledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile_sensor_settings);
 		
-		String profileId = this.getIntent().getExtras().getString("profile");
-		String sensorId = this.getIntent().getExtras().getString("sensor");
+		String profileId = this.getIntent().getExtras().getString(Arguments.ARG_PROFILE);
+		String sensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
 		
 		Model profile = ProfileManager.getInstance().get(profileId);
 		

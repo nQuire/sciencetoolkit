@@ -157,7 +157,7 @@ public class Model {
 		return (String) get(key, defaultValue);
 	}
 
-	public void copyPrimitives(Model source, boolean suppressSave) {
+	public boolean copyPrimitives(Model source, boolean suppressSave) {
 		if (source != null) {
 			boolean modified = false;
 			for (Entry<String, Object> entry : source.entries.entrySet()) {
@@ -169,7 +169,11 @@ public class Model {
 			if (modified && !suppressSave) {
 				this.listener.modelModified(this);
 			}
+			
+			return modified;
 		}
+		
+		return false;
 	}
 
 	public Model getModel(String key) {

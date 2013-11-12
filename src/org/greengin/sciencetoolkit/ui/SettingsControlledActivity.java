@@ -18,13 +18,15 @@ public class SettingsControlledActivity extends ActionBarActivity {
 	ModelNotificationListener controlledRotationListener;
 	int controlledRotationLastValue;
 	boolean controlledRotationActive;
+	boolean controlledSettingsHasParent;
 
 	public SettingsControlledActivity() {
-		this(-1);
+		this(-1, true);
 		this.controlledRotationLastValue = -1;
 	}
 
-	public SettingsControlledActivity(int overrideSettings) {
+	public SettingsControlledActivity(int overrideSettings, boolean hasParent) {
+		this.controlledSettingsHasParent = hasParent;
 		this.controlledRotationLastValue = overrideSettings;
 		this.controlledRotationActive = overrideSettings < 0;
 
@@ -42,7 +44,6 @@ public class SettingsControlledActivity extends ActionBarActivity {
 			updateScreenOrientation();
 		}
 	}
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +52,18 @@ public class SettingsControlledActivity extends ActionBarActivity {
 	}
 
 	private void setupActionBar() {
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		if (controlledSettingsHasParent) {
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			NavUtils.navigateUpFromSameTask(this);
+			if (controlledSettingsHasParent) {
+				NavUtils.navigateUpFromSameTask(this);
+			}
 			return true;
 		case R.id.action_application_settings: {
 			Intent intent = new Intent(getApplicationContext(), AppSettingsActivity.class);

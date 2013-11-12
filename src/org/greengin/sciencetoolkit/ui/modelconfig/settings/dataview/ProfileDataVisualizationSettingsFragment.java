@@ -11,7 +11,7 @@ public class ProfileDataVisualizationSettingsFragment extends AbstractSettingsFr
 
 	@Override
 	protected void createConfigOptions(View view) {
-		List<String> options = Arrays.asList("List", "Plot" /*, "Map" */);
+		List<String> options = Arrays.asList("Plot", "List" /*, "Map" */);
 		addOptionSelect("visualization", null, null, options, 0);
 	}
 }

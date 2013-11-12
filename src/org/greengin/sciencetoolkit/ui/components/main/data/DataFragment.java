@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity;
 
 import android.app.Activity;
@@ -26,8 +27,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DataFragment extends Fragment {
-	public static final String ARG_PROFILE = "profile";
-
 	private String profileId;
 	private Model profile;
 
@@ -44,7 +43,7 @@ public class DataFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		this.profileId = getArguments().getString(ARG_PROFILE);
+		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.profile = ProfileManager.getInstance().get(this.profileId);
 	}
 
@@ -65,7 +64,7 @@ public class DataFragment extends Fragment {
 			public void onClick(View v) {
 				if (profileId != null) {
 					Intent intent = new Intent(getActivity(), DataViewActivity.class);
-					intent.putExtra("profile", profileId);
+					intent.putExtra(Arguments.ARG_PROFILE, profileId);
 					startActivity(intent);
 				}
 			}

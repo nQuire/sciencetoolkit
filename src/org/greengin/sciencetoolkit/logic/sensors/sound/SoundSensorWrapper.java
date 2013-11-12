@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 public class SoundSensorWrapper extends SensorWrapper {
 	public static final String STK_SOUND_SENSOR_NEWVALUE = "STK_SOUND_SENSOR_NEWVALUE";
@@ -52,6 +53,7 @@ public class SoundSensorWrapper extends SensorWrapper {
 	}
 
 	public void onInputAdded(boolean first, int inputCount) {
+		Log.d("stk sound", "add " + first + " " + inputCount);
 		if (first) {
 			Thread th = new Thread(this.runnable);
 			th.start();
@@ -59,6 +61,7 @@ public class SoundSensorWrapper extends SensorWrapper {
 	}
 
 	public void onInputRemoved(boolean empty, int inputCount) {
+		Log.d("stk sound", "remove " + empty + " " + inputCount);
 		if (empty) {
 			this.runnable.stopSensor();
 		}

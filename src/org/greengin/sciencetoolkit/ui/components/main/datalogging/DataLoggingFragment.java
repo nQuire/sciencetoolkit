@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity;
@@ -163,7 +164,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		switch (item.getItemId()) {
 		case R.id.action_data_logging_edit: {
 			Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
-			intent.putExtra("profile", ProfileManager.getInstance().getActiveProfileId());
+			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.getInstance().getActiveProfileId());
 			startActivity(intent);
 			break;
 		}
@@ -199,8 +200,8 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 			for (Model profileSensor : profileSensors) {
 				ProfileSensorFragment fragment = new ProfileSensorFragment();
 				Bundle args = new Bundle();
-				args.putString("profile", profile.getString("id"));
-				args.putString("sensor", profileSensor.getString("id"));
+				args.putString(Arguments.ARG_PROFILE, profile.getString("id"));
+				args.putString(Arguments.ARG_SENSOR, profileSensor.getString("id"));
 				fragment.setArguments(args);
 				fragments.add(fragment);
 			}

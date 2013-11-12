@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.sensorlist.config;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 
@@ -17,7 +18,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sensor_settings);
 		
-		String sensorId = this.getIntent().getExtras().getString("sensor");
+		String sensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
 		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 		if (sensor != null) {
 			TextView sensorNameView = (TextView)getWindow().getDecorView().findViewById(R.id.sensor_name);

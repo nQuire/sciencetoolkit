@@ -12,7 +12,7 @@ import android.view.View;
 public class WelcomeActivity extends SettingsControlledActivity {
 
 	public WelcomeActivity() {
-		super(0);
+		super(0, false);
 	}
 	
 	@Override

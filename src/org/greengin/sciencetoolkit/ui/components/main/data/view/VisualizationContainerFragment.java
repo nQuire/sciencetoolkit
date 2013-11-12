@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.data.view;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations.ListVisualizationFragment;
 
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.profileId = getArguments().getString("profile");
+		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.settingsId = "profile_data_visualization:" + this.profileId;
 		this.visualization = -1;
 	}
@@ -49,7 +50,7 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 
 				if (fragment != null) {
 					Bundle args = new Bundle();
-					args.putString("profile", profileId);
+					args.putString(Arguments.ARG_PROFILE, profileId);
 					fragment.setArguments(args);
 
 					getChildFragmentManager().beginTransaction().replace(R.id.visualization_container, fragment).commit();

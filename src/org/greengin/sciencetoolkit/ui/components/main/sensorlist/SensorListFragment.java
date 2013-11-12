@@ -8,6 +8,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.choose.SensorListSettingsActivity;
 
@@ -85,7 +86,7 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 			if (showSensors.getBool(sensorId, true)) {
 				SensorFragment fragment = new SensorFragment();
 				Bundle args = new Bundle();
-				args.putString(SensorFragment.ARG_SENSOR, sensorId);
+				args.putString(Arguments.ARG_SENSOR, sensorId);
 				fragment.setArguments(args);
 				fragments.add(fragment);
 			}

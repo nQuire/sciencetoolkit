@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class DataViewActivity extends SettingsControlledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_data_view);
 
-		profileId = getIntent().getExtras().getString("profile");
+		profileId = getIntent().getExtras().getString(Arguments.ARG_PROFILE);
 
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -62,7 +63,7 @@ public class DataViewActivity extends SettingsControlledActivity {
 		@Override
 		public Fragment getItem(int position) {
 			Bundle args = new Bundle();
-			args.putString("profile", profileId);
+			args.putString(Arguments.ARG_PROFILE, profileId);
 			Fragment fragment = position == 0 ? new VisualizationContainerFragment() : new VisualizationConfigFragment();
 			fragment.setArguments(args);
 			return fragment;

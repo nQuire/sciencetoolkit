@@ -24,17 +24,13 @@ import android.widget.TextView;
 
 public class ListVisualizationFragment extends AbstractDataVisualizationFragment {
 
-	String profileId;
-	Cursor cursor;
 	CursorAdapter adapter;
-	SimpleDateFormat sdf;
-	
+	SimpleDateFormat sdf;	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		this.profileId = getArguments().getString("profile");
 		this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", getResources().getConfiguration().locale);
 	}
 

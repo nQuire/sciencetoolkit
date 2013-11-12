@@ -20,4 +20,4 @@
     androidPlot.rangeLabel="Range"
     androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/plot_range_label_font_size"
     androidPlot.titleWidget.labelPaint.textSize="@dimen/plot_title_font_size" 
-    tools:context=".LiveXYSensorPlotFragment" />
+    tools:context=".AbstractXYSensorPlotFragment" />

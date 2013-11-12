@@ -9,9 +9,11 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.config.SensorSettingsActivity;
 import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
+import org.greengin.sciencetoolkit.ui.plotting.LiveXYSensorPlotFragment;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -30,7 +32,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class SensorFragment extends Fragment {
-	public static final String ARG_SENSOR = "sensor";
 
 	private String sensorId;
 	private SensorWrapper sensor;
@@ -52,7 +53,7 @@ public class SensorFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		this.sensorId = getArguments().getString(ARG_SENSOR);
+		this.sensorId = getArguments().getString(Arguments.ARG_SENSOR);
 		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
 
 		this.currentValue = null;
@@ -136,7 +137,7 @@ public class SensorFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SensorSettingsActivity.class);
-				intent.putExtra("sensor", sensorId);				
+				intent.putExtra(Arguments.ARG_SENSOR, sensorId);				
 		    	startActivity(intent);
 			}
 		});
@@ -159,9 +160,9 @@ public class SensorFragment extends Fragment {
 	}
 
 	protected void createPlot() {
-		LiveSensorPlotFragment fragment = new LiveSensorPlotFragment();
+		LiveXYSensorPlotFragment fragment = new LiveXYSensorPlotFragment();
 		Bundle args = new Bundle();
-		args.putString(LiveSensorPlotFragment.ARG_SENSOR, sensorId);
+		args.putString(Arguments.ARG_SENSOR, sensorId);
 		fragment.setArguments(args);
 
 		getChildFragmentManager().beginTransaction().replace(R.id.sensor_plot_section, fragment, "plot").commit();

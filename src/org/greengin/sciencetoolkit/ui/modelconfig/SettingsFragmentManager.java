@@ -1,5 +1,6 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AppSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.LivePlotSettingsFragment;
@@ -13,9 +14,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 public class SettingsFragmentManager {
-	public static final String ARG_SETTINGS = "settings";
-	public static final String ARG_SENSOR = "sensor";
-	public static final String ARG_PROFILE = "profile";
 
 	public static void insert(FragmentManager manager, int container, String settingsId) {
 		String[] parts = settingsId.split(":");
@@ -68,14 +66,14 @@ public class SettingsFragmentManager {
 
 			if (fragment != null) {
 				Bundle args = new Bundle();
-				args.putString(ARG_SETTINGS, settingsId);
+				args.putString(Arguments.ARG_SETTINGS, settingsId);
 
 				if (sensorArg > 0) {
-					args.putString(ARG_SENSOR, getKeyParam(settingsId, sensorArg));
+					args.putString(Arguments.ARG_SENSOR, getKeyParam(settingsId, sensorArg));
 				}
 
 				if (profileArg > 0) {
-					args.putString(ARG_PROFILE, getKeyParam(settingsId, profileArg));
+					args.putString(Arguments.ARG_PROFILE, getKeyParam(settingsId, profileArg));
 				}
 
 				fragment.setArguments(args);

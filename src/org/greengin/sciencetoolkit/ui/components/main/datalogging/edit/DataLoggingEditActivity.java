@@ -9,6 +9,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListActivity;
 
 import android.os.Bundle;
@@ -37,7 +38,7 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		profileId = getIntent().getExtras().getString("profile");
+		profileId = getIntent().getExtras().getString(Arguments.ARG_PROFILE);
 		profile = ProfileManager.getInstance().get(profileId);
 
 		setContentView(R.layout.activity_data_logging_edit);
@@ -121,8 +122,8 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 		for (Model profileSensor : profileSensors) {
 			ProfileSensorOrganizeFragment fragment = new ProfileSensorOrganizeFragment();
 			Bundle args = new Bundle();
-			args.putString("profile", profile.getString("id"));
-			args.putString("sensor", profileSensor.getString("id"));
+			args.putString(Arguments.ARG_PROFILE, profile.getString("id"));
+			args.putString(Arguments.ARG_SENSOR, profileSensor.getString("id"));
 			fragment.setArguments(args);
 			fragments.add(fragment);
 		}

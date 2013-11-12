@@ -71,8 +71,8 @@
     <string name="title_activity_data_view_range">View data</string>
     <string name="set">Set</string>
     <string name="dialog_seconds_picker_title">Set time</string>
-    <string name="data_view_activity_visualization_tab">View</string>
-    <string name="data_view_activity_config_tab">Config</string>
+    <string name="data_view_activity_visualization_tab">View data</string>
+    <string name="data_view_activity_config_tab">Configure view</string>
     <string name="visualization_type">Visualization</string>
     <string name="visualization_range">Data range</string>
     <string name="visualization_variables">Sensor variables</string>

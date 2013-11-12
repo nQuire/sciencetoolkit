@@ -10,6 +10,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.config.ProfileSensorSettingsActivity;
 
@@ -29,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProfileSensorOrganizeFragment extends Fragment implements DataLoggerStatusListener {
-	public static final String ARG_SENSOR = "sensor";
 
 	private int sensorType;
 	private SensorWrapper sensor;
@@ -47,8 +47,8 @@ public class ProfileSensorOrganizeFragment extends Fragment implements DataLogge
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
-		this.profileId = getArguments().getString("profile");
-		this.profileSensorId = getArguments().getString("sensor");
+		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
+		this.profileSensorId = getArguments().getString(Arguments.ARG_SENSOR);
 
 		this.profile = ProfileManager.getInstance().get(this.profileId);
 		this.profileSensor = this.profile == null ? null : this.profile.getModel("sensors", true).getModel(this.profileSensorId);
@@ -86,8 +86,8 @@ public class ProfileSensorOrganizeFragment extends Fragment implements DataLogge
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ProfileSensorSettingsActivity.class);
-				intent.putExtra("profile", profileId);
-				intent.putExtra("sensor", profileSensorId);
+				intent.putExtra(Arguments.ARG_PROFILE, profileId);
+				intent.putExtra(Arguments.ARG_SENSOR, profileSensorId);
 				startActivity(intent);
 			}
 		});

@@ -12,7 +12,6 @@ import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.model.SettingsManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -145,9 +144,6 @@ public class DataLogger implements DataLoggerDataListener {
 				String sensorId = profileSensor.getString("id");
 				SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 				int period = profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD);
-				Model profileSensorSettings = profileSensor.getModel("sensor_settings");
-				Model globalSensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
-				globalSensorSettings.copyPrimitives(profileSensorSettings, false);
 
 				if (sensor != null) {
 					DataPipe pipe = new DataPipe(sensor);
@@ -218,13 +214,13 @@ public class DataLogger implements DataLoggerDataListener {
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
-
-	public Cursor getListViewCursor(String profileId) {
-		return this.helper.getListViewCursor(profileId);
-	}
 	
 	public Cursor getListViewCursor(String profileId, long from, long to) {
 		return this.helper.getListViewCursor(profileId, from, to);
+	}
+	
+	public Cursor getPlotViewCursor(String profileId, String sensorId, long from, long to) {
+		return this.helper.getPlotViewCursor(profileId, sensorId, from, to);
 	}
 
 	

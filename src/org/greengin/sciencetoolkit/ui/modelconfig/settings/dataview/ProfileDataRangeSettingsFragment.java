@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview;
 
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime.DateTimeHelperPair;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.seekbar.SeekBarTransform;
@@ -28,7 +28,7 @@ public class ProfileDataRangeSettingsFragment extends AbstractSettingsFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		profileId = getArguments().getString(SettingsFragmentManager.ARG_PROFILE);
+		profileId = getArguments().getString(Arguments.ARG_PROFILE);
 	}
 	
 	@Override

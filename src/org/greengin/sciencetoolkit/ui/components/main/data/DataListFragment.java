@@ -9,6 +9,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.data.files.FileManagementActivity;
 
@@ -107,7 +108,7 @@ public class DataListFragment extends ParentListFragment implements DataLoggerDa
 		for (String profileId : ProfileManager.getInstance().getProfileIds()) {
 			DataFragment fragment = new DataFragment();
 			Bundle args = new Bundle();
-			args.putString(DataFragment.ARG_PROFILE, profileId);
+			args.putString(Arguments.ARG_PROFILE, profileId);
 			fragment.setArguments(args);
 			fragments.add(fragment);
 			dataFragments.put(profileId, fragment);

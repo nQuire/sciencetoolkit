@@ -14,8 +14,6 @@ public class DeviceSensorConfigViewCreator {
 		if (sensor != null) {
 			int minDelay = sensor.getMinDelay();
 			if (minDelay > 0) {
-				SensorConfigViewCreator.addOverrideWarning(fragment);
-
 				String minDelayOption = (int) (1000000 / minDelay) + " samples/s";
 				List<String> values = Arrays.asList(minDelayOption, "50 samples/s", "16 samples/s", "5 samples/s");
 				fragment.addOptionSelect("delay", "Sensor rate", "The rate at which the sensor produces data.\nNote that higher values increase battery drain.", values, ModelDefaults.SENSOR_DELAY);

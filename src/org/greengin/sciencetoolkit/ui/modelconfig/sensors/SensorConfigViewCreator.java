@@ -18,10 +18,6 @@ public class SensorConfigViewCreator {
 		}
 	}
 	
-	public static void addOverrideWarning(ModelFragment fragment) {
-		fragment.addText("Please note that sensor settings will be modified if a data logging profile that specifies a different configuration is activated.");
-	}
-	
 	public static void addEmptyWarning(ModelFragment fragment) {
 		fragment.addText("This sensor does not have any configuration options.");
 	}

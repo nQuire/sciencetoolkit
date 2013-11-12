@@ -1,24 +1,38 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
+import java.util.List;
+
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.ParentListFragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public abstract class AbstractDataVisualizationFragment extends Fragment {
+public abstract class AbstractDataVisualizationFragment extends ParentListFragment {
 
-	String profileId;
-	String settingsId;
+	public AbstractDataVisualizationFragment() {
+		this(0);
+	}
+
+	public AbstractDataVisualizationFragment(int childrenContainerId) {
+		super(childrenContainerId);
+	}
+
+	protected String profileId;
+	protected String settingsId;
 	ModelNotificationListener profileListener;
+	
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.profileId = getArguments().getString("profile");
+		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.settingsId = "profile_data_visualization:" + profileId;
 
 		profileListener = new ModelNotificationListener() {
@@ -49,6 +63,16 @@ public abstract class AbstractDataVisualizationFragment extends Fragment {
 		long from = datarange.getLong("from", 0);
 		long to = datarange.getBool("track_to", true) ? Long.MAX_VALUE : datarange.getLong("to", Long.MAX_VALUE);
 		return DataLogger.getInstance().getListViewCursor(profileId, from, to);
+	}
+
+	@Override
+	protected List<Fragment> getUpdatedFragmentChildren() {
+		return null;
+	}
+
+	@Override
+	protected boolean removeChildFragmentOnUpdate(Fragment child) {
+		return false;
 	}
 
 }

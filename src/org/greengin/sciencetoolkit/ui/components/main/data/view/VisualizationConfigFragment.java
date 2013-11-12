@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.data.view;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
 
 import android.os.Bundle;
@@ -18,7 +19,7 @@ public class VisualizationConfigFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.profileId = getArguments().getString("profile");
+		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.settingsId = "profile_data_visualization:" + this.profileId;
 	}
 
