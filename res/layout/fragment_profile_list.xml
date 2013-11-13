@@ -2,32 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SwitchProfileActivity" >
+    tools:context=".ProfileListFragment" >
 
     <LinearLayout
-        android:id="@+id/profile_switch_button_bar"
+        android:id="@+id/switch_profile_button_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_horizontal"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/ok"
-            android:layout_width="wrap_content"
+            android:id="@+id/switch_profile"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="onClickOkButton"
             android:text="@string/switch_profile" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/profile_switch_button_bar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_above="@id/switch_profile_button_bar"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/profile_list"

@@ -22,7 +22,7 @@ public class LivePlotSettingsFragment extends AbstractSettingsFragment {
 	@Override
 	protected void createConfigOptions(View view) {
 
-		addOptionNumber("sample_rate", "Sample rate", "The number of samples per second.", true, false, ModelDefaults.LIVEPLOT_SAMPLING_RATE, 0.001, 100);
+		addOptionNumber("sample_rate", "Sample rate", "The number of samples per second.", true, false, ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		addOptionNumber("view_period", "Sample window", "Period of time shown.", true, false, ModelDefaults.LIVEPLOT_VIEW_PERIOD, .1, 100);
 
 		String[] labels = SensorUIData.getValueLabels(sensor.getType());

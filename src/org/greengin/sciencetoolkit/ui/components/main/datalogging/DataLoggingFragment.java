@@ -13,13 +13,14 @@ import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
-import org.greengin.sciencetoolkit.ui.components.main.datalogging.edit.DataLoggingEditActivity;
-import org.greengin.sciencetoolkit.ui.components.main.datalogging.switchprofile.SwitchProfileActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.AddSensorDialogFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.ProfileEditActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
@@ -67,11 +68,11 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				updateButtons(view.getRootView());
 			}
 		});
-		
+
 		rootView.findViewById(R.id.profile_edit).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
+				Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
 				intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.getInstance().getActiveProfileId());
 				startActivity(intent);
 			}
@@ -172,19 +173,19 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_data_logging_edit: {
-			Intent intent = new Intent(getActivity(), DataLoggingEditActivity.class);
+			Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
 			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.getInstance().getActiveProfileId());
 			startActivity(intent);
-			break;
+			return true;
 		}
-		case R.id.action_data_logging_switch: {
-			Intent intent = new Intent(getActivity(), SwitchProfileActivity.class);
-			startActivity(intent);
-			break;
+
+		case R.id.action_data_logging_add_sensor: {
+			FragmentManager fm = getChildFragmentManager();
+			AddSensorDialogFragment dialog = new AddSensorDialogFragment();
+			dialog.show(fm, "add_sensor");
+			return true;
 		}
-		case R.id.action_data_logging_new:
-			CreateProfileDialogFragment.showCreateProfileDialog(getChildFragmentManager(), true);
-			break;
+
 		}
 
 		return super.onOptionsItemSelected(item);

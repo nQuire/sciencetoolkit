@@ -5,7 +5,6 @@
     <string name="menu_item_application_settings">Settings</string>
     <string name="menu_item_sensor_list_show">Select sensors</string>
     <string name="menu_item_data_logging_edit">Edit profile</string>
-    <string name="menu_item_data_logging_switch">Switch profile</string>
     <string name="menu_item_data_logging_new">New profile</string>
     <string name="menu_item_data_file_management">Manage CSV files</string>
     <string name="title_activity_main">nQuire Science Toolkit</string>
@@ -39,9 +38,9 @@
     <string name="welcome_link">http://nquire.wordpress.com/</string>
     <string name="welcome_start">Start</string>
     <string name="delete_all_data">Delete all data</string>
-    <string name="data_count_none">No data logged.</string>
-    <string name="data_count_one">One sample logged.</string>
-    <string name="data_count_many">%1d samples logged.</string>
+    <string name="data_count_none">No data</string>
+    <string name="data_count_one">One sample</string>
+    <string name="data_count_many">%1d samples</string>
     <string name="delete_all_data_dlg_title">Delete all data</string>
     <string name="delete_all_data_dlg_msg">Do you want to delete all logged data? This will affect all your profiles.</string>
     <string name="delete_dlg_yes">Delete</string>
@@ -61,14 +60,14 @@
     <string name="export_payload_count_p">nQuire Science Toolkit data: %1$d files</string>
     <string name="export_payload_body"></string>
     <string name="title_activity_data_view">View my data</string>
-    <string name="title_activity_switch_profile">Switch profile</string>
     <string name="title_activity_file_management">Manage CVS files</string>
-    <string name="switch_profile">Switch</string>
+    <string name="switch_profile">Switch profile</string>
+    <string name="switch_profile_inactive"></string>
     <string name="switch_profile_active">Active profile</string>
+    <string name="switch_profile_running">Profile active and running</string>
     <string name="create_new_profile">Create new profile</string>
     <string name="create_profile">Create</string>
     <string name="title_activity_app_settings">Settings</string>
-    <string name="title_activity_data_view_range">View data</string>
     <string name="set">Set</string>
     <string name="dialog_seconds_picker_title">Set time</string>
     <string name="data_view_activity_visualization_tab">View data</string>
@@ -78,5 +77,5 @@
     <string name="visualization_variables">Sensor variables</string>
     <string name="time_separator">:</string>
     <string name="time_ms_separator">.</string>
-    
+    <string name="profile_data_label">Logged data: </string>
 </resources>

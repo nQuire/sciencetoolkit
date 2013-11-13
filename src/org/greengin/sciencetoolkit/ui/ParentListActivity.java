@@ -21,27 +21,43 @@ public abstract class ParentListActivity extends SettingsControlledActivity {
 
 
 
-	protected void updateChildrenList() {
-		lock.lock();
-		
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		
-		List<Fragment> list = getSupportFragmentManager().getFragments();
-		if (list != null) {
-			for (Fragment fragment : list) {
-				ft.remove(fragment);
+	private void removeChildren(FragmentTransaction ft) {
+		List<Fragment> existingfragments = getSupportFragmentManager().getFragments();
+		if (existingfragments != null) {
+			for (Fragment child : existingfragments) {
+				if (removeChildFragmentOnUpdate(child)) {
+					ft.remove(child);
+				}
 			}
 		}
-		
-		for (Fragment fragment : getUpdatedFragmentChildren()) {
-			ft.add(childrenContainerId, fragment);
-		}
-		
+	}
+	protected void clearChildrenList() {
+		lock.lock();
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		removeChildren(ft);
 		ft.commit();
-		
-		lock.unlock();
+		lock.unlock();		
 	}
 
+	protected void updateChildrenList() {
+		lock.lock();
+
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		
+		removeChildren(ft);
+
+		List<Fragment> newfragments = getUpdatedFragmentChildren();
+		if (newfragments != null) {
+			for (Fragment fragment : newfragments) {
+				ft.add(childrenContainerId, fragment);
+			}
+		}
+
+		ft.commit();
+
+		lock.unlock();
+	}
+	
 	protected abstract List<Fragment> getUpdatedFragmentChildren();
 	protected abstract boolean removeChildFragmentOnUpdate(Fragment child);
 

@@ -8,7 +8,7 @@ public class LiveViewSettingsFragment extends AbstractSettingsFragment {
 
 	@Override
 	protected void createConfigOptions(View view) {
-		addOptionNumber("period", "Update period", "Time period between value updates (ms).", false, false, ModelDefaults.LIVEVIEW_PERIOD, 10, null);
+		addOptionNumber("update_rate", "Update value ", "Times per second that the value is updated.", true, false, ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
 	}
 
 }

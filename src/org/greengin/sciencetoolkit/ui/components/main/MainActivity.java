@@ -2,8 +2,8 @@ package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
-import org.greengin.sciencetoolkit.ui.components.main.data.DataListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.ProfileListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
 
 import android.os.Bundle;
@@ -120,7 +120,7 @@ public class MainActivity extends SettingsControlledActivity implements ActionBa
 					fragments[1] = new DataLoggingFragment();
 					break;
 				case 2:
-					fragments[2] = new DataListFragment();
+					fragments[2] = new ProfileListFragment();
 					break;
 				}
 			}

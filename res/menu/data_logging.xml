@@ -12,13 +12,9 @@
                 android:orderInCategory="100"
                 android:title="@string/menu_item_data_logging_edit"/>
             <item
-                android:id="@+id/action_data_logging_switch"
+                android:id="@+id/action_data_logging_add_sensor"
                 android:orderInCategory="100"
-                android:title="@string/menu_item_data_logging_switch"/>
-            <item
-                android:id="@+id/action_data_logging_new"
-                android:orderInCategory="100"
-                android:title="@string/menu_item_data_logging_new"/>
+                android:title="@string/add_sensor"/>
             <item
                 android:id="@+id/action_application_settings"
                 android:orderInCategory="100"

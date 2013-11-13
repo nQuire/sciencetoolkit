@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.datalogging.edit;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.edit;
 
 import java.util.List;
 import java.util.Vector;
@@ -22,9 +22,9 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-public class DataLoggingEditActivity extends ParentListActivity implements ModelNotificationListener, DataLoggerStatusListener {
+public class ProfileEditActivity extends ParentListActivity implements ModelNotificationListener, DataLoggerStatusListener {
 
-	public DataLoggingEditActivity() {
+	public ProfileEditActivity() {
 		super(R.id.sensor_list);
 	}
 
@@ -81,6 +81,7 @@ public class DataLoggingEditActivity extends ParentListActivity implements Model
 		ProfileManager.getInstance().unregisterDirectListener(this);
 		DataLogger.getInstance().unregisterStatusListener(this);
 	}
+	
 
 	private void updateTitle() {
 		if (profile != null) {

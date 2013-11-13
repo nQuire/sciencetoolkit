@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
@@ -64,8 +65,10 @@ public class SensorFragment extends Fragment {
 
 		this.showValueIntentFilter = "liveview:" + this.sensorId;
 		this.settings = SettingsManager.getInstance().get(this.showValueIntentFilter);
-
-		this.periodFilter = new FixedRateDataFilter(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
+		
+		
+		int period = ModelOperations.rate2period(settings, "update_rate", ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
+		this.periodFilter = new FixedRateDataFilter(period);
 		this.showValuePipe = new DataPipe(sensor);
 		this.showValuePipe.addFilter(this.periodFilter);
 		this.showValuePipe.setEnd(new DataUINotifier(activity.getApplicationContext(), this.showValueIntentFilter));
@@ -79,7 +82,8 @@ public class SensorFragment extends Fragment {
 		this.periodListener = new ModelNotificationListener() {
 			@Override
 			public void modelNotificationReceived(String msg) {
-				periodFilter.setPeriod(settings.getInt("period", ModelDefaults.LIVEVIEW_PERIOD));
+				int period = ModelOperations.rate2period(settings, "update_rate", ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
+				periodFilter.setPeriod(period);
 			}
 		};
 	}

@@ -4,6 +4,7 @@ package org.greengin.sciencetoolkit.ui.plotting;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
@@ -35,8 +36,8 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 	void createSeries() {
 		this.series = new LiveXYSensorSeriesWrapper(this.sensor, seriesSettings, seriesSettingPrefix, getActivity(), filter);
 		
-		double sampleRate = seriesSettings.getDouble("sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE);
-		this.periodFilter = new FixedRateDataFilter((int) (1000 / sampleRate));
+		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
+		this.periodFilter = new FixedRateDataFilter(period);
 		this.dataPipe = new DataPipe(sensor);
 		this.dataPipe.addFilter(this.periodFilter);
 		this.dataPipe.setEnd((LiveXYSensorSeriesWrapper)this.series);
@@ -86,8 +87,8 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 		this.updateSeriesConfig(false);
 		((LiveXYSensorSeriesWrapper)this.series).updateViewPeriod();
 		
-		double sampleRate = seriesSettings.getDouble("sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE);
-		this.periodFilter.setPeriod((int) (1000 / sampleRate));
+		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
+		this.periodFilter.setPeriod(period);
 	}
 
 }

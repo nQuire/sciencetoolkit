@@ -8,6 +8,10 @@
         stkapp:showAsAction="always">
         <menu>
             <item
+                android:id="@+id/action_data_logging_new"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_data_logging_new"/>
+            <item
                 android:id="@+id/action_data_file_management"
                 android:orderInCategory="100"
                 android:title="@string/menu_item_data_file_management"/>
@@ -17,4 +21,5 @@
                 android:title="@string/menu_item_application_settings"/>
         </menu>
     </item>
+
 </menu>
