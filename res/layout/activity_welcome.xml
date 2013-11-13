@@ -42,9 +42,8 @@
             android:text="@string/welcome"
             android:textSize="18sp"
             android:textStyle="bold" 
-            android:drawableTop="@drawable/ic_welcome"
-            android:drawablePadding="@dimen/activity_vertical_margin"
-            />
+            android:drawableTop="@drawable/nquire"
+            android:gravity="center_horizontal" />
     </LinearLayout>
 
 </RelativeLayout>

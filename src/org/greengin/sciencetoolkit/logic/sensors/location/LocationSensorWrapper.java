@@ -25,7 +25,6 @@ public class LocationSensorWrapper extends SensorWrapper implements LocationList
 		for (String p : providers) {
 			Log.d("stk location", p);
 		}
-
 	}
 
 	@Override

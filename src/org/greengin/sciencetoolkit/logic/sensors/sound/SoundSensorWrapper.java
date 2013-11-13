@@ -13,6 +13,10 @@ import android.util.Log;
 public class SoundSensorWrapper extends SensorWrapper {
 	public static final String STK_SOUND_SENSOR_NEWVALUE = "STK_SOUND_SENSOR_NEWVALUE";
 
+	public static boolean isAvailable(Context applicationContext) {
+		return applicationContext.getPackageManager().hasSystemFeature("android.hardware.microphone");		
+	}
+	
 	SoundSensorRunnable runnable;
 	float[] values;
 
