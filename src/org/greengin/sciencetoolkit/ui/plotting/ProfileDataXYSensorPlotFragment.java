@@ -20,7 +20,7 @@ public class ProfileDataXYSensorPlotFragment extends AbstractXYSensorPlotFragmen
 	void fetchSettings() {
 		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.settingsId = "profile_data_visualization:" + this.profileId;
-		this.seriesSettings = SettingsManager.getInstance().get(settingsId);
+		this.seriesSettings = SettingsManager.i().get(settingsId);
 		this.seriesSettingPrefix = "show:" + sensorId + ":";
 	}
 
@@ -45,14 +45,14 @@ public class ProfileDataXYSensorPlotFragment extends AbstractXYSensorPlotFragmen
 	@Override
 	public void onResume() {
 		super.onResume();
-		SettingsManager.getInstance().registerUIListener(this.settingsId, this.notificationListener);
+		SettingsManager.i().registerUIListener(this.settingsId, this.notificationListener);
 		updatePlot();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		SettingsManager.getInstance().unregisterUIListener(this.settingsId, this.notificationListener);
+		SettingsManager.i().unregisterUIListener(this.settingsId, this.notificationListener);
 	}
 
 
@@ -66,7 +66,7 @@ public class ProfileDataXYSensorPlotFragment extends AbstractXYSensorPlotFragmen
 	protected Cursor getCursor() {
 		long from = seriesSettings.getLong("from", 0);
 		long to = seriesSettings.getBool("track_to", true) ? Long.MAX_VALUE : seriesSettings.getLong("to", Long.MAX_VALUE);
-		return DataLogger.getInstance().getPlotViewCursor(profileId, sensorId, from, to);
+		return DataLogger.i().getPlotViewCursor(profileId, sensorId, from, to);
 	}
 
 }

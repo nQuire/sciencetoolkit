@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    androidPlot.domainLabel="Domain"
     androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/plot_domain_label_font_size"
     androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
     androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
@@ -17,7 +16,6 @@
     androidPlot.legendWidget.iconSizeMetrics.widthMetric.value="15dp"
     androidPlot.legendWidget.positionMetrics.anchor="right_bottom"
     androidPlot.legendWidget.textPaint.textSize="@dimen/plot_legend_text_font_size"
-    androidPlot.rangeLabel="Range"
     androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/plot_range_label_font_size"
     androidPlot.titleWidget.labelPaint.textSize="@dimen/plot_title_font_size" 
     tools:context=".AbstractXYSensorPlotFragment" />

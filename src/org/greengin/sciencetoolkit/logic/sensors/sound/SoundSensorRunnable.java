@@ -49,6 +49,8 @@ public class SoundSensorRunnable implements Runnable {
 				recordLock.lock();
 
 				if (this.requestedLength > 0) {
+					Log.d("stk sound", "length: " + requestedLength);
+					
 					this.length = this.requestedLength;
 					this.bufferLength = this.length * this.freq / 1000;
 					this.buffer = new short[this.bufferLength];
@@ -56,7 +58,7 @@ public class SoundSensorRunnable implements Runnable {
 					this.fftN = (int) Math.pow(2, Math.floor(Math.log(this.bufferLength) / Math.log(2)));
 					this.fft = new FFT(this.fftN);
 					this.fftRe = new double[this.fftN];
-					
+
 					if (record != null) {
 						record.stop();
 						record.release();
@@ -68,36 +70,38 @@ public class SoundSensorRunnable implements Runnable {
 
 				recordLock.unlock();
 
-				
 				recordLock.lock();
-				
+
 				if (record == null) {
 					this.record = new AudioRecord(this.mediaSource, this.freq, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, 2 * this.bufferLength);
 					record.startRecording();
 				}
-				record.read(buffer, 0, bufferLength);
-
 				recordLock.unlock();
 
-				float value = 0;
-				int is;
-				for (short s : buffer) {
-					is = s;
-					value += is * is;
+				try {
+					record.read(buffer, 0, bufferLength);
+					float value = 0;
+					int is;
+					for (short s : buffer) {
+						is = s;
+						value += is * is;
+					}
+					value = (float) (10 * Math.log10(value / bufferLength));
+
+					for (int i = 0; i < fftN; i++) {
+						fftRe[i] = buffer[i];
+					}
+
+					fft.fft(fftRe);
+					fft.filter(fftRe);
+
+					float maxfreq = (float) fft.getMaxFreq(fftRe, this.freq);
+					intent = new Intent(SoundSensorWrapper.STK_SOUND_SENSOR_NEWVALUE);
+					intent.putExtra("value", value);
+					intent.putExtra("maxfreq", maxfreq);
+				} catch (Exception e) {
+
 				}
-				value = (float) (10 * Math.log10(value / bufferLength));
-
-				for (int i = 0; i < fftN; i++) {
-					fftRe[i] = buffer[i];
-				}
-
-				fft.fft(fftRe);
-				fft.filter(fftRe);
-
-				float maxfreq = (float) fft.getMaxFreq(fftRe, this.freq);
-				intent = new Intent(SoundSensorWrapper.STK_SOUND_SENSOR_NEWVALUE);
-				intent.putExtra("value", value);
-				intent.putExtra("maxfreq", maxfreq);
 
 			} catch (IllegalArgumentException e) {
 			} finally {
@@ -106,7 +110,7 @@ public class SoundSensorRunnable implements Runnable {
 				}
 			}
 		}
-		
+
 		Log.d("stk sound", "about to finish " + (record != null));
 	}
 

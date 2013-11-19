@@ -8,6 +8,9 @@ public class ModelDefaults {
 	public static final int APP_SCREEN_ORIENTATION = 0;
 	
 	public static final int SENSOR_DELAY = 0; 
+	
+	public static final int SOUND_SENSOR_PERIOD = 100;
+	public static final int SOUND_SENSOR_PERIOD_MIN = 100;
 
 	public static final double LIVEVIEW_UPDATE_RATE = 10.d; 
 	public static final double LIVEVIEW_UPDATE_RATE_MIN = .0d; 

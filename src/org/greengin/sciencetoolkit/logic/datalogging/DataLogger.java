@@ -31,7 +31,7 @@ public class DataLogger implements DataLoggerDataListener {
 		instance = new DataLogger(applicationContext);
 	}
 
-	public static DataLogger getInstance() {
+	public static DataLogger i() {
 		return instance;
 	}
 
@@ -131,7 +131,7 @@ public class DataLogger implements DataLoggerDataListener {
 	}
 
 	public void start() {
-		start(ProfileManager.getInstance().getActiveProfile());
+		start(ProfileManager.i().getActiveProfile());
 	}
 
 	private void start(Model profile) {

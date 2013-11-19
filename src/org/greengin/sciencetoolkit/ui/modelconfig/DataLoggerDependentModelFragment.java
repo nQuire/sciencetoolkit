@@ -9,17 +9,17 @@ public abstract class DataLoggerDependentModelFragment extends CheckEnabledModel
 	@Override
 	public void onResume() {
 		super.onResume();
-		DataLogger.getInstance().registerStatusListener(this);
+		DataLogger.i().registerStatusListener(this);
 	}
 	
 	public void onPause() {
 		super.onPause();
-		DataLogger.getInstance().unregisterStatusListener(this);
+		DataLogger.i().unregisterStatusListener(this);
 	}
 	
 	@Override
 	protected boolean settingsShouldBeEnabled() {
-		return DataLogger.getInstance().isRunning() ? settingsEnabledWhileLoggingData() : true;
+		return DataLogger.i().isRunning() ? settingsEnabledWhileLoggingData() : true;
 	}
 	
 	protected boolean settingsEnabledWhileLoggingData() {

@@ -37,9 +37,9 @@ public abstract class AbstractGpsSensorWrapper extends SensorWrapper implements 
 		this.minPeriod = -1;
 		
 		String settingsId = "sensor:" + getName();
-		this.settings = SettingsManager.getInstance().get(settingsId);
+		this.settings = SettingsManager.i().get(settingsId);
 		this.updateConfig();
-		SettingsManager.getInstance().registerDirectListener(settingsId, this);
+		SettingsManager.i().registerDirectListener(settingsId, this);
 		
 	}
 	

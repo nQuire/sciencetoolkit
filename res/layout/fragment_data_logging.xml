@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_list_label" />
-        
+
         <LinearLayout
             android:id="@+id/sensor_list"
             android:layout_width="match_parent"
@@ -93,15 +93,74 @@
             </LinearLayout>
         </LinearLayout>
 
-                <TextView
+        <TextView
             style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/profile_data" />
+
         <TextView
             android:id="@+id/data_logging_value_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/profile_data_button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/profile_data_view"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_search" />
+
+            <ImageButton
+                android:id="@+id/profile_data_export"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_save" />
+
+            <ImageButton
+                android:id="@+id/profile_data_discard"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_discard" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/create_profile_from_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:id="@+id/create_profile_from_default_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:clickable="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/create_profile_from_default_link"
+                android:textColor="@color/value_text" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@id/create_profile_from_default_link"
+                android:text="@string/create_profile_from_default_notice"
+                android:textColor="@color/link_notice_text" 
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

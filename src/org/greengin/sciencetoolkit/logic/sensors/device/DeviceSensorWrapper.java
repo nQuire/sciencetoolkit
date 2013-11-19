@@ -32,9 +32,9 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 		this.isRegistered = false;
 
 		String settingsId = "sensor:" + this.sensor.getName();
-		this.settings = SettingsManager.getInstance().get(settingsId);
+		this.settings = SettingsManager.i().get(settingsId);
 		this.updateDelay();
-		SettingsManager.getInstance().registerDirectListener(settingsId, this);
+		SettingsManager.i().registerDirectListener(settingsId, this);
 	}
 
 	@Override

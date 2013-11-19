@@ -43,7 +43,7 @@ public class PlotVisualizationFragment extends AbstractDataVisualizationFragment
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
 		
-		Model profile = ProfileManager.getInstance().get(profileId);
+		Model profile = ProfileManager.i().get(profileId);
 		if (profile != null) {
 			for(Model profileSensor : profile.getModel("sensors", true).getModels("weight")) {
 				String sensorId = profileSensor.getString("id");

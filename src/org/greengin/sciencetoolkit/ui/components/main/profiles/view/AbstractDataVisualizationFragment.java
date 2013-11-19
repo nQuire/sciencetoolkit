@@ -49,20 +49,20 @@ public abstract class AbstractDataVisualizationFragment extends ParentListFragme
 	public void onResume() {
 		super.onResume();
 		updateDataRange();
-		SettingsManager.getInstance().registerUIListener(settingsId, profileListener);
+		SettingsManager.i().registerUIListener(settingsId, profileListener);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		SettingsManager.getInstance().unregisterUIListener(settingsId, profileListener);
+		SettingsManager.i().unregisterUIListener(settingsId, profileListener);
 	}
 
 	protected Cursor getCursor() {
-		Model datarange = SettingsManager.getInstance().get(settingsId);
+		Model datarange = SettingsManager.i().get(settingsId);
 		long from = datarange.getLong("from", 0);
 		long to = datarange.getBool("track_to", true) ? Long.MAX_VALUE : datarange.getLong("to", Long.MAX_VALUE);
-		return DataLogger.getInstance().getListViewCursor(profileId, from, to);
+		return DataLogger.i().getListViewCursor(profileId, from, to);
 	}
 
 

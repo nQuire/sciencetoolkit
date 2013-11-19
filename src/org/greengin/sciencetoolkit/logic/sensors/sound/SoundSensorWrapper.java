@@ -2,6 +2,10 @@ package org.greengin.sciencetoolkit.logic.sensors.sound;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.SettingsManager;
+import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,20 +14,26 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-public class SoundSensorWrapper extends SensorWrapper {
+public class SoundSensorWrapper extends SensorWrapper implements ModelNotificationListener {
 	public static final String STK_SOUND_SENSOR_NEWVALUE = "STK_SOUND_SENSOR_NEWVALUE";
 
 	public static boolean isAvailable(Context applicationContext) {
-		return applicationContext.getPackageManager().hasSystemFeature("android.hardware.microphone");		
+		return applicationContext.getPackageManager().hasSystemFeature("android.hardware.microphone");
 	}
-	
+
+	String settingsId;
+	Model settings;
 	SoundSensorRunnable runnable;
 	float[] values;
 
 	public SoundSensorWrapper(Context applicationContext) {
 		this.runnable = new SoundSensorRunnable(applicationContext);
 		this.runnable.setFreq(44100);
-		this.runnable.setLength(100);
+		
+		this.settingsId = "sensor:" + getName();
+		
+		this.settings = SettingsManager.i().get(settingsId);
+		this.runnable.setLength(settings.getInt("record_period", ModelDefaults.SOUND_SENSOR_PERIOD));
 
 		values = new float[2];
 
@@ -34,6 +44,8 @@ public class SoundSensorWrapper extends SensorWrapper {
 			}
 
 		}, new IntentFilter(SoundSensorWrapper.STK_SOUND_SENSOR_NEWVALUE));
+		
+		SettingsManager.i().registerDirectListener(settingsId, this);
 	}
 
 	@Override
@@ -85,6 +97,11 @@ public class SoundSensorWrapper extends SensorWrapper {
 	@Override
 	public int getType() {
 		return SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND;
+	}
+
+	@Override
+	public void modelNotificationReceived(String msg) {
+		this.runnable.setLength(settings.getInt("record_period", ModelDefaults.SOUND_SENSOR_PERIOD));
 	}
 
 }

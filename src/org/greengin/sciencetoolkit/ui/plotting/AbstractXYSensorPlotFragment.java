@@ -10,6 +10,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.SensorUIData;
 
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.XYPlot;
@@ -38,6 +39,10 @@ public abstract class AbstractXYSensorPlotFragment extends Fragment {
 	abstract void fetchSettings();
 
 	abstract void createSeries();
+	
+	protected String getDomainLabel() {
+		return "Time";
+	}
 
 	
 
@@ -66,6 +71,12 @@ public abstract class AbstractXYSensorPlotFragment extends Fragment {
 		plot.setTicksPerRangeLabel(3);
 		plot.setDomainStep(XYStepMode.SUBDIVIDE, 5);
 		plot.setDomainValueFormat(new TimePlotDomainFormat());
+		
+		String[] units = SensorUIData.getValueUnits(sensor.getType());
+		String unit = units != null && units.length > 0 ? units[0] : "";
+		plot.setRangeLabel(unit);
+		
+		plot.setDomainLabel(getDomainLabel());
 
 		updateSeriesConfig(true);
 

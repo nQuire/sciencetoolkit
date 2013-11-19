@@ -49,12 +49,12 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 	public void onResume() {
 		super.onResume();
 		updateChildrenList();
-		SettingsManager.getInstance().registerDirectListener("sensor_list", this);
+		SettingsManager.i().registerDirectListener("sensor_list", this);
 	}
 
 	public void onPause() {
 		super.onPause();
-		SettingsManager.getInstance().unregisterDirectListener("sensor_list", this);
+		SettingsManager.i().unregisterDirectListener("sensor_list", this);
 	}
 	
 	
@@ -82,7 +82,7 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
 
-		Model showSensors = SettingsManager.getInstance().get("sensor_list");
+		Model showSensors = SettingsManager.i().get("sensor_list");
 
 		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
 			if (showSensors.getBool(sensorId, true)) {

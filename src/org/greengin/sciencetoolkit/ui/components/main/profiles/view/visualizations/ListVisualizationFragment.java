@@ -64,7 +64,7 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 		public void bindView(View view, Context context, Cursor cursor) {
 			LinearLayout layout = (LinearLayout) view;
 			
-			String sensorId = DataLogger.getInstance().sensorName(cursor.getString(1));
+			String sensorId = DataLogger.i().sensorName(cursor.getString(1));
 			SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 			
 			String timestamp = sdf.format(new Date(cursor.getLong(2)));

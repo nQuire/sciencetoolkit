@@ -69,7 +69,7 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.remove_sensor_dlg_title).setMessage(styledRemoveMsg).setPositiveButton(R.string.remove_sensor_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ProfileManager.getInstance().removeSensor(profile, profileSensorId);
+							ProfileManager.i().removeSensor(profile, profileSensorId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -90,12 +90,12 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	public void onResume() {
 		super.onResume();
 		updateButtons();
-		DataLogger.getInstance().registerStatusListener(this);
+		DataLogger.i().registerStatusListener(this);
 	}
 	
 	public void onPause() {
 		super.onResume();
-		DataLogger.getInstance().unregisterStatusListener(this);
+		DataLogger.i().unregisterStatusListener(this);
 	}
 
 	private void moveSensorUp() {
@@ -125,7 +125,7 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	}
 
 	private void updateButtons() {
-		boolean enabled = !DataLogger.getInstance().isRunning();
+		boolean enabled = !DataLogger.i().isRunning();
 		upButton.setEnabled(enabled);
 		downButton.setEnabled(enabled);
 		discardButton.setEnabled(enabled);

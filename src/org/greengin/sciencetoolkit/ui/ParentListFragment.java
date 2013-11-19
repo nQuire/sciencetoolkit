@@ -32,9 +32,6 @@ public abstract class ParentListFragment extends Fragment {
 			}
 		}
 		
-		ft.commit();
-		
-		ft = getChildFragmentManager().beginTransaction();
 
 		List<Fragment> newfragments = getUpdatedFragmentChildren();
 		if (newfragments != null) {

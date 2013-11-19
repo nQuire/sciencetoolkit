@@ -81,19 +81,19 @@ public class SettingsControlledActivity extends ActionBarActivity {
 
 		if (controlledRotationActive) {
 			updateScreenOrientationValue();
-			SettingsManager.getInstance().registerDirectListener("app", this.controlledRotationListener);
+			SettingsManager.i().registerDirectListener("app", this.controlledRotationListener);
 		}
 	}
 
 	public void onPause() {
 		super.onPause();
 		if (controlledRotationActive) {
-			SettingsManager.getInstance().unregisterDirectListener("app", this.controlledRotationListener);
+			SettingsManager.i().unregisterDirectListener("app", this.controlledRotationListener);
 		}
 	}
 
 	private void updateScreenOrientationValue() {
-		int value = SettingsManager.getInstance().get("app").getInt("screen_orientation", ModelDefaults.APP_SCREEN_ORIENTATION);
+		int value = SettingsManager.i().get("app").getInt("screen_orientation", ModelDefaults.APP_SCREEN_ORIENTATION);
 		if (value != controlledRotationLastValue) {
 			controlledRotationLastValue = value;
 			updateScreenOrientation();

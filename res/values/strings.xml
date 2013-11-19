@@ -97,4 +97,6 @@
     <string name="default_profile">No profile</string>
     <string name="sensor_list_label">Sensors:</string>
     <string name="profile_data">Data:</string>
+    <string name="create_profile_from_default_notice">Would you like to create a new profile with this data logging configuration?</string>
+    <string name="create_profile_from_default_link">Create</string>
 </resources>

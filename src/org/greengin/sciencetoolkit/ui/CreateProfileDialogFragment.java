@@ -1,5 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.datalogging;
-
+package org.greengin.sciencetoolkit.ui;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
@@ -19,28 +18,31 @@ import android.widget.EditText;
 
 public class CreateProfileDialogFragment extends DialogFragment {
 
-	private static final String SET_AS_DEFAULT = "SET_AS_DEFAULT";
+	private static final String SET_AS_ACTIVE = "SET_AS_ACTIVE";
+	private static final String COPY_FROM_DEFAULT = "COPY_FROM_DEFAULT";
 
-	public static void showCreateProfileDialog(FragmentManager fm, boolean setAsDefault) {
+	public static void showCreateProfileDialog(FragmentManager fm, boolean setAsActive, boolean copyFromDefault) {
 		CreateProfileDialogFragment dialog = new CreateProfileDialogFragment();
 		Bundle args = new Bundle();
-		args.putBoolean(SET_AS_DEFAULT, setAsDefault);
+		args.putBoolean(SET_AS_ACTIVE, setAsActive);
+		args.putBoolean(COPY_FROM_DEFAULT, copyFromDefault);
 		dialog.setArguments(args);
 		dialog.show(fm, "create_new_profile");
 	}
-	
-	
+
 	Button ok;
 	Model profile;
 	EditText title;
-	boolean setAsDefault;
+	boolean setAsActive;
+	boolean copyFromDefault;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.dialog_create_profile, container);
 		getDialog().setTitle(getResources().getString(R.string.create_new_profile));
 
-		this.setAsDefault = getArguments().getBoolean(CreateProfileDialogFragment.SET_AS_DEFAULT);
+		this.setAsActive = getArguments().getBoolean(CreateProfileDialogFragment.SET_AS_ACTIVE);
+		this.copyFromDefault = getArguments().getBoolean(CreateProfileDialogFragment.COPY_FROM_DEFAULT);
 
 		ok = (Button) view.findViewById(R.id.ok);
 		ok.setEnabled(false);
@@ -59,7 +61,7 @@ public class CreateProfileDialogFragment extends DialogFragment {
 			public void onClick(View view) {
 				String profileTitle = title.getText().toString();
 				if (profileTitle.length() > 0) {
-					ProfileManager.getInstance().createProfile(profileTitle, setAsDefault);
+					ProfileManager.i().createProfile(profileTitle, setAsActive, copyFromDefault);
 					dismiss();
 				}
 			}
@@ -81,7 +83,7 @@ public class CreateProfileDialogFragment extends DialogFragment {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 			}
 		});
-
+		
 		return view;
 	}
 

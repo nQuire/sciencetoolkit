@@ -45,7 +45,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 		add.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!DataLogger.getInstance().isRunning()) {
+				if (!DataLogger.i().isRunning()) {
 					showAddToProfileDlg();
 				}
 			}
@@ -54,7 +54,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 	}
 
 	private void showAddToProfileDlg() {
-		Model profile = ProfileManager.getInstance().getActiveProfile();
+		Model profile = ProfileManager.i().getActiveProfile();
 		if (sensorId != null && profile != null) {
 			String msg = String.format(getResources().getString(R.string.sensor_not_in_profile_add_msg), sensorId, profile.getString("title"));
 			CharSequence styledMsg = Html.fromHtml(msg);
@@ -68,11 +68,11 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 	}
 
 	private void addToProfile() {
-		Model profile = ProfileManager.getInstance().getActiveProfile();
-		ProfileManager.getInstance().addSensor(profile, sensorId);
+		Model profile = ProfileManager.i().getActiveProfile();
+		ProfileManager.i().addSensor(profile, sensorId);
 
-		if (sensorId != null && profile != null && !DataLogger.getInstance().isRunning()) {
-			ProfileManager.getInstance().addSensor(profile, sensorId);
+		if (sensorId != null && profile != null && !DataLogger.i().isRunning()) {
+			ProfileManager.i().addSensor(profile, sensorId);
 		}
 	}
 
@@ -88,24 +88,24 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		updateSensorInProfileNotice();
 
-		ProfileManager.getInstance().registerUIListener(this);
-		SettingsManager.getInstance().registerUIListener("profiles", this);
-		DataLogger.getInstance().registerStatusListener(this);
+		ProfileManager.i().registerUIListener(this);
+		SettingsManager.i().registerUIListener("profiles", this);
+		DataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 
-		ProfileManager.getInstance().unregisterUIListener(this);
-		SettingsManager.getInstance().unregisterUIListener("profiles", this);
-		DataLogger.getInstance().unregisterStatusListener(this);
+		ProfileManager.i().unregisterUIListener(this);
+		SettingsManager.i().unregisterUIListener("profiles", this);
+		DataLogger.i().unregisterStatusListener(this);
 	}
 
 	private void updateSensorInProfileNotice() {
 		boolean hasSensor = sensorId != null;
 
-		Model profile = ProfileManager.getInstance().getActiveProfile();
+		Model profile = ProfileManager.i().getActiveProfile();
 		boolean inProfile = hasSensor && profile != null && profile.getModel("sensors", true).getModel(sensorId) != null;
 
 		View root = getWindow().getDecorView();
@@ -115,13 +115,13 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		if (hasSensor && !inProfile) {
 			TextView add = (TextView) root.findViewById(R.id.not_in_profile_notice_add);
-			add.setTextColor(DataLogger.getInstance().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
+			add.setTextColor(DataLogger.i().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
 		}
 	}
 
 	@Override
 	public void modelNotificationReceived(String msg) {
-		String profileId = ProfileManager.getInstance().getActiveProfileId();
+		String profileId = ProfileManager.i().getActiveProfileId();
 
 		if (profileId != null && ("profiles".equals(msg) || profileId.equals(msg))) {
 			updateSensorInProfileNotice();

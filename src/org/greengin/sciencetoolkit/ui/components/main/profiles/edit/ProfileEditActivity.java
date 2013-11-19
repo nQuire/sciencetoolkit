@@ -39,7 +39,7 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 		super.onCreate(savedInstanceState);
 
 		profileId = getIntent().getExtras().getString(Arguments.ARG_PROFILE);
-		profile = ProfileManager.getInstance().get(profileId);
+		profile = ProfileManager.i().get(profileId);
 
 		setContentView(R.layout.activity_data_logging_edit);
 
@@ -71,15 +71,15 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 		updateTitle();
 		updateChildrenList();
 		updateSettingsEnabled();
-		ProfileManager.getInstance().registerDirectListener(this);
-		DataLogger.getInstance().registerStatusListener(this);
+		ProfileManager.i().registerDirectListener(this);
+		DataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		ProfileManager.getInstance().unregisterDirectListener(this);
-		DataLogger.getInstance().unregisterStatusListener(this);
+		ProfileManager.i().unregisterDirectListener(this);
+		DataLogger.i().unregisterStatusListener(this);
 	}
 	
 
@@ -90,7 +90,7 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 	}
 
 	private void updateSettingsEnabled() {
-		boolean enabled = profile != null && !DataLogger.getInstance().isRunning();
+		boolean enabled = profile != null && !DataLogger.i().isRunning();
 		add.setEnabled(enabled);
 		edit.setEnabled(enabled);
 	}

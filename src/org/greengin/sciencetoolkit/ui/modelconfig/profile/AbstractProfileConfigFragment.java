@@ -18,7 +18,7 @@ public abstract class AbstractProfileConfigFragment extends DataLoggerDependentM
 		arguments = getArguments().getStringArray(ProfileModelFragmentManager.ARGS);
 		type = arguments[0];
 		profileId = arguments[1];
-		profile = ProfileManager.getInstance().get(profileId);
+		profile = ProfileManager.i().get(profileId);
 		return fetchProfileConfigModel();
 	}
 	
@@ -26,6 +26,6 @@ public abstract class AbstractProfileConfigFragment extends DataLoggerDependentM
 	
 	@Override
 	protected boolean settingsEnabledWhileLoggingData() {
-		return !profileId.equals(ProfileManager.getInstance().getActiveProfileId());
+		return !profileId.equals(ProfileManager.i().getActiveProfileId());
 	}
 }

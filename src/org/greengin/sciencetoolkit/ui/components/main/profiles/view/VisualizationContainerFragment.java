@@ -39,7 +39,7 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 
 	private void updateVisualization() {
 		if (profileId != null) {
-			int v = SettingsManager.getInstance().get(this.settingsId).getInt("visualization", 0);
+			int v = SettingsManager.i().get(this.settingsId).getInt("visualization", 0);
 			if (v != visualization) {
 				visualization = v;
 
@@ -67,12 +67,12 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 	public void onResume() {
 		super.onResume();
 		updateVisualization();
-		SettingsManager.getInstance().registerUIListener(settingsId, this);
+		SettingsManager.i().registerUIListener(settingsId, this);
 	}
 
 	public void onPause() {
 		super.onPause();
-		SettingsManager.getInstance().unregisterUIListener(settingsId, this);
+		SettingsManager.i().unregisterUIListener(settingsId, this);
 	}
 
 	@Override
