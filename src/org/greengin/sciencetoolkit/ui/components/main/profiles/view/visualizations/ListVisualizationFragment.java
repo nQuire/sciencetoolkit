@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations;
 
 
 import java.text.SimpleDateFormat;
@@ -9,7 +9,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
-import org.greengin.sciencetoolkit.ui.components.main.data.view.AbstractDataVisualizationFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.AbstractDataVisualizationFragment;
 
 import android.content.Context;
 import android.database.Cursor;

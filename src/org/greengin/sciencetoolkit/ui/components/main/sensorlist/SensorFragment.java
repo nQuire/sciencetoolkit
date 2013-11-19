@@ -8,6 +8,7 @@ import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
+import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
@@ -17,13 +18,16 @@ import org.greengin.sciencetoolkit.ui.datafilters.DataUINotifier;
 import org.greengin.sciencetoolkit.ui.plotting.LiveXYSensorPlotFragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,9 +50,11 @@ public class SensorFragment extends Fragment {
 	String currentValue;
 	int showValueFormatMinInt;
 
-	BroadcastReceiver valueReceiver;
-	ModelNotificationListener periodListener;
+	boolean showValue;
 
+	BroadcastReceiver valueReceiver;
+	ModelNotificationListener showListener;
+	ModelNotificationListener profileListener;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -56,6 +62,8 @@ public class SensorFragment extends Fragment {
 
 		this.sensorId = getArguments().getString(Arguments.ARG_SENSOR);
 		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
+
+		this.showValue = false;
 
 		this.currentValue = null;
 
@@ -65,8 +73,7 @@ public class SensorFragment extends Fragment {
 
 		this.showValueIntentFilter = "liveview:" + this.sensorId;
 		this.settings = SettingsManager.getInstance().get(this.showValueIntentFilter);
-		
-		
+
 		int period = ModelOperations.rate2period(settings, "update_rate", ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
 		this.showValuePipe = new DataPipe(sensor);
@@ -78,37 +85,50 @@ public class SensorFragment extends Fragment {
 				eventDataReceived(intent.getFloatArrayExtra("values"), intent.getIntExtra("valueCount", 0));
 			}
 		};
-		
-		this.periodListener = new ModelNotificationListener() {
+
+		this.showListener = new ModelNotificationListener() {
 			@Override
 			public void modelNotificationReceived(String msg) {
 				int period = ModelOperations.rate2period(settings, "update_rate", ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
 				periodFilter.setPeriod(period);
+				updateShowValue(getView(), false);
+			}
+		};
+
+		this.profileListener = new ModelNotificationListener() {
+			@Override
+			public void modelNotificationReceived(String msg) {
+				updateSensorInProfile(getView());
 			}
 		};
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		SettingsManager.getInstance().registerDirectListener(this.showValueIntentFilter, periodListener);		
-		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
 
-		if (settings.getBool("show")) {
-			showValuePipe.attach();
-			createPlot();
-		}
+		updateView(getView());
+
+		SettingsManager.getInstance().registerDirectListener(this.showValueIntentFilter, showListener);
+		SettingsManager.getInstance().registerDirectListener("profiles", profileListener);
+		ProfileManager.getInstance().registerDirectListener(profileListener);
+
+		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
+
 		this.showValuePipe.detach();
 		destroyPlot();
-		SettingsManager.getInstance().unregisterDirectListener(this.showValueIntentFilter, periodListener);
+
+		SettingsManager.getInstance().unregisterDirectListener(this.showValueIntentFilter, showListener);
+		SettingsManager.getInstance().unregisterDirectListener("profiles", profileListener);
+		ProfileManager.getInstance().unregisterDirectListener(profileListener);
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -123,7 +143,7 @@ public class SensorFragment extends Fragment {
 		toggleButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View button) {
-				actionToogleSensorValueView(((ToggleButton) button).isChecked());
+				actionToggleSensorInProfile(((ToggleButton) button).isChecked());
 			}
 		});
 
@@ -133,34 +153,104 @@ public class SensorFragment extends Fragment {
 		String label = SensorUIData.getValueLabelStr(sensor.getType());
 		labelTextView.setText(label);
 
-		this.updateView(rootView);
-
-		
 		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), SensorSettingsActivity.class);
-				intent.putExtra(Arguments.ARG_SENSOR, sensorId);				
-		    	startActivity(intent);
+				intent.putExtra(Arguments.ARG_SENSOR, sensorId);
+				startActivity(intent);
 			}
 		});
+
+		TextView showLabel = (TextView) rootView.findViewById(R.id.sensor_show_value);
+		showLabel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				actionToogleShow(true);
+			}
+		});
+
+		TextView hideLabel = (TextView) rootView.findViewById(R.id.sensor_hide_value);
+		hideLabel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				actionToogleShow(false);
+			}
+		});
+
+		updateShowValue(rootView, true);
 
 		return rootView;
 	}
 
-	protected void actionToogleSensorValueView(boolean checked) {
-		if (settings.setBool("show", checked)) {
-			if (checked) {
-				this.showValuePipe.attach();
-				createPlot();
-			} else {
-				this.showValuePipe.detach();
-				destroyPlot();
-			}
+	private void actionToggleSensorInProfile(boolean checked) {
 
-			updateView(getView());
+		Model profile = ProfileManager.getInstance().getActiveProfile();
+		if (sensorId != null && profile != null) {
+			if (ProfileManager.getInstance().profileIsDefault(profile)) {
+				if (checked) {
+					ProfileManager.getInstance().addSensorToActiveProfile(sensorId);
+					actionToogleShow(true);
+				} else {
+					ProfileManager.getInstance().removeSensorFromActiveProfile(sensorId);
+					actionToogleShow(false);
+				}
+			} else {
+				int msgId, titleId, positiveLabelId;
+				DialogInterface.OnClickListener listener;
+
+				if (checked) {
+					msgId = R.string.sensor_not_in_profile_add_msg;
+					titleId = R.string.sensor_not_in_profile_add_title;
+					positiveLabelId = R.string.sensor_not_in_profile_add;
+					listener = new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							ProfileManager.getInstance().addSensorToActiveProfile(sensorId);
+						}
+					};
+				} else {
+					msgId = R.string.sensor_in_profile_remove_msg;
+					titleId = R.string.sensor_in_profile_remove_title;
+					positiveLabelId = R.string.remove_sensor_dlg_yes;
+					listener = new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							ProfileManager.getInstance().removeSensorFromActiveProfile(sensorId);
+						}
+					};
+
+				}
+
+				DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						updateSensorToggle(getView());
+					}
+				};
+
+				DialogInterface.OnClickListener cancelButtonListener = new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						updateSensorToggle(getView());
+					}
+				};
+
+				String msg = String.format(getResources().getString(msgId), sensorId, profile.getString("title"));
+				CharSequence styledMsg = Html.fromHtml(msg);
+
+				AlertDialog.Builder dlg = new AlertDialog.Builder(getActivity());
+				dlg.setIcon(android.R.drawable.ic_dialog_alert).setTitle(titleId).setMessage(styledMsg);
+				dlg.setPositiveButton(positiveLabelId, listener);
+				dlg.setNegativeButton(R.string.cancel, cancelButtonListener).setOnCancelListener(cancelListener);
+				dlg.show();
+			}
 		}
+	}
+
+	protected void actionToogleShow(boolean checked) {
+		settings.setBool("show", checked);
 	}
 
 	protected void createPlot() {
@@ -185,16 +275,56 @@ public class SensorFragment extends Fragment {
 	}
 
 	private void updateView(View view) {
-		boolean show = settings.getBool("show");
-		
-		((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(show);
-		view.findViewById(R.id.sensor_value_section).setVisibility(show ? View.VISIBLE : View.GONE);
+		this.updateShowValue(view, false);
 		this.updateValueView(view);
+		this.updateSensorInProfile(view);
+	}
+
+	private void updateShowValue(View view, boolean forceUpdate) {
+		boolean value = settings.getBool("show", false);
+		if (value != this.showValue || forceUpdate) {
+			this.showValue = value;
+
+			if (showValue) {
+				view.findViewById(R.id.sensor_value_section).setVisibility(View.VISIBLE);
+				view.findViewById(R.id.sensor_show_value).setVisibility(View.GONE);
+				view.findViewById(R.id.sensor_hide_value).setVisibility(View.VISIBLE);
+				showValuePipe.attach();
+				createPlot();
+			} else {
+				view.findViewById(R.id.sensor_value_section).setVisibility(View.GONE);
+				view.findViewById(R.id.sensor_show_value).setVisibility(View.VISIBLE);
+				view.findViewById(R.id.sensor_hide_value).setVisibility(View.GONE);
+				showValuePipe.detach();
+				destroyPlot();
+			}
+		}
 	}
 
 	private void updateValueView(View view) {
 		if (settings.getBool("show") && view != null) {
 			((TextView) view.findViewById(R.id.sensor_value)).setText(this.currentValue);
+		}
+	}
+
+	private void updateSensorInProfile(View view) {
+		if (view != null) {
+			boolean inProfile = ProfileManager.getInstance().sensorInActiveProfile(sensorId);
+			TextView notice = (TextView) view.findViewById(R.id.in_profile_notice);
+			if (ProfileManager.getInstance().activeProfileIsDefault()) {
+				notice.setVisibility(View.GONE);
+			} else {
+				notice.setText(inProfile ? R.string.sensor_in_profile : R.string.sensor_not_in_profile);
+				notice.setVisibility(View.VISIBLE);
+			}
+			((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(inProfile);
+		}
+	}
+
+	private void updateSensorToggle(View view) {
+		if (view != null) {
+			boolean inProfile = ProfileManager.getInstance().sensorInActiveProfile(sensorId);
+			((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(inProfile);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
+import java.text.DecimalFormat;
+
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
@@ -24,14 +26,18 @@ import android.widget.TextView;
 
 public class ProfileSensorFragment extends Fragment {
 
-	private int sensorType;
-	private SensorWrapper sensor;
-	private String profileSensorId;
-	private Model profileSensor;
-	private String profileId;
-	private Model profile;
+	protected int sensorType;
+	protected SensorWrapper sensor;
+	protected String profileSensorId;
+	protected Model profileSensor;
+	protected String profileId;
+	protected Model profile;
+	
+	protected ImageButton editButton;
 
 
+		
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -55,22 +61,24 @@ public class ProfileSensorFragment extends Fragment {
 		}
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
- 
-		View rootView = inflater.inflate(R.layout.fragment_profile_sensor, container, false);
-
+	protected void prepareView(View rootView) {
 		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
 		nameTextView.setText(this.sensor != null ? this.sensor.getName() : "no sensor");
 
-		TextView periodTextView = (TextView) rootView.findViewById(R.id.sensor_period);
-		periodTextView.setText(Integer.toString(this.profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD)) + " ms");
+		TextView rateTextView = (TextView) rootView.findViewById(R.id.sensor_sample_rate);
+		double rate = this.profileSensor.getDouble("sample_rate", ModelDefaults.DATA_LOGGING_RATE);
+		DecimalFormat formatter = new DecimalFormat("@@##");
+		String rateStr = formatter.format(rate);
+		
+		int units = this.profileSensor.getInt("sample_rate_ux", 0);
+		int rateStringId = units == 0 ? R.string.samples_second_v : (units == 1 ? R.string.samples_min_v : R.string.samples_hour_v);  
+		
+		rateTextView.setText(String.format(getResources().getString(rateStringId), rateStr));
 
 		ImageView image = (ImageView) rootView.findViewById(R.id.sensor_image);
 		image.setImageResource(SensorUIData.getSensorResource(this.sensorType));
 
-		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
+		editButton = (ImageButton) rootView.findViewById(R.id.sensor_config_edit);
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -80,8 +88,31 @@ public class ProfileSensorFragment extends Fragment {
 		    	startActivity(intent);
 			}
 		});
-		
+	}
+	
+	protected View loadViewLayout(LayoutInflater inflater, ViewGroup container) {
+		View rootView = inflater.inflate(R.layout.fragment_profile_sensor, container, false);
+		return rootView;
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
+ 
+		View rootView = loadViewLayout(inflater, container);
+		prepareView(rootView);
 		return rootView;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+

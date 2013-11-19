@@ -17,7 +17,12 @@ public abstract class ParentListFragment extends Fragment {
 		this.lock = new ReentrantLock();
 	}
 
-	private void removeChildren(FragmentTransaction ft) {
+
+	protected void updateChildrenList() {
+		lock.lock();
+
+		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+		
 		List<Fragment> existingfragments = getChildFragmentManager().getFragments();
 		if (existingfragments != null) {
 			for (Fragment child : existingfragments) {
@@ -26,21 +31,10 @@ public abstract class ParentListFragment extends Fragment {
 				}
 			}
 		}
-	}
-	protected void clearChildrenList() {
-		lock.lock();
-		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-		removeChildren(ft);
-		ft.commit();
-		lock.unlock();		
-	}
-
-	protected void updateChildrenList() {
-		lock.lock();
-
-		FragmentTransaction ft = getChildFragmentManager().beginTransaction();
 		
-		removeChildren(ft);
+		ft.commit();
+		
+		ft = getChildFragmentManager().beginTransaction();
 
 		List<Fragment> newfragments = getUpdatedFragmentChildren();
 		if (newfragments != null) {

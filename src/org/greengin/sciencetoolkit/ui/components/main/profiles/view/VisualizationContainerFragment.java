@@ -1,11 +1,11 @@
-package org.greengin.sciencetoolkit.ui.components.main.data.view;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations.ListVisualizationFragment;
-import org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations.PlotVisualizationFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations.ListVisualizationFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations.PlotVisualizationFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

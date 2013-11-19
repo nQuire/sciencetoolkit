@@ -1,7 +1,8 @@
 package org.greengin.sciencetoolkit.model;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
@@ -13,6 +14,8 @@ import android.content.Context;
 import android.util.Log;
 
 public class ProfileManager extends AbstractModelManager implements ModelNotificationListener {
+
+	public static final String DEFAULT_PROFILE_ID = "1";
 
 	private static ProfileManager instance;
 
@@ -28,6 +31,8 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	Model settings;
 	Model appSettings;
+
+	Comparator<String> profileIdComparator;
 
 	private ProfileManager(Context applicationContext) {
 		super(applicationContext, "profiles.xml", 500);
@@ -50,19 +55,53 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
 			SettingsManager.getInstance().registerDirectListener("sensor:" + sensorId, sensorListener);
 		}
+
+		profileIdComparator = new Comparator<String>() {
+			@Override
+			public int compare(String lhs, String rhs) {
+				try {
+					return Integer.parseInt(rhs) - Integer.parseInt(lhs);
+				} catch (Exception e) {
+					return 0;
+				}
+			}
+		};
 	}
 
 	private void initDefaultProfile() {
-		appSettings.setBool("create_default", true);
-
-		if (appSettings.getBool("create_default", true) && items.size() == 0) {
-			Model defaultProfile = createEmptyProfile();
-			defaultProfile.setString("title", "Default", true);
+		if (!items.containsKey(ProfileManager.DEFAULT_PROFILE_ID)) {
+			Model defaultProfile = createEmptyProfile(ProfileManager.DEFAULT_PROFILE_ID);
 			modelModified(defaultProfile);
 			listeners.fireEvent("list");
+			
+
 
 			settings.setString("current_profile", defaultProfile.getString("id"));
 		}
+		
+		if (!items.containsKey(getActiveProfileId())) {
+			settings.setString("current_profile", ProfileManager.DEFAULT_PROFILE_ID);
+		}
+	}
+
+	public boolean profileIdIsActive(String id) {
+		return id != null && id.equals(getActiveProfileId());
+	}
+
+	public boolean profileIsActive(Model profile) {
+		return profile != null && profileIdIsActive(profile.getString("id"));
+	}
+
+	public boolean profileIdIsDefault(String id) {
+		return ProfileManager.DEFAULT_PROFILE_ID.equals(id);
+	}
+
+	public boolean profileIsDefault(Model profile) {
+		return profile != null && profileIdIsDefault(profile.getString("id"));
+	}
+
+	public boolean activeProfileIsDefault() {
+		return profileIdIsDefault(getActiveProfileId());
 	}
 
 	private void checkDataConsistency() {
@@ -80,8 +119,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		}
 	}
 
-	private Model createEmptyProfile() {
-		String id = getNewId();
+	private Model createEmptyProfile(String id) {
 		Model profile = new Model(this);
 		items.put(id, profile);
 
@@ -91,7 +129,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	public void createProfile(String title, boolean makeActive) {
-		Model newProfile = createEmptyProfile();
+		Model newProfile = createEmptyProfile(getNewId());
 		newProfile.setString("title", title, true);
 		modelModified(newProfile);
 		listeners.fireEvent("list");
@@ -112,6 +150,11 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			if (DataLogger.getInstance().isRunning()) {
 				DataLogger.getInstance().stop();
 			}
+			
+			if (profileIdIsDefault(profileId)) {
+				updateDefaultProfileWithCurrent();
+			}
+			
 			settings.setString("current_profile", profileId);
 
 			updateGlobalSensors();
@@ -126,19 +169,51 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		addSensor(profile, sensorId, false);
 	}
 
+	public void addSensorToActiveProfile(String sensorId) {
+		Model profile = getActiveProfile();
+		if (profile != null) {
+			boolean logging = DataLogger.getInstance().isRunning();
+
+			if (logging) {
+				DataLogger.getInstance().stop();
+			}
+			addSensor(profile, sensorId);
+			if (logging) {
+				DataLogger.getInstance().start();
+			}
+		}
+	}
+
+	public void removeSensorFromActiveProfile(String sensorId) {
+		Model profile = getActiveProfile();
+		if (profile != null) {
+			boolean logging = DataLogger.getInstance().isRunning();
+
+			if (logging) {
+				DataLogger.getInstance().stop();
+			}
+			removeSensor(profile, sensorId);
+			if (logging) {
+				DataLogger.getInstance().start();
+			}
+		}
+	}
+
 	public void addSensor(Model profile, String sensorId, boolean suppressSave) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		int weight = profileSensors.getModels().size();
 
-		Model profileSensor = profileSensors.getModel(sensorId, true, true);
-		profileSensor.setString("id", sensorId, true);
-		profileSensor.setInt("weight", weight, true);
-		Model sensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
-		Model profileSensorSettings = profileSensor.getModel("sensor_settings", true, true);
-		profileSensorSettings.copyPrimitives(sensorSettings, true);
+		if (!profileSensors.containsKey(sensorId)) {
+			Model profileSensor = profileSensors.getModel(sensorId, true, true);
+			profileSensor.setString("id", sensorId, true);
+			profileSensor.setInt("weight", weight, true);
+			Model sensorSettings = SettingsManager.getInstance().get("sensor:" + sensorId);
+			Model profileSensorSettings = profileSensor.getModel("sensor_settings", true, true);
+			profileSensorSettings.copyPrimitives(sensorSettings, true);
 
-		if (!suppressSave) {
-			this.modelModified(profile);
+			if (!suppressSave) {
+				this.modelModified(profile);
+			}
 		}
 	}
 
@@ -173,8 +248,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		return settings.getString("current_profile");
 	}
 
-	public Set<String> getProfileIds() {
-		return items.keySet();
+	public Vector<String> getProfileIds() {
+		Vector<String> profiles = new Vector<String>();
+		for (String id : items.keySet()) {
+			profiles.add(id);
+		}
+		
+		Collections.sort(profiles, profileIdComparator);
+		return profiles;
 	}
 
 	private String getNewId() {
@@ -184,6 +265,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 				return test;
 			}
 		}
+	}
+
+	public boolean sensorInActiveProfile(String sensorId) {
+		return sensorInProfile(sensorId, getActiveProfile());
+	}
+
+	public boolean sensorInProfile(String sensorId, Model profile) {
+		return sensorId != null && profile != null && profile.getModel("sensors", true).getModel(sensorId) != null;
 	}
 
 	@Override
@@ -196,8 +285,19 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			if (profileId.equals(getActiveProfileId())) {
 				updateGlobalSensors();
 			}
-			
+
 			listeners.fireEvent(profileId);
+		}
+	}
+	
+	private void updateDefaultProfileWithCurrent() {
+		Model profile = getActiveProfile();
+		Model defaultProfile = get(ProfileManager.DEFAULT_PROFILE_ID);
+		
+		if (profile != null && defaultProfile != null && profile != defaultProfile) {
+			Model profileSensors = profile.getModel("sensors", true, true);
+			defaultProfile.clear("sensors", true);
+			defaultProfile.setModel("sensors", profileSensors.cloneModel(defaultProfile));
 		}
 	}
 
@@ -255,5 +355,29 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	public void unregisterDirectListener(ModelNotificationListener listener) {
 		listeners.removeDirectListener(listener);
+	}
+
+	@Override
+	public int getCurrentVersion() {
+		return 1;
+	}
+
+	@Override
+	public void updateRootModel(String key, Model model, int version) {
+		if (version < 1) {
+			// sensor sample period -> sample rate
+
+			for (Model sensorModel : model.getModel("sensors", true).getModels()) {
+				if (sensorModel.containsKey("period")) {
+					if (!sensorModel.containsKey("sample_rate")) {
+						int period = sensorModel.getInt("period");
+						double rate = Math.min(period > 0 ? 1000 / period : 0, ModelDefaults.DATA_LOGGING_RATE_MAX);
+						sensorModel.setDouble("sample_rate", rate);
+						sensorModel.setInt("sample_rate_ux", 0);
+					}
+					sensorModel.clear("period");
+				}
+			}
+		}
 	}
 }

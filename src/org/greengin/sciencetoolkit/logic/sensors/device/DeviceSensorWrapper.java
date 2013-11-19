@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.logic.sensors.device;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
@@ -13,11 +14,6 @@ import android.hardware.SensorManager;
 import android.os.Build;
 
 public class DeviceSensorWrapper extends SensorWrapper implements SensorEventListener, ModelNotificationListener {
-
-	public static final int[] DELAY_MODE_VALUES = new int[] { SensorManager.SENSOR_DELAY_FASTEST, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_NORMAL };
-
-	// public static final String[] DELAY_MODE_LABELS = new String[] { null,
-	// "50 samples/s", "16 samples/s", "5 samples/s" };
 
 	SensorManager sensorManager;
 	Sensor sensor;
@@ -57,7 +53,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 
 	private void register() {
 		if (!isRegistered) {
-			sensorManager.registerListener(this, this.sensor, DELAY_MODE_VALUES[this.currentDelay]);
+			sensorManager.registerListener(this, this.sensor, this.currentDelay);
 			isRegistered = true;
 		}
 	}
@@ -68,7 +64,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	}
 
 	private void updateDelay() {
-		int newDelay = settings.getInt("delay", ModelDefaults.SENSOR_DELAY);
+		int newDelay = ModelOperations.delayOption2deviceSensorDelay(settings, "delay", ModelDefaults.SENSOR_DELAY, this);
 		if (newDelay != this.currentDelay) {
 			this.currentDelay = newDelay;
 			if (isRegistered) {
@@ -97,16 +93,19 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 		case Sensor.TYPE_ORIENTATION:
 		case Sensor.TYPE_GAME_ROTATION_VECTOR:
 		case Sensor.TYPE_ROTATION_VECTOR:
+		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
 			return 3;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
 		case Sensor.TYPE_LIGHT:
 		case Sensor.TYPE_PRESSURE:
-		case Sensor.TYPE_PROXIMITY:
 		case Sensor.TYPE_RELATIVE_HUMIDITY:
+		case Sensor.TYPE_STEP_COUNTER:
+		case Sensor.TYPE_STEP_DETECTOR:
+		case Sensor.TYPE_PROXIMITY:
 			return 1;
 		default:
-			return 3;
+			return 1;
 		}
 	}
 

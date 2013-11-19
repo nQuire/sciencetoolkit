@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.data.files;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.files;
 
 import java.io.File;
 import java.util.ArrayList;

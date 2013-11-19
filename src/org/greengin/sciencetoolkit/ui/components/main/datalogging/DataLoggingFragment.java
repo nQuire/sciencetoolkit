@@ -1,6 +1,6 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
-import java.util.Iterator;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Vector;
@@ -8,6 +8,7 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -23,6 +24,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +35,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
-public class DataLoggingFragment extends ParentListFragment implements ModelNotificationListener, DataLoggerDataListener {
+public class DataLoggingFragment extends ParentListFragment implements ModelNotificationListener, DataLoggerDataListener, DataLoggerStatusListener {
 
 	public DataLoggingFragment() {
 		super(R.id.sensor_list);
@@ -83,40 +85,51 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 	private void updateView(View rootView) {
 		if (rootView != null) {
-			TextView nameView = (TextView) rootView.findViewById(R.id.current_profile_name);
 			Model profile = ProfileManager.getInstance().getActiveProfile();
+
+			if (ProfileManager.getInstance().activeProfileIsDefault()) {
+				rootView.findViewById(R.id.current_profile_bar).setVisibility(View.GONE);
+			} else {
+				rootView.findViewById(R.id.current_profile_bar).setVisibility(View.VISIBLE);
+				((TextView) rootView.findViewById(R.id.current_profile_name)).setText(profile.getString("title"));
+			}
 
 			TextView noSensorsNotice = (TextView) rootView.findViewById(R.id.no_sensors_notice);
 			View buttonsContainer = rootView.findViewById(R.id.data_logging_buttons);
 
-			if (profile == null) {
-				nameView.setText("No profile selected");
-				noSensorsNotice.setVisibility(View.GONE);
+			int sensorCount = profile.getModel("sensors", true).getModels().size();
+			if (sensorCount == 0) {
 				buttonsContainer.setVisibility(View.GONE);
-			} else {
-				nameView.setText(profile.getString("title"));
 
-				int sensorCount = profile.getModel("sensors", true).getModels().size();
-				if (sensorCount == 0) {
-					buttonsContainer.setVisibility(View.GONE);
+				CharSequence text;
+				BufferType type;
 
-					String pre = getResources().getString(R.string.no_sensor_notice_pre);
-					String post = getResources().getString(R.string.no_sensor_notice_post);
+				if (ProfileManager.getInstance().activeProfileIsDefault()) {
+					text = getResources().getString(R.string.no_sensor_notice_w_o_profile);
+					type = BufferType.NORMAL;
+				} else {
+					String pre = getResources().getString(R.string.no_sensor_notice_with_profile_pre);
+					String post = getResources().getString(R.string.no_sensor_notice_with_profile_post);
 
-					SpannableString text = new SpannableString(pre + " " + post);
+					SpannableString spannabletext = new SpannableString(pre + " " + post);
 					Drawable d = getResources().getDrawable(R.drawable.ic_overflow);
 					d.setBounds(0, 0, 32, 32);
 					ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
-
-					text.setSpan(span, pre.length(), pre.length() + 1, 0);
-					noSensorsNotice.setText(text, BufferType.SPANNABLE);
-					noSensorsNotice.setVisibility(View.VISIBLE);
-				} else {
-					noSensorsNotice.setVisibility(View.GONE);
-					buttonsContainer.setVisibility(View.VISIBLE);
-					updateButtons(rootView);
+					spannabletext.setSpan(span, pre.length(), pre.length() + 1, 0);
+					
+					text = spannabletext;
+					type = BufferType.SPANNABLE;
 				}
+				
+				noSensorsNotice.setText(text, type);
+				noSensorsNotice.setVisibility(View.VISIBLE);
+			} else {
+				noSensorsNotice.setVisibility(View.GONE);
+				buttonsContainer.setVisibility(View.VISIBLE);
+				updateButtons(rootView);
 			}
+
+			getActivity().supportInvalidateOptionsMenu();
 
 			updateChildrenList();
 			updateValueCount(rootView);
@@ -125,6 +138,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 	private void updateButtons(View rootView) {
 		boolean running = DataLogger.getInstance().isRunning();
+		Log.d("std dlg", "" + running);
 
 		rootView.findViewById(R.id.data_logging_start).setEnabled(!running);
 		rootView.findViewById(R.id.data_logging_stop).setEnabled(running);
@@ -135,14 +149,18 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 		if (ProfileManager.getInstance().getActiveProfileId() != null) {
 			StringBuffer sb = new StringBuffer();
-			Iterator<Entry<String, Integer>> it = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId()).entrySet().iterator();
-			while (it.hasNext()) {
-				Entry<String, Integer> entry = it.next();
-				sb.append(entry.getKey()).append(": ").append(entry.getValue());
-				if (it.hasNext()) {
-					sb.append("\n");
+			Hashtable<String, Integer> dataCount = DataLogger.getInstance().getDetailedSampleCount(ProfileManager.getInstance().getActiveProfileId());
+			if (dataCount.size() == 0) {
+				sb.append(getResources().getString(R.string.data_count_none));
+			} else {
+				for (Entry<String, Integer> entry : dataCount.entrySet()) {
+					int count = entry.getValue();
+					String text = count == 1 ? getResources().getString(R.string.data_count_one) :
+						String.format(getResources().getString(R.string.data_count_many), count);
+					sb.append(entry.getKey()).append(": ").append(text).append("\n");
 				}
 			}
+			
 			textView.setText(sb.toString());
 		} else {
 			textView.setText("");
@@ -155,6 +173,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		updateView(getView());
 		ProfileManager.getInstance().registerDirectListener(this);
 		DataLogger.getInstance().registerDataListener(this);
+		DataLogger.getInstance().registerStatusListener(this);
 	}
 
 	@Override
@@ -162,11 +181,20 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		super.onPause();
 		ProfileManager.getInstance().unregisterDirectListener(this);
 		DataLogger.getInstance().unregisterDataListener(this);
+		DataLogger.getInstance().unregisterStatusListener(this);
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.data_logging, menu);
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		boolean activeItems = !ProfileManager.getInstance().activeProfileIsDefault();
+		for (int i = 0; i < 2; i++) {
+			menu.getItem(0).getSubMenu().getItem(i).setEnabled(activeItems);
+		}
 	}
 
 	@Override
@@ -194,6 +222,12 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	@Override
 	public void modelNotificationReceived(String msg) {
 		updateView(getView());
+	}
+	
+
+	@Override
+	public void dataLoggerStatusModified() {
+		updateButtons(getView());
 	}
 
 	@Override
@@ -223,5 +257,6 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	protected boolean removeChildFragmentOnUpdate(Fragment child) {
 		return child instanceof ProfileSensorFragment;
 	}
+
 
 }

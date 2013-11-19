@@ -53,7 +53,34 @@
                 android:singleLine="false"
                 android:textStyle="bold" />
         </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/in_profile_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray" />
 
+
+        <Button
+            android:id="@+id/sensor_show_value"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sensor_show_value"
+            android:textColor="@color/value_text"
+            android:drawableRight="@drawable/ic_action_expand"
+            android:background="@android:color/transparent" />
+       
+        <Button
+            android:id="@+id/sensor_hide_value"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sensor_hide_value"
+            android:textColor="@color/value_text"
+            android:drawableRight="@drawable/ic_action_collapse"
+            android:background="@android:color/transparent" />
+        
         <LinearLayout
             android:id="@+id/sensor_value_section"
             android:layout_width="match_parent"

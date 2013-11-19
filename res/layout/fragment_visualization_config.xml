@@ -16,7 +16,7 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/visualization_type" />
@@ -29,7 +29,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/visualization_range" />
@@ -42,7 +42,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/visualization_variables" />

@@ -6,7 +6,6 @@ import java.util.Hashtable;
 import java.util.Map.Entry;
 import java.util.Vector;
 
-
 public class Model {
 	Model parent;
 	Hashtable<String, Object> entries;
@@ -17,24 +16,44 @@ public class Model {
 		this.listener = listener;
 		this.entries = new Hashtable<String, Object>();
 	}
+
 	public Model(Model parent) {
 		this(parent, parent.listener);
 	}
-	
+
 	public Model(ModelChangeListener listener) {
 		this(null, listener);
 	}
-	
+
+	public Model cloneModel(Model parent) {
+		Model clone = new Model(parent, this.listener);
+
+		for (Entry<String, Object> entry : entries.entrySet()) {
+			Object value = entry.getValue() instanceof Model ? ((Model) entry.getValue()).cloneModel(clone) : entry.getValue();
+			clone.set(entry.getKey(), value, true);
+		}
+
+		return clone;
+	}
+
+	public boolean containsKey(String key) {
+		return entries.contains(key);
+	}
+
 	public Model getParent() {
 		return parent;
 	}
-	
+
 	public Model getRootParent() {
 		return parent == null ? this : parent.getRootParent();
 	}
-	
+
 	public void fireModifiedEvent() {
 		this.listener.modelModified(this);
+	}
+
+	public Hashtable<String, Object> entries() {
+		return entries;
 	}
 
 	private boolean set(String key, Object obj, boolean suppressSave) {
@@ -93,19 +112,19 @@ public class Model {
 		return set(key, value, suppressSave);
 	}
 
-	boolean setLong(String key, long value, boolean suppressSave) {
+	public boolean setLong(String key, long value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
-	boolean setDouble(String key, double value, boolean suppressSave) {
+	public boolean setDouble(String key, double value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
-	boolean setString(String key, String value, boolean suppressSave) {
+	public boolean setString(String key, String value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
-	boolean setBool(String key, boolean value, boolean suppressSave) {
+	public boolean setBool(String key, boolean value, boolean suppressSave) {
 		return set(key, value, suppressSave);
 	}
 
@@ -165,14 +184,14 @@ public class Model {
 					modified = this.set(entry.getKey(), entry.getValue(), true) || modified;
 				}
 			}
-			
+
 			if (modified && !suppressSave) {
 				this.listener.modelModified(this);
 			}
-			
+
 			return modified;
 		}
-		
+
 		return false;
 	}
 

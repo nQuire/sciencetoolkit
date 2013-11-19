@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.data.view.visualizations;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations;
 
 import java.util.List;
 import java.util.Vector;
@@ -7,7 +7,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.components.main.data.view.AbstractDataVisualizationFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.AbstractDataVisualizationFragment;
 import org.greengin.sciencetoolkit.ui.plotting.ProfileDataXYSensorPlotFragment;
 
 import android.os.Bundle;

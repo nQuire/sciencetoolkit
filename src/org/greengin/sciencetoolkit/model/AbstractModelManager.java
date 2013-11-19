@@ -5,10 +5,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.greengin.sciencetoolkit.model.serialize.ModelDeserializer;
+import org.greengin.sciencetoolkit.model.serialize.ModelSerializer;
+import org.greengin.sciencetoolkit.model.serialize.ModelVersionManager;
+
 
 import android.content.Context;
 
-public abstract class AbstractModelManager implements ModelChangeListener {
+public abstract class AbstractModelManager implements ModelChangeListener, ModelVersionManager {
 	ReentrantLock lock;
 	Timer timer;
 	int saveDelay;
@@ -27,12 +31,12 @@ public abstract class AbstractModelManager implements ModelChangeListener {
 	}
 
 	private void load() {
-		items = ModelDeserializer.xml2modelMap(this, applicationContext, filename);
+		items = ModelDeserializer.xml2modelMap(this, this, applicationContext, filename);
 	}
 
 	private void save() {
 		lock.lock();
-		ModelSerializer.model2xml(items, applicationContext, filename);
+		ModelSerializer.model2xml(this, items, applicationContext, filename);
 		lock.unlock();
 	}
 

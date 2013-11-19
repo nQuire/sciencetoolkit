@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 
 import android.content.BroadcastReceiver;
@@ -47,7 +48,7 @@ public class DataLogger implements DataLoggerDataListener {
 	BroadcastReceiver dataReceiver;
 	Vector<DataLoggerStatusListener> statusListeners;
 	BroadcastReceiver statusReceiver;
-	
+
 	ScienceToolkitSQLiteOpenHelper helper;
 
 	public DataLogger(Context applicationContext) {
@@ -57,7 +58,7 @@ public class DataLogger implements DataLoggerDataListener {
 		listenersLock = new ReentrantLock();
 		pipes = new Vector<DataPipe>();
 		helper = new ScienceToolkitSQLiteOpenHelper(applicationContext, this);
-		
+
 		dataListeners = new Vector<DataLoggerDataListener>();
 		statusListeners = new Vector<DataLoggerStatusListener>();
 
@@ -68,7 +69,7 @@ public class DataLogger implements DataLoggerDataListener {
 				for (DataLoggerDataListener listener : dataListeners) {
 					listener.dataLoggerDataModified(msg);
 				}
-			}			
+			}
 		};
 		statusReceiver = new BroadcastReceiver() {
 			@Override
@@ -76,7 +77,7 @@ public class DataLogger implements DataLoggerDataListener {
 				for (DataLoggerStatusListener listener : statusListeners) {
 					listener.dataLoggerStatusModified();
 				}
-			}			
+			}
 		};
 	}
 
@@ -94,12 +95,12 @@ public class DataLogger implements DataLoggerDataListener {
 
 	public void unregisterDataListener(DataLoggerDataListener listener) {
 		listenersLock.lock();
-		
+
 		if (dataListeners.remove(listener) && dataListeners.size() == 0) {
 			LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(dataReceiver);
 		}
 	}
-	
+
 	public void registerStatusListener(DataLoggerStatusListener listener) {
 		listenersLock.lock();
 		if (!statusListeners.contains(listener)) {
@@ -119,7 +120,6 @@ public class DataLogger implements DataLoggerDataListener {
 		}
 	}
 
-
 	public boolean isRunning() {
 		return running;
 	}
@@ -138,26 +138,30 @@ public class DataLogger implements DataLoggerDataListener {
 		runningLock.lock();
 		if (!running) {
 			setProfile(profile);
-			running = true;
 			pipes.clear();
-			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
-				String sensorId = profileSensor.getString("id");
-				SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
-				int period = profileSensor.getInt("period", ModelDefaults.DATA_LOGGING_PERIOD);
+			Vector<Model> sensors = profile.getModel("sensors", true).getModels();
+			if (sensors.size() > 0) {
+				running = true;
 
-				if (sensor != null) {
-					DataPipe pipe = new DataPipe(sensor);
-					pipe.addFilter(new FixedRateDataFilter(period));
-					pipe.setEnd(new DataLoggingInput(profileId, "*", sensorId, this.helper));
-					pipes.add(pipe);
+				for (Model profileSensor : sensors) {
+					String sensorId = profileSensor.getString("id");
+					SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+					int period = ModelOperations.rate2period(profileSensor, "sample_rate", ModelDefaults.DATA_LOGGING_RATE, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
+
+					if (sensor != null) {
+						DataPipe pipe = new DataPipe(sensor);
+						pipe.addFilter(new FixedRateDataFilter(period));
+						pipe.setEnd(new DataLoggingInput(profileId, "*", sensorId, this.helper));
+						pipes.add(pipe);
+					}
 				}
-			}
 
-			for (DataPipe pipe : pipes) {
-				pipe.attach();
+				for (DataPipe pipe : pipes) {
+					pipe.attach();
+				}
+
+				statusModified();
 			}
-			
-			statusModified();			
 		}
 		runningLock.unlock();
 	}
@@ -171,7 +175,7 @@ public class DataLogger implements DataLoggerDataListener {
 			}
 			pipes.clear();
 			running = false;
-			
+
 			statusModified();
 		}
 
@@ -198,7 +202,7 @@ public class DataLogger implements DataLoggerDataListener {
 		Cursor cursor = this.helper.getDataCursor(profileId);
 		return CsvManager.exportCSV(this, cursor);
 	}
-	
+
 	private void statusModified() {
 		if (statusListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_STATUS);
@@ -214,20 +218,19 @@ public class DataLogger implements DataLoggerDataListener {
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
-	
+
 	public Cursor getListViewCursor(String profileId, long from, long to) {
 		return this.helper.getListViewCursor(profileId, from, to);
 	}
-	
+
 	public Cursor getPlotViewCursor(String profileId, String sensorId, long from, long to) {
 		return this.helper.getPlotViewCursor(profileId, sensorId, from, to);
 	}
 
-	
 	public String sensorName(String dbSensorId) {
 		return this.helper.getExternalSensorId(dbSensorId);
 	}
-	
+
 	public boolean getRange(long[] values, String profileId) {
 		return this.helper.getRange(values, profileId);
 	}

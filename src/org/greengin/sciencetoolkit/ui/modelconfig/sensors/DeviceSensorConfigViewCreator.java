@@ -1,22 +1,34 @@
 package org.greengin.sciencetoolkit.ui.modelconfig.sensors;
 
-import java.util.Arrays;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.ui.modelconfig.ModelFragment;
 
 import android.view.View;
 
 public class DeviceSensorConfigViewCreator {
+		static final String[] delayLabels = new String[] {"200,000 µs", "60,000 µs", "20,000 µs"};
+	
+
 	public static void createView(ModelFragment fragment, View container, SensorWrapper sensor) {
 		if (sensor != null) {
 			int minDelay = sensor.getMinDelay();
 			if (minDelay > 0) {
-				String minDelayOption = (int) (1000000 / minDelay) + " samples/s";
-				List<String> values = Arrays.asList(minDelayOption, "50 samples/s", "16 samples/s", "5 samples/s");
-				fragment.addOptionSelect("delay", "Sensor rate", "The rate at which the sensor produces data.\nNote that higher values increase battery drain.", values, ModelDefaults.SENSOR_DELAY);
+				DecimalFormat df = new DecimalFormat("#,###");
+				String fastestDelayOption = df.format(minDelay) + " µs";
+				int validOptionCount = ModelOperations.getValidDeviceSensorDelayOptions(sensor);
+				List<String> values = new ArrayList<String>();
+				for (int i = 0; i < validOptionCount; i++) {
+					values.add(delayLabels[i]);
+				}
+				values.add(fastestDelayOption);
+
+				fragment.addOptionSelect("delay", "Sensor delay", "The delay between sensor updates.\nNote that lower values increase battery drain.", values, ModelDefaults.SENSOR_DELAY);
 			} else {
 				SensorConfigViewCreator.addEmptyWarning(fragment);
 			}

@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.model;
+package org.greengin.sciencetoolkit.model.serialize;
 
 import java.io.File;
 import java.util.Hashtable;
@@ -12,6 +12,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.greengin.sciencetoolkit.model.Model;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,11 +20,11 @@ import org.w3c.dom.Element;
 import android.content.Context;
 
 public class ModelSerializer {
-	public static void model2xml(Hashtable<String, Model> models, Context applicationContext, String file) {
+	public static void model2xml(ModelVersionManager versionManager, Hashtable<String, Model> models, Context applicationContext, String file) {
 		try {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
-			Document doc = model2xml(models);
+			Document doc = model2xml(versionManager, models);
 			DOMSource source = new DOMSource(doc);
 
 			StreamResult result = new StreamResult(new File(applicationContext.getFilesDir(), file));
@@ -33,13 +34,17 @@ public class ModelSerializer {
 		}
 	}
 
-	public static Document model2xml(Hashtable<String, Model> models) throws ParserConfigurationException {
+	private static Document model2xml(ModelVersionManager versionManager, Hashtable<String, Model> models) throws ParserConfigurationException {
 
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
 		Document doc = docBuilder.newDocument();
-		Element rootElement = doc.createElement("settings");
+		Element rootElement = doc.createElement("root");
+		Attr versionAttr = doc.createAttribute("version");
+		versionAttr.setValue(String.valueOf(versionManager.getCurrentVersion()));
+		rootElement.setAttributeNode(versionAttr);
+		
 		doc.appendChild(rootElement);
 
 		for (Map.Entry<String, Model> item : models.entrySet()) {
@@ -52,11 +57,11 @@ public class ModelSerializer {
 		return doc;
 	}
 
-	public static Element model2xml(Model model, Document doc, Element containerElement) {
+	private static Element model2xml(Model model, Document doc, Element containerElement) {
 		Element modelElement = doc.createElement("item");
 		containerElement.appendChild(modelElement);
 
-		for (Map.Entry<String, Object> entry : model.entries.entrySet()) {
+		for (Map.Entry<String, Object> entry : model.entries().entrySet()) {
 			Element entryElement = doc.createElement("entry");
 			modelElement.appendChild(entryElement);
 

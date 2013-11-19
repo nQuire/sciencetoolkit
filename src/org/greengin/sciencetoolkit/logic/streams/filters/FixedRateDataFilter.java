@@ -21,9 +21,11 @@ public class FixedRateDataFilter extends DataInputOutput {
 	}
 
 	public void setPeriod(int period) {
-		this.period = period;
-		if (hasInputs()) {
-			start();
+		if (this.period != period) {
+			this.period = period;
+			if (hasInputs()) {
+				start();
+			}
 		}
 	}
 

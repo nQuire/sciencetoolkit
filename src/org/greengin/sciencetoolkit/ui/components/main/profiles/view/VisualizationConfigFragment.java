@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.data.view;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.Arguments;

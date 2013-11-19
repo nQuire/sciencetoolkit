@@ -64,4 +64,13 @@ public class SettingsManager extends AbstractModelManager {
 		}
 		return listeners.get(key);
 	}
+
+	@Override
+	public int getCurrentVersion() {
+		return 0;
+	}
+
+	@Override
+	public void updateRootModel(String key, Model model, int version) {
+	}
 }

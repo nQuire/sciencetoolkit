@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="24"
-    android:versionName="0.7.1 beta" >
+    android:versionCode="27"
+    android:versionName="0.7.4 beta" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -78,7 +78,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.data.files.FileManagementActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.profiles.files.FileManagementActivity"
             android:label="@string/title_activity_file_management"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data
@@ -94,7 +94,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.profiles.view.DataViewActivity"
             android:label="@string/title_activity_data_view"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data

@@ -11,8 +11,8 @@ import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.components.main.data.view.DataViewActivity;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.ProfileEditActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.DataViewActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 	private RadioButton radio;
 	private ImageButton discardButton;
+	private ImageButton editButton;
 
 	private int dataCount;
 
@@ -118,7 +119,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 			}
 		});
 
-		ImageButton editButton = (ImageButton) rootView.findViewById(R.id.profile_edit);
+		editButton = (ImageButton) rootView.findViewById(R.id.profile_edit);
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -174,7 +175,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		updateRadioView(view);
 		updateTitleView(view);
 		updateStatusView(view);
-		updateDiscardView(view);
+		updateEditDiscardView(view);
 	}
 
 	private void updateRadioView(View view) {
@@ -182,21 +183,36 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	}
 
 	private void updateTitleView(View view) {
-		radio.setText(this.profile.getString("title"));
+		String text = ProfileManager.getInstance().profileIdIsDefault(this.profileId) ? getResources().getString(R.string.default_profile) : this.profile.getString("title");
+		radio.setText(text);
 	}
 
 	private void updateStatusView(View view) {
 		if (view != null) {
-			int text = this.profileId.equals(ProfileManager.getInstance().getActiveProfileId()) ? (DataLogger.getInstance().isRunning() ? R.string.switch_profile_running : R.string.switch_profile_active) : R.string.switch_profile_inactive;
-			((TextView) view.findViewById(R.id.profile_status)).setText(text);
+			int textId;
+			if (ProfileManager.getInstance().profileIdIsActive(this.profileId)) {
+				if (ProfileManager.getInstance().profileIdIsDefault(this.profileId)) {
+					textId = R.string.switch_profile_default_active;
+				} else if (DataLogger.getInstance().isRunning()) {
+					textId = R.string.switch_profile_running;
+				} else {
+					textId = R.string.switch_profile_active;
+				}
+			} else {
+				textId = R.string.switch_profile_inactive;
+			}
+
+			((TextView) view.findViewById(R.id.profile_status)).setText(textId);
 		}
 	}
 
-	private void updateDiscardView(View view) {
+	private void updateEditDiscardView(View view) {
 		if (view != null) {
-			boolean canDiscard = ProfileManager.getInstance().profileCount() > 1 && !profileId.equals(ProfileManager.getInstance().getActiveProfileId());
-			discardButton.setEnabled(canDiscard);
-			discardButton.setVisibility(canDiscard ? View.VISIBLE : View.GONE);
+			boolean canModify = !ProfileManager.getInstance().profileIdIsDefault(this.profileId);
+			editButton.setEnabled(canModify);
+			editButton.setVisibility(canModify ? View.VISIBLE : View.GONE);
+			discardButton.setEnabled(canModify);
+			discardButton.setVisibility(canModify ? View.VISIBLE : View.GONE);
 		}
 	}
 
@@ -280,7 +296,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		} else if ("profiles".equals(msg)) {
 			View view = getView();
 			updateStatusView(view);
-			updateDiscardView(view);
+			updateEditDiscardView(view);
 		}
 	}
 

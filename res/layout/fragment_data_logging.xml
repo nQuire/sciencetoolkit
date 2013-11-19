@@ -15,6 +15,7 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <RelativeLayout
+            android:id="@+id/current_profile_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -22,11 +23,11 @@
                 android:id="@+id/current_profile_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:text="@string/current_profile"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-            
+
             <ImageButton
                 android:id="@+id/profile_edit"
                 style="?android:attr/buttonStyleSmall"
@@ -35,40 +36,37 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_action_edit" />
-            
+
             <TextView
                 android:id="@+id/current_profile_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/current_profile_label"
-                android:layout_toLeftOf="@id/profile_edit"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_toLeftOf="@id/profile_edit"
+                android:layout_toRightOf="@id/current_profile_label"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/value_text" />
-
         </RelativeLayout>
 
         <TextView
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sensors_label"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
+            android:text="@string/sensor_list_label" />
+        
         <LinearLayout
             android:id="@+id/sensor_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/activity_vertical_margin" >
+            android:orientation="vertical" >
         </LinearLayout>
 
         <TextView
             android:id="@+id/no_sensors_notice"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingTop="@dimen/activity_vertical_margin" />
+            android:layout_gravity="center" />
 
         <LinearLayout
             android:id="@+id/data_logging_buttons"
@@ -93,12 +91,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/data_logging_stop" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/data_logging_value_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
+
+                <TextView
+            style="@style/section_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_data" />
+        <TextView
+            android:id="@+id/data_logging_value_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </ScrollView>

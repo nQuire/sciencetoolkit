@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.location.LocationGpsSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 
 import android.content.Context;
@@ -13,7 +14,7 @@ import android.hardware.SensorManager;
 
 public class SensorWrapperManager {
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
-	public static final int CUSTOM_SENSOR_TYPE_LOCATION = 1002;
+	public static final int CUSTOM_SENSOR_TYPE_GPS_LOCATION = 1002;
 
 	private static SensorWrapperManager instance;
 
@@ -43,7 +44,9 @@ public class SensorWrapperManager {
 			addSensor(new SoundSensorWrapper(applicationContext));
 		}
 		
-		// addSensor(new LocationSensorWrapper(applicationContext));
+		if (LocationGpsSensorWrapper.isAvailable(applicationContext)) {
+			addSensor(new LocationGpsSensorWrapper(applicationContext));
+		}
 	}
 
 	private void addSensor(SensorWrapper sensor) {

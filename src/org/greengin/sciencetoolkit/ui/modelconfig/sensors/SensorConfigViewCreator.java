@@ -11,7 +11,7 @@ public class SensorConfigViewCreator {
 	public static void createView(ModelFragment fragment, View container, SensorWrapper sensor) {
 		if (sensor.getType() == SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND) {
 			SoundSensorConfigViewCreator.createView(fragment, container, sensor);
-		} else if (sensor.getType() == SensorWrapperManager.CUSTOM_SENSOR_TYPE_LOCATION) {
+		} else if (sensor.getType() == SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION) {
 			LocationSensorConfigViewCreator.createView(fragment, container, sensor);
 		} else {
 			DeviceSensorConfigViewCreator.createView(fragment, container, sensor);

@@ -11,8 +11,8 @@ import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
-import org.greengin.sciencetoolkit.ui.components.main.data.files.FileManagementActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.CreateProfileDialogFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.files.FileManagementActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,6 +21,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	public static final String REQUEST_SELECTED_PROFILE = "REQUEST_SELECTED_PROFILE";
 
 	LinearLayout buttonBar;
+	Button switchProfile;
 
 	BroadcastReceiver requestReceiver;
 	Vector<ProfileFragment> profileFragments;
@@ -68,7 +70,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 		buttonBar = (LinearLayout) rootView.findViewById(R.id.switch_profile_button_bar);
 		
-		Button switchProfile = (Button) rootView.findViewById(R.id.switch_profile);
+		switchProfile = (Button) rootView.findViewById(R.id.switch_profile);
 		switchProfile.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,7 +132,11 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 		Vector<Fragment> fragments = new Vector<Fragment>();
 
+		Log.d("stk pl", "UPDATE");
+
 		for (String profileId : ProfileManager.getInstance().getProfileIds()) {
+			Log.d("stk pl", profileId);
+			
 			ProfileFragment fragment = new ProfileFragment();
 			Bundle args = new Bundle();
 			args.putString(Arguments.ARG_PROFILE, profileId);
@@ -185,8 +191,15 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	
 	private void updateSwitchButton() {
 		boolean showButtonBar = !DataLogger.getInstance().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.getInstance().getActiveProfileId());
+		 
 		LayoutParams lp = buttonBar.getLayoutParams();
 		lp.height = showButtonBar ? LayoutParams.WRAP_CONTENT : 0;
+		if (showButtonBar) {
+			lp.height = LayoutParams.WRAP_CONTENT;
+			switchProfile.setText(ProfileManager.getInstance().profileIdIsDefault(this.selectedProfile) ? R.string.switch_profile_to_default : R.string.switch_profile);
+		} else {
+			lp.height = 0;
+		}
 		buttonBar.setLayoutParams(lp);		
 	}
 

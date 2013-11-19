@@ -1,12 +1,14 @@
-package org.greengin.sciencetoolkit.model;
+package org.greengin.sciencetoolkit.model.serialize;
 
 import java.io.File;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ModelChangeListener;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,41 +17,51 @@ import org.w3c.dom.NodeList;
 import android.content.Context;
 
 public class ModelDeserializer {
-	public static Hashtable<String, Model> xml2modelMap(ModelChangeListener listener, Context applicationContext, String file) {
+	public static Hashtable<String, Model> xml2modelMap(ModelChangeListener listener, ModelVersionManager versionManager, Context applicationContext, String file) {
 		try {
-			File fXmlFile = new File(applicationContext.getFilesDir(), file);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-
-			Element rootElement = doc.getDocumentElement();
-
-			return xml2modelMap(rootElement, listener);
+			Element rootElement = loadRootElement(applicationContext, file);
+			Hashtable<String, Model> items = xml2modelMap(rootElement, listener);
+			versionCheck(versionManager, rootElement, items);
+			return items;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Hashtable<String, Model>();
 		}
 	}
 
-	public static Vector<Model> xml2modelList(ModelChangeListener listener, Context applicationContext, String file) {
+	
+	private static Element loadRootElement(Context applicationContext, String file) throws Exception {
+		File fXmlFile = new File(applicationContext.getFilesDir(), file);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(fXmlFile);
+		doc.getDocumentElement().normalize();
+
+		Element rootElement = doc.getDocumentElement();
+		return rootElement;
+	}
+	
+	private static void versionCheck(ModelVersionManager versionManager, Element rootElement, Hashtable<String, Model> items) {
+		int modelVersion = getVersion(rootElement);
+		int currentVersion = versionManager.getCurrentVersion();
+		
+		if (currentVersion > modelVersion) {
+			for (Entry<String, Model> entry : items.entrySet()) {
+				versionManager.updateRootModel(entry.getKey(), entry.getValue(), modelVersion);
+			}
+		}
+	}
+	private static int getVersion(Element rootElement) {
 		try {
-			File fXmlFile = new File(applicationContext.getFilesDir(), file);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-
-			Element rootElement = doc.getDocumentElement();
-
-			return xml2modelList(rootElement, listener);
+			String vStr = rootElement.getAttribute("version").trim();
+			int v = Integer.parseInt(vStr);
+			return v;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return new Vector<Model>();
+			return 0;
 		}
 	}
 
-	public static Hashtable<String, Model> xml2modelMap(Element containerElement, ModelChangeListener listener) {
+	private static Hashtable<String, Model> xml2modelMap(Element containerElement, ModelChangeListener listener) {
 		Hashtable<String, Model> models = new Hashtable<String, Model>();
 
 		NodeList nList = containerElement.getChildNodes();
@@ -69,27 +81,7 @@ public class ModelDeserializer {
 		return models;
 	}
 
-	public static Vector<Model> xml2modelList(Element containerElement, ModelChangeListener listener) {
-		Vector<Model> models = new Vector<Model>();
-
-		NodeList nList = containerElement.getChildNodes();
-
-		for (int i = 0; i < nList.getLength(); i++) {
-			Node nNode = nList.item(i);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-				if ("item".equals(eElement.getTagName())) {
-					Model model = xml2model(eElement, listener, null);
-					models.add(model);
-				}
-			}
-		}
-
-		return models;
-	}
-
-	public static Model xml2model(Element modelElement, ModelChangeListener listener, Model parent) {
-
+	private static Model xml2model(Element modelElement, ModelChangeListener listener, Model parent) {
 		Model model;
 		
 		if (parent == null) {

@@ -26,7 +26,7 @@
             android:id="@+id/in_profile_notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sensor_in_profile" />
+            android:text="@string/sensor_in_profile_long" />
 
         <RelativeLayout
             android:id="@+id/not_in_profile_notice"
@@ -49,11 +49,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toLeftOf="@id/not_in_profile_notice_add"
-                android:text="@string/sensor_not_in_profile" />
+                android:text="@string/sensor_not_in_profile_long" />
         </RelativeLayout>
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_settings" />
@@ -66,7 +66,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_liveview_settings" />
@@ -79,7 +79,7 @@
         </LinearLayout>
 
         <TextView
-            style="@style/settings_header_text"
+            style="@style/section_header_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sensor_liveplot_settings" />

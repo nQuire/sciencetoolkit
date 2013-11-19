@@ -64,11 +64,23 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		int inputtype = InputType.TYPE_CLASS_TEXT;
 		edit.setInputType(inputtype);
 		edit.setText(model.getString(key));
-		edit.addTextChangedListener(new SettingsTextWatcher(model, key, this));
+		edit.addTextChangedListener(new SettingsNumberWatcher(model, key, this));
 		addRow(label, description, edit);
 	}
 
 	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max) {
+		addOptionNumber(key, label, description, decimal, signed, defaultValue, min, max, null, null, null);
+	}
+
+	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max, String endLabel) {
+		addOptionNumber(key, label, description, decimal, signed, defaultValue, min, max, null, null, endLabel);
+	}
+
+	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max, String[] unitSelection, double[] unitMultipliers) {
+		addOptionNumber(key, label, description, decimal, signed, defaultValue, min, max, unitSelection, unitMultipliers, null);
+	}
+
+	public void addOptionNumber(String key, String label, String description, boolean decimal, boolean signed, Number defaultValue, Number min, Number max, String[] unitSelection, double[] unitMultipliers, String endLabel) {
 		EditText edit = new EditText(rootContainer.getContext());
 		int inputtype = InputType.TYPE_CLASS_NUMBER;
 		if (signed) {
@@ -77,11 +89,27 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		if (decimal) {
 			inputtype |= InputType.TYPE_NUMBER_FLAG_DECIMAL;
 		}
+
+		SettingsNumberWatcher watcher = new SettingsNumberWatcher(model, key, defaultValue, true, decimal, signed, min, max, unitMultipliers, this, edit);
+
 		edit.setInputType(inputtype);
 		edit.setText(model.getNumber(key, defaultValue).toString());
-		edit.addTextChangedListener(new SettingsTextWatcher(model, key, true, decimal, signed, min, max, this));
+		edit.addTextChangedListener(watcher);
 
-		addRow(label, description, edit);
+		if (unitSelection != null) {
+			Spinner spinner = new Spinner(rootContainer.getContext());
+			spinner.setTag(key);
+
+			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootContainer.getContext(), android.R.layout.simple_spinner_item, unitSelection);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spinner.setAdapter(dataAdapter);
+			spinner.setSelection(Math.min(model.getInt(key + "_ux", 0), unitSelection.length - 1));
+			spinner.setOnItemSelectedListener(watcher);
+
+			addRow(label, description, new View[] { edit, spinner });
+		} else {
+			addRow(label, description, edit);
+		}
 	}
 
 	protected void addOptionToggle(String key, String label, String description, boolean defaultValue) {
@@ -117,7 +145,7 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		});
 
 		addRow(label, description, checkbox);
-		
+
 		return checkbox;
 	}
 
@@ -132,7 +160,7 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		row.addView(labelView);
 
 		rootContainer.addView(row);
-		
+
 		return labelView;
 	}
 
@@ -143,7 +171,7 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootContainer.getContext(), android.R.layout.simple_spinner_item, options);
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
-		spinner.setSelection(model.getInt(key, defaultValue));
+		spinner.setSelection(Math.min(model.getInt(key, defaultValue), options.size() - 1));
 
 		addRow(label, description, spinner);
 
@@ -153,14 +181,14 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 				String changekey = (String) parentView.getTag();
 				if (model.setInt(changekey, position)) {
 					modelKeyModified(changekey);
-				}				
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
 			}
 		});
-		
+
 		return spinner;
 	}
 
@@ -174,41 +202,40 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		date.setClickable(true);
 		date.setFocusable(false);
 		date.setKeyListener(null);
-		
+
 		DateTimePickerHelper dateHelper = new DateTimePickerHelper(getActivity(), date, model, key, "date", defaultValue, this);
 		date.setOnClickListener(dateHelper);
 
 		String timeType = includeSeconds ? "millis" : "time";
-		
+
 		EditText time = new EditText(rootContainer.getContext());
 		time.setClickable(true);
 		time.setFocusable(false);
 		time.setKeyListener(null);
-		
-		DateTimePickerHelper timeHelper = new DateTimePickerHelper(getActivity(), time, model, key, timeType, defaultValue, this); 
+
+		DateTimePickerHelper timeHelper = new DateTimePickerHelper(getActivity(), time, model, key, timeType, defaultValue, this);
 		time.setOnClickListener(timeHelper);
 
 		View[] views = new View[] { date, time };
 		addRow(label, description, views);
-		
-		return new DateTimeHelperPair(dateHelper, timeHelper);		
+
+		return new DateTimeHelperPair(dateHelper, timeHelper);
 	}
 
 	protected DateTimeHelperPair addOptionDateTimeMillis(String key, String label, String description, long defaultValue) {
 		return addOptionDateTime(key, label, description, true, defaultValue);
 	}
-	
+
 	protected TransformSeekBar addOptionSeekbar(String modelKey, String widgetKey, String label, String description, Number defaultValue, SeekBarTransform transform) {
 		TransformSeekBar bar = new TransformSeekBar(rootContainer.getContext());
 		bar.setMax(1000000);
 		bar.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		NumberModelSeekBarTransformWrapper wrapper = new NumberModelSeekBarTransformWrapper(model, modelKey, widgetKey, "long", defaultValue, this, transform);
 		bar.setTransform(wrapper);
-		
+
 		addRow(label, description, bar);
 		return bar;
 	}
-
 
 	private void addRow(String label, String description, View widget) {
 		addRow(label, description, new View[] { widget });
