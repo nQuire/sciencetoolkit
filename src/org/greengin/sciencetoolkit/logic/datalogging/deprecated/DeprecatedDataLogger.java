@@ -1,10 +1,12 @@
-package org.greengin.sciencetoolkit.logic.datalogging;
+package org.greengin.sciencetoolkit.logic.datalogging.deprecated;
 
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
@@ -133,7 +135,7 @@ public class DeprecatedDataLogger implements DataLoggerDataListener {
 	}
 
 	public void start() {
-		start(ProfileManager.i().getActiveProfile());
+		start(ProfileManager.get().getActiveProfile());
 	}
 
 	private void start(Model profile) {

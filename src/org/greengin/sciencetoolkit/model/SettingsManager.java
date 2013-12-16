@@ -15,7 +15,7 @@ public class SettingsManager extends AbstractModelManager {
 		instance = new SettingsManager(applicationContext);
 	}
 
-	public static SettingsManager i() {
+	public static SettingsManager get() {
 		return instance;
 	}
 

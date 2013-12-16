@@ -11,6 +11,6 @@ public abstract class AbstractSettingsFragment extends DataLoggerDependentModelF
 	
 	@Override
 	public Model fetchModel() {
-		return SettingsManager.i().get(getArguments().getString(Arguments.ARG_SETTINGS));
+		return SettingsManager.get().get(getArguments().getString(Arguments.ARG_SETTINGS));
 	}
 }

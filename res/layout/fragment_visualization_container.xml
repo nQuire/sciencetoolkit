@@ -3,6 +3,6 @@
     android:id="@+id/visualization_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VisualizationContainerFragment" >
+    tools:context=".DeprecatedVisualizationContainerFragment" >
 
 </RelativeLayout>

@@ -1,11 +1,9 @@
-package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations.ListVisualizationFragment;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations.PlotVisualizationFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VisualizationContainerFragment extends Fragment implements ModelNotificationListener {
+public class DeprecatedVisualizationContainerFragment extends Fragment implements ModelNotificationListener {
 
 	String profileId;
 	String settingsId;
@@ -39,17 +37,17 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 
 	private void updateVisualization() {
 		if (profileId != null) {
-			int v = SettingsManager.i().get(this.settingsId).getInt("visualization", 0);
+			int v = SettingsManager.get().get(this.settingsId).getInt("visualization", 0);
 			if (v != visualization) {
 				visualization = v;
 
 				Fragment fragment = null;
 				switch (v) {
 				case 0:
-					fragment = new PlotVisualizationFragment();
+					fragment = new DeprecatedPlotVisualizationFragment();
 					break;
 				default:
-					fragment = new ListVisualizationFragment();
+					fragment = new DeprecatedListVisualizationFragment();
 					break;
 				}
 
@@ -67,12 +65,12 @@ public class VisualizationContainerFragment extends Fragment implements ModelNot
 	public void onResume() {
 		super.onResume();
 		updateVisualization();
-		SettingsManager.i().registerUIListener(settingsId, this);
+		SettingsManager.get().registerUIListener(settingsId, this);
 	}
 
 	public void onPause() {
 		super.onPause();
-		SettingsManager.i().unregisterUIListener(settingsId, this);
+		SettingsManager.get().unregisterUIListener(settingsId, this);
 	}
 
 	@Override

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -73,8 +73,8 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		switchProfile.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!DeprecatedDataLogger.i().isRunning()) {
-					ProfileManager.i().switchActiveProfile(selectedProfile);
+				if (!DataLogger.get().isRunning()) {
+					ProfileManager.get().switchActiveProfile(selectedProfile);
 				}
 			}
 		});
@@ -90,17 +90,17 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		updateView();
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(requestReceiver, new IntentFilter(REQUEST_SELECTED_PROFILE));
-		SettingsManager.i().registerDirectListener("profiles", this);
-		ProfileManager.i().registerDirectListener(this);
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		SettingsManager.get().registerDirectListener("profiles", this);
+		ProfileManager.get().registerDirectListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
-		ProfileManager.i().unregisterDirectListener(this);
-		SettingsManager.i().unregisterDirectListener("profiles", this);
+		DataLogger.get().unregisterStatusListener(this);
+		ProfileManager.get().unregisterDirectListener(this);
+		SettingsManager.get().unregisterDirectListener("profiles", this);
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(requestReceiver);
 	}
 
@@ -114,7 +114,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	}
 
 	private void updateView() {
-		setSelectedProfile(ProfileManager.i().getActiveProfileId(), false);
+		setSelectedProfile(ProfileManager.get().getActiveProfileId(), false);
 		updateChildrenList();
 		updateSwitchButton();
 	}
@@ -131,7 +131,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 		Vector<Fragment> fragments = new Vector<Fragment>();
 
-		for (String profileId : ProfileManager.i().getProfileIds()) {
+		for (String profileId : ProfileManager.get().getProfileIds()) {
 			ProfileFragment fragment = new ProfileFragment();
 			Bundle args = new Bundle();
 			args.putString(Arguments.ARG_PROFILE, profileId);
@@ -185,13 +185,13 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	}
 	
 	private void updateSwitchButton() {
-		boolean showButtonBar = !DeprecatedDataLogger.i().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.i().getActiveProfileId());
+		boolean showButtonBar = !DataLogger.get().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.get().getActiveProfileId());
 		 
 		LayoutParams lp = buttonBar.getLayoutParams();
 		lp.height = showButtonBar ? LayoutParams.WRAP_CONTENT : 0;
 		if (showButtonBar) {
 			lp.height = LayoutParams.WRAP_CONTENT;
-			switchProfile.setText(ProfileManager.i().profileIdIsDefault(this.selectedProfile) ? R.string.switch_profile_to_default : R.string.switch_profile);
+			switchProfile.setText(ProfileManager.get().profileIdIsDefault(this.selectedProfile) ? R.string.switch_profile_to_default : R.string.switch_profile);
 		} else {
 			lp.height = 0;
 		}

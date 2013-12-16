@@ -45,7 +45,7 @@ public class ProfileSensorFragment extends Fragment {
 		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
 		this.profileSensorId = getArguments().getString(Arguments.ARG_SENSOR);
 		
-		this.profile = ProfileManager.i().get(this.profileId);
+		this.profile = ProfileManager.get().get(this.profileId);
 		this.profileSensor = this.profile == null ? null : this.profile.getModel("sensors", true).getModel(this.profileSensorId);
 		
 		if (this.profileSensor == null) {

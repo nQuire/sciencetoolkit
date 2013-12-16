@@ -1,7 +1,9 @@
-package org.greengin.sciencetoolkit.logic.datalogging;
+package org.greengin.sciencetoolkit.logic.datalogging.deprecated;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 
 import android.content.ContentValues;
 import android.content.Context;

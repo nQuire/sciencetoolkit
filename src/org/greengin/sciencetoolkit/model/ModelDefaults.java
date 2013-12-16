@@ -22,5 +22,5 @@ public class ModelDefaults {
 	public static final double LIVEPLOT_SAMPLING_RATE_MAX = 100.d; 
 	
 	public static final double DATA_LOGGING_RATE = 1d;
-	public static final double DATA_LOGGING_RATE_MAX = 10d;
+	public static final double DATA_LOGGING_RATE_MAX = 100d;
 }

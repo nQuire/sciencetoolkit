@@ -1,14 +1,13 @@
 package org.greengin.sciencetoolkit.ui.components.main.datalogging;
 
-import java.io.File;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -17,10 +16,9 @@ import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.CreateProfileDialogFragment;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
-import org.greengin.sciencetoolkit.ui.ShareClickListener;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.AddSensorDialogFragment;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.ProfileEditActivity;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.DataViewActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.SeriesViewActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -63,16 +61,16 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		rootView.findViewById(R.id.data_logging_start).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DeprecatedDataLogger.i().start();
-				updateButtons(view.getRootView());
+				DataLogger.get().startNewSeries();
+				updateSeriesButtons(view.getRootView());
 			}
 		});
 
 		rootView.findViewById(R.id.data_logging_stop).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DeprecatedDataLogger.i().stop();
-				updateButtons(view.getRootView());
+				DataLogger.get().stopSeries();
+				updateSeriesButtons(view.getRootView());
 			}
 		});
 
@@ -80,7 +78,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
-				intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.i().getActiveProfileId());
+				intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());
 				startActivity(intent);
 			}
 		});
@@ -88,10 +86,10 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		rootView.findViewById(R.id.profile_data_view).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String profileId = ProfileManager.i().getActiveProfileId();
+				String profileId = ProfileManager.get().getActiveProfileId();
 
 				if (profileId != null) {
-					Intent intent = new Intent(getActivity(), DataViewActivity.class);
+					Intent intent = new Intent(getActivity(), SeriesViewActivity.class);
 					intent.putExtra(Arguments.ARG_PROFILE, profileId);
 					startActivity(intent);
 				}
@@ -101,24 +99,26 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		rootView.findViewById(R.id.profile_data_export).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				/*
 				Model profile = ProfileManager.i().getActiveProfile();
 				String profileId = ProfileManager.i().getActiveProfileId();
 
 				if (profile != null) {
-					File exportFile = DeprecatedDataLogger.i().exportData(profileId);
+					File exportFile = DataLogger.i().exportData(profileId);
 					if (exportFile != null) {
 						String exportMsg = String.format(getResources().getString(R.string.export_data_dlg_msg), profile.getString("title"), exportFile.getAbsolutePath());
 						CharSequence styledExportMsg = Html.fromHtml(exportMsg);
 						new AlertDialog.Builder(v.getContext()).setIcon(R.drawable.ic_action_save).setTitle(R.string.export_data_dlg_title).setMessage(styledExportMsg).setPositiveButton(R.string.export_data_dlg_yes, new ShareClickListener(getActivity(), profile.getString("title"), exportFile)).setNegativeButton(R.string.export_data_dlg_no, null).show();
 					}
 				}
+				*/
 			}
 		});
 
 		rootView.findViewById(R.id.profile_data_discard).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Model profile = ProfileManager.i().getActiveProfile();
+				Model profile = ProfileManager.get().getActiveProfile();
 
 				if (profile != null) {
 					String deleteMsg = String.format(getResources().getString(R.string.delete_profile_data_dlg_msg), profile.getString("title"));
@@ -126,8 +126,8 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							String profileId = ProfileManager.i().getActiveProfileId();
-							DeprecatedDataLogger.i().deleteData(profileId);
+							String profileId = ProfileManager.get().getActiveProfileId();
+							DataLogger.get().deleteData(profileId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -146,9 +146,9 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 	private void updateView(View rootView) {
 		if (rootView != null) {
-			Model profile = ProfileManager.i().getActiveProfile();
+			Model profile = ProfileManager.get().getActiveProfile();
 
-			if (ProfileManager.i().activeProfileIsDefault()) {
+			if (ProfileManager.get().activeProfileIsDefault()) {
 				rootView.findViewById(R.id.current_profile_bar).setVisibility(View.GONE);
 
 			} else {
@@ -166,7 +166,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				CharSequence text;
 				BufferType type;
 
-				if (ProfileManager.i().activeProfileIsDefault()) {
+				if (ProfileManager.get().activeProfileIsDefault()) {
 					text = getResources().getString(R.string.no_sensor_notice_w_o_profile);
 					type = BufferType.NORMAL;
 				} else {
@@ -188,7 +188,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 			} else {
 				noSensorsNotice.setVisibility(View.GONE);
 				buttonsContainer.setVisibility(View.VISIBLE);
-				updateButtons(rootView);
+				updateSeriesButtons(rootView);
 			}
 
 			getActivity().supportInvalidateOptionsMenu();
@@ -198,19 +198,29 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		}
 	}
 
-	private void updateButtons(View rootView) {
-		boolean running = DeprecatedDataLogger.i().isRunning();
+	private void updateSeriesButtons(View rootView) {
+		boolean running = DataLogger.get().isRunning();
+		
 
 		rootView.findViewById(R.id.data_logging_start).setEnabled(!running);
 		rootView.findViewById(R.id.data_logging_stop).setEnabled(running);
+
+		int series = DataLogger.get().getCurrentSeries();
+		String text = "";
+		if (series > 0) {
+			int resource = running ? R.string.data_logging_series_logging : R.string.data_logging_series_logged;
+			text = String.format(getResources().getString(resource), series);
+		}
+		((TextView)rootView.findViewById(R.id.data_logging_current_series)).setText(text);
+
 	}
 
 	private void updateValueCount(View rootView) {
 		TextView textView = (TextView) rootView.findViewById(R.id.data_logging_value_count);
 
-		if (ProfileManager.i().getActiveProfileId() != null) {
+		if (ProfileManager.get().getActiveProfileId() != null) {
 			StringBuffer sb = new StringBuffer();
-			Hashtable<String, Integer> dataCount = DeprecatedDataLogger.i().getDetailedSampleCount(ProfileManager.i().getActiveProfileId());
+			HashMap<String, Integer> dataCount = DataLogger.get().getCurrentSeriesSampleCount();
 			if (dataCount.size() == 0) {
 				rootView.findViewById(R.id.profile_data_button_bar).setVisibility(View.GONE);
 				sb.append(getResources().getString(R.string.data_count_none));
@@ -235,19 +245,19 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		super.onResume();
 		updateView(getView());
 		
-		SettingsManager.i().registerDirectListener("profiles", this);
-		ProfileManager.i().registerDirectListener(this);
-		DeprecatedDataLogger.i().registerDataListener(this);
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		SettingsManager.get().registerDirectListener("profiles", this);
+		ProfileManager.get().registerDirectListener(this);
+		DataLogger.get().registerDataListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		SettingsManager.i().unregisterDirectListener("profiles", this);
-		ProfileManager.i().unregisterDirectListener(this);
-		DeprecatedDataLogger.i().unregisterDataListener(this);
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		SettingsManager.get().unregisterDirectListener("profiles", this);
+		ProfileManager.get().unregisterDirectListener(this);
+		DataLogger.get().unregisterDataListener(this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 
 	@Override
@@ -257,7 +267,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		boolean activeItems = !ProfileManager.i().activeProfileIsDefault();
+		boolean activeItems = !ProfileManager.get().activeProfileIsDefault();
 		for (int i = 0; i < 2; i++) {
 			menu.getItem(0).getSubMenu().getItem(i).setEnabled(activeItems);
 		}
@@ -268,7 +278,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		switch (item.getItemId()) {
 		case R.id.action_data_logging_edit: {
 			Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
-			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.i().getActiveProfileId());
+			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());
 			startActivity(intent);
 			return true;
 		}
@@ -287,14 +297,14 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 	@Override
 	public void modelNotificationReceived(String msg) {
-		if ("profiles".equals(msg) || ProfileManager.i().profileIdIsActive(msg)) {
+		if ("profiles".equals(msg) || ProfileManager.get().profileIdIsActive(msg)) {
 			updateView(getView());
 		}
 	}
 
 	@Override
 	public void dataLoggerStatusModified() {
-		updateButtons(getView());
+		updateSeriesButtons(getView());
 	}
 
 	@Override
@@ -305,7 +315,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
-		Model profile = ProfileManager.i().getActiveProfile();
+		Model profile = ProfileManager.get().getActiveProfile();
 		if (profile != null) {
 			Vector<Model> profileSensors = profile.getModel("sensors", true).getModels("weight");
 
@@ -318,7 +328,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				fragments.add(fragment);
 			}
 
-			boolean showCopyFromDefault = ProfileManager.i().activeProfileIsDefault() && profileSensors.size() > 0;
+			boolean showCopyFromDefault = ProfileManager.get().activeProfileIsDefault() && profileSensors.size() > 0;
 			getView().findViewById(R.id.create_profile_from_default).setVisibility(showCopyFromDefault ? View.VISIBLE : View.GONE);
 		}
 

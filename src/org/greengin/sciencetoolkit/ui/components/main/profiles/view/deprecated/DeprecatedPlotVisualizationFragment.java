@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated;
 
 import java.util.List;
 import java.util.Vector;
@@ -7,7 +7,6 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.AbstractDataVisualizationFragment;
 import org.greengin.sciencetoolkit.ui.plotting.ProfileDataXYSensorPlotFragment;
 
 import android.os.Bundle;
@@ -16,9 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PlotVisualizationFragment extends AbstractDataVisualizationFragment {
+public class DeprecatedPlotVisualizationFragment extends DeprecatedAbstractDataVisualizationFragment {
 
-	public PlotVisualizationFragment() {
+	public DeprecatedPlotVisualizationFragment() {
 		super(R.id.plot_list);
 	}
 	
@@ -43,7 +42,7 @@ public class PlotVisualizationFragment extends AbstractDataVisualizationFragment
 	protected List<Fragment> getUpdatedFragmentChildren() {
 		Vector<Fragment> fragments = new Vector<Fragment>();
 		
-		Model profile = ProfileManager.i().get(profileId);
+		Model profile = ProfileManager.get().get(profileId);
 		if (profile != null) {
 			for(Model profileSensor : profile.getModel("sensors", true).getModels("weight")) {
 				String sensorId = profileSensor.getString("id");

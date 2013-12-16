@@ -34,7 +34,7 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 		
 		this.settingsId = "sensor:" + getId();
 		
-		this.settings = SettingsManager.i().get(settingsId);
+		this.settings = SettingsManager.get().get(settingsId);
 		this.runnable.setLength(settings.getInt("record_period", ModelDefaults.SOUND_SENSOR_PERIOD));
 
 		values = new float[2];
@@ -47,7 +47,7 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 
 		}, new IntentFilter(SoundSensorWrapper.STK_SOUND_SENSOR_NEWVALUE));
 		
-		SettingsManager.i().registerDirectListener(settingsId, this);
+		SettingsManager.get().registerDirectListener(settingsId, this);
 	}
 
 	@Override

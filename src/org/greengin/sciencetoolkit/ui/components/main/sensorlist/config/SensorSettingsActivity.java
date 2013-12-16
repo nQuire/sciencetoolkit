@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.sensorlist.config;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
@@ -45,7 +45,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 		add.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!DeprecatedDataLogger.i().isRunning()) {
+				if (!DataLogger.get().isRunning()) {
 					showAddToProfileDlg();
 				}
 			}
@@ -54,7 +54,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 	}
 
 	private void showAddToProfileDlg() {
-		Model profile = ProfileManager.i().getActiveProfile();
+		Model profile = ProfileManager.get().getActiveProfile();
 		if (sensorId != null && profile != null) {
 			String msg = String.format(getResources().getString(R.string.sensor_not_in_profile_add_msg), sensorId, profile.getString("title"));
 			CharSequence styledMsg = Html.fromHtml(msg);
@@ -68,11 +68,11 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 	}
 
 	private void addToProfile() {
-		Model profile = ProfileManager.i().getActiveProfile();
-		ProfileManager.i().addSensor(profile, sensorId);
+		Model profile = ProfileManager.get().getActiveProfile();
+		ProfileManager.get().addSensor(profile, sensorId);
 
-		if (sensorId != null && profile != null && !DeprecatedDataLogger.i().isRunning()) {
-			ProfileManager.i().addSensor(profile, sensorId);
+		if (sensorId != null && profile != null && !DataLogger.get().isRunning()) {
+			ProfileManager.get().addSensor(profile, sensorId);
 		}
 	}
 
@@ -88,24 +88,24 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		updateSensorInProfileNotice();
 
-		ProfileManager.i().registerUIListener(this);
-		SettingsManager.i().registerUIListener("profiles", this);
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		ProfileManager.get().registerUIListener(this);
+		SettingsManager.get().registerUIListener("profiles", this);
+		DataLogger.get().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 
-		ProfileManager.i().unregisterUIListener(this);
-		SettingsManager.i().unregisterUIListener("profiles", this);
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		ProfileManager.get().unregisterUIListener(this);
+		SettingsManager.get().unregisterUIListener("profiles", this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 
 	private void updateSensorInProfileNotice() {
 		boolean hasSensor = sensorId != null;
 
-		Model profile = ProfileManager.i().getActiveProfile();
+		Model profile = ProfileManager.get().getActiveProfile();
 		boolean inProfile = hasSensor && profile != null && profile.getModel("sensors", true).getModel(sensorId) != null;
 
 		View root = getWindow().getDecorView();
@@ -115,13 +115,13 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		if (hasSensor && !inProfile) {
 			TextView add = (TextView) root.findViewById(R.id.not_in_profile_notice_add);
-			add.setTextColor(DeprecatedDataLogger.i().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
+			add.setTextColor(DataLogger.get().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
 		}
 	}
 
 	@Override
 	public void modelNotificationReceived(String msg) {
-		String profileId = ProfileManager.i().getActiveProfileId();
+		String profileId = ProfileManager.get().getActiveProfileId();
 
 		if (profileId != null && ("profiles".equals(msg) || profileId.equals(msg))) {
 			updateSensorInProfileNotice();

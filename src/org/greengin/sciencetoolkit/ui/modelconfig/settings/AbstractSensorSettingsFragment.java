@@ -21,7 +21,7 @@ public abstract class AbstractSensorSettingsFragment extends AbstractSettingsFra
 
 	@Override
 	protected boolean settingsEnabledWhileLoggingData() {
-		Model profile = ProfileManager.i().getActiveProfile();
+		Model profile = ProfileManager.get().getActiveProfile();
 		if (profile != null) {
 			Model sensors = profile.getModel("sensors");
 			if (sensors != null) {

@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles.edit;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -69,7 +69,7 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.remove_sensor_dlg_title).setMessage(styledRemoveMsg).setPositiveButton(R.string.remove_sensor_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ProfileManager.i().removeSensor(profile, profileSensorId);
+							ProfileManager.get().removeSensor(profile, profileSensorId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -90,12 +90,12 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	public void onResume() {
 		super.onResume();
 		updateButtons();
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 	
 	public void onPause() {
 		super.onResume();
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 
 	private void moveSensorUp() {
@@ -125,7 +125,7 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	}
 
 	private void updateButtons() {
-		boolean enabled = !DeprecatedDataLogger.i().isRunning();
+		boolean enabled = !DataLogger.get().isRunning();
 		upButton.setEnabled(enabled);
 		downButton.setEnabled(enabled);
 		discardButton.setEnabled(enabled);

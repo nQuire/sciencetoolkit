@@ -61,7 +61,7 @@ public class FixedRateDataFilter extends DataInputOutput {
 		}
 		if (this.period > 0) {
 			timer = new Timer();
-			timer.schedule(new TimerTask() {
+			timer.scheduleAtFixedRate(new TimerTask() {
 				@Override
 				public void run() {
 					if (hasData) {
@@ -69,7 +69,7 @@ public class FixedRateDataFilter extends DataInputOutput {
 					}
 				}
 
-			}, 0, this.period);
+			}, 100, this.period);
 		}
 	}
 

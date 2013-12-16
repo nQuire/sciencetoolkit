@@ -72,7 +72,7 @@ public class SensorFragment extends Fragment {
 		this.showValueFormatMinInt = 1 + Math.max(0, (int) Math.ceil(Math.log(Math.abs(this.sensor.getMaxRange()))));
 
 		this.showValueIntentFilter = "liveview:" + this.sensorId;
-		this.settings = SettingsManager.i().get(this.showValueIntentFilter);
+		this.settings = SettingsManager.get().get(this.showValueIntentFilter);
 
 		int period = ModelOperations.rate2period(settings, "update_rate", ModelDefaults.LIVEVIEW_UPDATE_RATE, ModelDefaults.LIVEVIEW_UPDATE_RATE_MIN, ModelDefaults.LIVEVIEW_UPDATE_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
@@ -109,9 +109,9 @@ public class SensorFragment extends Fragment {
 
 		updateView(getView());
 
-		SettingsManager.i().registerDirectListener(this.showValueIntentFilter, showListener);
-		SettingsManager.i().registerDirectListener("profiles", profileListener);
-		ProfileManager.i().registerDirectListener(profileListener);
+		SettingsManager.get().registerDirectListener(this.showValueIntentFilter, showListener);
+		SettingsManager.get().registerDirectListener("profiles", profileListener);
+		ProfileManager.get().registerDirectListener(profileListener);
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.valueReceiver, new IntentFilter(this.showValueIntentFilter));
 	}
@@ -123,9 +123,9 @@ public class SensorFragment extends Fragment {
 		this.showValuePipe.detach();
 		destroyPlot();
 
-		SettingsManager.i().unregisterDirectListener(this.showValueIntentFilter, showListener);
-		SettingsManager.i().unregisterDirectListener("profiles", profileListener);
-		ProfileManager.i().unregisterDirectListener(profileListener);
+		SettingsManager.get().unregisterDirectListener(this.showValueIntentFilter, showListener);
+		SettingsManager.get().unregisterDirectListener("profiles", profileListener);
+		ProfileManager.get().unregisterDirectListener(profileListener);
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.valueReceiver);
 	}
 
@@ -186,14 +186,14 @@ public class SensorFragment extends Fragment {
 
 	private void actionToggleSensorInProfile(boolean checked) {
 
-		Model profile = ProfileManager.i().getActiveProfile();
+		Model profile = ProfileManager.get().getActiveProfile();
 		if (sensorId != null && profile != null) {
-			if (ProfileManager.i().profileIsDefault(profile)) {
+			if (ProfileManager.get().profileIsDefault(profile)) {
 				if (checked) {
-					ProfileManager.i().addSensorToActiveProfile(sensorId);
+					ProfileManager.get().addSensorToActiveProfile(sensorId);
 					actionToogleShow(true);
 				} else {
-					ProfileManager.i().removeSensorFromActiveProfile(sensorId);
+					ProfileManager.get().removeSensorFromActiveProfile(sensorId);
 					actionToogleShow(false);
 				}
 			} else {
@@ -207,7 +207,7 @@ public class SensorFragment extends Fragment {
 					listener = new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ProfileManager.i().addSensorToActiveProfile(sensorId);
+							ProfileManager.get().addSensorToActiveProfile(sensorId);
 						}
 					};
 				} else {
@@ -217,7 +217,7 @@ public class SensorFragment extends Fragment {
 					listener = new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ProfileManager.i().removeSensorFromActiveProfile(sensorId);
+							ProfileManager.get().removeSensorFromActiveProfile(sensorId);
 						}
 					};
 
@@ -309,9 +309,9 @@ public class SensorFragment extends Fragment {
 
 	private void updateSensorInProfile(View view) {
 		if (view != null) {
-			boolean inProfile = ProfileManager.i().sensorInActiveProfile(sensorId);
+			boolean inProfile = ProfileManager.get().sensorInActiveProfile(sensorId);
 			TextView notice = (TextView) view.findViewById(R.id.in_profile_notice);
-			if (ProfileManager.i().activeProfileIsDefault()) {
+			if (ProfileManager.get().activeProfileIsDefault()) {
 				notice.setVisibility(View.GONE);
 			} else {
 				notice.setText(inProfile ? R.string.sensor_in_profile : R.string.sensor_not_in_profile);
@@ -323,7 +323,7 @@ public class SensorFragment extends Fragment {
 
 	private void updateSensorToggle(View view) {
 		if (view != null) {
-			boolean inProfile = ProfileManager.i().sensorInActiveProfile(sensorId);
+			boolean inProfile = ProfileManager.get().sensorInActiveProfile(sensorId);
 			((ToggleButton) view.findViewById(R.id.sensor_value_toggle)).setChecked(inProfile);
 		}
 	}

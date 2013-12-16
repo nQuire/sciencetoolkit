@@ -10,10 +10,12 @@ public class DataLoggerSerializer {
 	
 	BufferedWriter writer;
 	HashMap<String, Integer> count;
+	DataLogger manager;
 	
-	public DataLoggerSerializer() {
-		writer = null;
-		count = new HashMap<String, Integer>();
+	public DataLoggerSerializer(DataLogger manager) {
+		this.writer = null;
+		this.count = new HashMap<String, Integer>();
+		this.manager = manager;
 	}
 	
 	public boolean open(File file) {
@@ -49,8 +51,9 @@ public class DataLoggerSerializer {
 			e.printStackTrace();
 		}
 		
-		int n = count.containsKey(sensorId) ? count.get(sensorId) : 0;
+		int n = count.containsKey(sensorId) ? count.get(sensorId) + 1: 1;
 		count.put(sensorId, n);
+		manager.fireDataModified();
 	}
 	
 	public HashMap<String, Integer> getCount() {

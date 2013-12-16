@@ -1,19 +1,16 @@
 package org.greengin.sciencetoolkit.ui.components.main.profiles;
 
-import java.io.File;
-
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.ShareClickListener;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.ProfileEditActivity;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.DataViewActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.SeriesViewActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedDataViewActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +30,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class ProfileFragment extends Fragment implements DataLoggerStatusListener, DataLoggerDataListener, ModelNotificationListener {
+public class ProfileFragment extends Fragment implements DataLoggerStatusListener, ModelNotificationListener {
 	private String profileId;
 	private Model profile;
 
@@ -52,7 +49,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		super.onAttach(activity);
 
 		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
-		this.profile = ProfileManager.i().get(this.profileId);
+		this.profile = ProfileManager.get().get(this.profileId);
 	}
 
 	@Override
@@ -73,14 +70,14 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 			}
 		});
 
-		updateRadioChecked(ProfileManager.i().getActiveProfileId());
+		updateRadioChecked(ProfileManager.get().getActiveProfileId());
 
 		ImageButton dataViewButton = (ImageButton) rootView.findViewById(R.id.profile_data_view);
 		dataViewButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (profileId != null) {
-					Intent intent = new Intent(getActivity(), DataViewActivity.class);
+					Intent intent = new Intent(getActivity(), SeriesViewActivity.class);
 					intent.putExtra(Arguments.ARG_PROFILE, profileId);
 					startActivity(intent);
 				}
@@ -91,14 +88,16 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		dataExportButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				/*
 				if (profileId != null) {
-					File exportFile = DeprecatedDataLogger.i().exportData(profileId);
+					File exportFile = DataLogger.i().exportData(profileId);
 					if (exportFile != null) {
 						String exportMsg = String.format(getResources().getString(R.string.export_data_dlg_msg), profile.getString("title"), exportFile.getAbsolutePath());
 						CharSequence styledExportMsg = Html.fromHtml(exportMsg);
 						new AlertDialog.Builder(v.getContext()).setIcon(R.drawable.ic_action_save).setTitle(R.string.export_data_dlg_title).setMessage(styledExportMsg).setPositiveButton(R.string.export_data_dlg_yes, new ShareClickListener(getActivity(), profile.getString("title"), exportFile)).setNegativeButton(R.string.export_data_dlg_no, null).show();
 					}
 				}
+				*/
 			}
 		});
 
@@ -112,7 +111,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							DeprecatedDataLogger.i().deleteData(profileId);
+							DataLogger.get().deleteData(profileId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -139,7 +138,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							ProfileManager.i().deleteProfile(profileId);
+							ProfileManager.get().deleteProfile(profileId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -154,19 +153,17 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 		updateView();
 
-		SettingsManager.i().registerDirectListener("profiles", this);
-		ProfileManager.i().registerDirectListener(this);
-		DeprecatedDataLogger.i().registerStatusListener(this);
-		DeprecatedDataLogger.i().registerDataListener(this);
+		SettingsManager.get().registerDirectListener("profiles", this);
+		ProfileManager.get().registerDirectListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 
 	public void onPause() {
 		super.onPause();
 
-		SettingsManager.i().unregisterDirectListener("profiles", this);
-		ProfileManager.i().unregisterDirectListener(this);
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
-		DeprecatedDataLogger.i().unregisterDataListener(this);
+		SettingsManager.get().unregisterDirectListener("profiles", this);
+		ProfileManager.get().unregisterDirectListener(this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 
 	private void updateView() {
@@ -179,21 +176,21 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	}
 
 	private void updateRadioView(View view) {
-		radio.setEnabled(!DeprecatedDataLogger.i().isRunning());
+		radio.setEnabled(!DataLogger.get().isRunning());
 	}
 
 	private void updateTitleView(View view) {
-		String text = ProfileManager.i().profileIdIsDefault(this.profileId) ? getResources().getString(R.string.default_profile) : this.profile.getString("title");
+		String text = ProfileManager.get().profileIdIsDefault(this.profileId) ? getResources().getString(R.string.default_profile) : this.profile.getString("title");
 		radio.setText(text);
 	}
 
 	private void updateStatusView(View view) {
 		if (view != null) {
 			int textId;
-			if (ProfileManager.i().profileIdIsActive(this.profileId)) {
-				if (ProfileManager.i().profileIdIsDefault(this.profileId)) {
+			if (ProfileManager.get().profileIdIsActive(this.profileId)) {
+				if (ProfileManager.get().profileIdIsDefault(this.profileId)) {
 					textId = R.string.switch_profile_default_active;
-				} else if (DeprecatedDataLogger.i().isRunning()) {
+				} else if (DataLogger.get().isRunning()) {
 					textId = R.string.switch_profile_running;
 				} else {
 					textId = R.string.switch_profile_active;
@@ -208,8 +205,8 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 	private void updateEditDiscardView(View view) {
 		if (view != null) {
-			boolean canEdit = !ProfileManager.i().profileIdIsDefault(this.profileId);
-			boolean canDiscard = canEdit && !ProfileManager.i().profileIdIsActive(this.profileId);
+			boolean canEdit = !ProfileManager.get().profileIdIsDefault(this.profileId);
+			boolean canDiscard = canEdit && !ProfileManager.get().profileIdIsActive(this.profileId);
 			editButton.setEnabled(canEdit);
 			editButton.setVisibility(canEdit ? View.VISIBLE : View.GONE);
 			discardButton.setEnabled(canDiscard);
@@ -218,7 +215,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	}
 
 	private boolean updateDataCount() {
-		int count = DeprecatedDataLogger.i().getSampleCount(this.profileId);
+		int count = DataLogger.get().getSeriesCount(this.profileId);
 		if (count != this.dataCount) {
 			this.dataCount = count;
 			return true;
@@ -233,13 +230,13 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 			switch (dataCount) {
 			case 0:
-				text = getResources().getString(R.string.data_count_none);
+				text = getResources().getString(R.string.series_count_none);
 				break;
 			case 1:
-				text = getResources().getString(R.string.data_count_one);
+				text = getResources().getString(R.string.series_count_one);
 				break;
 			default:
-				text = String.format(getResources().getString(R.string.data_count_many), dataCount);
+				text = String.format(getResources().getString(R.string.series_count_many), dataCount);
 				break;
 			}
 
@@ -253,14 +250,15 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	public void dataLoggerStatusModified() {
 		updateRadioView(getView());
 		updateStatusView(getView());
+		updateValueView(getView());
 	}
 
-	@Override
+/*	@Override
 	public void dataLoggerDataModified(String msg) {
 		if ("all".equals(msg) || this.profileId.equals(msg)) {
-			updateValueView(getView());
+			
 		}
-	}
+	}*/
 
 	public void updateRadioChecked(String activeProfileId) {
 		radio.setChecked(profileId.equals(activeProfileId));

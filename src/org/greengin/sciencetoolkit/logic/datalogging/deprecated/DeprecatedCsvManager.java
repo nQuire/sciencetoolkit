@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.logic.datalogging;
+package org.greengin.sciencetoolkit.logic.datalogging.deprecated;
 
 import java.io.BufferedWriter;
 import java.io.File;

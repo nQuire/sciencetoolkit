@@ -97,7 +97,15 @@
                 android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.components.main.profiles.view.DataViewActivity"
+            android:name="org.greengin.sciencetoolkit.ui.components.main.profiles.view.SeriesViewActivity"
+            android:label="@string/title_activity_series_view"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.components.main.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedDataViewActivity"
             android:label="@string/title_activity_data_view"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.components.main.MainActivity" >
             <meta-data

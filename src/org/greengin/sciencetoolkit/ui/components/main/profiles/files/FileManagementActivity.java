@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedCsvManager;
+import org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedCsvManager;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 
 import android.app.AlertDialog;

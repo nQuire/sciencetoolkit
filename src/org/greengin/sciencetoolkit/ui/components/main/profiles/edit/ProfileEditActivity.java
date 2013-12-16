@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -39,7 +39,7 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 		super.onCreate(savedInstanceState);
 
 		profileId = getIntent().getExtras().getString(Arguments.ARG_PROFILE);
-		profile = ProfileManager.i().get(profileId);
+		profile = ProfileManager.get().get(profileId);
 
 		setContentView(R.layout.activity_data_logging_edit);
 
@@ -71,15 +71,15 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 		updateTitle();
 		updateChildrenList();
 		updateSettingsEnabled();
-		ProfileManager.i().registerDirectListener(this);
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		ProfileManager.get().registerDirectListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		ProfileManager.i().unregisterDirectListener(this);
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		ProfileManager.get().unregisterDirectListener(this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 	
 
@@ -90,7 +90,7 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 	}
 
 	private void updateSettingsEnabled() {
-		boolean enabled = profile != null && !DeprecatedDataLogger.i().isRunning();
+		boolean enabled = profile != null && !DataLogger.get().isRunning();
 		add.setEnabled(enabled);
 		edit.setEnabled(enabled);
 	}

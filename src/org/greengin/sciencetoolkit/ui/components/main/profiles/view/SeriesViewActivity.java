@@ -3,6 +3,8 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedVisualizationConfigFragment;
+import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedVisualizationContainerFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class DataViewActivity extends SettingsControlledActivity {
+public class SeriesViewActivity extends SettingsControlledActivity {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -64,7 +66,7 @@ public class DataViewActivity extends SettingsControlledActivity {
 		public Fragment getItem(int position) {
 			Bundle args = new Bundle();
 			args.putString(Arguments.ARG_PROFILE, profileId);
-			Fragment fragment = position == 0 ? new VisualizationContainerFragment() : new VisualizationConfigFragment();
+			Fragment fragment = position == 0 ? new SeriesListFragment() : new Fragment();
 			fragment.setArguments(args);
 			return fragment;
 		}
@@ -78,9 +80,9 @@ public class DataViewActivity extends SettingsControlledActivity {
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return getString(R.string.data_view_activity_visualization_tab);
+				return getString(R.string.series_view_activity_list_tab);
 			case 1:
-				return getString(R.string.data_view_activity_config_tab);
+				return getString(R.string.series_view_activity_plot_tab);
 			}
 			return null;
 		}

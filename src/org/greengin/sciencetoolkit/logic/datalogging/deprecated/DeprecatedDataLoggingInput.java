@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.logic.datalogging;
+package org.greengin.sciencetoolkit.logic.datalogging.deprecated;
 
 import org.greengin.sciencetoolkit.logic.streams.DataInput;
 

@@ -34,7 +34,7 @@ public class AddSensorDialogFragment extends DialogFragment implements OnChecked
 		View view = inflater.inflate(R.layout.dialog_add_sensor, container);
 		getDialog().setTitle(getResources().getString(R.string.add_sensor));
 
-		profile = ProfileManager.i().getActiveProfile();
+		profile = ProfileManager.get().getActiveProfile();
 
 		if (profile != null) {
 			LinearLayout ll = (LinearLayout) view.findViewById(R.id.add_sensor_list);
@@ -71,7 +71,7 @@ public class AddSensorDialogFragment extends DialogFragment implements OnChecked
 			ok.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					ProfileManager.i().addSensors(profile, chosen);
+					ProfileManager.get().addSensors(profile, chosen);
 					dismiss();
 				}
 			});

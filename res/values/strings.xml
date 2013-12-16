@@ -36,6 +36,8 @@
     <string name="remove_sensor_dlg_yes">Remove</string>
     <string name="data_logging_start">Start logging</string>
     <string name="data_logging_stop">Stop logging</string>
+    <string name="data_logging_series_logging">Logging series %1$d</string>
+    <string name="data_logging_series_logged">Saved series %1$d</string>
     <string name="samples_second">samples/s</string>
     <string name="samples_min">samples/min</string>
     <string name="samples_hour">samples/hour</string>
@@ -48,6 +50,9 @@
     <string name="data_count_none">No data</string>
     <string name="data_count_one">One sample</string>
     <string name="data_count_many">%1d samples</string>
+    <string name="series_count_none">No series</string>
+    <string name="series_count_one">One series</string>
+    <string name="series_count_many">%1d series</string>
     <string name="delete_dlg_yes">Delete</string>
     <string name="delete_profile_data_dlg_title">Delete profile data</string>
     <string name="delete_profile_data_dlg_msg">Do you want to delete all data from profile &lt;i>%1s&lt;/i>?</string>
@@ -64,6 +69,7 @@
     <string name="export_payload_count_s">nQuire Sensor Toolkit data: 1 file</string>
     <string name="export_payload_count_p">nQuire Sensor Toolkit data: %1$d files</string>
     <string name="export_payload_body"></string>
+    <string name="title_activity_series_view">Logged series</string>
     <string name="title_activity_data_view">View my data</string>
     <string name="title_activity_file_management">Manage CVS files</string>
     <string name="switch_profile">Switch profile</string>
@@ -79,6 +85,8 @@
     <string name="dialog_seconds_picker_title">Set time</string>
     <string name="data_view_activity_visualization_tab">View data</string>
     <string name="data_view_activity_config_tab">Configure view</string>
+    <string name="series_view_activity_list_tab">List</string>
+    <string name="series_view_activity_plot_tab">Plot</string>
     <string name="visualization_type">Visualization</string>
     <string name="visualization_range">Data range</string>
     <string name="visualization_variables">Sensor variables</string>

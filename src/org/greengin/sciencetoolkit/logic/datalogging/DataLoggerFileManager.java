@@ -33,7 +33,12 @@ public class DataLoggerFileManager {
 	}
 	
 	public int seriesCount(String profileId) {
-		return getPath(profileId).list().length;		
+		File[] series = series(profileId);
+		return series != null ? series.length : 0;		
+	}
+	
+	public File[] series(String profileId) {
+		return getPath(profileId).listFiles();		
 	}
 
 	public int startNewSeries(String profileId) {
@@ -46,7 +51,7 @@ public class DataLoggerFileManager {
 			newSeries = 1;
 			for (File f : path.listFiles()) {
 				String name = f.getName();
-				String[] parts = name.split(".");
+				String[] parts = name.split("\\.");
 				if (parts.length == 2 && "csv".equals(parts[1])) {
 					try {
 						int id = Integer.parseInt(parts[0]);
@@ -57,8 +62,8 @@ public class DataLoggerFileManager {
 					}
 				}
 			}
-			series.put(profileId, newSeries);
 		}
+		series.put(profileId, newSeries);
 
 		return newSeries;
 	}
@@ -75,5 +80,28 @@ public class DataLoggerFileManager {
 		}
 
 		return path;
+	}
+	
+	public void deleteSeries(String profileId) {
+		File base = new File(applicationContext.getFilesDir(), "series");
+		if (!base.exists()) {
+			base.mkdir();
+		}
+
+		File path = new File(base, profileId);
+		
+		if (path.exists()) {
+			deleteFolder(path);
+		}
+	}
+	
+	private void deleteFolder(File f) {
+		if (f.isDirectory()) {
+			for (File cf : f.listFiles()) {
+				deleteFolder(cf);
+			}			
+		}
+		
+		f.delete();
 	}
 }

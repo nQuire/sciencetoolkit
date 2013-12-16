@@ -61,7 +61,7 @@ public class CreateProfileDialogFragment extends DialogFragment {
 			public void onClick(View view) {
 				String profileTitle = title.getText().toString();
 				if (profileTitle.length() > 0) {
-					ProfileManager.i().createProfile(profileTitle, setAsActive, copyFromDefault);
+					ProfileManager.get().createProfile(profileTitle, setAsActive, copyFromDefault);
 					dismiss();
 				}
 			}

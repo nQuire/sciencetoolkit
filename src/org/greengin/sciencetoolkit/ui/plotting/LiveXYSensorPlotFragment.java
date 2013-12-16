@@ -32,7 +32,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 	@Override
 	void fetchSettings() {
 		this.filter = "liveplot:" + this.sensorId;
-		this.seriesSettings = SettingsManager.i().get(this.filter);
+		this.seriesSettings = SettingsManager.get().get(this.filter);
 		this.seriesSettingPrefix = "show:";
 	}
 
@@ -65,7 +65,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		SettingsManager.i().registerDirectListener(this.filter, this.notificationListener);
+		SettingsManager.get().registerDirectListener(this.filter, this.notificationListener);
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(this.seriesReceiver, new IntentFilter(filter));
 		this.dataPipe.attach();
 		plot.redraw();
@@ -77,7 +77,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 		super.onPause();
 		this.dataPipe.detach();
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(this.seriesReceiver);
-		SettingsManager.i().unregisterDirectListener(this.filter, this.notificationListener);
+		SettingsManager.get().unregisterDirectListener(this.filter, this.notificationListener);
 	}
 
 

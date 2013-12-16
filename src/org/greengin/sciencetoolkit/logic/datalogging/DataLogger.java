@@ -20,7 +20,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class DataLogger implements DataLoggerDataListener {
+public class DataLogger {
 	private static final String DATA_LOGGING_NEW_DATA = "DATA_LOGGING_NEW_DATA";
 	private static final String DATA_LOGGING_NEW_STATUS = "DATA_LOGGING_NEW_STATUS";
 
@@ -30,7 +30,7 @@ public class DataLogger implements DataLoggerDataListener {
 		instance = new DataLogger(applicationContext);
 	}
 
-	public static DataLogger i() {
+	public static DataLogger get() {
 		return instance;
 	}
 
@@ -60,7 +60,7 @@ public class DataLogger implements DataLoggerDataListener {
 		pipes = new Vector<DataPipe>();
 		fileManager = new DataLoggerFileManager(applicationContext);
 		series = 0;
-		serializer = new DataLoggerSerializer();
+		serializer = new DataLoggerSerializer(this);
 
 		dataListeners = new Vector<DataLoggerDataListener>();
 		statusListeners = new Vector<DataLoggerStatusListener>();
@@ -132,7 +132,7 @@ public class DataLogger implements DataLoggerDataListener {
 	public void startNewSeries() {
 		runningLock.lock();
 		if (!running) {
-			profile = ProfileManager.i().getActiveProfile();
+			profile = ProfileManager.get().getActiveProfile();
 			profileId = profile.getString("id");
 			pipes.clear();
 			
@@ -161,7 +161,7 @@ public class DataLogger implements DataLoggerDataListener {
 					pipe.attach();
 				}
 
-				statusModified();
+				fireStatusModified();
 			}
 		}
 		runningLock.unlock();
@@ -178,8 +178,7 @@ public class DataLogger implements DataLoggerDataListener {
 			running = false;
 			
 			serializer.close();
-
-			statusModified();
+			fireStatusModified();
 		}
 
 		runningLock.unlock();
@@ -192,6 +191,10 @@ public class DataLogger implements DataLoggerDataListener {
 	public int getSeriesCount(String profileId) {
 		return this.fileManager.seriesCount(profileId);
 	}
+	
+	public File[] getSeries(String profileId) {
+		return this.fileManager.series(profileId);
+	}
 
 	public HashMap<String, Integer> getCurrentSeriesSampleCount() {
 		return this.serializer.getCount();
@@ -202,25 +205,29 @@ public class DataLogger implements DataLoggerDataListener {
 	}
 
 	public void deleteData(String profileId) {
-		//this.helper.emptyData(profileId);
+		this.fileManager.deleteSeries(profileId);
 	}
 	
 	
 
-	private void statusModified() {
+	private void fireStatusModified() {
 		if (statusListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_STATUS);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
 
-	@Override
-	public void dataLoggerDataModified(String msg) {
+	public void fireDataModified() {
 		if (dataListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_DATA);
-			intent.putExtra("msg", msg);
+			intent.putExtra("msg", profileId);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
+	}
+	
+	public boolean getRange(long[] values, String profileId) {
+		values[0] = values[1] = 0;
+		return false;
 	}
 
 	

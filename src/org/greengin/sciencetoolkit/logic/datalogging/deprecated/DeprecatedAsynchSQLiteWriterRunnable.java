@@ -1,6 +1,8 @@
-package org.greengin.sciencetoolkit.logic.datalogging;
+package org.greengin.sciencetoolkit.logic.datalogging.deprecated;
 
 import java.util.Vector;
+
+import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;

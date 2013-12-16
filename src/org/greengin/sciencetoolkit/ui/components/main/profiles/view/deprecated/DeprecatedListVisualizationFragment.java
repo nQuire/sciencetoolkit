@@ -1,15 +1,9 @@
-package org.greengin.sciencetoolkit.ui.components.main.profiles.view.visualizations;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.ui.SensorUIData;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.AbstractDataVisualizationFragment;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -19,10 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class ListVisualizationFragment extends AbstractDataVisualizationFragment {
+public class DeprecatedListVisualizationFragment extends DeprecatedAbstractDataVisualizationFragment {
 
 	CursorAdapter adapter;
 	SimpleDateFormat sdf;	
@@ -40,10 +33,10 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 
 		View rootView = inflater.inflate(R.layout.fragment_data_view_list, container, false);
 
-		this.adapter = new CustomAdapter(this.getActivity(), getCursor());
+		//this.adapter = new CustomAdapter(this.getActivity(), getCursor());
 		
-		ListView view = (ListView) rootView.findViewById(R.id.data_list);
-		view.setAdapter(this.adapter);
+		//ListView view = (ListView) rootView.findViewById(R.id.data_list);
+		//view.setAdapter(this.adapter);
 
 		return rootView;
 	}
@@ -55,6 +48,7 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 		super.onDestroy();
 	}
 	
+	/*
 	private class CustomAdapter extends CursorAdapter {
 		public CustomAdapter(Context context, Cursor cursor) {
 			super(context, cursor, 0);
@@ -64,7 +58,7 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 		public void bindView(View view, Context context, Cursor cursor) {
 			LinearLayout layout = (LinearLayout) view;
 			
-			String sensorId = DeprecatedDataLogger.i().sensorName(cursor.getString(1));
+			String sensorId = DataLogger.i().sensorName(cursor.getString(1));
 			SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 			
 			String timestamp = sdf.format(new Date(cursor.getLong(2)));
@@ -99,10 +93,10 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 			
 			return ll;
 		}
-	}
+	}*/
 
 	@Override
 	protected void updateDataRange() {
-		adapter.changeCursor(getCursor());
+		//adapter.changeCursor(getCursor());
 	}
 }

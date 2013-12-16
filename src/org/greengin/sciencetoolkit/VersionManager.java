@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class VersionManager {
 
 	public static void check(Context applicationContext) {
-		Model settings = SettingsManager.i().get("version");
+		Model settings = SettingsManager.get().get("version");
 		int currentVersion = settings.getInt("datamodel", 0);
 		Log.d("stk version", " " + currentVersion);
 
@@ -31,17 +31,17 @@ public class VersionManager {
 
 			}
 
-			Model selected = SettingsManager.i().get("sensor_list");
+			Model selected = SettingsManager.get().get("sensor_list");
 
 			for (String name : nameIds.keySet()) {
 				for (String prefix : new String[] { "sensor:", "liveview:", "liveplot:" }) {
-					SettingsManager.i().remove(prefix + name);
+					SettingsManager.get().remove(prefix + name);
 				}
 				selected.clear(name);
 			}
 
-			for (String profileId : ProfileManager.i().getProfileIds()) {
-				Model profile = ProfileManager.i().get(profileId);
+			for (String profileId : ProfileManager.get().getProfileIds()) {
+				Model profile = ProfileManager.get().get(profileId);
 				Model sensors = profile.getModel("sensors");
 				for (Model oldSensor : sensors.getModels()) {
 					String name = oldSensor.getString("id");
@@ -66,6 +66,6 @@ public class VersionManager {
 			}
 		}
 
-		SettingsManager.i().forceSave();
+		SettingsManager.get().forceSave();
 	}
 }

@@ -23,7 +23,7 @@ public class ProfileSensorSettingsActivity extends SettingsControlledActivity {
 		String profileId = this.getIntent().getExtras().getString(Arguments.ARG_PROFILE);
 		String sensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
 		
-		Model profile = ProfileManager.i().get(profileId);
+		Model profile = ProfileManager.get().get(profileId);
 		
 		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 

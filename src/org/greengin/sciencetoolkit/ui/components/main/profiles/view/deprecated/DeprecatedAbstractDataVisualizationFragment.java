@@ -1,8 +1,8 @@
-package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated;
 
 import java.util.List;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -13,13 +13,13 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public abstract class AbstractDataVisualizationFragment extends ParentListFragment {
+public abstract class DeprecatedAbstractDataVisualizationFragment extends ParentListFragment {
 
-	public AbstractDataVisualizationFragment() {
+	public DeprecatedAbstractDataVisualizationFragment() {
 		this(0);
 	}
 
-	public AbstractDataVisualizationFragment(int childrenContainerId) {
+	public DeprecatedAbstractDataVisualizationFragment(int childrenContainerId) {
 		super(childrenContainerId);
 	}
 
@@ -49,22 +49,14 @@ public abstract class AbstractDataVisualizationFragment extends ParentListFragme
 	public void onResume() {
 		super.onResume();
 		updateDataRange();
-		SettingsManager.i().registerUIListener(settingsId, profileListener);
+		SettingsManager.get().registerUIListener(settingsId, profileListener);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		SettingsManager.i().unregisterUIListener(settingsId, profileListener);
+		SettingsManager.get().unregisterUIListener(settingsId, profileListener);
 	}
-
-	protected Cursor getCursor() {
-		Model datarange = SettingsManager.i().get(settingsId);
-		long from = datarange.getLong("from", 0);
-		long to = datarange.getBool("track_to", true) ? Long.MAX_VALUE : datarange.getLong("to", Long.MAX_VALUE);
-		return DeprecatedDataLogger.i().getListViewCursor(profileId, from, to);
-	}
-
 
 	@Override
 	protected List<Fragment> getUpdatedFragmentChildren() {

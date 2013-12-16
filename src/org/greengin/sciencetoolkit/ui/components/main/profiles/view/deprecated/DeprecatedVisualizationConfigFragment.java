@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
+package org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.Arguments;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 
-public class VisualizationConfigFragment extends Fragment {
+public class DeprecatedVisualizationConfigFragment extends Fragment {
 
 	String profileId;
 	String settingsId;

@@ -1,6 +1,6 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 
 public abstract class DataLoggerDependentModelFragment extends CheckEnabledModelFragment implements DataLoggerStatusListener {
@@ -9,17 +9,17 @@ public abstract class DataLoggerDependentModelFragment extends CheckEnabledModel
 	@Override
 	public void onResume() {
 		super.onResume();
-		DeprecatedDataLogger.i().registerStatusListener(this);
+		DataLogger.get().registerStatusListener(this);
 	}
 	
 	public void onPause() {
 		super.onPause();
-		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		DataLogger.get().unregisterStatusListener(this);
 	}
 	
 	@Override
 	protected boolean settingsShouldBeEnabled() {
-		return DeprecatedDataLogger.i().isRunning() ? settingsEnabledWhileLoggingData() : true;
+		return DataLogger.get().isRunning() ? settingsEnabledWhileLoggingData() : true;
 	}
 	
 	protected boolean settingsEnabledWhileLoggingData() {
