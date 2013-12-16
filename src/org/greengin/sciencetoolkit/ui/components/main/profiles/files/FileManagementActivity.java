@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.CsvManager;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedCsvManager;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 
 import android.app.AlertDialog;
@@ -45,7 +45,7 @@ public class FileManagementActivity extends SettingsControlledActivity implement
 
 		ll.removeAllViews();
 
-		String[] files = CsvManager.fileList();
+		String[] files = DeprecatedCsvManager.fileList();
 
 		for (String file : files) {
 			CheckBox cb = new CheckBox(this);
@@ -76,7 +76,7 @@ public class FileManagementActivity extends SettingsControlledActivity implement
 	public void onClickShareButton(View view) {
 		ArrayList<Uri> uris = new ArrayList<Uri>();
 		for (String filename : selected) {
-			File file = CsvManager.getFile(filename);
+			File file = DeprecatedCsvManager.getFile(filename);
 			if (file != null) {
 				uris.add(Uri.fromFile(file));
 			}
@@ -103,7 +103,7 @@ public class FileManagementActivity extends SettingsControlledActivity implement
 		new AlertDialog.Builder(view.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_csv_dlg_title).setMessage(R.string.delete_csv_dlg_msg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CsvManager.deleteFiles(selected);
+				DeprecatedCsvManager.deleteFiles(selected);
 				selected.clear();
 				updateList();
 			}

@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
+public class DeprecatedScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 
 	public static final int DATABASE_VERSION = 2;
 	public static final String DATABASE_NAME = "sciencetoolkit";
@@ -44,15 +44,15 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 	Context context;
 	HashMap<String, String> sensorIdsCacheE2I;
 	HashMap<String, String> sensorIdsCacheI2E;
-	AsynchSQLiteWriterRunnable runnable;
+	DeprecatedAsynchSQLiteWriterRunnable runnable;
 	DataLoggerDataListener listener;
 
-	public ScienceToolkitSQLiteOpenHelper(Context context, DataLoggerDataListener listener) {
+	public DeprecatedScienceToolkitSQLiteOpenHelper(Context context, DataLoggerDataListener listener) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.sensorIdsCacheE2I = new HashMap<String, String>();
 		this.sensorIdsCacheI2E = new HashMap<String, String>();
 		this.context = context;
-		this.runnable = new AsynchSQLiteWriterRunnable(getWritableDatabase(), listener);
+		this.runnable = new DeprecatedAsynchSQLiteWriterRunnable(getWritableDatabase(), listener);
 		this.listener = listener;
 	}
 

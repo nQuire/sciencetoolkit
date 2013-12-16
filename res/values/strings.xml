@@ -67,9 +67,9 @@
     <string name="title_activity_data_view">View my data</string>
     <string name="title_activity_file_management">Manage CVS files</string>
     <string name="switch_profile">Switch profile</string>
-    <string name="switch_profile_to_default">Deactivate profile</string>
+    <string name="switch_profile_to_default">Switch to default</string>
     <string name="switch_profile_inactive"></string>
-    <string name="switch_profile_default_active">No profile selected</string>
+    <string name="switch_profile_default_active">Default profile</string>
     <string name="switch_profile_active">Active profile</string>
     <string name="switch_profile_running">Profile active and running</string>
     <string name="create_new_profile">Create new profile</string>
@@ -94,7 +94,7 @@
     <string name="sensor_not_in_profile_add_title">Add sensor to profile</string>
     <string name="sensor_in_profile_remove_msg">Are you sure you want to remove sensor &lt;i>%1$s&lt;/i> from profile &lt;i>%2$s&lt;/i>?</string>
     <string name="sensor_in_profile_remove_title">Remove sensor from profile</string>
-    <string name="default_profile">No profile</string>
+    <string name="default_profile">Default profile</string>
     <string name="sensor_list_label">Sensors:</string>
     <string name="profile_data">Data:</string>
     <string name="create_profile_from_default_notice">Would you like to create a new profile with this data logging configuration?</string>

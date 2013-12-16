@@ -1,6 +1,6 @@
 package org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.widgets.datetime.DateTimeHelperPair;
@@ -35,7 +35,7 @@ public class ProfileDataRangeSettingsFragment extends AbstractSettingsFragment {
 	protected void createConfigOptions(View view) {
 		long[] values = new long[2];
 		
-		boolean enabled = DataLogger.i().getRange(values, profileId);
+		boolean enabled = DeprecatedDataLogger.i().getRange(values, profileId);
 		
 		if (enabled) {
 			timeMin = values[0];

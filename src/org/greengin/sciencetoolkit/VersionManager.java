@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
@@ -51,15 +51,15 @@ public class VersionManager {
 						Model newSensor = oldSensor.cloneModel(sensors);
 						newSensor.setString("id", id);
 						sensors.setModel(id, newSensor);
-						sensors.clear(name);						
+						sensors.clear(name);
 					}
 				}
 			}
-			
-			int result = DataLogger.i().exportAllData();
+
+			int result = DeprecatedDataLogger.i().exportAllData();
 			Log.d("stk version", "export: " + result);
-			
-			if (result == 1) { 
+
+			if (result == 1) {
 				CharSequence text = "This app has changed the way data is stored. Your old data has been saved to the file:\n\ndownloads -> science_toolkit_old_data.csv";
 				Toast toast = Toast.makeText(applicationContext, text, Toast.LENGTH_LONG);
 				toast.show();

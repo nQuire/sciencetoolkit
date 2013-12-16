@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -72,14 +72,14 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 		updateChildrenList();
 		updateSettingsEnabled();
 		ProfileManager.i().registerDirectListener(this);
-		DataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		ProfileManager.i().unregisterDirectListener(this);
-		DataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
 	}
 	
 
@@ -90,7 +90,7 @@ public class ProfileEditActivity extends ParentListActivity implements ModelNoti
 	}
 
 	private void updateSettingsEnabled() {
-		boolean enabled = profile != null && !DataLogger.i().isRunning();
+		boolean enabled = profile != null && !DeprecatedDataLogger.i().isRunning();
 		add.setEnabled(enabled);
 		edit.setEnabled(enabled);
 	}

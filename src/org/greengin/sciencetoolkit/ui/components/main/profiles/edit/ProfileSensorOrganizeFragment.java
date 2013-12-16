@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles.edit;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -90,12 +90,12 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	public void onResume() {
 		super.onResume();
 		updateButtons();
-		DataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
 	}
 	
 	public void onPause() {
 		super.onResume();
-		DataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
 	}
 
 	private void moveSensorUp() {
@@ -125,7 +125,7 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	}
 
 	private void updateButtons() {
-		boolean enabled = !DataLogger.i().isRunning();
+		boolean enabled = !DeprecatedDataLogger.i().isRunning();
 		upButton.setEnabled(enabled);
 		downButton.setEnabled(enabled);
 		discardButton.setEnabled(enabled);

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.ui.SensorUIData;
@@ -64,7 +64,7 @@ public class ListVisualizationFragment extends AbstractDataVisualizationFragment
 		public void bindView(View view, Context context, Cursor cursor) {
 			LinearLayout layout = (LinearLayout) view;
 			
-			String sensorId = DataLogger.i().sensorName(cursor.getString(1));
+			String sensorId = DeprecatedDataLogger.i().sensorName(cursor.getString(1));
 			SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
 			
 			String timestamp = sdf.format(new Date(cursor.getLong(2)));

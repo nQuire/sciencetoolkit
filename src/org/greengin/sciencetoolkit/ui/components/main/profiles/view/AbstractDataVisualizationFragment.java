@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
 
 import java.util.List;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -62,7 +62,7 @@ public abstract class AbstractDataVisualizationFragment extends ParentListFragme
 		Model datarange = SettingsManager.i().get(settingsId);
 		long from = datarange.getLong("from", 0);
 		long to = datarange.getBool("track_to", true) ? Long.MAX_VALUE : datarange.getLong("to", Long.MAX_VALUE);
-		return DataLogger.i().getListViewCursor(profileId, from, to);
+		return DeprecatedDataLogger.i().getListViewCursor(profileId, from, to);
 	}
 
 

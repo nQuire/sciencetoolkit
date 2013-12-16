@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.logic.datalogging;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -18,19 +18,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class DataLogger implements DataLoggerDataListener {
+public class DeprecatedDataLogger implements DataLoggerDataListener {
 	private static final String DATA_LOGGING_NEW_DATA = "DATA_LOGGING_NEW_DATA";
 	private static final String DATA_LOGGING_NEW_STATUS = "DATA_LOGGING_NEW_STATUS";
 
-	private static DataLogger instance;
+	private static DeprecatedDataLogger instance;
 
 	public static void init(Context applicationContext) {
-		instance = new DataLogger(applicationContext);
+		instance = new DeprecatedDataLogger(applicationContext);
 	}
 
-	public static DataLogger i() {
+	public static DeprecatedDataLogger i() {
 		return instance;
 	}
 
@@ -41,26 +42,22 @@ public class DataLogger implements DataLoggerDataListener {
 
 	String profileId;
 	Model profile;
-	int series;
 	boolean running;
 	Vector<DataPipe> pipes;
 	Vector<DataLoggerDataListener> dataListeners;
 	BroadcastReceiver dataReceiver;
 	Vector<DataLoggerStatusListener> statusListeners;
 	BroadcastReceiver statusReceiver;
-	
-	DataLoggerFileManager fileManager;
-	DataLoggerSerializer serializer;
 
-	public DataLogger(Context applicationContext) {
+	DeprecatedScienceToolkitSQLiteOpenHelper helper;
+
+	public DeprecatedDataLogger(Context applicationContext) {
 		this.applicationContext = applicationContext;
 
 		runningLock = new ReentrantLock();
 		listenersLock = new ReentrantLock();
 		pipes = new Vector<DataPipe>();
-		fileManager = new DataLoggerFileManager(applicationContext);
-		series = 0;
-		serializer = new DataLoggerSerializer();
+		helper = new DeprecatedScienceToolkitSQLiteOpenHelper(applicationContext, this);
 
 		dataListeners = new Vector<DataLoggerDataListener>();
 		statusListeners = new Vector<DataLoggerStatusListener>();
@@ -91,7 +88,7 @@ public class DataLogger implements DataLoggerDataListener {
 		if (!dataListeners.contains(listener)) {
 			dataListeners.add(listener);
 			if (dataListeners.size() == 1) {
-				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(dataReceiver, new IntentFilter(DataLogger.DATA_LOGGING_NEW_DATA));
+				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(dataReceiver, new IntentFilter(DeprecatedDataLogger.DATA_LOGGING_NEW_DATA));
 			}
 		}
 
@@ -111,7 +108,7 @@ public class DataLogger implements DataLoggerDataListener {
 		if (!statusListeners.contains(listener)) {
 			statusListeners.add(listener);
 			if (dataListeners.size() == 1) {
-				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(statusReceiver, new IntentFilter(DataLogger.DATA_LOGGING_NEW_STATUS));
+				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(statusReceiver, new IntentFilter(DeprecatedDataLogger.DATA_LOGGING_NEW_STATUS));
 			}
 		}
 
@@ -129,21 +126,25 @@ public class DataLogger implements DataLoggerDataListener {
 		return running;
 	}
 
-	public void startNewSeries() {
+	private void setProfile(Model profile) {
+		this.profile = profile;
+		this.profileId = profile.getString("id");
+		this.running = false;
+	}
+
+	public void start() {
+		start(ProfileManager.i().getActiveProfile());
+	}
+
+	private void start(Model profile) {
 		runningLock.lock();
 		if (!running) {
-			profile = ProfileManager.i().getActiveProfile();
-			profileId = profile.getString("id");
+			setProfile(profile);
 			pipes.clear();
-			
 			Vector<Model> sensors = profile.getModel("sensors", true).getModels();
 			if (sensors.size() > 0) {
 				running = true;
-				
-				series = fileManager.startNewSeries(profileId);
-				File file = fileManager.getCurrentSeriesFile(profileId);
-				serializer.open(file);
-				
+
 				for (Model profileSensor : sensors) {
 					String sensorId = profileSensor.getString("id");
 					SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
@@ -152,7 +153,7 @@ public class DataLogger implements DataLoggerDataListener {
 					if (sensor != null) {
 						DataPipe pipe = new DataPipe(sensor);
 						pipe.addFilter(new FixedRateDataFilter(period));
-						pipe.setEnd(new DataLoggingInput(profileId, sensorId, serializer));
+						pipe.setEnd(new DeprecatedDataLoggingInput(profileId, "*", sensorId, this.helper));
 						pipes.add(pipe);
 					}
 				}
@@ -167,7 +168,7 @@ public class DataLogger implements DataLoggerDataListener {
 		runningLock.unlock();
 	}
 
-	public void stopSeries() {
+	public void stop() {
 		runningLock.lock();
 
 		if (running) {
@@ -176,8 +177,6 @@ public class DataLogger implements DataLoggerDataListener {
 			}
 			pipes.clear();
 			running = false;
-			
-			serializer.close();
 
 			statusModified();
 		}
@@ -185,31 +184,41 @@ public class DataLogger implements DataLoggerDataListener {
 		runningLock.unlock();
 	}
 
-	public int getCurrentSeries() {
-		return series;
-	}
-	
-	public int getSeriesCount(String profileId) {
-		return this.fileManager.seriesCount(profileId);
+	public int getSampleCount(String profileId) {
+		return this.helper.dataCount(profileId);
 	}
 
-	public HashMap<String, Integer> getCurrentSeriesSampleCount() {
-		return this.serializer.getCount();
+	public Hashtable<String, Integer> getDetailedSampleCount(String profileId) {
+		return this.helper.detailedDataCount(profileId);
 	}
 
 	public void deleteAllData() {
-		//this.helper.emptyData(null);
+		this.helper.emptyData(null);
 	}
 
 	public void deleteData(String profileId) {
-		//this.helper.emptyData(profileId);
+		this.helper.emptyData(profileId);
 	}
 	
-	
+	public int exportAllData() {
+		Cursor cursor = this.helper.getAllDataCursor();
+		if (cursor.getCount() == 0) {
+			return 0;
+		} else {
+			File csv = DeprecatedCsvManager.exportCSV(this, cursor, "science_toolkit_old_data.csv");
+			return csv != null ? 1 : 2;
+		}
+		
+	}
+
+	public File exportData(String profileId) {
+		Cursor cursor = this.helper.getDataCursor(profileId);
+		return DeprecatedCsvManager.exportCSV(this, cursor, null);
+	}
 
 	private void statusModified() {
 		if (statusListeners.size() > 0) {
-			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_STATUS);
+			Intent intent = new Intent(DeprecatedDataLogger.DATA_LOGGING_NEW_STATUS);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
@@ -217,11 +226,26 @@ public class DataLogger implements DataLoggerDataListener {
 	@Override
 	public void dataLoggerDataModified(String msg) {
 		if (dataListeners.size() > 0) {
-			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_DATA);
+			Intent intent = new Intent(DeprecatedDataLogger.DATA_LOGGING_NEW_DATA);
 			intent.putExtra("msg", msg);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
 
+	public Cursor getListViewCursor(String profileId, long from, long to) {
+		return this.helper.getListViewCursor(profileId, from, to);
+	}
+
+	public Cursor getPlotViewCursor(String profileId, String sensorId, long from, long to) {
+		return this.helper.getPlotViewCursor(profileId, sensorId, from, to);
+	}
+
+	public String sensorName(String dbSensorId) {
+		return this.helper.getExternalSensorId(dbSensorId);
+	}
+
+	public boolean getRange(long[] values, String profileId) {
+		return this.helper.getRange(values, profileId);
+	}
 	
 }

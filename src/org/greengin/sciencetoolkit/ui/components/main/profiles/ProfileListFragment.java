@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -73,7 +73,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		switchProfile.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!DataLogger.i().isRunning()) {
+				if (!DeprecatedDataLogger.i().isRunning()) {
 					ProfileManager.i().switchActiveProfile(selectedProfile);
 				}
 			}
@@ -92,13 +92,13 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(requestReceiver, new IntentFilter(REQUEST_SELECTED_PROFILE));
 		SettingsManager.i().registerDirectListener("profiles", this);
 		ProfileManager.i().registerDirectListener(this);
-		DataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		DataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
 		ProfileManager.i().unregisterDirectListener(this);
 		SettingsManager.i().unregisterDirectListener("profiles", this);
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(requestReceiver);
@@ -185,7 +185,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	}
 	
 	private void updateSwitchButton() {
-		boolean showButtonBar = !DataLogger.i().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.i().getActiveProfileId());
+		boolean showButtonBar = !DeprecatedDataLogger.i().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.i().getActiveProfileId());
 		 
 		LayoutParams lp = buttonBar.getLayoutParams();
 		lp.height = showButtonBar ? LayoutParams.WRAP_CONTENT : 0;

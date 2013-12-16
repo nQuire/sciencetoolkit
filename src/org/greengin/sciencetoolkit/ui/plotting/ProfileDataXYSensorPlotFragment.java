@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.plotting;
 
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
@@ -66,7 +66,7 @@ public class ProfileDataXYSensorPlotFragment extends AbstractXYSensorPlotFragmen
 	protected Cursor getCursor() {
 		long from = seriesSettings.getLong("from", 0);
 		long to = seriesSettings.getBool("track_to", true) ? Long.MAX_VALUE : seriesSettings.getLong("to", Long.MAX_VALUE);
-		return DataLogger.i().getPlotViewCursor(profileId, sensorId, from, to);
+		return DeprecatedDataLogger.i().getPlotViewCursor(profileId, sensorId, from, to);
 	}
 
 }

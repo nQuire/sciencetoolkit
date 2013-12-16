@@ -5,28 +5,18 @@ import org.greengin.sciencetoolkit.logic.streams.DataInput;
 public class DataLoggingInput implements DataInput {
 
 	String profileId;
-	String sessionId;
 	String sensorId;
-	ScienceToolkitSQLiteOpenHelper helper;
-
-	public DataLoggingInput(String profileId, String sessionId, String sensorId, ScienceToolkitSQLiteOpenHelper helper) {
+	DataLoggerSerializer serializer;
+	
+	public DataLoggingInput(String profileId, String sensorId, DataLoggerSerializer serializer) {
 		this.profileId = profileId;
-		this.sessionId = sessionId;
 		this.sensorId = sensorId;
-		this.helper = helper;
+		this.serializer = serializer;
 	}
 
 	@Override
 	public void value(float[] values, int valueCount) {
-		StringBuffer bf = new StringBuffer();
-		for (int i = 0; i < valueCount; i++) {
-			if (i > 0) {
-				bf.append("|");
-			}
-
-			bf.append(values[i]);
-		}
-		helper.save(profileId, sensorId, bf.toString());
+		this.serializer.save(sensorId, values, valueCount);
 	}
 
 }

@@ -9,9 +9,9 @@ import java.util.List;
 import android.database.Cursor;
 import android.os.Environment;
 
-public class CsvManager {
+public class DeprecatedCsvManager {
 
-	public static File exportCSV(DataLogger logger, Cursor cursor, String filename) {
+	public static File exportCSV(DeprecatedDataLogger logger, Cursor cursor, String filename) {
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			File path = path();

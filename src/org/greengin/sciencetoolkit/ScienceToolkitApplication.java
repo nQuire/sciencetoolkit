@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit;
 
 
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -19,7 +19,7 @@ public class ScienceToolkitApplication extends Application {
         SettingsManager.init(context);
         SensorWrapperManager.init(context);
         ProfileManager.init(context);
-        DataLogger.init(context);
+        DeprecatedDataLogger.init(context);
         
         VersionManager.check(context);
     }

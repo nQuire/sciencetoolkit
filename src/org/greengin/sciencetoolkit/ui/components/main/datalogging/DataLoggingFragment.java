@@ -8,7 +8,7 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -63,7 +63,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		rootView.findViewById(R.id.data_logging_start).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DataLogger.i().start();
+				DeprecatedDataLogger.i().start();
 				updateButtons(view.getRootView());
 			}
 		});
@@ -71,7 +71,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		rootView.findViewById(R.id.data_logging_stop).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				DataLogger.i().stop();
+				DeprecatedDataLogger.i().stop();
 				updateButtons(view.getRootView());
 			}
 		});
@@ -105,7 +105,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				String profileId = ProfileManager.i().getActiveProfileId();
 
 				if (profile != null) {
-					File exportFile = DataLogger.i().exportData(profileId);
+					File exportFile = DeprecatedDataLogger.i().exportData(profileId);
 					if (exportFile != null) {
 						String exportMsg = String.format(getResources().getString(R.string.export_data_dlg_msg), profile.getString("title"), exportFile.getAbsolutePath());
 						CharSequence styledExportMsg = Html.fromHtml(exportMsg);
@@ -127,7 +127,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							String profileId = ProfileManager.i().getActiveProfileId();
-							DataLogger.i().deleteData(profileId);
+							DeprecatedDataLogger.i().deleteData(profileId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -199,7 +199,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 	}
 
 	private void updateButtons(View rootView) {
-		boolean running = DataLogger.i().isRunning();
+		boolean running = DeprecatedDataLogger.i().isRunning();
 
 		rootView.findViewById(R.id.data_logging_start).setEnabled(!running);
 		rootView.findViewById(R.id.data_logging_stop).setEnabled(running);
@@ -210,7 +210,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 
 		if (ProfileManager.i().getActiveProfileId() != null) {
 			StringBuffer sb = new StringBuffer();
-			Hashtable<String, Integer> dataCount = DataLogger.i().getDetailedSampleCount(ProfileManager.i().getActiveProfileId());
+			Hashtable<String, Integer> dataCount = DeprecatedDataLogger.i().getDetailedSampleCount(ProfileManager.i().getActiveProfileId());
 			if (dataCount.size() == 0) {
 				rootView.findViewById(R.id.profile_data_button_bar).setVisibility(View.GONE);
 				sb.append(getResources().getString(R.string.data_count_none));
@@ -237,8 +237,8 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		
 		SettingsManager.i().registerDirectListener("profiles", this);
 		ProfileManager.i().registerDirectListener(this);
-		DataLogger.i().registerDataListener(this);
-		DataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerDataListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
@@ -246,8 +246,8 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 		super.onPause();
 		SettingsManager.i().unregisterDirectListener("profiles", this);
 		ProfileManager.i().unregisterDirectListener(this);
-		DataLogger.i().unregisterDataListener(this);
-		DataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterDataListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
 	}
 
 	@Override

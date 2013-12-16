@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.ui.components.main.sensorlist.config;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
@@ -45,7 +45,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 		add.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (!DataLogger.i().isRunning()) {
+				if (!DeprecatedDataLogger.i().isRunning()) {
 					showAddToProfileDlg();
 				}
 			}
@@ -71,7 +71,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 		Model profile = ProfileManager.i().getActiveProfile();
 		ProfileManager.i().addSensor(profile, sensorId);
 
-		if (sensorId != null && profile != null && !DataLogger.i().isRunning()) {
+		if (sensorId != null && profile != null && !DeprecatedDataLogger.i().isRunning()) {
 			ProfileManager.i().addSensor(profile, sensorId);
 		}
 	}
@@ -90,7 +90,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		ProfileManager.i().registerUIListener(this);
 		SettingsManager.i().registerUIListener("profiles", this);
-		DataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		ProfileManager.i().unregisterUIListener(this);
 		SettingsManager.i().unregisterUIListener("profiles", this);
-		DataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
 	}
 
 	private void updateSensorInProfileNotice() {
@@ -115,7 +115,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 
 		if (hasSensor && !inProfile) {
 			TextView add = (TextView) root.findViewById(R.id.not_in_profile_notice_add);
-			add.setTextColor(DataLogger.i().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
+			add.setTextColor(DeprecatedDataLogger.i().isRunning() ? getResources().getColor(android.R.color.darker_gray) : getResources().getColor(R.color.value_text));
 		}
 	}
 

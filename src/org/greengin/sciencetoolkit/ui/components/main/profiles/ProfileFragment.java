@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles;
 import java.io.File;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 			@Override
 			public void onClick(View v) {
 				if (profileId != null) {
-					File exportFile = DataLogger.i().exportData(profileId);
+					File exportFile = DeprecatedDataLogger.i().exportData(profileId);
 					if (exportFile != null) {
 						String exportMsg = String.format(getResources().getString(R.string.export_data_dlg_msg), profile.getString("title"), exportFile.getAbsolutePath());
 						CharSequence styledExportMsg = Html.fromHtml(exportMsg);
@@ -112,7 +112,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 					new AlertDialog.Builder(v.getContext()).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.delete_profile_data_dlg_title).setMessage(styledDeleteMsg).setPositiveButton(R.string.delete_dlg_yes, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							DataLogger.i().deleteData(profileId);
+							DeprecatedDataLogger.i().deleteData(profileId);
 						}
 					}).setNegativeButton(R.string.cancel, null).show();
 				}
@@ -156,8 +156,8 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 		SettingsManager.i().registerDirectListener("profiles", this);
 		ProfileManager.i().registerDirectListener(this);
-		DataLogger.i().registerStatusListener(this);
-		DataLogger.i().registerDataListener(this);
+		DeprecatedDataLogger.i().registerStatusListener(this);
+		DeprecatedDataLogger.i().registerDataListener(this);
 	}
 
 	public void onPause() {
@@ -165,8 +165,8 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 
 		SettingsManager.i().unregisterDirectListener("profiles", this);
 		ProfileManager.i().unregisterDirectListener(this);
-		DataLogger.i().unregisterStatusListener(this);
-		DataLogger.i().unregisterDataListener(this);
+		DeprecatedDataLogger.i().unregisterStatusListener(this);
+		DeprecatedDataLogger.i().unregisterDataListener(this);
 	}
 
 	private void updateView() {
@@ -179,7 +179,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	}
 
 	private void updateRadioView(View view) {
-		radio.setEnabled(!DataLogger.i().isRunning());
+		radio.setEnabled(!DeprecatedDataLogger.i().isRunning());
 	}
 
 	private void updateTitleView(View view) {
@@ -193,7 +193,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 			if (ProfileManager.i().profileIdIsActive(this.profileId)) {
 				if (ProfileManager.i().profileIdIsDefault(this.profileId)) {
 					textId = R.string.switch_profile_default_active;
-				} else if (DataLogger.i().isRunning()) {
+				} else if (DeprecatedDataLogger.i().isRunning()) {
 					textId = R.string.switch_profile_running;
 				} else {
 					textId = R.string.switch_profile_active;
@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 	}
 
 	private boolean updateDataCount() {
-		int count = DataLogger.i().getSampleCount(this.profileId);
+		int count = DeprecatedDataLogger.i().getSampleCount(this.profileId);
 		if (count != this.dataCount) {
 			this.dataCount = count;
 			return true;

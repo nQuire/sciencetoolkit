@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.Map.Entry;
 import java.util.Vector;
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.datalogging.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
@@ -143,7 +143,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		super.modelModified(null);
 		listeners.fireEvent("list");
 
-		if (makeActive && !DataLogger.i().isRunning()) {
+		if (makeActive && !DeprecatedDataLogger.i().isRunning()) {
 			switchActiveProfile(newProfile.getString("id"));
 		}
 	}
@@ -151,13 +151,13 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void deleteProfile(String profileId) {
 		this.remove(profileId);
 		listeners.fireEvent("list");
-		DataLogger.i().deleteData(profileId);
+		DeprecatedDataLogger.i().deleteData(profileId);
 	}
 
 	public void switchActiveProfile(String profileId) {
 		if (profileId != null && !profileId.equals(settings.getString("current_profile"))) {
-			if (DataLogger.i().isRunning()) {
-				DataLogger.i().stop();
+			if (DeprecatedDataLogger.i().isRunning()) {
+				DeprecatedDataLogger.i().stop();
 			}
 
 			if (profileIdIsDefault(profileId)) {
@@ -181,14 +181,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void addSensorToActiveProfile(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null) {
-			boolean logging = DataLogger.i().isRunning();
+			boolean logging = DeprecatedDataLogger.i().isRunning();
 
 			if (logging) {
-				DataLogger.i().stop();
+				DeprecatedDataLogger.i().stop();
 			}
 			addSensor(profile, sensorId);
 			if (logging) {
-				DataLogger.i().start();
+				DeprecatedDataLogger.i().start();
 			}
 		}
 	}
@@ -196,14 +196,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void removeSensorFromActiveProfile(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null) {
-			boolean logging = DataLogger.i().isRunning();
+			boolean logging = DeprecatedDataLogger.i().isRunning();
 
 			if (logging) {
-				DataLogger.i().stop();
+				DeprecatedDataLogger.i().stop();
 			}
 			removeSensor(profile, sensorId);
 			if (logging) {
-				DataLogger.i().start();
+				DeprecatedDataLogger.i().start();
 			}
 		}
 	}

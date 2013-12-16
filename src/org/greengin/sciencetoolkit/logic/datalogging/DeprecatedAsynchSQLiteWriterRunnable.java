@@ -5,14 +5,14 @@ import java.util.Vector;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-public class AsynchSQLiteWriterRunnable implements Runnable {
+public class DeprecatedAsynchSQLiteWriterRunnable implements Runnable {
 
 	SQLiteDatabase db;
 	Vector<ProfileSensorTimeValue> pendingValues;
 	Thread thread;
 	DataLoggerDataListener listener;
 
-	public AsynchSQLiteWriterRunnable(SQLiteDatabase db, DataLoggerDataListener listener) {
+	public DeprecatedAsynchSQLiteWriterRunnable(SQLiteDatabase db, DataLoggerDataListener listener) {
 		this.db = db;
 		this.thread = null;
 		this.pendingValues = new Vector<ProfileSensorTimeValue>();
@@ -46,7 +46,7 @@ public class AsynchSQLiteWriterRunnable implements Runnable {
 					profiles.add(v.profileId);
 				}
 
-				db.insert(ScienceToolkitSQLiteOpenHelper.DATA_TABLE_NAME, null, cv);
+				db.insert(DeprecatedScienceToolkitSQLiteOpenHelper.DATA_TABLE_NAME, null, cv);
 			}
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
