@@ -163,6 +163,26 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 
 		return labelView;
 	}
+	
+	public Spinner addOptionSelectByValue(String key, String label, String description, List<String> options, String defaultValue, boolean firstAsEmpty) {
+		Spinner spinner = new Spinner(rootContainer.getContext());
+		spinner.setTag(key);
+
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootContainer.getContext(), android.R.layout.simple_spinner_item, options);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(dataAdapter);
+		String initialValue = model.getString(key, defaultValue);
+		int initialPos = Math.max(0, options.indexOf(initialValue));
+
+		spinner.setSelection(initialPos);
+
+		addRow(label, description, spinner);
+
+		spinner.setOnItemSelectedListener(new ByValueItemSelectedListener(key, options, firstAsEmpty));
+
+		return spinner;
+	}
+
 
 	public Spinner addOptionSelect(String key, String label, String description, List<String> options, int defaultValue) {
 		Spinner spinner = new Spinner(rootContainer.getContext());
@@ -292,5 +312,29 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 	}
 
 	public void modelKeyModified(String widgetTey) {
+	}
+	
+	private class ByValueItemSelectedListener implements OnItemSelectedListener {
+		String key; 
+		List<String> values;
+		boolean firstAsEmpty;
+	
+		public ByValueItemSelectedListener(String key, List<String> values, boolean firstAsEmpty) {
+			this.key = key;
+			this.values = values;
+			this.firstAsEmpty = firstAsEmpty;
+		}
+	
+		@Override
+		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+			String newValue = position == 0 && firstAsEmpty ? "" : values.get(position);
+			if (model.setString(key, newValue)) {
+				modelKeyModified(key);
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0) {
+		}
 	}
 }
