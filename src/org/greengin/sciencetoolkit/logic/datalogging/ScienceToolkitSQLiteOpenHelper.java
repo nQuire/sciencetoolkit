@@ -163,6 +163,11 @@ public class ScienceToolkitSQLiteOpenHelper extends SQLiteOpenHelper {
 		listener.dataLoggerDataModified("all");
 	}
 
+	public Cursor getAllDataCursor() {
+		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, null, null, null, null, null);
+		return cursor;
+	}
+
 	public Cursor getDataCursor(String profileId) {
 		Cursor cursor = getReadableDatabase().query(DATA_TABLE_NAME, DATA_TABLE_QUERY_ALL_COLUMNS, DATA_TABLE_QUERY_WHERE_PROFILE, new String[] { profileId }, null, null, null);
 		return cursor;

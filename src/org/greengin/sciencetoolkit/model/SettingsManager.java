@@ -41,6 +41,10 @@ public class SettingsManager extends AbstractModelManager {
 			}
 		}
 	}
+	
+	public void forceSave() {
+		this.saveNow();
+	}
 
 	public void registerUIListener(String key, ModelNotificationListener listener) {
 		getAggregator(key, true).addUIListener(listener);

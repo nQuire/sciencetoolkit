@@ -12,24 +12,23 @@ import android.app.Activity;
 public abstract class AbstractSensorSettingsFragment extends AbstractSettingsFragment {
 
 	SensorWrapper sensor;
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		sensor = SensorWrapperManager.getInstance().getSensor(getArguments().getString(Arguments.ARG_SENSOR));
 	}
-	
-	
+
 	@Override
 	protected boolean settingsEnabledWhileLoggingData() {
 		Model profile = ProfileManager.i().getActiveProfile();
 		if (profile != null) {
 			Model sensors = profile.getModel("sensors");
 			if (sensors != null) {
-				return sensors.getModel(sensor.getName()) == null;
+				return sensors.getModel(sensor.getId()) == null;
 			}
 		}
-		
+
 		return true;
 	}
 }

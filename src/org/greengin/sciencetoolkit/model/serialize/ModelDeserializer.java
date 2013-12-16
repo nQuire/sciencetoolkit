@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.model.serialize;
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Map.Entry;
+import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
+import android.util.Log;
 
 public class ModelDeserializer {
 	public static Hashtable<String, Model> xml2modelMap(ModelChangeListener listener, ModelVersionManager versionManager, Context applicationContext, String file) {
@@ -32,6 +34,15 @@ public class ModelDeserializer {
 	
 	private static Element loadRootElement(Context applicationContext, String file) throws Exception {
 		File fXmlFile = new File(applicationContext.getFilesDir(), file);
+		Scanner scanner = new Scanner(fXmlFile);
+		try {
+	        while(scanner.hasNextLine()) {       
+	        	Log.d("stk file", scanner.nextLine());
+	        }
+	    } finally {
+	        scanner.close();
+	    }
+		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);

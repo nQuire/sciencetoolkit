@@ -23,7 +23,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	boolean isRegistered;
 
 	public DeviceSensorWrapper(Sensor sensor, SensorManager sensorManager) {
-		super();
+		super(sensor.getType());
 
 		this.sensor = sensor;
 		this.sensorManager = sensorManager;

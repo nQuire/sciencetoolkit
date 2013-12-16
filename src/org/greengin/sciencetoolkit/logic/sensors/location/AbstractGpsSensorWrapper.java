@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.logic.sensors.location;
 
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -29,6 +30,8 @@ public abstract class AbstractGpsSensorWrapper extends SensorWrapper implements 
 	}
 
 	public AbstractGpsSensorWrapper(Context applicationContext) {
+		super (SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION);
+		
 		this.applicationContext = applicationContext;
 		this.locationManager = (LocationManager) applicationContext.getSystemService(Context.LOCATION_SERVICE);
 		this.provider = LocationManager.GPS_PROVIDER;
@@ -36,7 +39,7 @@ public abstract class AbstractGpsSensorWrapper extends SensorWrapper implements 
 		this.minDistance = -1;
 		this.minPeriod = -1;
 		
-		String settingsId = "sensor:" + getName();
+		String settingsId = "sensor:" + getId();
 		this.settings = SettingsManager.i().get(settingsId);
 		this.updateConfig();
 		SettingsManager.i().registerDirectListener(settingsId, this);

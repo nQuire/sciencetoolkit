@@ -80,6 +80,8 @@ public class DataLogger implements DataLoggerDataListener {
 			}
 		};
 	}
+	
+	
 
 	public void registerDataListener(DataLoggerDataListener listener) {
 		listenersLock.lock();
@@ -197,10 +199,21 @@ public class DataLogger implements DataLoggerDataListener {
 	public void deleteData(String profileId) {
 		this.helper.emptyData(profileId);
 	}
+	
+	public int exportAllData() {
+		Cursor cursor = this.helper.getAllDataCursor();
+		if (cursor.getCount() == 0) {
+			return 0;
+		} else {
+			File csv = CsvManager.exportCSV(this, cursor, "science_toolkit_old_data.csv");
+			return csv != null ? 1 : 2;
+		}
+		
+	}
 
 	public File exportData(String profileId) {
 		Cursor cursor = this.helper.getDataCursor(profileId);
-		return CsvManager.exportCSV(this, cursor);
+		return CsvManager.exportCSV(this, cursor, null);
 	}
 
 	private void statusModified() {
@@ -234,4 +247,5 @@ public class DataLogger implements DataLoggerDataListener {
 	public boolean getRange(long[] values, String profileId) {
 		return this.helper.getRange(values, profileId);
 	}
+	
 }

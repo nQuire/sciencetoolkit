@@ -368,6 +368,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	@Override
 	public int getCurrentVersion() {
+		// 1: sensor sample period -> sample rate
 		return 1;
 	}
 
@@ -387,6 +388,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 					sensorModel.clear("period");
 				}
 			}
-		}
+		}		
 	}
 }

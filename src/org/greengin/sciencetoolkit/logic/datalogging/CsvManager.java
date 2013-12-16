@@ -11,15 +11,20 @@ import android.os.Environment;
 
 public class CsvManager {
 
-	public static File exportCSV(DataLogger logger, Cursor cursor) {
+	public static File exportCSV(DataLogger logger, Cursor cursor, String filename) {
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			File path = path();
 			File export = null;
-			for (int i = 0;; i++) {
-				export = new File(path, "science_toolkit_" + i + ".csv");
-				if (!export.exists()) {
-					break;
+
+			if (filename != null) {
+				export = new File(path, filename);
+			} else {
+				for (int i = 0;; i++) {
+					export = new File(path, "science_toolkit_" + i + ".csv");
+					if (!export.exists()) {
+						break;
+					}
 				}
 			}
 

@@ -4,6 +4,16 @@ import org.greengin.sciencetoolkit.logic.streams.DataOutput;
 
 public abstract class SensorWrapper extends DataOutput {
 	
+	private String id;
+	
+	public SensorWrapper(int type) {
+		this.id = SensorWrapperManager.getInstance().getId(type);
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
 	public boolean isEnabled() {
 		return this.hasInputs();
 	}

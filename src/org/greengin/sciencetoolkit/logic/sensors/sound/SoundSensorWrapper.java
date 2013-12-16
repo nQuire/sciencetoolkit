@@ -27,10 +27,12 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 	float[] values;
 
 	public SoundSensorWrapper(Context applicationContext) {
+		super (SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND);
+		
 		this.runnable = new SoundSensorRunnable(applicationContext);
 		this.runnable.setFreq(44100);
 		
-		this.settingsId = "sensor:" + getName();
+		this.settingsId = "sensor:" + getId();
 		
 		this.settings = SettingsManager.i().get(settingsId);
 		this.runnable.setLength(settings.getInt("record_period", ModelDefaults.SOUND_SENSOR_PERIOD));

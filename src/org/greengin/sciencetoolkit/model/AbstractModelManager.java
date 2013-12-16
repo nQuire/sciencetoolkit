@@ -9,7 +9,6 @@ import org.greengin.sciencetoolkit.model.serialize.ModelDeserializer;
 import org.greengin.sciencetoolkit.model.serialize.ModelSerializer;
 import org.greengin.sciencetoolkit.model.serialize.ModelVersionManager;
 
-
 import android.content.Context;
 
 public abstract class AbstractModelManager implements ModelChangeListener, ModelVersionManager {
@@ -32,6 +31,10 @@ public abstract class AbstractModelManager implements ModelChangeListener, Model
 
 	private void load() {
 		items = ModelDeserializer.xml2modelMap(this, this, applicationContext, filename);
+	}
+
+	protected void saveNow() {
+		this.save();
 	}
 
 	private void save() {

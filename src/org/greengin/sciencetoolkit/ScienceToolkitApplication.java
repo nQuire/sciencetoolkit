@@ -20,6 +20,8 @@ public class ScienceToolkitApplication extends Application {
         SensorWrapperManager.init(context);
         ProfileManager.init(context);
         DataLogger.init(context);
+        
+        VersionManager.check(context);
     }
     
 }
