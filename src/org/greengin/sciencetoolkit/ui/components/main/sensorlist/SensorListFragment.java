@@ -84,7 +84,7 @@ public class SensorListFragment extends ParentListFragment implements ModelNotif
 
 		Model showSensors = SettingsManager.get().get("sensor_list");
 
-		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
+		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
 			if (showSensors.getBool(sensorId, true)) {
 				SensorFragment fragment = new SensorFragment();
 				Bundle args = new Bundle();

@@ -16,7 +16,7 @@ public class LivePlotSettingsFragment extends AbstractSettingsFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		sensor = SensorWrapperManager.getInstance().getSensor(getArguments().getString(Arguments.ARG_SENSOR));
+		sensor = SensorWrapperManager.get().getSensor(getArguments().getString(Arguments.ARG_SENSOR));
 	}
 
 	@Override

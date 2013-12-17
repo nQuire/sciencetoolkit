@@ -13,6 +13,8 @@ import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.CreateProfileDialogFragment;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.files.FileManagementActivity;
+import org.greengin.sciencetoolkit.ui.remote.RemoteCapableActivity;
+import org.greengin.sciencetoolkit.ui.remote.TestRemoteAction;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,6 +23,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,8 +39,10 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 	public static final String REQUEST_SELECTED_PROFILE = "REQUEST_SELECTED_PROFILE";
 
-	LinearLayout buttonBar;
-	Button switchProfile;
+	LinearLayout switchButtonBar;
+	Button switchButton;
+	LinearLayout updateButtonBar;
+	Button updateButton;
 
 	BroadcastReceiver requestReceiver;
 	Vector<ProfileFragment> profileFragments;
@@ -67,15 +72,23 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 		View rootView = inflater.inflate(R.layout.fragment_profile_list, container, false);
 
-		buttonBar = (LinearLayout) rootView.findViewById(R.id.switch_profile_button_bar);
-		
-		switchProfile = (Button) rootView.findViewById(R.id.switch_profile);
-		switchProfile.setOnClickListener(new OnClickListener() {
+		switchButtonBar = (LinearLayout) rootView.findViewById(R.id.switch_profile_button_bar);
+		switchButton = (Button) rootView.findViewById(R.id.switch_profile);
+		switchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (!DataLogger.get().isRunning()) {
 					ProfileManager.get().switchActiveProfile(selectedProfile);
 				}
+			}
+		});
+		updateButtonBar = (LinearLayout) rootView.findViewById(R.id.update_remote_profiles_button_bar);
+		updateButton = (Button) rootView.findViewById(R.id.update_remote_profiles);
+		updateButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d("stk update", "test");
+				((RemoteCapableActivity)getActivity()).remoteRequest(new TestRemoteAction());
 			}
 		});
 
@@ -91,7 +104,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 
 		LocalBroadcastManager.getInstance(getActivity()).registerReceiver(requestReceiver, new IntentFilter(REQUEST_SELECTED_PROFILE));
 		SettingsManager.get().registerDirectListener("profiles", this);
-		ProfileManager.get().registerDirectListener(this);
+		ProfileManager.get().registerUIListener(this);
 		DataLogger.get().registerStatusListener(this);
 	}
 
@@ -99,7 +112,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 	public void onPause() {
 		super.onPause();
 		DataLogger.get().unregisterStatusListener(this);
-		ProfileManager.get().unregisterDirectListener(this);
+		ProfileManager.get().unregisterUIListener(this);
 		SettingsManager.get().unregisterDirectListener("profiles", this);
 		LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(requestReceiver);
 	}
@@ -109,14 +122,14 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		if ("list".equals(msg)) {
 			updateView();
 		} else if ("profiles".equals(msg)) {
-			updateSwitchButton();
+			updateButtonBars();
 		}
 	}
 
 	private void updateView() {
 		setSelectedProfile(ProfileManager.get().getActiveProfileId(), false);
 		updateChildrenList();
-		updateSwitchButton();
+		updateButtonBars();
 	}
 
 	private void updateSelectedChild() {
@@ -176,7 +189,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		if (!profileId.equals(selectedProfile)) {
 			this.selectedProfile = profileId;
 			
-			updateSwitchButton();
+			updateButtonBars();
 			
 			if (updateChildren) {
 				updateSelectedChild();
@@ -184,22 +197,25 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 		}
 	}
 	
-	private void updateSwitchButton() {
+	private void updateButtonBars() {
 		boolean showButtonBar = !DataLogger.get().isRunning() && this.selectedProfile != null && !this.selectedProfile.equals(ProfileManager.get().getActiveProfileId());
 		 
-		LayoutParams lp = buttonBar.getLayoutParams();
-		lp.height = showButtonBar ? LayoutParams.WRAP_CONTENT : 0;
+		LayoutParams switchlp = switchButtonBar.getLayoutParams();
+		LayoutParams updatelp = updateButtonBar.getLayoutParams();
 		if (showButtonBar) {
-			lp.height = LayoutParams.WRAP_CONTENT;
-			switchProfile.setText(ProfileManager.get().profileIdIsDefault(this.selectedProfile) ? R.string.switch_profile_to_default : R.string.switch_profile);
+			switchlp.height = LayoutParams.WRAP_CONTENT;
+			switchButton.setText(ProfileManager.get().profileIdIsDefault(this.selectedProfile) ? R.string.switch_profile_to_default : R.string.switch_profile);
+			updatelp.height = 0;
 		} else {
-			lp.height = 0;
+			switchlp.height = 0;
+			updatelp.height = LayoutParams.WRAP_CONTENT;
 		}
-		buttonBar.setLayoutParams(lp);		
+		switchButtonBar.setLayoutParams(switchlp);		
+		updateButtonBar.setLayoutParams(updatelp);		
 	}
 
 	@Override
 	public void dataLoggerStatusModified() {
-		updateSwitchButton();
+		updateButtonBars();
 	}
 }

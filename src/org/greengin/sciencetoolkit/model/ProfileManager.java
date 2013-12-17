@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.model;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Vector;
 
@@ -9,6 +10,8 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.Log;
@@ -52,7 +55,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 		};
 
-		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
+		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
 			SettingsManager.get().registerDirectListener("sensor:" + sensorId, sensorListener);
 		}
 
@@ -182,44 +185,56 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		Model profile = getActiveProfile();
 		if (profile != null) {
 			/*
-			boolean logging = DeprecatedDataLogger.i().isRunning();
-			if (logging) {
-				DeprecatedDataLogger.i().stop();
-			}*/
-			
-			
+			 * boolean logging = DeprecatedDataLogger.i().isRunning(); if
+			 * (logging) { DeprecatedDataLogger.i().stop(); }
+			 */
+
 			addSensor(profile, sensorId);
-			
-			/*if (logging) {
-				DeprecatedDataLogger.i().start();
-			}*/
+
+			/*
+			 * if (logging) { DeprecatedDataLogger.i().start(); }
+			 */
 		}
 	}
 
 	public void removeSensorFromActiveProfile(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null) {
-			
-			/*boolean logging = DeprecatedDataLogger.i().isRunning();
-			if (logging) {
-				DeprecatedDataLogger.i().stop();
-			}*/
-			
+
+			/*
+			 * boolean logging = DeprecatedDataLogger.i().isRunning(); if
+			 * (logging) { DeprecatedDataLogger.i().stop(); }
+			 */
+
 			removeSensor(profile, sensorId);
-			
-			/*if (logging) {
-				DeprecatedDataLogger.i().start();
-			}*/
+
+			/*
+			 * if (logging) { DeprecatedDataLogger.i().start(); }
+			 */
 		}
 	}
 
-	public void addSensor(Model profile, String sensorId, boolean suppressSave) {
+	public Model addSensor(Model profile, String sensorId, boolean suppressSave) {
+		Model profileSensors = profile.getModel("sensors", true, true);
+		String id = null;
+		for (int i = 0;; i++) {
+			id = String.valueOf(i);
+			if (profileSensors.getModel(id) == null) {
+				break;
+			}
+		}
+
+		return addSensor(profileSensors, id, sensorId, suppressSave);
+	}
+
+	public Model addSensor(Model profile, String profileSensorId, String sensorId, boolean suppressSave) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		int weight = profileSensors.getModels().size();
 
-		if (!profileSensors.containsKey(sensorId)) {
-			Model profileSensor = profileSensors.getModel(sensorId, true, true);
-			profileSensor.setString("id", sensorId, true);
+		if (!sensorInProfile(sensorId, profile)) {
+			Model profileSensor = profileSensors.getModel(profileSensorId, true, true);
+			profileSensor.setString("id", profileSensorId, true);
+			profileSensor.setString("sensorid", sensorId, true);
 			profileSensor.setInt("weight", weight, true);
 			Model sensorSettings = SettingsManager.get().get("sensor:" + sensorId);
 			Model profileSensorSettings = profileSensor.getModel("sensor_settings", true, true);
@@ -228,6 +243,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			if (!suppressSave) {
 				this.modelModified(profile);
 			}
+
+			return profileSensor;
+		} else {
+			return null;
 		}
 	}
 
@@ -246,8 +265,12 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	public void removeSensor(Model profile, String sensorId) {
-		Model profileSensors = profile.getModel("sensors", true, true);
-		profileSensors.clear(sensorId);
+		Model profileSensors = profile.getModel("sensors", true);
+		for (Model profileSensor : profileSensors.getModels()) {
+			if (sensorId.equals(profileSensor.getString("sensorid"))) {
+				profileSensors.clear(profileSensor.getString("id"));
+			}
+		}
 	}
 
 	public Model get(String key) {
@@ -286,7 +309,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	public boolean sensorInProfile(String sensorId, Model profile) {
-		return sensorId != null && profile != null && profile.getModel("sensors", true).getModel(sensorId) != null;
+		if (sensorId != null && profile != null) {
+			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
+				if (sensorId.equals(profileSensor.getString("sensorid"))) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -321,7 +351,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		if (profile != null) {
 			boolean modified = false;
 			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
-				String sensorId = profileSensor.getString("id");
+				String sensorId = profileSensor.getString("sensorid");
 
 				Model profileSensorSettings = profileSensor.getModel("sensor_settings");
 				Model globalSensorSettings = SettingsManager.get().get("sensor:" + sensorId);
@@ -371,6 +401,64 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		listeners.removeDirectListener(listener);
 	}
 
+	public void updateRemoteProfiles(JSONObject remoteData) {
+		try {
+			if (remoteData.getBoolean("ok")) {
+				Log.d("stk remote update", "ok!");
+				JSONObject jprojects = remoteData.getJSONObject("projects");
+				Iterator<?> prjit = jprojects.keys();
+				while (prjit.hasNext()) {
+					String prjkey = (String) prjit.next();
+					Log.d("stk remote update", "project: " + prjkey);
+					JSONObject jprj = jprojects.getJSONObject(prjkey);
+					Iterator<?> prfit = jprj.keys();
+					while (prfit.hasNext()) {
+						String prfkey = (String) prfit.next();
+						JSONObject jprf = jprj.getJSONObject(prfkey);
+
+						String title = jprf.getString("title");
+						int seriesCount = jprf.getInt("series_count");
+
+						Log.d("stk remote update", "profile: " + prfkey + " " + title + " " + seriesCount);
+
+						String profileId = String.format("r.%s.%s", prjkey, prfkey);
+
+						Model profile = get(profileId);
+						if (profile == null) {
+							profile = createEmptyProfile(profileId);
+						}
+						profile.setString("title", title, true);
+						profile.setBool("is_remote", true);
+
+						JSONObject inputs = jprf.getJSONObject("inputs");
+						Iterator<?> inpit = inputs.keys();
+						profile.clear("sensors", true);
+
+						while (inpit.hasNext()) {
+							String inpkey = (String) inpit.next();
+							JSONObject jinp = inputs.getJSONObject(inpkey);
+							double rate = jinp.getDouble("rate");
+							String sensorType = jinp.getString("sensor");
+
+							Log.d("stk remote update", "input: " + inpkey + " " + sensorType + " " + rate);
+							String sensorId = sensorType + ":0";
+							if (SensorWrapperManager.get().getSensors().containsKey(sensorId)) {
+								Model profileSensor = addSensor(profile, inpkey, sensorId, true);
+								profileSensor.setDouble("sample_rate", rate, true);
+							}
+						}
+					}
+				}
+
+				this.saveNow();
+				listeners.fireEvent("list");
+			}
+		} catch (JSONException e) {
+			Log.d("stk remote update", e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public int getCurrentVersion() {
 		// 1: sensor sample period -> sample rate
@@ -393,6 +481,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 					sensorModel.clear("period");
 				}
 			}
-		}		
+		}
 	}
 }

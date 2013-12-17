@@ -142,17 +142,18 @@ public class DataLogger {
 				
 				series = fileManager.startNewSeries(profileId);
 				File file = fileManager.getCurrentSeriesFile(profileId);
-				serializer.open(file);
+				serializer.open(file, profile);
 				
 				for (Model profileSensor : sensors) {
-					String sensorId = profileSensor.getString("id");
-					SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+					String profileSensorId = profileSensor.getString("id");
+					String sensorId = profileSensor.getString("sensorid");
+					SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 					int period = ModelOperations.rate2period(profileSensor, "sample_rate", ModelDefaults.DATA_LOGGING_RATE, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
 
 					if (sensor != null) {
 						DataPipe pipe = new DataPipe(sensor);
 						pipe.addFilter(new FixedRateDataFilter(period));
-						pipe.setEnd(new DataLoggingInput(profileId, sensorId, serializer));
+						pipe.setEnd(new DataLoggingInput(profileId, profileSensorId, sensorId, serializer));
 						pipes.add(pipe);
 					}
 				}
@@ -206,6 +207,7 @@ public class DataLogger {
 
 	public void deleteData(String profileId) {
 		this.fileManager.deleteSeries(profileId);
+		this.fireStatusModified();
 	}
 	
 	

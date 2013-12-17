@@ -21,17 +21,18 @@ public class ProfileSensorSettingsActivity extends SettingsControlledActivity {
 		setContentView(R.layout.activity_profile_sensor_settings);
 		
 		String profileId = this.getIntent().getExtras().getString(Arguments.ARG_PROFILE);
-		String sensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
+		String profileSensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
 		
 		Model profile = ProfileManager.get().get(profileId);
+		Model profileSensor = profile.getModel("sensors").getModel(profileSensorId);
 		
-		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+		SensorWrapper sensor = SensorWrapperManager.get().getSensor(profileSensor.getString("sensorid"));
 
 		if (sensor != null) {
 			TextView sensorNameView = (TextView)getWindow().getDecorView().findViewById(R.id.profile_sensor_name);
 			sensorNameView.setText(profile.getString("title") + " / " + sensor.getName());
-			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_period_settings, new String[]{"period", profileId, sensorId});
-			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_settings, new String[]{"sensor", profileId, sensorId});
+			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_period_settings, new String[]{"period", profileId, profileSensorId});
+			ProfileModelFragmentManager.insert(getSupportFragmentManager(), R.id.profile_sensor_settings, new String[]{"sensor", profileId, profileSensorId});
 		}
 	}
 	

@@ -9,6 +9,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -230,7 +231,7 @@ public class DataLoggingFragment extends ParentListFragment implements ModelNoti
 				for (Entry<String, Integer> entry : dataCount.entrySet()) {
 					int count = entry.getValue();
 					String text = count == 1 ? getResources().getString(R.string.data_count_one) : String.format(getResources().getString(R.string.data_count_many), count);
-					sb.append(entry.getKey()).append(": ").append(text).append("\n");
+					sb.append(SensorWrapperManager.get().getSensor(entry.getKey()).getName()).append(": ").append(text).append("\n");
 				}
 			}
 

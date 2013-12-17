@@ -32,7 +32,7 @@ public class SensorSettingsActivity extends SettingsControlledActivity implement
 		setContentView(R.layout.activity_sensor_settings);
 
 		sensorId = this.getIntent().getExtras().getString(Arguments.ARG_SENSOR);
-		SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+		SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 		if (sensor != null) {
 			TextView sensorNameView = (TextView) getWindow().getDecorView().findViewById(R.id.sensor_name);
 			sensorNameView.setText(sensor.getName());

@@ -5,24 +5,45 @@
     tools:context=".ProfileListFragment" >
 
     <LinearLayout
-        android:id="@+id/switch_profile_button_bar"
+        android:id="@+id/button_bar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
+        android:orientation="vertical"  >
 
-        <Button
-            android:id="@+id/switch_profile"
+        <LinearLayout
+            android:id="@+id/switch_profile_button_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/switch_profile" />
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/switch_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/switch_profile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/update_remote_profiles_button_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/update_remote_profiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/update_remote_profiles" />
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@id/switch_profile_button_bar"
+        android:layout_above="@id/button_bar_container"
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 

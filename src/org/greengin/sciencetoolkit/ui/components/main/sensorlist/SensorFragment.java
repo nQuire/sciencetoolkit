@@ -61,7 +61,7 @@ public class SensorFragment extends Fragment {
 		super.onAttach(activity);
 
 		this.sensorId = getArguments().getString(Arguments.ARG_SENSOR);
-		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
+		this.sensor = SensorWrapperManager.get().getSensor(this.sensorId);
 
 		this.showValue = false;
 

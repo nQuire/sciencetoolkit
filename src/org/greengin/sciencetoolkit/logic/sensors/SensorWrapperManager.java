@@ -19,7 +19,7 @@ public class SensorWrapperManager {
 
 	private static SensorWrapperManager instance;
 
-	public static SensorWrapperManager getInstance() {
+	public static SensorWrapperManager get() {
 		return instance;
 	}
 

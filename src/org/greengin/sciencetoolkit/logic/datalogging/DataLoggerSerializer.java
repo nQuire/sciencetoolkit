@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.model.Model;
+
 public class DataLoggerSerializer {
 	
 	BufferedWriter writer;
@@ -18,10 +22,19 @@ public class DataLoggerSerializer {
 		this.manager = manager;
 	}
 	
-	public boolean open(File file) {
+	public boolean open(File file, Model profile) {
 		try {
 			count.clear();
+			
 			this.writer = new BufferedWriter(new FileWriter(file));
+			this.writer.write(String.format("# profile: %s\n", profile.getString("id")));
+			
+			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
+				String sensorId = profileSensor.getString("sensorid");
+				SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
+				this.writer.write(String.format("# sensor: %s %s %s", profileSensor.getString("id"), sensorId, sensor.getName()));
+			}
+			
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -37,10 +50,10 @@ public class DataLoggerSerializer {
 		}
 	}
 	
-	public void save(String sensorId, float[] values, int valueCount) {
+	public void save(String sensorId, String sensorProfileId, float[] values, int valueCount) {
 		long t = System.currentTimeMillis();
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(sensorId).append(',').append(t);
+		buffer.append(sensorProfileId).append(',').append(t);
 		for (int i = 0; i < valueCount; i++) {
 			buffer.append(',').append(values[i]);
 		}

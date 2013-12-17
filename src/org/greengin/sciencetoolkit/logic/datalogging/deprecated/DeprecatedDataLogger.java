@@ -149,7 +149,7 @@ public class DeprecatedDataLogger implements DataLoggerDataListener {
 
 				for (Model profileSensor : sensors) {
 					String sensorId = profileSensor.getString("id");
-					SensorWrapper sensor = SensorWrapperManager.getInstance().getSensor(sensorId);
+					SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 					int period = ModelOperations.rate2period(profileSensor, "sample_rate", ModelDefaults.DATA_LOGGING_RATE, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
 
 					if (sensor != null) {

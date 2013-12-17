@@ -9,7 +9,7 @@ public class SensorListSettingsFragment extends AbstractSettingsFragment {
 
 	@Override
 	protected void createConfigOptions(View view) {
-		for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
+		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
 			addOptionCheckbox(sensorId, "Show " + sensorId, null, true);
 		}
 	}

@@ -7,7 +7,7 @@ public abstract class SensorWrapper extends DataOutput {
 	private String id;
 	
 	public SensorWrapper(int type) {
-		this.id = SensorWrapperManager.getInstance().getId(type);
+		this.id = SensorWrapperManager.get().getId(type);
 	}
 	
 	public String getId() {

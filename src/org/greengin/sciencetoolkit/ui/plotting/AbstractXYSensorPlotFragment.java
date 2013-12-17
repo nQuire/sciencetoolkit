@@ -51,7 +51,7 @@ public abstract class AbstractXYSensorPlotFragment extends Fragment {
 		super.onAttach(activity);
 
 		this.sensorId = getArguments().getString(Arguments.ARG_SENSOR);
-		this.sensor = SensorWrapperManager.getInstance().getSensor(this.sensorId);
+		this.sensor = SensorWrapperManager.get().getSensor(this.sensorId);
 		
 		fetchSettings();
 		createSeries();

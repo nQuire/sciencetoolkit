@@ -25,7 +25,7 @@ public class VersionManager {
 			// update ids
 
 			HashMap<String, String> nameIds = new HashMap<String, String>();
-			for (Entry<String, SensorWrapper> entry : SensorWrapperManager.getInstance().getSensors().entrySet()) {
+			for (Entry<String, SensorWrapper> entry : SensorWrapperManager.get().getSensors().entrySet()) {
 				nameIds.put(entry.getValue().getName(), entry.getKey());
 				Log.d("stk version", entry.getValue().getName() + " > " + entry.getKey());
 
@@ -65,6 +65,28 @@ public class VersionManager {
 				toast.show();
 			}
 		}
+
+		if (currentVersion < 2) {
+			for (String profileId : ProfileManager.get().getProfileIds()) {
+				Model profile = ProfileManager.get().get(profileId);
+				Model sensors = profile.getModel("sensors");
+
+				int i = 0;
+				for (Model oldSensor : sensors.getModels()) {
+					String oldId = oldSensor.getString("id");
+					String newId = String.valueOf(i++);
+					Log.d("stk version", profileId + " " + oldId + " > " + newId);
+					Model newSensor = oldSensor.cloneModel(sensors);
+					newSensor.setString("id", newId);
+					newSensor.setString("sensorid", oldId);
+					sensors.setModel(newId, newSensor);
+					sensors.clear(oldId);
+				}
+			}
+
+		}
+
+		settings.setInt("datamodel", 2);
 
 		SettingsManager.get().forceSave();
 	}

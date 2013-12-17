@@ -42,16 +42,13 @@ public class AddSensorDialogFragment extends DialogFragment implements OnChecked
 
 			chosen = new Vector<String>();
 
-			Model sensorsInProfile = profile.getModel("sensors");
-			for (String sensorId : SensorWrapperManager.getInstance().getSensorsIds()) {
-				if (sensorsInProfile == null || sensorsInProfile.getModel(sensorId) == null) {
-
+			for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
+				if (ProfileManager.get().sensorInProfile(sensorId, profile)) {
 					CheckBox checkbox = new CheckBox(view.getContext());
 					checkbox.setChecked(false);
 					checkbox.setTag(sensorId);
 					checkbox.setText(sensorId);
 					checkbox.setOnCheckedChangeListener(this);
-
 					ll.addView(checkbox);
 				}
 			}

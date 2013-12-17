@@ -154,7 +154,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		updateView();
 
 		SettingsManager.get().registerDirectListener("profiles", this);
-		ProfileManager.get().registerDirectListener(this);
+		ProfileManager.get().registerUIListener(this);
 		DataLogger.get().registerStatusListener(this);
 	}
 
@@ -162,7 +162,7 @@ public class ProfileFragment extends Fragment implements DataLoggerStatusListene
 		super.onPause();
 
 		SettingsManager.get().unregisterDirectListener("profiles", this);
-		ProfileManager.get().unregisterDirectListener(this);
+		ProfileManager.get().unregisterUIListener(this);
 		DataLogger.get().unregisterStatusListener(this);
 	}
 

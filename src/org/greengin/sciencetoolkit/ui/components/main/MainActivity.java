@@ -1,10 +1,10 @@
 package org.greengin.sciencetoolkit.ui.components.main;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.DataLoggingFragment;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.ProfileListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.sensorlist.SensorListFragment;
+import org.greengin.sciencetoolkit.ui.remote.RemoteCapableActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 
-public class MainActivity extends SettingsControlledActivity implements ActionBar.TabListener {
+public class MainActivity extends RemoteCapableActivity implements ActionBar.TabListener {
 
 	private static int mLastTab = -1;
 	/**

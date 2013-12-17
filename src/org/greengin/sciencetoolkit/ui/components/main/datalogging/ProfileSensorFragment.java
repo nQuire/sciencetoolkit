@@ -52,7 +52,7 @@ public class ProfileSensorFragment extends Fragment {
 			this.sensor = null;
 			this.sensorType = -1;
 		} else {
-			this.sensor = SensorWrapperManager.getInstance().getSensor(this.profileSensor.getString("id", null));
+			this.sensor = SensorWrapperManager.get().getSensor(this.profileSensor.getString("sensorid", null));
 			if (this.sensor != null) {
 				this.sensorType = this.sensor.getType();
 			} else {

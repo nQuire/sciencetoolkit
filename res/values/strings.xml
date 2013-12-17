@@ -72,6 +72,7 @@
     <string name="title_activity_series_view">Logged series</string>
     <string name="title_activity_data_view">View my data</string>
     <string name="title_activity_file_management">Manage CVS files</string>
+    <string name="update_remote_profiles">Update remote profiles</string>
     <string name="switch_profile">Switch profile</string>
     <string name="switch_profile_to_default">Switch to default</string>
     <string name="switch_profile_inactive"></string>

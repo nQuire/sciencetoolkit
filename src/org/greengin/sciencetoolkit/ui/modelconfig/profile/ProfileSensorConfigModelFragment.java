@@ -14,8 +14,10 @@ public class ProfileSensorConfigModelFragment extends AbstractProfileConfigFragm
 	@Override
 	protected Model fetchProfileConfigModel() {
 		String profileSensorId = arguments[2];
-		sensor = SensorWrapperManager.getInstance().getSensor(profileSensorId);
-		return profile.getModel("sensors").getModel(profileSensorId).getModel("sensor_settings", true);
+		Model profileSensor = profile.getModel("sensors").getModel(profileSensorId);
+				
+		sensor = SensorWrapperManager.get().getSensor(profileSensor.getString("sensorid"));
+		return profileSensor.getModel("sensor_settings", true);
 	}
 
 	@Override
