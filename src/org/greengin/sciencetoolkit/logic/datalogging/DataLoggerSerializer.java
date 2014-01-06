@@ -32,7 +32,7 @@ public class DataLoggerSerializer {
 			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
 				String sensorId = profileSensor.getString("sensorid");
 				SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
-				this.writer.write(String.format("# sensor: %s %s %s", profileSensor.getString("id"), sensorId, sensor.getName()));
+				this.writer.write(String.format("# sensor: %s %s %s\n", profileSensor.getString("id"), sensorId, sensor.getName()));
 			}
 			
 			return true;

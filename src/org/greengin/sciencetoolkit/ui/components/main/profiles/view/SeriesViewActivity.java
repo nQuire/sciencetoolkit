@@ -3,8 +3,6 @@ package org.greengin.sciencetoolkit.ui.components.main.profiles.view;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.SettingsControlledActivity;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedVisualizationConfigFragment;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedVisualizationContainerFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

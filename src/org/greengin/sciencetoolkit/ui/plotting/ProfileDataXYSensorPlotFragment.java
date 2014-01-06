@@ -1,12 +1,9 @@
 package org.greengin.sciencetoolkit.ui.plotting;
 
 
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.ui.Arguments;
-
-import android.database.Cursor;
 
 public class ProfileDataXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 

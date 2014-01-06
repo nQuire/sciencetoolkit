@@ -17,6 +17,7 @@ public abstract class AbstractSensorSettingsFragment extends AbstractSettingsFra
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		sensor = SensorWrapperManager.get().getSensor(getArguments().getString(Arguments.ARG_SENSOR));
+		return;
 	}
 
 	@Override

@@ -10,7 +10,6 @@ import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener
 import org.greengin.sciencetoolkit.ui.Arguments;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.edit.ProfileEditActivity;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.view.SeriesViewActivity;
-import org.greengin.sciencetoolkit.ui.components.main.profiles.view.deprecated.DeprecatedDataViewActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;

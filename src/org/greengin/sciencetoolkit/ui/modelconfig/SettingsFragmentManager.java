@@ -16,7 +16,7 @@ import android.support.v4.app.FragmentManager;
 public class SettingsFragmentManager {
 
 	public static void insert(FragmentManager manager, int container, String settingsId) {
-		String[] parts = settingsId.split(":");
+		String[] parts = settingsId.split(":", 2);
 		insert(manager, container, parts[0], settingsId);
 	}
 
@@ -30,8 +30,8 @@ public class SettingsFragmentManager {
 	public static AbstractSettingsFragment get(String fragmentType, String settingsId) {
 		AbstractSettingsFragment fragment = null;
 
-		int sensorArg = 0;
-		int profileArg = 0;
+		boolean sensorArg = false;
+		boolean profileArg = false;
 
 		if (fragmentType != null) {
 			if (fragmentType.equals("app")) {
@@ -41,26 +41,26 @@ public class SettingsFragmentManager {
 				fragment = new SensorListSettingsFragment();
 
 			} else if (fragmentType.equals("sensor")) {
-				sensorArg = 1;
+				sensorArg = true;
 				fragment = new SensorSettingsFragment();
 
 			} else if (fragmentType.equals("liveview")) {
 				fragment = new LiveViewSettingsFragment();
 
 			} else if (fragmentType.equals("liveplot")) {
-				sensorArg = 1;
+				sensorArg = true;
 				fragment = new LivePlotSettingsFragment();
 
 			} else if (fragmentType.equals("profile_data_visualization")) {
-				profileArg = 1;
+				profileArg = true;
 				fragment = new ProfileDataVisualizationSettingsFragment();
 
 			} else if (fragmentType.equals("profile_data_range")) {
-				profileArg = 1;
+				profileArg = true;
 				fragment = new ProfileDataRangeSettingsFragment();
 
 			} else if (fragmentType.equals("profile_data_variables")) {
-				profileArg = 1;
+				profileArg = true;
 
 			}
 
@@ -68,12 +68,10 @@ public class SettingsFragmentManager {
 				Bundle args = new Bundle();
 				args.putString(Arguments.ARG_SETTINGS, settingsId);
 
-				if (sensorArg > 0) {
-					args.putString(Arguments.ARG_SENSOR, getKeyParam(settingsId, sensorArg));
-				}
-
-				if (profileArg > 0) {
-					args.putString(Arguments.ARG_PROFILE, getKeyParam(settingsId, profileArg));
+				if (sensorArg) {
+					args.putString(Arguments.ARG_SENSOR, getKeyParam(settingsId));
+				} else if (profileArg) {
+					args.putString(Arguments.ARG_PROFILE, getKeyParam(settingsId));
 				}
 
 				fragment.setArguments(args);
@@ -83,8 +81,8 @@ public class SettingsFragmentManager {
 		return fragment;
 	}
 
-	private static String getKeyParam(String key, int index) {
-		String[] parts = key.split(":");
-		return parts.length > index ? parts[index] : null;
+	private static String getKeyParam(String key) {
+		String[] parts = key.split(":", 2);
+		return parts.length > 1 ? parts[1] : null;
 	}
 }

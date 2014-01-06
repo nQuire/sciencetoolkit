@@ -22,4 +22,13 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/series_list_item_title" />
 
+    <ImageButton
+        android:id="@+id/series_data_export"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_action_save" />
+
 </RelativeLayout>
