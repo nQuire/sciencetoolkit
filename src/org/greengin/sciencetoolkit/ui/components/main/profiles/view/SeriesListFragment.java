@@ -15,6 +15,8 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.remote.RemoteCapableActivity;
+import org.greengin.sciencetoolkit.ui.remote.UploadRemoteAction;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -39,7 +41,6 @@ public class SeriesListFragment extends Fragment implements DataLoggerStatusList
 	SeriesAdapter adapter;
 	SimpleDateFormat sdf;
 	String profileId;
-	Model profile;
 	boolean isRemote;
 	OnClickListener uploadListener;
 	OnClickListener exportListener;
@@ -49,8 +50,7 @@ public class SeriesListFragment extends Fragment implements DataLoggerStatusList
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.profileId = getArguments().getString(Arguments.ARG_PROFILE);
-		this.profile = ProfileManager.get().get(this.profileId);
-		this.isRemote = profile.getBool("is_remote");
+		this.isRemote = ProfileManager.get().get(this.profileId).getBool("is_remote");
 
 		this.sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", getResources().getConfiguration().locale);
 		this.exportListener = new OnClickListener() {
@@ -125,11 +125,13 @@ public class SeriesListFragment extends Fragment implements DataLoggerStatusList
 	}
 
 	private void uploadSeries(File series) {
-		if (isRemote) {
-
+		if (isRemote && !DataLogger.get().isSent(profileId, series)) {
+			UploadRemoteAction action = new UploadRemoteAction(profileId, series);
+			((RemoteCapableActivity) getActivity()).remoteRequest(action);
 		}
 	}
-
+	
+	
 	private void deleteSeries(File series) {
 
 		String deleteMsg = String.format(getResources().getString(R.string.series_delete_dlg_msg), series.getName());
@@ -224,6 +226,8 @@ public class SeriesListFragment extends Fragment implements DataLoggerStatusList
 			if (isRemote) {
 				upload.setVisibility(View.VISIBLE);
 				upload.setTag(f);
+				boolean sent = DataLogger.get().isSent(profileId, f);
+				upload.setEnabled(!sent);
 			} else {
 				upload.setVisibility(View.GONE);
 			}

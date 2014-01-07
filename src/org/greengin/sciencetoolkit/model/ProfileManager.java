@@ -450,7 +450,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 					}
 				}
 
-				this.saveNow();
+				this.forceSave();
 				listeners.fireEvent("list");
 			}
 		} catch (JSONException e) {

@@ -203,56 +203,44 @@ public class RemoteApi implements ModelNotificationListener {
 			try {
 				HttpRequestBase[] requests = action.createRequests(REMOTE_REQUEST_URL);
 				for (int i = 0; i < requests.length; i++) {
+					action.aboutToRun(i);
 					HttpResponse response = http_client.execute(requests[i]); 
-					Log.d("stk auth", "request task answer received: " + i);
-					String answer = read(response);
-					action.result(i, answer);
+					
+					BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+					String line;
+					StringBuffer answer = new StringBuffer();
+					while ((line = reader.readLine()) != null) {
+						Log.d("stk auth", line);
+						answer.append(line).append('\n');
+					}
+					reader.close();
+					response.getEntity().consumeContent();
+					
+					action.result(i, answer.toString());
 				}
 				return action;
+			} catch (IllegalStateException e) {
+				Log.d("stk auth", "request task illegalstateexception");
+				e.printStackTrace();
+				action.error("illegal state");
 			} catch (ClientProtocolException e) {
 				Log.d("stk auth", "request task clientprotocolexception");
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				action.error("protocol");
 			} catch (IOException e) {
 				Log.d("stk auth", "request task ioexception");
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				action.error("protocol");
+			} catch (NullPointerException e) {
+				Log.d("stk auth", "request task nullpointer");
+				e.printStackTrace();
+				action.error("null");
 			}
 			return null;
 		}
 		
-		private String read(HttpResponse response) {			
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-				Log.d("stk auth", "request task answer:");
-				Log.d("stk auth", "");
-				String line;
-				StringBuffer answer = new StringBuffer();
-				while ((line = reader.readLine()) != null) {
-					Log.d("stk auth", line);
-					answer.append(line).append('\n');
-				}
-				reader.close();
-				response.getEntity().consumeContent();
-				
-				Log.d("stk auth", "");
-				return answer.toString();
-				
-			} catch (IllegalStateException e) {
-				Log.d("stk auth", "request task illegalstateexception");
-				e.printStackTrace();
-				return null;
-			} catch (IOException e) {
-				Log.d("stk auth", "request task ioexception");
-				e.printStackTrace();
-				return null;
-			} catch (NullPointerException e) {
-				Log.d("stk auth", "request task nullpointer");
-				e.printStackTrace();
-				return null;
-			}
-		}
-
 
 		protected void onPostExecute(RemoteAction result) {
 			Log.d("stk auth", "request task post execute");

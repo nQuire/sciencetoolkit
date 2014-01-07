@@ -3,12 +3,9 @@ package org.greengin.sciencetoolkit.ui.remote;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
-public class UpdateRemoteAction implements RemoteAction {
+public class UpdateRemoteAction extends RemoteJsonAction {
 
 	@Override
 	public HttpRequestBase[] createRequests(String urlBase) {
@@ -16,22 +13,11 @@ public class UpdateRemoteAction implements RemoteAction {
 	}
 
 	@Override
-	public void result(int request, String result) {
-		Log.d("stk remote test", String.valueOf(request));
-		Log.d("stk remote test", result);
-		Log.d("stk remote test", "");
-
-		try {
-			JSONObject jobj = new JSONObject(result);
-			ProfileManager.get().updateRemoteProfiles(jobj);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
+	public void result(int request, JSONObject result) {
+		ProfileManager.get().updateRemoteProfiles(result);
 	}
 
 	@Override
 	public void close() {
 	}
-
 }

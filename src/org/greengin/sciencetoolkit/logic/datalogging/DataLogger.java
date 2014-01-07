@@ -207,12 +207,41 @@ public class DataLogger {
 
 	public void deleteData(String profileId) {
 		this.fileManager.deleteSeries(profileId);
+		Model profile = ProfileManager.get().get(profileId);
+		if (profile != null) {
+			profile.clear("series", true);
+			ProfileManager.get().forceSave();
+		}
 		this.fireStatusModified();
 	}
 	
 	public void deleteData(String profileId, File series) {
 		this.fileManager.deleteSeries(profileId, series);
+		Model profile = ProfileManager.get().get(profileId);
+		if (profile != null) {
+			profile.getModel("series", true).clear(series.getName(), true);
+			ProfileManager.get().forceSave();
+		}
 		this.fireStatusModified();
+	}
+	
+	public void markAsSent(String profileId, File series, boolean sent) {
+		Model profile = ProfileManager.get().get(profileId);
+		
+		if (profile != null) {
+			if (sent) {
+				profile.getModel("series", true).setBool(series.getName(), true, true);
+			} else {
+				profile.getModel("series", true).clear(series.getName(), true);
+			}
+			ProfileManager.get().forceSave();
+			this.fireStatusModified();
+		}
+	}
+	
+	public boolean isSent(String profileId, File series) {
+		Model profile = ProfileManager.get().get(profileId);
+		return profile != null && profile.getModel("series", true).getBool(series.getName());
 	}
 	
 	

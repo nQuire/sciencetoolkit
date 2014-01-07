@@ -33,7 +33,7 @@ public abstract class AbstractModelManager implements ModelChangeListener, Model
 		items = ModelDeserializer.xml2modelMap(this, this, applicationContext, filename);
 	}
 
-	protected void saveNow() {
+	public void forceSave() {
 		this.save();
 	}
 
