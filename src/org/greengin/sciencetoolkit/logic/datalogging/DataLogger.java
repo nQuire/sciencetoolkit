@@ -110,7 +110,7 @@ public class DataLogger {
 		listenersLock.lock();
 		if (!statusListeners.contains(listener)) {
 			statusListeners.add(listener);
-			if (dataListeners.size() == 1) {
+			if (statusListeners.size() == 1) {
 				LocalBroadcastManager.getInstance(applicationContext).registerReceiver(statusReceiver, new IntentFilter(DataLogger.DATA_LOGGING_NEW_STATUS));
 			}
 		}
@@ -207,6 +207,11 @@ public class DataLogger {
 
 	public void deleteData(String profileId) {
 		this.fileManager.deleteSeries(profileId);
+		this.fireStatusModified();
+	}
+	
+	public void deleteData(String profileId, File series) {
+		this.fileManager.deleteSeries(profileId, series);
 		this.fireStatusModified();
 	}
 	

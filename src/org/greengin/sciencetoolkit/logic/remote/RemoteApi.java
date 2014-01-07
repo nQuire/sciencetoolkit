@@ -30,7 +30,7 @@ import android.util.Log;
 
 public class RemoteApi implements ModelNotificationListener {
 	static final String REMOTE_LOGIN_URL = "https://nquireprojects.appspot.com/_ah/login?auth=";
-	static final String REMOTE_REQUEST_URL = "https://nquireprojects.appspot.com/api/subscriptions";
+	static final String REMOTE_REQUEST_URL = "https://nquireprojects.appspot.com/api/";
 
 	private static RemoteApi instance;
 

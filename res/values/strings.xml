@@ -88,6 +88,8 @@
     <string name="data_view_activity_config_tab">Configure view</string>
     <string name="series_view_activity_list_tab">List</string>
     <string name="series_view_activity_plot_tab">Plot</string>
+    <string name="series_delete_dlg_title">Delete series</string>
+    <string name="series_delete_dlg_msg">Do you want to delete series &lt;i>%1s&lt;/i>?</string>
     <string name="visualization_type">Visualization</string>
     <string name="visualization_range">Data range</string>
     <string name="visualization_variables">Sensor variables</string>
@@ -108,4 +110,5 @@
     <string name="profile_data">Data:</string>
     <string name="create_profile_from_default_notice">Would you like to create a new profile with this data logging configuration?</string>
     <string name="create_profile_from_default_link">Create</string>
+
 </resources>

@@ -14,7 +14,7 @@ import org.greengin.sciencetoolkit.ui.CreateProfileDialogFragment;
 import org.greengin.sciencetoolkit.ui.ParentListFragment;
 import org.greengin.sciencetoolkit.ui.components.main.profiles.files.FileManagementActivity;
 import org.greengin.sciencetoolkit.ui.remote.RemoteCapableActivity;
-import org.greengin.sciencetoolkit.ui.remote.TestRemoteAction;
+import org.greengin.sciencetoolkit.ui.remote.UpdateRemoteAction;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -88,7 +88,7 @@ public class ProfileListFragment extends ParentListFragment implements DataLogge
 			@Override
 			public void onClick(View v) {
 				Log.d("stk update", "test");
-				((RemoteCapableActivity)getActivity()).remoteRequest(new TestRemoteAction());
+				((RemoteCapableActivity)getActivity()).remoteRequest(new UpdateRemoteAction());
 			}
 		});
 

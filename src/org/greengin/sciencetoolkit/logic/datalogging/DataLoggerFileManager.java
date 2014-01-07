@@ -95,6 +95,10 @@ public class DataLoggerFileManager {
 		}
 	}
 	
+	public void deleteSeries(String profileId, File series) {
+		series.delete();
+	}
+	
 	private void deleteFolder(File f) {
 		if (f.isDirectory()) {
 			for (File cf : f.listFiles()) {

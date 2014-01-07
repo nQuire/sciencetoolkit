@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-public class TestRemoteAction implements RemoteAction {
+public class UpdateRemoteAction implements RemoteAction {
 
 	@Override
 	public HttpRequestBase[] createRequests(String urlBase) {
-		return new HttpRequestBase[] { new HttpGet(urlBase + "?action=myprofiles") };
+		return new HttpRequestBase[] { new HttpGet(urlBase + "subscriptions?action=myprofiles") };
 	}
 
 	@Override
