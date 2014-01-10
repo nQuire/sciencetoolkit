@@ -444,6 +444,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 							String sensorId = sensorType + ":0";
 							if (SensorWrapperManager.get().getSensors().containsKey(sensorId)) {
 								Model profileSensor = addSensor(profile, inpkey, sensorId, true);
+								profileSensor.setString("sensor_type", sensorType);
 								profileSensor.setDouble("sample_rate", rate, true);
 							}
 						}

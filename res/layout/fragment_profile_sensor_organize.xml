@@ -50,6 +50,7 @@
             	android:layout_gravity="center"
                 android:singleLine="false"
                 android:textStyle="bold" />
+            
 
             <TextView
                 android:id="@+id/sensor_sample_rate"
@@ -60,6 +61,12 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:textColor="@color/value_text" />
+
+            <Spinner
+                android:id="@+id/sensor_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </RelativeLayout>
     

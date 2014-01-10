@@ -12,9 +12,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.util.Log;
 
 public class DeviceSensorWrapper extends SensorWrapper implements SensorEventListener, ModelNotificationListener {
-
+	
+	
 	SensorManager sensorManager;
 	Sensor sensor;
 	int currentDelay;
@@ -31,7 +33,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 		this.currentDelay = -1;
 		this.isRegistered = false;
 
-		String settingsId = "sensor:" + this.sensor.getName();
+		String settingsId = "sensor:" + this.getId();
 		this.settings = SettingsManager.get().get(settingsId);
 		this.updateDelay();
 		SettingsManager.get().registerDirectListener(settingsId, this);
@@ -65,6 +67,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 
 	private void updateDelay() {
 		int newDelay = ModelOperations.delayOption2deviceSensorDelay(settings, "delay", ModelDefaults.SENSOR_DELAY, this);
+		Log.d("std sensor", newDelay + " " + this.currentDelay);
 		if (newDelay != this.currentDelay) {
 			this.currentDelay = newDelay;
 			if (isRegistered) {

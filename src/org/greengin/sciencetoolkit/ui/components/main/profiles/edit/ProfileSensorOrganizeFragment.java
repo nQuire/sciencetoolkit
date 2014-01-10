@@ -1,10 +1,13 @@
 package org.greengin.sciencetoolkit.ui.components.main.profiles.edit;
 
+import java.util.List;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.components.main.datalogging.ProfileSensorFragment;
@@ -16,7 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class ProfileSensorOrganizeFragment extends ProfileSensorFragment implements DataLoggerStatusListener {
 
@@ -24,11 +32,48 @@ public class ProfileSensorOrganizeFragment extends ProfileSensorFragment impleme
 	ImageButton upButton;
 	ImageButton downButton;
 	ImageButton discardButton;
+	
+	List<SensorWrapper> selectOptions;
 
+	
+	private void setSelectedSensor(SensorWrapper sensor) {
+		this.profileSensor.setString("sensorid", sensor.getId());
+	}
 	
 	@Override
 	protected void prepareView(View rootView) {
 		super.prepareView(rootView);
+		
+		TextView nameTextView = (TextView) rootView.findViewById(R.id.sensor_name);
+		Spinner sensorSpinner = (Spinner) rootView.findViewById(R.id.sensor_select);
+		if (profile.getBool("is_remote")) {
+			nameTextView.setVisibility(View.GONE);
+			
+			selectOptions = SensorWrapperManager.get().getSameTypeSensors(this.sensor);
+			List<String> options = new Vector<String>();
+			for (SensorWrapper sw : selectOptions) {
+				options.add(sw.getName());
+			}
+			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(rootView.getContext(), android.R.layout.simple_spinner_item, options);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			sensorSpinner.setAdapter(dataAdapter);
+			sensorSpinner.setSelection(selectOptions.indexOf(this.sensor));
+			
+			sensorSpinner.setVisibility(View.VISIBLE);
+			
+			sensorSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+					setSelectedSensor(selectOptions.get(position));					
+				}
+				@Override
+				public void onNothingSelected(AdapterView<?> parentView) {
+				}
+			});
+		} else {
+			sensorSpinner.setVisibility(View.GONE);
+			nameTextView.setVisibility(View.VISIBLE);			
+		}
 		
 		Vector<Model> sensors = this.profile.getModel("sensors", true).getModels("weight");
 		int index = sensors.indexOf(this.profileSensor);

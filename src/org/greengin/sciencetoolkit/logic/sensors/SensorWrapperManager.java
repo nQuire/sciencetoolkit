@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.logic.sensors;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
@@ -69,6 +70,16 @@ public class SensorWrapperManager {
 
 	public SensorWrapper getSensor(Object key) {
 		return this.sensors.get(key);
+	}
+	
+	public List<SensorWrapper> getSameTypeSensors(SensorWrapper sensor) {
+		Vector<SensorWrapper> list = new Vector<SensorWrapper>();
+		for (Entry<String, SensorWrapper> entry : sensors.entrySet()) {
+			if (entry.getValue().getType() == sensor.getType()) {
+				list.add(entry.getValue());
+			}
+		}
+		return list;
 	}
 	
 	public synchronized String getId(int type) {
