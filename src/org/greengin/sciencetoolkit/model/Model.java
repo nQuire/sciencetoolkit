@@ -217,6 +217,16 @@ public class Model {
 			return null;
 		}
 	}
+	
+	public Hashtable<String, String> getStrings() {
+		Hashtable<String, String> values = new Hashtable<String, String>();
+		for (Entry<String, Object> entry : entries.entrySet()) {
+			if (entry.getValue() instanceof String) {
+				values.put(entry.getKey(), (String) entry.getValue());
+			}
+		}
+		return values;
+	}
 
 	public Vector<Model> getModels() {
 		Vector<Model> models = new Vector<Model>();

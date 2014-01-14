@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.greengin.sciencetoolkit.logic.location.CurrentLocation;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
@@ -42,13 +43,15 @@ public class DataLogger {
 	String profileId;
 	Model profile;
 	int series;
+	File seriesFile;
 	boolean running;
+	boolean geolocated;
 	Vector<DataPipe> pipes;
 	Vector<DataLoggerDataListener> dataListeners;
 	BroadcastReceiver dataReceiver;
 	Vector<DataLoggerStatusListener> statusListeners;
 	BroadcastReceiver statusReceiver;
-	
+
 	DataLoggerFileManager fileManager;
 	DataLoggerSerializer serializer;
 
@@ -83,8 +86,6 @@ public class DataLogger {
 			}
 		};
 	}
-	
-	
 
 	public void registerDataListener(DataLoggerDataListener listener) {
 		listenersLock.lock();
@@ -132,18 +133,24 @@ public class DataLogger {
 	public void startNewSeries() {
 		runningLock.lock();
 		if (!running) {
+
 			profile = ProfileManager.get().getActiveProfile();
 			profileId = profile.getString("id");
-			pipes.clear();
+			geolocated = profile.getBool("requires_location");
+			if (geolocated) {
+				CurrentLocation.get().startlocation();
+			}
 			
+			pipes.clear();
+
 			Vector<Model> sensors = profile.getModel("sensors", true).getModels();
 			if (sensors.size() > 0) {
 				running = true;
-				
+
 				series = fileManager.startNewSeries(profileId);
-				File file = fileManager.getCurrentSeriesFile(profileId);
-				serializer.open(file, profile);
-				
+				seriesFile = fileManager.getCurrentSeriesFile(profileId);
+				serializer.open(seriesFile, profile);
+
 				for (Model profileSensor : sensors) {
 					String profileSensorId = profileSensor.getString("id");
 					String sensorId = profileSensor.getString("sensorid");
@@ -176,10 +183,18 @@ public class DataLogger {
 				pipe.detach();
 			}
 			pipes.clear();
-			running = false;
-			
+
 			serializer.close();
+			
+			if (geolocated) {			
+				CurrentLocation.get().stoplocation();
+				String loc = CurrentLocation.get().locationString();
+				DataLogger.get().getSeriesMetadata(profileId, seriesFile).setString("location", loc);
+			}
+			
+			running = false;
 			fireStatusModified();
+
 		}
 
 		runningLock.unlock();
@@ -188,11 +203,11 @@ public class DataLogger {
 	public int getCurrentSeries() {
 		return series;
 	}
-	
+
 	public int getSeriesCount(String profileId) {
 		return this.fileManager.seriesCount(profileId);
 	}
-	
+
 	public File[] getSeries(String profileId) {
 		return this.fileManager.series(profileId);
 	}
@@ -202,7 +217,7 @@ public class DataLogger {
 	}
 
 	public void deleteAllData() {
-		//this.helper.emptyData(null);
+		// this.helper.emptyData(null);
 	}
 
 	public void deleteData(String profileId) {
@@ -214,7 +229,7 @@ public class DataLogger {
 		}
 		this.fireStatusModified();
 	}
-	
+
 	public void deleteData(String profileId, File series) {
 		this.fileManager.deleteSeries(profileId, series);
 		Model profile = ProfileManager.get().get(profileId);
@@ -224,27 +239,32 @@ public class DataLogger {
 		}
 		this.fireStatusModified();
 	}
-	
+
 	public void markAsSent(String profileId, File series, boolean sent) {
 		Model profile = ProfileManager.get().get(profileId);
-		
+
 		if (profile != null) {
+			Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
 			if (sent) {
-				profile.getModel("series", true).setBool(series.getName(), true, true);
+				seriesModel.setBool("uploaded", true, true);
 			} else {
-				profile.getModel("series", true).clear(series.getName(), true);
+				seriesModel.clear(series.getName(), true);
 			}
+
 			ProfileManager.get().forceSave();
 			this.fireStatusModified();
 		}
 	}
-	
+
 	public boolean isSent(String profileId, File series) {
 		Model profile = ProfileManager.get().get(profileId);
-		return profile != null && profile.getModel("series", true).getBool(series.getName());
+		return profile != null && profile.getModel("series", true).getModel(series.getName(), true).getBool("uploaded", false);
 	}
-	
-	
+
+	public Model getSeriesMetadata(String profileId, File series) {
+		Model profile = ProfileManager.get().get(profileId);
+		return profile.getModel("series", true).getModel("metadata", true);
+	}
 
 	private void fireStatusModified() {
 		if (statusListeners.size() > 0) {
@@ -260,11 +280,10 @@ public class DataLogger {
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
-	
+
 	public boolean getRange(long[] values, String profileId) {
 		values[0] = values[1] = 0;
 		return false;
 	}
 
-	
 }

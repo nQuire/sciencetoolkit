@@ -4,6 +4,7 @@ package org.greengin.sciencetoolkit;
 
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger;
+import org.greengin.sciencetoolkit.logic.location.CurrentLocation;
 import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -24,7 +25,10 @@ public class ScienceToolkitApplication extends Application {
         
         DeprecatedDataLogger.init(context);
         DataLogger.init(context);
-
+        
+        CurrentLocation.init(context);
+        CurrentLocation.get().startlocation();
+        
         RemoteApi.init(context);
 
         VersionManager.check(context);

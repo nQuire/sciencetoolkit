@@ -227,7 +227,7 @@ public class SeriesListFragment extends Fragment implements DataLoggerStatusList
 				upload.setVisibility(View.VISIBLE);
 				upload.setTag(f);
 				boolean sent = DataLogger.get().isSent(profileId, f);
-				upload.setEnabled(!sent);
+				upload.setEnabled(true/*!sent*/);
 			} else {
 				upload.setVisibility(View.GONE);
 			}

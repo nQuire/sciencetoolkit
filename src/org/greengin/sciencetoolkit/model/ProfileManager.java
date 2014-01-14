@@ -428,7 +428,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 							profile = createEmptyProfile(profileId);
 						}
 						profile.setString("title", title, true);
-						profile.setBool("is_remote", true);
+						profile.setBool("is_remote", true, true);
+						profile.setBool("requires_location", jprf.getBoolean("requires_location"), true);
+						
+						Log.d("stk remote update", "location? " + profile.getBool("requires_location"));
 
 						JSONObject inputs = jprf.getJSONObject("inputs");
 						Iterator<?> inpit = inputs.keys();
