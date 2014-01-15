@@ -137,9 +137,9 @@ public class DataLogger {
 			profile = ProfileManager.get().getActiveProfile();
 			profileId = profile.getString("id");
 			geolocated = profile.getBool("requires_location");
-			if (geolocated) {
+			/*if (geolocated) {
 				CurrentLocation.get().startlocation();
-			}
+			}*/
 			
 			pipes.clear();
 
@@ -187,7 +187,7 @@ public class DataLogger {
 			serializer.close();
 			
 			if (geolocated) {			
-				CurrentLocation.get().stoplocation();
+				//CurrentLocation.get().stoplocation();
 				String loc = CurrentLocation.get().locationString();
 				DataLogger.get().getSeriesMetadata(profileId, seriesFile).setString("location", loc);
 			}
@@ -263,7 +263,7 @@ public class DataLogger {
 
 	public Model getSeriesMetadata(String profileId, File series) {
 		Model profile = ProfileManager.get().get(profileId);
-		return profile.getModel("series", true).getModel("metadata", true);
+		return profile.getModel("series", true).getModel(series.getName(), true).getModel("metadata", true);
 	}
 
 	private void fireStatusModified() {

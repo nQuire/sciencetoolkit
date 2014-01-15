@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class CurrentLocation implements LocationListener {
 	private static CurrentLocation instance;
@@ -53,9 +54,30 @@ public class CurrentLocation implements LocationListener {
 			Log.d("stk location", "alt " + location.getAltitude());
 			Log.d("stk location", "lat " + location.getLatitude());
 			Log.d("stk location", "lon " + location.getLongitude());
-			if (best == null || location.getAccuracy() < best.getAccuracy()) {
-				this.best = location;
+			/*
+			 * if (best == null || location.getAccuracy() <= best.getAccuracy()
+			 * || location.getTime() - best.getTime() > 20000) { }
+			 */
+			if (this.best != null) {
+				double d2r = Math.PI /180.;
+				double r = 6.371e6;
+				double dlon = d2r * (location.getLongitude() - this.best.getLongitude());
+				double dlat = d2r * (location.getLatitude() - this.best.getLatitude());
+				double lat0 = d2r * this.best.getLatitude();
+				double lat1 = d2r * location.getLatitude();
+				
+				double a = Math.pow(Math.sin(dlat/2), 2) +
+				        Math.pow(Math.sin(dlon/2), 2) * Math.cos(lat0) * Math.cos(lat1);
+				double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+				double d = r * c;
+				
+				Toast.makeText(this.applicationContext, location.getProvider() + "\n" + d, Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(this.applicationContext, "new location", Toast.LENGTH_SHORT).show();
 			}
+			
+			Log.d("stk location", "best updated");
+			this.best = location;
 		}
 	}
 
