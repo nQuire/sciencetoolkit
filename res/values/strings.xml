@@ -3,10 +3,18 @@
 
     <string name="app_name">Sense-it</string>
 
-    <!-- button commont -->
+    <!-- main activity -->
+    <string name="main_activity_tab_1">Explore</string>
+    <string name="main_activity_tab_2">Record</string>
+    <string name="main_activity_tab_3">Share</string>
+    
+    <!-- main activity - explore tab -->
+    <string name="explore_sensor_icon_description">Sensor icon</string>
+
+    <!-- button commons -->
     <string name="button_label_set">Set</string>
     <string name="button_label_cancel">Cancel</string>
-    
+
     <!-- menu items -->
     <string name="menu_item_sensor_select">Show/hide sensors</string>
     <string name="menu_item_application_settings">Settings</string>

@@ -55,50 +55,50 @@ public class EventManager {
 		this.listener = listener;
 	}
 
-	public void eventListenToSettings(String settingsId) {
+	public void listenToSettings(String settingsId) {
 		if (!settingListeners.contains(settingsId)) {
 			settingListeners.add(settingsId);
 			SettingsManager.get().registerUIListener(settingsId, settingsListener);
 		}
 	}
 
-	public void eventStopListeningToSettings(String settingsId) {
+	public void stopListeningToSettings(String settingsId) {
 		SettingsManager.get().unregisterUIListener(settingsId, settingsListener);
 		settingListeners.remove(settingsId);
 	}
 
-	public void eventListenToProfiles() {
+	public void listenToProfiles() {
 		if (!profileListener) {
 			ProfileManager.get().registerUIListener(profilesListener);
 			profileListener = true;
 		}
 	}
 
-	public void eventStopListeningToProfiles() {
+	public void stopListeningToProfiles() {
 		ProfileManager.get().unregisterUIListener(profilesListener);
 		profileListener = false;
 	}
 
-	public void eventListenToLoggedData() {
+	public void listenToLoggedData() {
 		if (!loggedDataListener) {
 			DataLogger.get().registerDataListener(dataListener);
 			loggedDataListener = true;
 		}
 	}
 
-	public void eventStopListeningToLoggedData() {
+	public void stopListeningToLoggedData() {
 		DataLogger.get().unregisterDataListener(dataListener);
 		loggedDataListener = false;
 	}
 
-	public void eventListenToLoggerStatus() {
+	public void listenToLoggerStatus() {
 		if (!loggerStatusListener) {
 			DataLogger.get().registerStatusListener(dataListener);
 			loggerStatusListener = true;
 		}
 	}
 
-	public void eventStopListeningToLoggerStatus() {
+	public void stopListeningToLoggerStatus() {
 		DataLogger.get().unregisterStatusListener(dataListener);
 		loggerStatusListener = false;
 	}
@@ -110,15 +110,15 @@ public class EventManager {
 		settingListeners.clear();
 		
 		if (profileListener) {
-			eventStopListeningToProfiles();
+			stopListeningToProfiles();
 		}
 		
 		if (loggedDataListener) {
-			eventStopListeningToLoggedData();
+			stopListeningToLoggedData();
 		}
 		
 		if (loggerStatusListener) {
-			eventStopListeningToLoggerStatus();
+			stopListeningToLoggerStatus();
 		}
 	}
 

@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit.ui.base;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.modelconfig.SettingsFragmentManager;
+import org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsFragmentManager;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -26,7 +26,7 @@ public class AppSettingsActivity extends SettingsControlledActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_app_settings);
+		setContentView(R.layout.view_app_settings);
 
 		SettingsFragmentManager.insert(getSupportFragmentManager(), R.id.app_settings, "app");
 	}

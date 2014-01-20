@@ -6,11 +6,8 @@ import android.support.v4.app.Fragment;
 
 public class EventFragment extends Fragment {
 
-	EventManager eventManager;
+	protected EventManager eventManager;
 
-	protected void setEventListener(EventManagerListener listener) {
-		this.eventManager.setListener(listener);
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

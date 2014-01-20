@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.base;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -9,10 +10,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
-public class SettingsControlledActivity extends ActionBarActivity {
+public class SettingsControlledActivity extends RemoteCapableActivity {
 
 	ModelNotificationListener controlledRotationListener;
 	int controlledRotationLastValue;
