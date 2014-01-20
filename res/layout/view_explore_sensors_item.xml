@@ -1,21 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="150dp" >
 
     <ImageView
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp"
+        android:paddingTop="8sp"
         android:id="@+id/sensor_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/explore_sensor_icon_description"/>
+        android:contentDescription="@string/explore_sensor_icon_description" />
 
     <TextView
         android:id="@+id/sensor_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_icon"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="12sp" 
+        android:textStyle="bold" />
 
 </RelativeLayout>

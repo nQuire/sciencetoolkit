@@ -1,5 +1,7 @@
 package org.greengin.sciencetoolkit.ui.main.explore;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
@@ -36,6 +38,13 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 				sensors.add(SensorWrapperManager.get().getSensor(sensorId));
 			}
 		}		
+		
+		Collections.sort(sensors, new Comparator<SensorWrapper>() {
+			@Override
+			public int compare(SensorWrapper lhs, SensorWrapper rhs) {
+				return SensorUIData.getWeight(lhs.getType()) - SensorUIData.getWeight(rhs.getType()); 
+			}			
+		});
 	}
 	
 	
@@ -60,7 +69,7 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 		SensorWrapper sensor = sensors.get(position);
 
 		boolean newView = convertView == null;
-		View view = newView ? inflater.inflate(R.layout.view_explore_sensors_item, null) : convertView;
+		View view = newView ? inflater.inflate(R.layout.view_explore_sensors_item, parent, false) : convertView;
 		
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
 		if (newView) {

@@ -7,7 +7,12 @@ import android.hardware.Sensor;
 
 public class SensorUIData {
 
-	private static final String[][] LABELS = new String[][] { new String[] { "x", "y", "z" }, new String[] { "Temperature" }, new String[] { "Light level" }, new String[] { "Pressure" }, new String[] { "Proximity" }, new String[] { "Rel. humidity" }, new String[] { "Sound level", "Max. freq." }, new String[] { "Latitude", "Longitude" /*, "Altitude", "Precision"*/ }, new String[] { "", "", "", "", "", "", "", "" } };
+	private static final String[][] LABELS = new String[][] { new String[] { "x", "y", "z" }, new String[] { "Temperature" }, new String[] { "Light level" }, new String[] { "Pressure" }, new String[] { "Proximity" }, new String[] { "Rel. humidity" }, new String[] { "Sound level", "Max. freq." }, new String[] { "Latitude", "Longitude" /*
+																																																																																				 * ,
+																																																																																				 * "Altitude"
+																																																																																				 * ,
+																																																																																				 * "Precision"
+																																																																																				 */}, new String[] { "", "", "", "", "", "", "", "" } };
 
 	/*
 	 * 
@@ -67,8 +72,6 @@ public class SensorUIData {
 	 * Sensor.TYPE_AMBIENT_TEMPERATURE instead.
 	 */
 
-	
-
 	@SuppressWarnings("deprecation")
 	public static int getSensorResource(int type) {
 		switch (type) {
@@ -109,6 +112,60 @@ public class SensorUIData {
 			return R.drawable.gyroscope;
 		default:
 			return R.drawable.pressure;
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static int getWeight(int type) {
+		switch (type) {
+		case Sensor.TYPE_ACCELEROMETER:
+			return 0;
+		case Sensor.TYPE_LINEAR_ACCELERATION:
+			return 1;
+		case Sensor.TYPE_GRAVITY:
+			return 2;
+		case Sensor.TYPE_GYROSCOPE:
+			return 3;
+		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
+			return 4;
+
+		case Sensor.TYPE_ORIENTATION:
+			return 5;
+		case Sensor.TYPE_ROTATION_VECTOR:
+			return 6;
+		case Sensor.TYPE_GAME_ROTATION_VECTOR:
+			return 7;
+		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+			return 8;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
+			return 9;
+		case Sensor.TYPE_PROXIMITY:
+			return 10;
+
+		case Sensor.TYPE_AMBIENT_TEMPERATURE:
+		case Sensor.TYPE_TEMPERATURE:
+			return 11;
+		case Sensor.TYPE_LIGHT:
+			return 12;
+		case Sensor.TYPE_PRESSURE:
+			return 13;
+		case Sensor.TYPE_RELATIVE_HUMIDITY:
+			return 14;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
+			return 15;
+		case Sensor.TYPE_MAGNETIC_FIELD:
+			return 16;
+		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+			return 17;
+
+		case Sensor.TYPE_SIGNIFICANT_MOTION:
+			return 18;
+		case Sensor.TYPE_STEP_COUNTER:
+			return 19;
+		case Sensor.TYPE_STEP_DETECTOR:
+			return 20;
+		default:
+			return 21;
 		}
 	}
 
