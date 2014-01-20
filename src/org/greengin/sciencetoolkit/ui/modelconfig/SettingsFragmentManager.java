@@ -1,14 +1,11 @@
 package org.greengin.sciencetoolkit.ui.modelconfig;
 
-import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AppSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.LivePlotSettingsFragment;
-import org.greengin.sciencetoolkit.ui.modelconfig.settings.LiveViewSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.SensorListSettingsFragment;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.SensorSettingsFragment;
-import org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview.ProfileDataRangeSettingsFragment;
-import org.greengin.sciencetoolkit.ui.modelconfig.settings.dataview.ProfileDataVisualizationSettingsFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -44,24 +41,12 @@ public class SettingsFragmentManager {
 				sensorArg = true;
 				fragment = new SensorSettingsFragment();
 
-			} else if (fragmentType.equals("liveview")) {
-				fragment = new LiveViewSettingsFragment();
-
 			} else if (fragmentType.equals("liveplot")) {
 				sensorArg = true;
 				fragment = new LivePlotSettingsFragment();
 
-			} else if (fragmentType.equals("profile_data_visualization")) {
-				profileArg = true;
-				fragment = new ProfileDataVisualizationSettingsFragment();
-
-			} else if (fragmentType.equals("profile_data_range")) {
-				profileArg = true;
-				fragment = new ProfileDataRangeSettingsFragment();
-
 			} else if (fragmentType.equals("profile_data_variables")) {
 				profileArg = true;
-
 			}
 
 			if (fragment != null) {

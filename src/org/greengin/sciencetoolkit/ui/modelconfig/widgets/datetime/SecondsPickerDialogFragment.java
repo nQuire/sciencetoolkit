@@ -43,12 +43,12 @@ public class SecondsPickerDialogFragment extends DialogFragment implements Numbe
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 
 		View contentView = inflater.inflate(R.layout.dialog_seconds_picker, null);
-		builder.setTitle(R.string.dialog_seconds_picker_title).setView(contentView).setPositiveButton(R.string.set, new DialogInterface.OnClickListener() {
+		builder.setTitle(R.string.dialog_seconds_picker_title).setView(contentView).setPositiveButton(R.string.button_label_set, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				dismiss();
 			}
-		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		}).setNegativeButton(R.string.button_label_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				dismiss();
 			}

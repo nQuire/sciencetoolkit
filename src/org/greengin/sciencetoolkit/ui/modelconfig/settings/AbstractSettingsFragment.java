@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit.ui.modelconfig.settings;
 
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.DataLoggerDependentModelFragment;
 
 

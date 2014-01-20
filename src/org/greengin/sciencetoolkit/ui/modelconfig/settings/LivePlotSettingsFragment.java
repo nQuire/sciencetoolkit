@@ -3,8 +3,8 @@ package org.greengin.sciencetoolkit.ui.modelconfig.settings;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
-import org.greengin.sciencetoolkit.ui.Arguments;
-import org.greengin.sciencetoolkit.ui.SensorUIData;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
+import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
 import android.app.Activity;
 import android.view.View;

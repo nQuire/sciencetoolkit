@@ -4,7 +4,7 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.ui.Arguments;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.modelconfig.settings.AbstractSettingsFragment;
 
 import android.app.Activity;

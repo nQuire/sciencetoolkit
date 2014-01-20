@@ -10,7 +10,7 @@
             <item
                 android:id="@+id/action_sensor_list_show"
                 android:orderInCategory="100"
-                android:title="@string/menu_item_sensor_list_show"/>
+                android:title="@string/menu_item_sensor_select"/>
             <item
                 android:id="@+id/action_application_settings"
                 android:orderInCategory="100"

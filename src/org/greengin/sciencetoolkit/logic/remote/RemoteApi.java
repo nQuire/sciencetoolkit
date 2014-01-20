@@ -13,8 +13,6 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
-import org.greengin.sciencetoolkit.ui.remote.RemoteAction;
-import org.greengin.sciencetoolkit.ui.remote.RemoteCapableActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

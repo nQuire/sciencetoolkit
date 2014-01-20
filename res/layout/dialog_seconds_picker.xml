@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time_separator" />
+        android:text="@string/dialog_seconds_picker_time_separator" />
 
     <net.simonvt.numberpicker.NumberPicker
         android:id="@+id/minPicker"
@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time_separator" />
+        android:text="@string/dialog_seconds_picker_time_separator" />
 
     <net.simonvt.numberpicker.NumberPicker
         android:id="@+id/secPicker"
@@ -34,7 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time_ms_separator" />
+        android:text="@string/dialog_seconds_picker_time_ms_separator" />
 
     <net.simonvt.numberpicker.NumberPicker
         android:id="@+id/msPicker"
