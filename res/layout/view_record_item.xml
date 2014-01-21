@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/sensor_icon"
+        android:layout_width="@dimen/record_item_icon_size"
+        android:layout_height="@dimen/record_item_icon_size"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:contentDescription="@string/explore_sensor_icon_description" />
+
+    <TextView
+        android:id="@+id/sensor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/sensor_icon"
+        android:layout_alignTop="@id/sensor_icon"
+        android:layout_alignBottom="@id/sensor_icon"
+        android:gravity="center_vertical"/>
+    
+    <TextView
+        android:id="@+id/sample_rate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/sensor_name"
+        android:layout_below="@id/sensor_name"
+        android:textStyle="bold" 
+        android:text="Sample rate"/>
+    
+</RelativeLayout>

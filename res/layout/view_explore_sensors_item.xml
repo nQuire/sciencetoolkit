@@ -4,8 +4,8 @@
     android:layout_height="150dp" >
 
     <ImageView
-        android:paddingLeft="16sp"
-        android:paddingRight="16sp"
+        android:paddingLeft="8sp"
+        android:paddingRight="8sp"
         android:paddingTop="8sp"
         android:id="@+id/sensor_icon"
         android:layout_width="wrap_content"

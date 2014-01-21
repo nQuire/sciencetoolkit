@@ -27,6 +27,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -36,6 +37,7 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 	protected Model model;
 	boolean settingsEnabled;
 	LinearLayout rootContainer;
+	LayoutInflater inflater;
 
 	public ModelFragment() {
 		this.settingsEnabled = true;
@@ -51,8 +53,9 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.panel_settings, container, false);
-		rootContainer = (LinearLayout) rootView.findViewById(R.id.settings_panel);
+		this.inflater = inflater;
+		View rootView = this.inflater.inflate(R.layout.panel_settings, container, false);
+		this.rootContainer = (LinearLayout) rootView.findViewById(R.id.settings_panel);
 		this.createConfigOptions(rootView);
 		return rootView;
 	}
@@ -262,6 +265,55 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 	}
 
 	private void addRow(String label, String description, View[] widgets) {
+
+		RelativeLayout content = new RelativeLayout(rootContainer.getContext());
+		content.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		
+		if (label != null) {
+			TextView labelView = new TextView(rootContainer.getContext());
+			labelView.setText(label);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+			params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+			labelView.setLayoutParams(params);
+			content.addView(labelView);
+		}
+
+		LinearLayout widgetsContainer = new LinearLayout(rootContainer.getContext());
+		widgetsContainer.setOrientation(LinearLayout.HORIZONTAL);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+		widgetsContainer.setLayoutParams(params);
+		
+		for (View widget : widgets) {
+			widgetsContainer.addView(widget);
+		}		
+		
+		content.addView(widgetsContainer);
+		
+		LinearLayout row = new LinearLayout(rootContainer.getContext());
+		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		row.setOrientation(LinearLayout.VERTICAL);
+		
+		row.addView(content);
+		
+/*		View line = new View(rootContainer.getContext());
+		LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 2);
+		lineParams.setMargins(0,  10,  0,  10);
+		line.setLayoutParams(lineParams);
+		line.setBackgroundColor(rootContainer.getContext().getResources().getColor(R.color.darker_line));
+		row.addView(line);
+	*/	
+		View line = this.inflater.inflate(R.layout.widget_darker_line, rootContainer, false);
+		row.addView(line);
+
+		
+		rootContainer.addView(row);
+	}
+	
+	private void addRow2(String label, String description, View[] widgets) {
+		
 		LinearLayout row = new LinearLayout(rootContainer.getContext());
 		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		row.setOrientation(LinearLayout.HORIZONTAL);

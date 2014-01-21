@@ -11,6 +11,10 @@
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
 
+
+        <!-- main activity - explore tab - settings -->
+    <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
+    
     <!-- button commons -->
     <string name="button_label_set">Set</string>
     <string name="button_label_cancel">Cancel</string>

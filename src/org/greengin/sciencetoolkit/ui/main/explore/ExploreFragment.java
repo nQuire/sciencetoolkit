@@ -6,6 +6,7 @@ import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +63,13 @@ public class ExploreFragment extends EventFragment  {
 	
 	
 	private class EventListener extends EventManagerListener {
+		
+		@Override
+		public void eventSetting(String settingsId, boolean whilePaused) {
+			if ("sensor_list".equals(settingsId)) {
+				adapter.updateSensorList();
+			}
+		}
 		
 	}
 

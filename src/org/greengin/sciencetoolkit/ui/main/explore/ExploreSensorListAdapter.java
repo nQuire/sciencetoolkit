@@ -26,10 +26,14 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 	public ExploreSensorListAdapter(LayoutInflater inflater) {
 		this.inflater = inflater;
 		this.sensors = null;
-		updateSensorList();		
+		updateSensorList(false);		
 	}
 	
 	public void updateSensorList() {
+		updateSensorList(true);
+	}
+	
+	public void updateSensorList(boolean notify) {
 		Model settings = SettingsManager.get().get("sensor_list");
 		
 		this.sensors = new Vector<SensorWrapper>();
@@ -45,6 +49,10 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 				return SensorUIData.getWeight(lhs.getType()) - SensorUIData.getWeight(rhs.getType()); 
 			}			
 		});
+		
+		if (notify) {
+			this.notifyDataSetChanged();
+		}
 	}
 	
 	

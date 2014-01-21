@@ -47,6 +47,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity" />
         </activity>
-    </application>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.main.explore.SensorListSettingsActivity"
+            android:label="@string/sensor_list_settings_activity_title"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity" />
+        </activity>
+        </application>
 
 </manifest>
