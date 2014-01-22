@@ -220,6 +220,7 @@ public class DataLogger {
 		// this.helper.emptyData(null);
 	}
 
+	
 	public void deleteData(String profileId) {
 		this.fileManager.deleteSeries(profileId);
 		Model profile = ProfileManager.get().get(profileId);
@@ -230,11 +231,15 @@ public class DataLogger {
 		this.fireStatusModified();
 	}
 
-	public void deleteData(String profileId, File series) {
-		this.fileManager.deleteSeries(profileId, series);
+	public void deleteData(int series) {
+		this.deleteData(ProfileManager.get().getActiveProfileId(), series);
+	}
+
+	public void deleteData(String profileId, int series) {
+		File deleted = this.fileManager.deleteSeries(profileId, series);
 		Model profile = ProfileManager.get().get(profileId);
 		if (profile != null) {
-			profile.getModel("series", true).clear(series.getName(), true);
+			profile.getModel("series", true).clear(deleted.getName(), true);
 			ProfileManager.get().forceSave();
 		}
 		this.fireStatusModified();

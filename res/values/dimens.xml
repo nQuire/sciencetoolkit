@@ -2,7 +2,12 @@
     
     <!-- record item -->
     <dimen name="record_item_icon_size">50dp</dimen>
-	
+    <dimen name="sample_rate_button_padding_horizontal">10dp</dimen>
+    <dimen name="sample_rate_button_padding_vertical">5dp</dimen>
+    <dimen name="record_item_vertical_margin">8dp</dimen>
+    <dimen name="record_item_icon_margin">16dp</dimen>
+    <dimen name="button_pane_vertical_margin">16dp</dimen>
+    	
     <!-- separator lines -->
     <dimen name="darker_line_margin">10dp</dimen>
     <dimen name="darker_line_height">2dp</dimen>

@@ -7,14 +7,29 @@
     <string name="main_activity_tab_1">Explore</string>
     <string name="main_activity_tab_2">Record</string>
     <string name="main_activity_tab_3">Share</string>
-    
+
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
 
-
-        <!-- main activity - explore tab - settings -->
+    <!-- main activity - explore tab - settings -->
     <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
+
+    <!-- main activity - record tab -->
+    <string name="selected_sensors">SELECTED SENSORS</string>
+    <string name="sampling_rate">Sampling rate</string>
+    <string name="sampling_rate_sec">%1$s/s</string>
+    <string name="sampling_rate_min">%1$s/min</string>
+    <string name="sampling_rate_hour">%1$s/hour</string>
+    <string name="no_sensor_selected">&lt;select specific sensor&gt;</string>
     
+    <string name="record_series_start">Start</string>
+    <string name="record_series_stop">Stop</string>
+	<string name="record_series_view">View data</string>
+    <string name="record_series_discard">Discard</string>
+    <string name="record_series_keep">Close</string>
+	<string name="record_series_share">Share</string>
+	<string name="record_series_upload">Upload</string>
+		
     <!-- button commons -->
     <string name="button_label_set">Set</string>
     <string name="button_label_cancel">Cancel</string>

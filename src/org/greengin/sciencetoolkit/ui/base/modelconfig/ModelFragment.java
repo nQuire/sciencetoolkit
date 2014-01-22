@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.datetime.DateTimeHelperPair;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.datetime.DateTimePickerHelper;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.seekbar.NumberModelSeekBarTransformWrapper;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.seekbar.SeekBarTransform;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.seekbar.TransformSeekBar;
+import org.greengin.sciencetoolkit.ui.base.widgets.datetime.DateTimeHelperPair;
+import org.greengin.sciencetoolkit.ui.base.widgets.datetime.DateTimePickerHelper;
+import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper;
+import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform;
+import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar;
 
 import android.app.Activity;
 import android.os.Bundle;

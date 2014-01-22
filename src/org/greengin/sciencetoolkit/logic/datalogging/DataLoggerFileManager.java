@@ -95,8 +95,10 @@ public class DataLoggerFileManager {
 		}
 	}
 	
-	public void deleteSeries(String profileId, File series) {
-		series.delete();
+	public File deleteSeries(String profileId, int series) {
+		File file = new File(getPath(profileId), String.format("%d.csv", series));
+		file.delete();
+		return file;
 	}
 	
 	private void deleteFolder(File f) {

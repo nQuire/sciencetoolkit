@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.seekbar;
+package org.greengin.sciencetoolkit.ui.base.widgets.seekbar;
 
 import android.content.Context;
 import android.widget.SeekBar;

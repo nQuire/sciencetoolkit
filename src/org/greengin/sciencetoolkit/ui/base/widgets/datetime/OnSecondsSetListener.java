@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.modelconfig;
+package org.greengin.sciencetoolkit.ui.base.widgets.datetime;
 
 public interface OnSecondsSetListener {
 	

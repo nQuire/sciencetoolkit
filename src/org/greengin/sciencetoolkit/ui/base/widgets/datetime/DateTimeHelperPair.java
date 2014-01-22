@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.datetime;
+package org.greengin.sciencetoolkit.ui.base.widgets.datetime;
 
 public class DateTimeHelperPair {
 

@@ -1,32 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-
+    android:layout_height="wrap_content" 
+    android:paddingTop="@dimen/record_item_vertical_margin"
+    android:paddingBottom="@dimen/record_item_vertical_margin">
+    
     <ImageView
         android:id="@+id/sensor_icon"
         android:layout_width="@dimen/record_item_icon_size"
         android:layout_height="@dimen/record_item_icon_size"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:contentDescription="@string/explore_sensor_icon_description" />
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/explore_sensor_icon_description"
+        android:layout_marginRight="@dimen/record_item_icon_margin" />
 
     <TextView
         android:id="@+id/sensor_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/sensor_icon"
-        android:layout_alignTop="@id/sensor_icon"
+        android:layout_height="@dimen/record_item_icon_size"
         android:layout_alignBottom="@id/sensor_icon"
-        android:gravity="center_vertical"/>
-    
-    <TextView
-        android:id="@+id/sample_rate_label"
-        android:layout_width="wrap_content"
+        android:layout_alignTop="@id/sensor_icon"
+        android:layout_toRightOf="@id/sensor_icon"
+        android:gravity="center_vertical" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/sensor_name"
-        android:layout_below="@id/sensor_name"
-        android:textStyle="bold" 
-        android:text="Sample rate"/>
-    
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/sensor_name">
+
+        <TextView
+            android:id="@+id/sample_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/dark_button"
+            android:paddingBottom="@dimen/sample_rate_button_padding_vertical"
+            android:paddingLeft="@dimen/sample_rate_button_padding_horizontal"
+            android:paddingRight="@dimen/sample_rate_button_padding_horizontal"
+            android:paddingTop="@dimen/sample_rate_button_padding_vertical"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sample_rate_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/sampling_rate"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
 </RelativeLayout>

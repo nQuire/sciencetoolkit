@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.modelconfig.widgets.seekbar;
+package org.greengin.sciencetoolkit.ui.base.widgets.seekbar;
 
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener;
