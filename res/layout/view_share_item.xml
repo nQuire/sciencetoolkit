@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/profile_in_list"
+    android:paddingBottom="@dimen/share_item_vertical_padding"
+    android:paddingLeft="@dimen/share_item_horizontal_padding"
+    android:paddingRight="@dimen/share_item_horizontal_padding"
+    android:paddingTop="@dimen/share_item_vertical_padding">
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ellipsize="none"
+        android:singleLine="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profile_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/profile_name"
+        android:ellipsize="none"
+        android:singleLine="false" />
+
+    <ImageButton
+        android:id="@+id/profile_discard"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:background="@color/transparent"
+        android:contentDescription="@string/button_label_delete"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_delete" />
+
+    <ImageButton
+        android:id="@+id/profile_view"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/profile_discard"
+        android:adjustViewBounds="true"
+        android:background="@color/transparent"
+        android:contentDescription="@string/button_label_view"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_view" />
+
+</RelativeLayout>

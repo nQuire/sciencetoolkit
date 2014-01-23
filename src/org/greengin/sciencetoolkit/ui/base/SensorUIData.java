@@ -80,38 +80,38 @@ public class SensorUIData {
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
 		case Sensor.TYPE_STEP_COUNTER:
 		case Sensor.TYPE_STEP_DETECTOR:
-			return R.drawable.acceleration;
+			return R.drawable.sensor_acceleration;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
-			return R.drawable.temperature;
+			return R.drawable.sensor_temperature;
 		case Sensor.TYPE_GAME_ROTATION_VECTOR:
 		case Sensor.TYPE_ROTATION_VECTOR:
 		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
-			return R.drawable.rotation;
+			return R.drawable.sensor_rotation;
 		case Sensor.TYPE_GRAVITY:
-			return R.drawable.gravity;
+			return R.drawable.sensor_gravity;
 		case Sensor.TYPE_GYROSCOPE:
 		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
-			return R.drawable.gyroscope;
+			return R.drawable.sensor_gyroscope;
 		case Sensor.TYPE_LIGHT:
-			return R.drawable.light;
+			return R.drawable.sensor_light;
 		case Sensor.TYPE_MAGNETIC_FIELD:
 		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
-			return R.drawable.magnet;
+			return R.drawable.sensor_magnet;
 		case Sensor.TYPE_ORIENTATION:
-			return R.drawable.compass;
+			return R.drawable.sensor_compass;
 		case Sensor.TYPE_PRESSURE:
-			return R.drawable.pressure;
+			return R.drawable.sensor_pressure;
 		case Sensor.TYPE_PROXIMITY:
-			return R.drawable.proximity;
+			return R.drawable.sensor_proximity;
 		case Sensor.TYPE_RELATIVE_HUMIDITY:
-			return R.drawable.humidity;
+			return R.drawable.sensor_humidity;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
-			return R.drawable.sound;
+			return R.drawable.sensor_sound;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
-			return R.drawable.gyroscope;
+			return R.drawable.sensor_gyroscope;
 		default:
-			return R.drawable.pressure;
+			return R.drawable.sensor_pressure;
 		}
 	}
 

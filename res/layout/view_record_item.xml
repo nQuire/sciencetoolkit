@@ -1,18 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:paddingTop="@dimen/record_item_vertical_margin"
-    android:paddingBottom="@dimen/record_item_vertical_margin">
-    
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/record_item_vertical_margin"
+    android:paddingTop="@dimen/record_item_vertical_margin" >
+
     <ImageView
         android:id="@+id/sensor_icon"
         android:layout_width="@dimen/record_item_icon_size"
         android:layout_height="@dimen/record_item_icon_size"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:contentDescription="@string/explore_sensor_icon_description"
-        android:layout_marginRight="@dimen/record_item_icon_margin" />
+        android:layout_marginRight="@dimen/record_item_icon_margin"
+        android:contentDescription="@string/explore_sensor_icon_description" />
 
     <TextView
         android:id="@+id/sensor_name"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/sensor_name"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/sensor_name">
+        android:layout_below="@id/sensor_name" >
 
         <TextView
             android:id="@+id/sample_rate"
@@ -36,11 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@color/dark_button"
-            android:paddingBottom="@dimen/sample_rate_button_padding_vertical"
-            android:paddingLeft="@dimen/sample_rate_button_padding_horizontal"
-            android:paddingRight="@dimen/sample_rate_button_padding_horizontal"
-            android:paddingTop="@dimen/sample_rate_button_padding_vertical"
+            android:background="@color/dark_text_button"
+            android:paddingBottom="@dimen/dark_text_button_padding_vertical"
+            android:paddingLeft="@dimen/dark_text_button_padding_horizontal"
+            android:paddingRight="@dimen/dark_text_button_padding_horizontal"
+            android:paddingTop="@dimen/dark_text_button_padding_vertical"
             android:textStyle="bold" />
 
         <TextView

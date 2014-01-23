@@ -21,18 +21,35 @@
     <string name="sampling_rate_min">%1$s/min</string>
     <string name="sampling_rate_hour">%1$s/hour</string>
     <string name="no_sensor_selected">&lt;select specific sensor&gt;</string>
-    
     <string name="record_series_start">Start</string>
     <string name="record_series_stop">Stop</string>
-	<string name="record_series_view">View data</string>
+    <string name="record_series_view">View data</string>
     <string name="record_series_discard">Discard</string>
     <string name="record_series_keep">Close</string>
-	<string name="record_series_share">Share</string>
-	<string name="record_series_upload">Upload</string>
-		
+    <string name="record_series_share">Share</string>
+    <string name="record_series_upload">Upload</string>
+
+    <!-- main activity - share tab -->
+    <string name="share_active_project">ACTIVE PROJECT</string>
+    <string name="share_other_projects">OTHER PROJECTS</string>
+    <string name="share_no_profile">No active project has been selected yet. If you wish to collect data for any of your projects, tap on it and then activate it.</string>
+    <string name="share_default_profile_title">Series not linked with any project:</string>
+    <string name="switch_profile_header">Switch active project?</string>
+    <string name="switch_profile">Switch</string>
+    
+    <!-- data count -->
+    <string name="data_count_none">No data</string>
+    <string name="data_count_one">1 sample</string>
+    <string name="data_count_many">%1d samples</string>
+    <string name="series_count_none">No series</string>
+    <string name="series_count_one">1 series</string>
+    <string name="series_count_many">%1d series</string>
+
     <!-- button commons -->
     <string name="button_label_set">Set</string>
     <string name="button_label_cancel">Cancel</string>
+    <string name="button_label_delete">Delete</string>
+    <string name="button_label_view">View</string>
 
     <!-- menu items -->
     <string name="menu_item_sensor_select">Show/hide sensors</string>

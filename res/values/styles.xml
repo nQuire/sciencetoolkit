@@ -10,5 +10,12 @@
     <style name="section_header_text">
     </style>
     
+    <style name="boldText">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="italicText">
+        <item name="android:textStyle">italic</item>
+    </style>
 
 </resources>

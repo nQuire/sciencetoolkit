@@ -4,6 +4,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity;
 import org.greengin.sciencetoolkit.ui.main.explore.ExploreFragment;
 import org.greengin.sciencetoolkit.ui.main.record.RecordFragment;
+import org.greengin.sciencetoolkit.ui.main.share.ShareFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -119,7 +120,7 @@ public class MainActivity extends SettingsControlledActivity implements ActionBa
 					fragments[1] = new RecordFragment();
 					break;
 				case 2:
-					fragments[2] = new Fragment();
+					fragments[2] = new ShareFragment();
 					break;
 				}
 			}
