@@ -8,13 +8,17 @@
 
     <!-- share tab -->
     <dimen name="share_header_icon_size">16dp</dimen>
-    <dimen name="share_header_button_size">38dp</dimen>
     <dimen name="share_header_icon_margin">12dp</dimen>
+    <dimen name="share_header_button_size">38dp</dimen>
+    <dimen name="share_header_button_margin">16dp</dimen>
     <dimen name="share_profile_button_size">24dp</dimen>
     <dimen name="share_profile_button_margin">12dp</dimen>
     <dimen name="share_item_vertical_padding">16dp</dimen>
     <dimen name="share_item_horizontal_padding">8dp</dimen>
     <dimen name="share_project_list_margin">8dp</dimen>
+    <dimen name="share_profile_small_icon_size">16dp</dimen>
+    <dimen name="share_profile_small_icon_margin">8dp</dimen>
+    <dimen name="share_section_margin">32dp</dimen>
     
     <!-- separator lines -->
     <dimen name="darker_line_margin">10dp</dimen>

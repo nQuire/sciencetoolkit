@@ -3,11 +3,12 @@ package org.greengin.sciencetoolkit.ui.main.record;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.ui.base.animations.HeightAnimation;
+import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,8 +40,9 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 	ImageButton buttonUpload;
 	ImageButton buttonKeep;
 	
-	LinearLayout seriesPanel;
 	LinearLayout recordingPanel;
+	LinearLayout seriesPanel;
+	int seriesPanelHeight;
 
 
 	@Override
@@ -84,9 +85,11 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		
 		buttonKeep = (ImageButton) rootView.findViewById(R.id.record_series_keep);
 		buttonKeep.setOnClickListener(this);
-
 		
 		seriesPanel = (LinearLayout) rootView.findViewById(R.id.complete_series_controls);
+		seriesPanelHeight = Animations.measureHeight(seriesPanel);
+		Log.d("stk record", "" + seriesPanelHeight);
+		
 		ViewGroup.LayoutParams params = seriesPanel.getLayoutParams();
 		params.height = 0;
 		seriesPanel.setLayoutParams(params);
@@ -120,21 +123,8 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		}
 	}
 	
-	private void stopAnimation() {
-		Animation anim = seriesPanel.getAnimation();
-		
-		if (anim != null) {
-			anim.cancel();
-			anim.reset();
-		}
-	}
-	
 	private void animateraiseSeriesPanel(boolean up) {
-		stopAnimation();
-		Animation anim = new HeightAnimation(seriesPanel, up ? recordingPanel.getHeight() : 0);
-		anim.setDuration(500/* animation time */);
-		anim.setFillAfter(true);
-		seriesPanel.startAnimation(anim);
+		Animations.animateHeight(seriesPanel, up ? seriesPanelHeight : 0);
 	}
 	
 	private void stopSeries() {

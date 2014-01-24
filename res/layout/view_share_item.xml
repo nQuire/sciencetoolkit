@@ -6,13 +6,49 @@
     android:paddingBottom="@dimen/share_item_vertical_padding"
     android:paddingLeft="@dimen/share_item_horizontal_padding"
     android:paddingRight="@dimen/share_item_horizontal_padding"
-    android:paddingTop="@dimen/share_item_vertical_padding">
+    android:paddingTop="@dimen/share_item_vertical_padding" >
+
+    <LinearLayout
+        android:id="@+id/profile_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/project_type_device"
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="@dimen/share_profile_small_icon_size"
+            android:contentDescription="@string/project_type_device"
+            android:src="@drawable/type_device" />
+
+        <ImageView
+            android:id="@+id/project_type_cloud"
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="@dimen/share_profile_small_icon_size"
+            android:contentDescription="@string/project_type_cloud"
+            android:src="@drawable/type_cloud" />
+
+        <ImageView
+            android:id="@+id/project_type_geolocated"
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="@dimen/share_profile_small_icon_size"
+            android:contentDescription="@string/project_type_geolocated"
+            android:src="@drawable/type_geolocated" />
+
+        <View
+            android:id="@+id/project_type_noproject"
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="@dimen/share_profile_small_icon_size" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+        android:layout_toRightOf="@id/profile_icons"
         android:ellipsize="none"
         android:singleLine="false"
         android:textStyle="bold" />
@@ -21,8 +57,9 @@
         android:id="@+id/profile_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@id/profile_name"
+        android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+        android:layout_toRightOf="@id/profile_icons"
         android:ellipsize="none"
         android:singleLine="false" />
 

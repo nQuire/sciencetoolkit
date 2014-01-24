@@ -3,15 +3,15 @@ package org.greengin.sciencetoolkit.ui.main.share;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ProfileManager;
 
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class ProfileItemManager {
-	
+
 	private enum EventType {
 		VIEW, DELETE, SELECT
 	};
@@ -31,11 +31,11 @@ public class ProfileItemManager {
 	public void prepareView(View profileView, Model profile, boolean selected, boolean canDelete) {
 		String profileId = profile.getString("id");
 		int count = DataLogger.get().getSeriesCount(profileId);
-		
+
 		boolean canView = count > 0;
 
 		TextView title = (TextView) profileView.findViewById(R.id.profile_name);
-		
+
 		if ("1".equals(profileId)) {
 			title.setTextAppearance(profileView.getContext(), R.style.italicText);
 			title.setText(profileView.getContext().getResources().getString(R.string.share_default_profile_title));
@@ -55,12 +55,10 @@ public class ProfileItemManager {
 		profileView.setTag(profileId);
 		viewButton.setTag(profileId);
 		deleteButton.setTag(profileId);
-		
 
 		viewButton.setEnabled(canView);
 		deleteButton.setEnabled(canDelete);
 
-		
 		String dataText;
 		switch (count) {
 		case 0:
@@ -75,8 +73,17 @@ public class ProfileItemManager {
 		}
 
 		((TextView) profileView.findViewById(R.id.profile_data)).setText(dataText);
-		
+
 		profileView.setBackgroundColor(profileView.getContext().getResources().getColor(selected ? R.color.profile_selected_in_list : R.color.profile_in_list));
+
+		boolean isDefault = ProfileManager.DEFAULT_PROFILE_ID.equals(profile.getString("id"));
+		boolean isRemote = profile.getBool("is_remote");
+		boolean geolocated = profile.getBool("requires_location");
+
+		profileView.findViewById(R.id.project_type_noproject).setVisibility(isDefault ? View.VISIBLE : View.GONE);
+		profileView.findViewById(R.id.project_type_device).setVisibility(!isDefault && !isRemote ? View.VISIBLE : View.GONE);
+		profileView.findViewById(R.id.project_type_cloud).setVisibility(!isDefault && isRemote ? View.VISIBLE : View.GONE);
+		profileView.findViewById(R.id.project_type_geolocated).setVisibility(!isDefault && geolocated ? View.VISIBLE : View.GONE);
 	}
 
 	private class EventClickListener implements OnClickListener {
@@ -88,7 +95,7 @@ public class ProfileItemManager {
 
 		@Override
 		public void onClick(View v) {
-			switch(type) {
+			switch (type) {
 			case VIEW:
 				listener.profileView((String) v.getTag());
 				break;

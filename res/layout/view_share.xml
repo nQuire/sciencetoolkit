@@ -3,8 +3,6 @@
     android:layout_height="match_parent"
     android:background="@color/background_main" >
 
-    
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -64,12 +62,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/share_no_profile"
-            android:textColor="@color/subtle_text" />
+            android:textColor="@color/subtle_text"
+            android:textStyle="italic" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/share_section_margin"
             android:orientation="horizontal" >
 
             <TextView
@@ -80,7 +79,7 @@
                 android:text="@string/share_other_projects" />
 
             <ImageButton
-                android:id="@+id/share_active_project_add"
+                android:id="@+id/share_project_add"
                 android:layout_width="@dimen/share_header_button_size"
                 android:layout_height="@dimen/share_header_button_size"
                 android:layout_alignParentRight="true"
@@ -88,6 +87,18 @@
                 android:background="@color/transparent"
                 android:scaleType="fitXY"
                 android:src="@drawable/project_button_add" />
+
+            <ImageButton
+                android:id="@+id/share_project_cloud"
+                android:layout_width="@dimen/share_header_button_size"
+                android:layout_height="@dimen/share_header_button_size"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/share_header_button_margin"
+                android:layout_toLeftOf="@id/share_project_add"
+                android:adjustViewBounds="true"
+                android:background="@color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/project_button_cloud" />
         </RelativeLayout>
 
         <include layout="@layout/widget_lighter_line" />
@@ -103,7 +114,7 @@
             android:gravity="center" >
         </ListView>
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/switch_profile_controls"
         android:layout_width="match_parent"
@@ -156,7 +167,7 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/switch_profile_close"
+                    android:id="@+id/switch_profile_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

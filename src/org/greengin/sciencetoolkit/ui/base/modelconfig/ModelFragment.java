@@ -304,36 +304,7 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		line.setLayoutParams(lineParams);
 		line.setBackgroundColor(rootContainer.getContext().getResources().getColor(R.color.darker_line));
 		row.addView(line);
-	*/	
-		View line = this.inflater.inflate(R.layout.widget_darker_line, rootContainer, false);
-		row.addView(line);
-
 		
-		rootContainer.addView(row);
-	}
-	
-	private void addRow2(String label, String description, View[] widgets) {
-		
-		LinearLayout row = new LinearLayout(rootContainer.getContext());
-		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		row.setOrientation(LinearLayout.HORIZONTAL);
-
-		if (label != null) {
-			TextView labelView = new TextView(rootContainer.getContext());
-			labelView.setText(label);
-			labelView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			row.addView(labelView);
-		}
-
-		for (View widget : widgets) {
-			row.addView(widget);
-		}
-
-		LinearLayout settingView = new LinearLayout(rootContainer.getContext());
-		settingView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		settingView.setOrientation(LinearLayout.VERTICAL);
-		settingView.addView(row);
-
 		if (description != null) {
 			TextView descriptionView = new TextView(rootContainer.getContext());
 			descriptionView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -342,9 +313,14 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 			descriptionView.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
 			settingView.addView(descriptionView);
 		}
+	*/	
+		View line = this.inflater.inflate(R.layout.widget_darker_line, rootContainer, false);
+		row.addView(line);
 
-		rootContainer.addView(settingView);
+		
+		rootContainer.addView(row);
 	}
+	
 
 	public void setSettingsEnabled(boolean enabled) {
 		View root = getView();

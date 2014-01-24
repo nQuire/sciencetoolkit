@@ -32,11 +32,17 @@
     <!-- main activity - share tab -->
     <string name="share_active_project">ACTIVE PROJECT</string>
     <string name="share_other_projects">OTHER PROJECTS</string>
-    <string name="share_no_profile">No active project has been selected yet. If you wish to collect data for any of your projects, tap on it and then activate it.</string>
+    <string name="share_no_profile">No active project!.</string>
     <string name="share_default_profile_title">Series not linked with any project:</string>
     <string name="switch_profile_header">Switch active project?</string>
     <string name="switch_profile">Switch</string>
-    
+    <string name="project_type_device">Local project</string>
+    <string name="project_type_cloud">Remote project</string>
+    <string name="project_type_geolocated">Geolocated project</string>
+    <string name="new_project_dlg_title">Create new project</string>
+    <string name="new_project_dlg_message">Input the name for your new project.</string>
+    <string name="new_project_dlg_oklabel">Create</string>
+
     <!-- data count -->
     <string name="data_count_none">No data</string>
     <string name="data_count_one">1 sample</string>
