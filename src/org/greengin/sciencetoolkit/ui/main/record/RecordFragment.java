@@ -3,9 +3,12 @@ package org.greengin.sciencetoolkit.ui.main.record;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class RecordFragment extends EventFragment   implements OnClickListener {
 	
@@ -43,6 +47,9 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 	LinearLayout recordingPanel;
 	LinearLayout seriesPanel;
 	int seriesPanelHeight;
+	
+	View projectTitlePanel;
+	TextView projectTitleView;
 
 
 	@Override
@@ -95,7 +102,12 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		seriesPanel.setLayoutParams(params);
 		
 		recordingPanel = (LinearLayout) rootView.findViewById(R.id.record_controls);
-		updateButtonPanel();
+				
+		projectTitlePanel = rootView.findViewById(R.id.record_project_title_panel);
+		projectTitleView = (TextView) projectTitlePanel.findViewById(R.id.project_title);
+		
+		updateProfileView();
+
 		return rootView;
 	}
 	
@@ -161,13 +173,25 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		
 	}
 	
+	private void updateProfileView() {
+		this.adapter.updateSensorList();
+		this.updateButtonPanel();
+		
+		if (ProfileManager.get().activeProfileIsDefault()) {
+			projectTitlePanel.setVisibility(View.GONE);
+		} else {
+			Model profile = ProfileManager.get().getActiveProfile();
+			ProjectItemManager.setProjectIcons(projectTitlePanel, profile);
+			projectTitleView.setText(profile.getString("title"));
+			projectTitlePanel.setVisibility(View.VISIBLE);
+		}
+	}
 	
 	private void switchProfile() {
 		this.state = RecordState.IDLE;
 		this.currentSeries = 0;
 		
-		this.adapter.updateSensorList();
-		this.updateButtonPanel();
+		updateProfileView();
 	}
 	
 	private void updateSamplesCount() {
@@ -180,6 +204,9 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		}
 
 		public void eventProfile(String event, boolean whilePaused) {
+			if (event != null && event.equals(ProfileManager.get().getActiveProfileId())) {
+				updateProfileView();
+			}
 		}
 
 		public void eventData(String event, boolean whilePaused) {

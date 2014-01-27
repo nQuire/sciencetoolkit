@@ -78,12 +78,10 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_explore_sensors_item, parent, false) : convertView;
-		
+
+		view.setTag(sensor.getId());
+
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
-		if (newView) {
-			//icon.setOnClickListener(exportListener);
-		}
-		icon.setTag(sensor.getId());
 		icon.setImageResource(SensorUIData.getSensorResource(sensor.getType()));
 
 		TextView text = (TextView) view.findViewById(R.id.sensor_name);

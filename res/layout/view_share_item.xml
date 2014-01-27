@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/profile_icons"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/share_profile_small_icon_size"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
@@ -36,11 +36,6 @@
             android:layout_height="@dimen/share_profile_small_icon_size"
             android:contentDescription="@string/project_type_geolocated"
             android:src="@drawable/type_geolocated" />
-
-        <View
-            android:id="@+id/project_type_noproject"
-            android:layout_width="@dimen/share_profile_small_icon_size"
-            android:layout_height="@dimen/share_profile_small_icon_size" />
     </LinearLayout>
 
     <TextView

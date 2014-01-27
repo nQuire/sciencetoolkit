@@ -7,13 +7,18 @@
     <GridView
         android:id="@+id/sensor_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         android:horizontalSpacing="6dp"
-        android:numColumns="4"
-        android:gravity="center" >
-
+        android:numColumns="4" >
     </GridView>
+
+    <fragment 
+        android:id="@+id/explore_plot_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="org.greengin.sciencetoolkit.ui.base.plot.LiveXYSensorPlotFragment"/>
 
 </RelativeLayout>

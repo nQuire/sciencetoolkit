@@ -208,32 +208,88 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/record_controls"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@id/record_controls"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin" >
+        android:orientation="vertical" >
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/record_project_title_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/selected_sensors" />
+            android:background="@color/dark_text_button"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dark_text_button_padding_vertical"
+            android:paddingLeft="@dimen/dark_text_button_padding_horizontal"
+            android:paddingRight="@dimen/dark_text_button_padding_horizontal"
+            android:paddingTop="@dimen/dark_text_button_padding_vertical" >
 
-        <include layout="@layout/widget_lighter_line_mu" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/record_project_panel_margin"
+                android:text="@string/record_project_title_label" />
 
-        <ListView
-            android:id="@+id/sensor_list"
+            <ImageView
+                android:id="@+id/project_type_device"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:layout_marginRight="@dimen/record_project_panel_margin"
+                android:contentDescription="@string/project_type_device"
+                android:src="@drawable/type_device" />
+
+            <ImageView
+                android:id="@+id/project_type_cloud"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:layout_marginRight="@dimen/record_project_panel_margin"
+                android:contentDescription="@string/project_type_cloud"
+                android:src="@drawable/type_cloud" />
+
+            <ImageView
+                android:id="@+id/project_type_geolocated"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:layout_marginRight="@dimen/record_project_panel_margin"
+                android:contentDescription="@string/project_type_geolocated"
+                android:src="@drawable/type_geolocated" />
+
+            <TextView
+                android:id="@+id/project_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:divider="@color/darker_line"
-            android:dividerHeight="@dimen/darker_line_height"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center" >
-        </ListView>
+            android:layout_height="wrap_content"
+            android:layout_above="@id/record_controls"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selected_sensors" />
+
+            <include layout="@layout/widget_lighter_line_mu" />
+
+            <ListView
+                android:id="@+id/sensor_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:divider="@color/darker_line"
+                android:dividerHeight="@dimen/darker_line_height"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center" >
+            </ListView>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

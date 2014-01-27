@@ -1,6 +1,7 @@
 <resources>
 
     <!-- record item -->
+    <dimen name="record_project_panel_margin">5dp</dimen>
     <dimen name="record_item_icon_size">50dp</dimen>
     <dimen name="record_item_vertical_margin">8dp</dimen>
     <dimen name="record_item_icon_margin">16dp</dimen>
@@ -29,7 +30,14 @@
     <!-- text button -->
     <dimen name="dark_text_button_padding_horizontal">10dp</dimen>
     <dimen name="dark_text_button_padding_vertical">5dp</dimen>
-
+    
+    <!-- plot -->
+    <dimen name="plot_header_padding_vertical">12dp</dimen>
+    <dimen name="plot_header_padding_horizontal">12dp</dimen>
+    <dimen name="plot_header_button_size">38dp</dimen>
+    <dimen name="plot_margin">16dp</dimen>
+    <dimen name="plot_padding">16dp</dimen>
+    
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="activity_horizontal_margin">16dp</dimen>

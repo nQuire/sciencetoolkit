@@ -47,6 +47,7 @@
                 android:adjustViewBounds="true"
                 android:background="@color/transparent"
                 android:scaleType="fitXY"
+                android:contentDescription="@string/button_label_close"
                 android:src="@drawable/project_button_close" />
         </RelativeLayout>
 

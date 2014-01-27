@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="libs/androidplot-core-0.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/httpclient-4.3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/httpcore-4.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/androidplot-core-0.6.0.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="gen"/>

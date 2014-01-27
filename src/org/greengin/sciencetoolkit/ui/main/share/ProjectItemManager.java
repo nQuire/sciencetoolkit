@@ -10,18 +10,28 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ProfileItemManager {
+public class ProjectItemManager {
 
 	private enum EventType {
 		VIEW, DELETE, SELECT
 	};
 
-	ProfileItemEventListener listener;
+	ProjectItemEventListener listener;
 	OnClickListener viewListener;
 	OnClickListener deleteListener;
 	OnClickListener selectListener;
 
-	public ProfileItemManager(ProfileItemEventListener listener) {
+	public static void setProjectIcons(View containerView, Model profile) {
+		boolean isDefault = ProfileManager.DEFAULT_PROFILE_ID.equals(profile.getString("id"));
+		boolean isRemote = profile.getBool("is_remote");
+		boolean geolocated = profile.getBool("requires_location");
+
+		containerView.findViewById(R.id.project_type_device).setVisibility(!isDefault && !isRemote ? View.VISIBLE : View.GONE);
+		containerView.findViewById(R.id.project_type_cloud).setVisibility(!isDefault && isRemote ? View.VISIBLE : View.GONE);
+		containerView.findViewById(R.id.project_type_geolocated).setVisibility(!isDefault && geolocated ? View.VISIBLE : View.GONE);
+	}
+
+	public ProjectItemManager(ProjectItemEventListener listener) {
 		this.listener = listener;
 		this.viewListener = new EventClickListener(EventType.VIEW);
 		this.deleteListener = new EventClickListener(EventType.DELETE);
@@ -76,14 +86,7 @@ public class ProfileItemManager {
 
 		profileView.setBackgroundColor(profileView.getContext().getResources().getColor(selected ? R.color.profile_selected_in_list : R.color.profile_in_list));
 
-		boolean isDefault = ProfileManager.DEFAULT_PROFILE_ID.equals(profile.getString("id"));
-		boolean isRemote = profile.getBool("is_remote");
-		boolean geolocated = profile.getBool("requires_location");
-
-		profileView.findViewById(R.id.project_type_noproject).setVisibility(isDefault ? View.VISIBLE : View.GONE);
-		profileView.findViewById(R.id.project_type_device).setVisibility(!isDefault && !isRemote ? View.VISIBLE : View.GONE);
-		profileView.findViewById(R.id.project_type_cloud).setVisibility(!isDefault && isRemote ? View.VISIBLE : View.GONE);
-		profileView.findViewById(R.id.project_type_geolocated).setVisibility(!isDefault && geolocated ? View.VISIBLE : View.GONE);
+		setProjectIcons(profileView, profile);
 	}
 
 	private class EventClickListener implements OnClickListener {

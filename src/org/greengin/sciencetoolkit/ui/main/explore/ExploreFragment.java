@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.main.explore;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.plot.LiveXYSensorPlotFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +14,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class ExploreFragment extends EventFragment  {
+public class ExploreFragment extends EventFragment implements OnItemClickListener  {
 	
 	ExploreSensorListAdapter adapter;
-
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,10 +37,11 @@ public class ExploreFragment extends EventFragment  {
 		super.onCreateView(inflater, container, savedInstanceState);
 
 		View rootView = inflater.inflate(R.layout.view_explore_sensors, container, false);
-		
 		adapter = new ExploreSensorListAdapter(inflater);
 		GridView grid = (GridView) rootView.findViewById(R.id.sensor_list);
 		grid.setAdapter(adapter);
+		
+		grid.setOnItemClickListener(this);
 		
 		return rootView;
 	}
@@ -62,15 +67,20 @@ public class ExploreFragment extends EventFragment  {
 	}
 	
 	
-	private class EventListener extends EventManagerListener {
-		
+	private class EventListener extends EventManagerListener {		
 		@Override
 		public void eventSetting(String settingsId, boolean whilePaused) {
 			if ("sensor_list".equals(settingsId)) {
 				adapter.updateSensorList();
 			}
-		}
-		
+		}		
+	}
+
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		LiveXYSensorPlotFragment fragment = (LiveXYSensorPlotFragment) this.getFragmentManager().findFragmentById(R.id.explore_plot_fragment);
+		fragment.open((String)view.getTag());
 	}
 
 }

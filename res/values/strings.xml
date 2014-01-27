@@ -15,6 +15,7 @@
     <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
 
     <!-- main activity - record tab -->
+    <string name="record_project_title_label">Project: </string>
     <string name="selected_sensors">SELECTED SENSORS</string>
     <string name="sampling_rate">Sampling rate</string>
     <string name="sampling_rate_sec">%1$s/s</string>
@@ -28,6 +29,8 @@
     <string name="record_series_keep">Close</string>
     <string name="record_series_share">Share</string>
     <string name="record_series_upload">Upload</string>
+    
+    
 
     <!-- main activity - share tab -->
     <string name="share_active_project">ACTIVE PROJECT</string>
@@ -43,6 +46,10 @@
     <string name="new_project_dlg_message">Input the name for your new project.</string>
     <string name="new_project_dlg_oklabel">Create</string>
 
+    <!-- plot -->
+    <string name="plot_live_label">LIVE VALUES</string>
+    <string name="plot_recording_label">RECORDING IN PROGRESS</string>
+    
     <!-- data count -->
     <string name="data_count_none">No data</string>
     <string name="data_count_one">1 sample</string>
@@ -56,7 +63,8 @@
     <string name="button_label_cancel">Cancel</string>
     <string name="button_label_delete">Delete</string>
     <string name="button_label_view">View</string>
-
+    <string name="button_label_close">Close</string>
+    
     <!-- menu items -->
     <string name="menu_item_sensor_select">Show/hide sensors</string>
     <string name="menu_item_application_settings">Settings</string>

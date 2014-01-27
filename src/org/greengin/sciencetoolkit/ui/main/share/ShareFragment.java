@@ -24,11 +24,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ShareFragment extends EventFragment implements OnClickListener, ProfileItemEventListener, EditTextActionListener {
+public class ShareFragment extends EventFragment implements OnClickListener, ProjectItemEventListener, EditTextActionListener {
 
 	View activeProfilePanel;
 	TextView noActiveProfileNotice;
-	ProfileItemManager itemManager;
+	ProjectItemManager itemManager;
 	ShareListAdapter adapter;
 
 	String selectedProfileId;
@@ -45,7 +45,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.itemManager = new ProfileItemManager(this);
+		this.itemManager = new ProjectItemManager(this);
 		eventManager.setListener(new EventListener());
 
 		eventManager.listenToSettings("profiles");

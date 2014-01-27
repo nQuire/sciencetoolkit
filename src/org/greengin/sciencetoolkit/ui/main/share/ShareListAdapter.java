@@ -15,11 +15,11 @@ import android.widget.BaseAdapter;
 public class ShareListAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
-	ProfileItemManager manager;
+	ProjectItemManager manager;
 	Vector<Model> profiles;
 	String selectedProfileId;
 
-	public ShareListAdapter(LayoutInflater inflater, ProfileItemManager manager) {
+	public ShareListAdapter(LayoutInflater inflater, ProjectItemManager manager) {
 		this.inflater = inflater;
 		this.manager = manager;
 		this.profiles = new Vector<Model>();
