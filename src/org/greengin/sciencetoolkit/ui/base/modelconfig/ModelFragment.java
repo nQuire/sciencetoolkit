@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -265,58 +266,15 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 	}
 
 	private void addRow(String label, String description, View[] widgets) {
-
-		RelativeLayout content = new RelativeLayout(rootContainer.getContext());
-		content.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		View row = inflater.inflate(R.layout.settings_row_label, null);
 		
-		if (label != null) {
-			TextView labelView = new TextView(rootContainer.getContext());
-			labelView.setText(label);
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-			params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-			labelView.setLayoutParams(params);
-			content.addView(labelView);
-		}
-
-		LinearLayout widgetsContainer = new LinearLayout(rootContainer.getContext());
-		widgetsContainer.setOrientation(LinearLayout.HORIZONTAL);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-		params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-		widgetsContainer.setLayoutParams(params);
+		((TextView) row.findViewById(R.id.label)).setText(label != null ? label : "");
+		
+		LinearLayout widgetContainer = (LinearLayout) row.findViewById(R.id.widgetContainer);
 		
 		for (View widget : widgets) {
-			widgetsContainer.addView(widget);
+			widgetContainer.addView(widget);
 		}		
-		
-		content.addView(widgetsContainer);
-		
-		LinearLayout row = new LinearLayout(rootContainer.getContext());
-		row.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-		row.setOrientation(LinearLayout.VERTICAL);
-		
-		row.addView(content);
-		
-/*		View line = new View(rootContainer.getContext());
-		LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 2);
-		lineParams.setMargins(0,  10,  0,  10);
-		line.setLayoutParams(lineParams);
-		line.setBackgroundColor(rootContainer.getContext().getResources().getColor(R.color.darker_line));
-		row.addView(line);
-		
-		if (description != null) {
-			TextView descriptionView = new TextView(rootContainer.getContext());
-			descriptionView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			descriptionView.setText(description);
-			descriptionView.setTextSize(8);
-			descriptionView.setTextColor(getResources().getColor(android.R.color.secondary_text_light));
-			settingView.addView(descriptionView);
-		}
-	*/	
-		View line = this.inflater.inflate(R.layout.widget_darker_line, rootContainer, false);
-		row.addView(line);
-
 		
 		rootContainer.addView(row);
 	}

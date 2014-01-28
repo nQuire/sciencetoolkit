@@ -53,7 +53,15 @@
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity" />
+                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+        </activity>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.base.AppSettingsActivity"
+            android:label="@string/app_settings_activity_title"
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         </application>
 

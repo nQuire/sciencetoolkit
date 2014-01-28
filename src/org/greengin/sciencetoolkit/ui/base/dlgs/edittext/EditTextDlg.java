@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.dlgs;
+package org.greengin.sciencetoolkit.ui.base.dlgs.edittext;
 
 import org.greengin.sciencetoolkit.R;
 

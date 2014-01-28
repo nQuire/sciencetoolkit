@@ -6,6 +6,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
+import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
@@ -35,7 +36,9 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 	RecordState state;
 	int currentSeries;
 	boolean canUploadSeries;
-	
+
+	ImageButton buttonAdd;
+
 	ImageButton buttonStart;
 	ImageButton buttonStop;
 	ImageButton buttonView;
@@ -79,6 +82,10 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		adapter = new RecordSensorListAdapter(inflater);
 		ListView grid = (ListView) rootView.findViewById(R.id.sensor_list);
 		grid.setAdapter(adapter);
+
+		buttonAdd = (ImageButton) rootView.findViewById(R.id.record_sensor_add);
+		buttonAdd.setOnClickListener(this);
+
 		
 		buttonStart = (ImageButton) rootView.findViewById(R.id.record_series_start);
 		buttonStart.setOnClickListener(this);
@@ -93,15 +100,16 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 		buttonKeep = (ImageButton) rootView.findViewById(R.id.record_series_keep);
 		buttonKeep.setOnClickListener(this);
 		
+		recordingPanel = (LinearLayout) rootView.findViewById(R.id.record_controls);
+		
 		seriesPanel = (LinearLayout) rootView.findViewById(R.id.complete_series_controls);
-		seriesPanelHeight = Animations.measureHeight(seriesPanel);
-		Log.d("stk record", "" + seriesPanelHeight);
+		seriesPanelHeight = 288;
 		
 		ViewGroup.LayoutParams params = seriesPanel.getLayoutParams();
 		params.height = 0;
 		seriesPanel.setLayoutParams(params);
 		
-		recordingPanel = (LinearLayout) rootView.findViewById(R.id.record_controls);
+		
 				
 		projectTitlePanel = rootView.findViewById(R.id.record_project_title_panel);
 		projectTitleView = (TextView) projectTitlePanel.findViewById(R.id.project_title);
@@ -168,9 +176,8 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 	}
 	
 	private void updateButtonPanel() {
-		buttonStart.setEnabled(state == RecordState.IDLE);
-		buttonStop.setEnabled(state == RecordState.RECORDING);
-		
+		buttonStart.setEnabled(state == RecordState.IDLE && ProfileManager.get().getActiveProfile().getModel("sensors", true).getModels().size() > 0);
+		buttonStop.setEnabled(state == RecordState.RECORDING);		
 	}
 	
 	private void updateProfileView() {
@@ -221,6 +228,9 @@ public class RecordFragment extends EventFragment   implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		if (v == buttonAdd) {
+			SensorSelectDlg.open(getActivity(), R.string.add_profile_sensor_title, R.string.add_profile_sensor_msg, R.string.add_profile_sensor_oklabel, null, false, null);
+		}
 		if (v == buttonStart) {
 			startSeries();
 		} else if (v == buttonStop) {

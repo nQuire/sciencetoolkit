@@ -5,8 +5,8 @@ import java.util.List;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
-import org.greengin.sciencetoolkit.ui.base.dlgs.EditTextActionListener;
-import org.greengin.sciencetoolkit.ui.base.dlgs.EditTextDlg;
+import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
+import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 
@@ -81,8 +81,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 		buttonCloseActive.setOnClickListener(this);
 
 		panelSwitchActive = rootView.findViewById(R.id.switch_profile_controls);
-		panelSwitchActiveheight = Animations.measureHeight(panelSwitchActive);
-		Log.d("stk share", "" + panelSwitchActiveheight);
+		panelSwitchActiveheight = 288;
 
 		buttonSwitchActive = (ImageButton) panelSwitchActive.findViewById(R.id.switch_profile_confirm);
 		buttonSwitchActive.setOnClickListener(this);
