@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.main.explore;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.modelconfig.settings.LivePlotSettingsFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.LiveXYSensorPlotFragment;
 
 import android.content.Intent;
@@ -21,7 +22,7 @@ import android.widget.GridView;
 public class ExploreFragment extends EventFragment implements OnItemClickListener  {
 	
 	ExploreSensorListAdapter adapter;
-	
+	LiveXYSensorPlotFragment fragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,10 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 		adapter = new ExploreSensorListAdapter(inflater);
 		GridView grid = (GridView) rootView.findViewById(R.id.sensor_list);
 		grid.setAdapter(adapter);
+		
+		fragment = new LiveXYSensorPlotFragment();
+		getChildFragmentManager().beginTransaction().add(R.id.explore_view, fragment).addToBackStack(null).commit();
+	
 		
 		grid.setOnItemClickListener(this);
 		
@@ -79,7 +84,6 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		LiveXYSensorPlotFragment fragment = (LiveXYSensorPlotFragment) this.getFragmentManager().findFragmentById(R.id.explore_plot_fragment);
 		fragment.open((String)view.getTag());
 	}
 

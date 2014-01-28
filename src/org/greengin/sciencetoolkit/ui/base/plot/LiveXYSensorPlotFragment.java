@@ -83,7 +83,8 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 		this.dataPipe.addFilter(this.periodFilter);
 		this.dataPipe.setEnd((LiveXYSensorSeriesWrapper) this.series);
 		
-		this.series.updateSeriesConfiguration(plot, true);
+		this.series.initSeries(plot);
+		plot.removeMarkers();
 		
 		listenToLiveValues();
 		

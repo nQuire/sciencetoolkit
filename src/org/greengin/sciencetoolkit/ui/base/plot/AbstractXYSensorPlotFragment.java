@@ -17,6 +17,7 @@ import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYStepMode;
 
 import android.app.Activity;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-public abstract class AbstractXYSensorPlotFragment extends EventFragment implements OnClickListener, OnScaleGestureListener {
+public abstract class AbstractXYSensorPlotFragment extends EventFragment implements OnClickListener {
 
 	protected String sensorId;
 	protected SensorWrapper sensor;
@@ -43,7 +44,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	protected XYPlot plot;
 	ImageButton closeButton;
 
-	ScaleGestureDetector scaleDetector;
+	PlotScaleGestureDetector scaleDetector;
 
 	protected String getDomainLabel() {
 		return "Time";
@@ -76,9 +77,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		int sublineColor = this.getActivity().getResources().getColor(R.color.plot_minor_line);
 		int transparent = this.getActivity().getResources().getColor(R.color.transparent);
 
-		plot.getGraphWidget().setPaddingBottom(20f);
-		plot.getGraphWidget().setPaddingTop(20f);
-
 		plot.setBorderStyle(Plot.BorderStyle.NONE, null, null);
 
 		plot.getBackgroundPaint().setColor(background);
@@ -93,14 +91,12 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		plot.getGraphWidget().getRangeSubGridLinePaint().setColor(sublineColor);
 		plot.getGraphWidget().getRangeOriginLinePaint().setColor(lineColor);
 
-		scaleDetector = new ScaleGestureDetector(getActivity(), this);
+		plot.getGraphWidget().setMargins(10f, 20f, 20f, 20f);
+		plot.getGraphWidget().setPadding(0f, 0f, 0f, 20f);
 
-		plot.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return scaleDetector.onTouchEvent(event);
-			}
-		});
+		scaleDetector = new PlotScaleGestureDetector();
+
+		plot.setOnTouchListener(scaleDetector);
 
 		closeButton = (ImageButton) this.plotPanel.findViewById(R.id.plot_close);
 		closeButton.setOnClickListener(this);
@@ -165,24 +161,69 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		}
 	}
 
-	@Override
-	public boolean onScale(ScaleGestureDetector detector) {
-		float k = 1f / detector.getScaleFactor();
-		float top = Math.max(0, plot.getCalculatedMaxY().floatValue() * k);
-		float bottom = Math.min(0, plot.getCalculatedMinY().floatValue() * k);
-		plot.setRangeTopMax(top);
-		plot.setRangeTopMin(top);
-		plot.setRangeBottomMin(bottom);
-		plot.setRangeBottomMax(bottom);
-		return true;
+	private class PlotScaleGestureDetector implements OnTouchListener {
+
+		float rt, rh;
+		float pt0, pb0;
+		float pt1, pb1;
+		float max, min;
+		boolean scaling;
+
+		public PlotScaleGestureDetector() {
+			pt1 = pb1 = 0;
+			scaling = false;
+		}
+
+		private void updateValues(MotionEvent event) {
+			RectF rect = plot.getGraphWidget().getGridRect();
+			rt = rect.top;
+			rh = rect.bottom - rt;
+			pt0 = pt1;
+			pb0 = pb1;
+			pt1 = (Math.min(event.getY(0), event.getY(1)) - rt) / rh;
+			pb1 = (Math.max(event.getY(0), event.getY(1)) - rt) / rh;
+		}
+
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			int action = event.getAction();
+			switch (action & MotionEvent.ACTION_MASK) {
+			case MotionEvent.ACTION_POINTER_DOWN:
+				if (event.getPointerCount() == 2) {
+					scaling = true;
+					max = plot.getCalculatedMaxY().floatValue();
+					min = plot.getCalculatedMinY().floatValue();
+					updateValues(event);
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_POINTER_UP:
+			case MotionEvent.ACTION_CANCEL:
+				if (scaling) {
+					plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
+					plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
+				}
+				scaling = false;
+				break;
+			case MotionEvent.ACTION_MOVE: {
+				if (scaling) {
+					updateValues(event);
+					if (pt1 != pb1) {
+						float nmax = (((min - max)*pb0 + max) * pt1 + (max - min)*pb1*pt0 - max*pb1) / (pt1 - pb1);
+						float nmin = nmax + ((min - max)*pt0 + (max - min)*pb0)/(pt1 - pb1);
+						
+						max = nmax;
+						min = nmin;
+
+						plot.setRangeLowerBoundary(min, BoundaryMode.FIXED);
+						plot.setRangeUpperBoundary(max, BoundaryMode.FIXED);
+					}
+				}
+				break;
+			}
+			}
+			return true;
+		}
 	}
 
-	@Override
-	public boolean onScaleBegin(ScaleGestureDetector detector) {
-		return true;
-	}
-
-	@Override
-	public void onScaleEnd(ScaleGestureDetector detector) {
-	}
 }

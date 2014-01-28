@@ -39,9 +39,8 @@
         android:id="@+id/plot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/plot_margin"
-        android:padding="@dimen/plot_padding"
         android:layout_below="@id/plot_header"
+        android:layout_margin="@dimen/plot_margin"
         androidPlot.domainLabelWidget.labelPaint.textSize="@dimen/plot_domain_label_font_size"
         androidPlot.graphWidget.domainLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
         androidPlot.graphWidget.domainOriginLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
@@ -54,7 +53,9 @@
         androidPlot.legendWidget.textPaint.textSize="@dimen/plot_legend_text_font_size"
         androidPlot.rangeLabelWidget.labelPaint.textSize="@dimen/plot_range_label_font_size"
         androidPlot.titleWidget.labelPaint.textSize="@dimen/plot_title_font_size"
-        android:background="@color/plot_outter_background"
-        tools:context=".AbstractXYSensorPlotFragment" />
+        android:paddingTop="@dimen/plot_padding" 
+        android:paddingLeft="@dimen/plot_padding" 
+        android:paddingRight="@dimen/plot_padding" 
+        android:paddingBottom="@dimen/plot_padding_bottom" />
 
 </RelativeLayout>

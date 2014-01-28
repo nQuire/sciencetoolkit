@@ -53,24 +53,25 @@ public abstract class AbstractXYSensorSeriesWrapper {
 		}
 	}
 
+	public void initSeries(XYPlot plot) {
+		plot.calculateMinMaxVals();
+		for (int i = 0; i < this.seriesList.length; i++) {
+			if (this.showSeries[i]) {
+				int resource = i == 0 ? R.xml.line_point_formatter_with_plf1 : i == 1 ? R.xml.line_point_formatter_with_plf2 : R.xml.line_point_formatter_with_plf3;
+
+				LineAndPointFormatter seriesFormat = new LineAndPointFormatter();
+				seriesFormat.setPointLabelFormatter(new PointLabelFormatter());
+				seriesFormat.configure(plot.getContext(), resource);
+				seriesFormat.setPointLabeler(null);
+				plot.addSeries(this.seriesList[i], seriesFormat);
+			}
+		}
+	}
+
 	public boolean updateSeriesConfiguration(XYPlot plot, boolean anyway) {
 		if (updateShowSeries() || anyway) {
-			for (int i = 0; i < this.seriesList.length; i++) {
-				plot.removeSeries(this.seriesList[i]);
-			}
-
-			for (int i = 0; i < this.seriesList.length; i++) {
-				if (this.showSeries[i]) {
-					int resource = i == 0 ? R.xml.line_point_formatter_with_plf1 : i == 1 ? R.xml.line_point_formatter_with_plf2 : R.xml.line_point_formatter_with_plf3;
-
-					LineAndPointFormatter seriesFormat = new LineAndPointFormatter();
-					seriesFormat.setPointLabelFormatter(new PointLabelFormatter());
-					seriesFormat.configure(plot.getContext(), resource);
-					seriesFormat.setPointLabeler(null);
-					plot.addSeries(this.seriesList[i], seriesFormat);
-				}
-			}
-
+			removeFromPlot(plot);
+			initSeries(plot);
 			return true;
 		} else {
 			return false;

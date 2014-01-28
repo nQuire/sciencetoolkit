@@ -37,6 +37,7 @@
     <dimen name="plot_header_button_size">38dp</dimen>
     <dimen name="plot_margin">16dp</dimen>
     <dimen name="plot_padding">16dp</dimen>
+    <dimen name="plot_padding_bottom">32dp</dimen>
     
     <!-- Default screen margins, per the Android Design guidelines. -->
 
