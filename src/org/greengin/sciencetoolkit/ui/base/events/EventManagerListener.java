@@ -7,10 +7,10 @@ public class EventManagerListener {
 		if (settingsEvents.size() > 0) {
 			this.eventsSettings(settingsEvents, whilePaused);
 		}
-		if (settingsEvents.size() > 0) {
+		if (profileEvents.size() > 0) {
 			this.eventsProfiles(profileEvents, whilePaused);
 		}
-		if (settingsEvents.size() > 0) {
+		if (dataEvents.size() > 0) {
 			this.eventsData(dataEvents, whilePaused);
 		}
 	}

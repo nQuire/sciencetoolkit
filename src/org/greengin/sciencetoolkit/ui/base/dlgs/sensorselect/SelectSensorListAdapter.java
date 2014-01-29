@@ -11,6 +11,8 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,20 @@ public class SelectSensorListAdapter extends BaseAdapter {
 	
 	LayoutInflater inflater;
 	Vector<SensorWrapper> sensors;
+	Vector<String> selected;
+	ColorMatrixColorFilter bwfilter; 
+	SelectSensorActionListener listener;
 	
-	public SelectSensorListAdapter(LayoutInflater inflater) {
+	public SelectSensorListAdapter(LayoutInflater inflater, Vector<String> selected, SelectSensorActionListener listener) {
 		this.inflater = inflater;
 		this.sensors = null;
+		this.selected = selected;
+		this.listener = listener;
+		
+		ColorMatrix matrix = new ColorMatrix();
+	    matrix.setSaturation(0);
+	    bwfilter = new ColorMatrixColorFilter(matrix);
+	    
 		updateSensorList(false);		
 	}
 	
@@ -38,7 +50,7 @@ public class SelectSensorListAdapter extends BaseAdapter {
 		
 		this.sensors = new Vector<SensorWrapper>();
 		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
-			if (settings.getBool(sensorId, true)) {
+			if (settings.getBool(sensorId, true) && listener.sensorIsAvailable(sensorId)) {
 				sensors.add(SensorWrapperManager.get().getSensor(sensorId));
 			}
 		}		
@@ -78,11 +90,13 @@ public class SelectSensorListAdapter extends BaseAdapter {
 
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_explore_sensors_item, parent, false) : convertView;
-
-		view.setTag(sensor.getId());
+		
+		String id = sensor.getId();
+		view.setTag(id);
 
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
 		icon.setImageResource(SensorUIData.getSensorResource(sensor.getType()));
+		icon.setColorFilter(selected.contains(id) ? null : bwfilter);
 
 		TextView text = (TextView) view.findViewById(R.id.sensor_name);
 		text.setText(sensor.getName());

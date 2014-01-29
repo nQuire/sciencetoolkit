@@ -11,7 +11,7 @@
 
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
-	
+
     <!-- main activity - explore tab - settings -->
     <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
 
@@ -30,11 +30,12 @@
     <string name="record_series_keep">Close</string>
     <string name="record_series_share">Share</string>
     <string name="record_series_upload">Upload</string>
-
     <string name="add_profile_sensor_title">Add sensors</string>
     <string name="add_profile_sensor_msg">Select sensors for data recording.</string>
-    <string name="add_profile_sensor_oklabel">Add selected</string>
-    
+    <string name="add_profile_sensor_oklabel0">Add selected</string>
+    <string name="add_profile_sensor_oklabel1">Add 1 sensor</string>
+    <string name="add_profile_sensor_oklabelmany">Add %1d sensors</string>
+
     <!-- main activity - share tab -->
     <string name="share_active_project">ACTIVE PROJECT</string>
     <string name="share_other_projects">OTHER PROJECTS</string>

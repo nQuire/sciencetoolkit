@@ -3,6 +3,8 @@ package org.greengin.sciencetoolkit.ui.main.share;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
+import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
@@ -156,6 +158,8 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 			}
 		} else if (v == buttonAddProject) {
 			EditTextDlg.open(this.getActivity(), R.string.new_project_dlg_title, R.string.new_project_dlg_message, R.string.new_project_dlg_oklabel, "", true, this);
+		} else if (v == buttonUpdateProject) {
+			((RemoteCapableActivity)getActivity()).remoteRequest(new UpdateRemoteAction());
 		}
 	}
 

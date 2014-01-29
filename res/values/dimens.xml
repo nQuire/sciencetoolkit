@@ -2,10 +2,12 @@
 
     <!-- record item -->
     <dimen name="record_project_panel_margin">5dp</dimen>
-    <dimen name="record_item_icon_size">50dp</dimen>
+    <dimen name="record_item_icon_size">25dp</dimen>
     <dimen name="record_item_vertical_margin">8dp</dimen>
     <dimen name="record_item_icon_margin">16dp</dimen>
     <dimen name="button_pane_vertical_margin">16dp</dimen>
+    <dimen name="record_header_icon_size">16dp</dimen>
+    <dimen name="record_header_icon_margin">16dp</dimen>
     <dimen name="record_header_button_size">32dp</dimen>
     
     <!-- share tab -->

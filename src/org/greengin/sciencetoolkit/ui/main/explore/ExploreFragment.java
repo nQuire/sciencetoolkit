@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.main.explore;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.modelconfig.settings.LivePlotSettingsFragment;
@@ -84,7 +85,11 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		fragment.open((String)view.getTag());
+		String sensorId = (String)view.getTag(); 
+		if (ProfileManager.get().activeProfileIsDefault()) {
+			ProfileManager.get().addSensorToActiveProfile(sensorId);
+		}
+		fragment.open(sensorId);
 	}
 
 }

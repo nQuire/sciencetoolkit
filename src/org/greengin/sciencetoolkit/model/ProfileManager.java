@@ -184,33 +184,14 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void addSensorToActiveProfile(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null) {
-			/*
-			 * boolean logging = DeprecatedDataLogger.i().isRunning(); if
-			 * (logging) { DeprecatedDataLogger.i().stop(); }
-			 */
-
 			addSensor(profile, sensorId);
-
-			/*
-			 * if (logging) { DeprecatedDataLogger.i().start(); }
-			 */
 		}
 	}
 
 	public void removeSensorFromActiveProfile(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null) {
-
-			/*
-			 * boolean logging = DeprecatedDataLogger.i().isRunning(); if
-			 * (logging) { DeprecatedDataLogger.i().stop(); }
-			 */
-
 			removeSensor(profile, sensorId);
-
-			/*
-			 * if (logging) { DeprecatedDataLogger.i().start(); }
-			 */
 		}
 	}
 
@@ -224,7 +205,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 		}
 
-		return addSensor(profileSensors, id, sensorId, suppressSave);
+		return addSensor(profile, id, sensorId, suppressSave);
 	}
 
 	public Model addSensor(Model profile, String profileSensorId, String sensorId, boolean suppressSave) {

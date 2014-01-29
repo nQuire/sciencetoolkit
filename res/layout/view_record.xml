@@ -21,6 +21,16 @@
             android:paddingBottom="5sp"
             android:paddingTop="5sp" >
 
+            <org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView
+                android:id="@+id/recording_icon"
+                android:layout_width="@dimen/record_header_icon_size"
+                android:layout_height="@dimen/record_header_icon_size"
+                android:layout_marginRight="@dimen/record_header_icon_margin"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/share_active_project"
+                android:scaleType="fitXY"
+                android:src="@drawable/recording" />
+            
             <TextView
                 android:id="@+id/sample_count"
                 android:layout_width="wrap_content"
