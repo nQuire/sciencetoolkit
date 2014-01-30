@@ -32,11 +32,10 @@
                 android:src="@drawable/recording" />
             
             <TextView
-                android:id="@+id/sample_count"
+                android:id="@+id/recording_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="135 samples recorded"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -120,14 +119,13 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/complete_series_header"
+            android:id="@+id/recorded_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_button_panel_header"
             android:gravity="center_horizontal"
             android:paddingBottom="5sp"
             android:paddingTop="5sp"
-            android:text="Recorded series: 135 samples"
             android:textStyle="bold" />
 
         <org.greengin.sciencetoolkit.ui.base.widgets.ButtonPanelLayout
@@ -179,6 +177,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/record_series_upload_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >

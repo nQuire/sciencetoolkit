@@ -65,6 +65,7 @@ public class RecordSensorListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Model profileSensor = profileSensors.get(position);
+		String profileSensorId = profileSensor.getString("id");
 		
 		SensorWrapper sensor = SensorWrapperManager.get().getSensor(profileSensor.getString("sensorid", null));
 
@@ -79,6 +80,8 @@ public class RecordSensorListAdapter extends BaseAdapter {
 				
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_record_item, parent, false) : convertView;
+		
+		view.setTag(profileSensorId);
 		
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
 		if (newView) {

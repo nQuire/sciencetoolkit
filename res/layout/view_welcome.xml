@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="74dp"
+        android:layout_marginLeft="94dp"
         android:layout_marginTop="56dp"
-        android:src="@drawable/nquire" />
+        android:src="@drawable/q" />
 
 </RelativeLayout>

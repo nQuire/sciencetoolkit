@@ -10,7 +10,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 
 public class CurrentLocation implements LocationListener {
 	private static CurrentLocation instance;
@@ -37,19 +36,13 @@ public class CurrentLocation implements LocationListener {
 	public void startlocation() {
 		best = null;
 		for (String provider : providers) {
-			Log.d("stk location", " ");
-			Log.d("stk location", "listen " + provider);
 			this.updateLocation(locationManager.getLastKnownLocation(provider));
 			locationManager.requestLocationUpdates(provider, 1000, 0, this);
 		}
 	}
 
 	private void updateLocation(Location location) {
-		Log.d("stk location", " ");
-		Log.d("stk location", "" + (location != null));
 		if (location != null) {
-			
-			Log.d("stk location", "best updated");
 			this.best = location;
 		}
 	}

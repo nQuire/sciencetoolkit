@@ -12,6 +12,8 @@ import com.androidplot.xy.XYSeries;
 
 public abstract class AbstractXYSensorSeriesWrapper {
 
+	private final static int[] LINE_STYLES = new int[] { R.xml.line_point_formatter_with_plf1, R.xml.line_point_formatter_with_plf2, R.xml.line_point_formatter_with_plf3, R.xml.line_point_formatter_with_plf4 };
+
 	boolean[] showSeries;
 	SensorXYSeries[] seriesList;
 	int valueCount;
@@ -53,11 +55,10 @@ public abstract class AbstractXYSensorSeriesWrapper {
 		}
 	}
 
-	public void initSeries(XYPlot plot) {
-		plot.calculateMinMaxVals();
+	public void initSeries(XYPlot plot) { 
 		for (int i = 0; i < this.seriesList.length; i++) {
 			if (this.showSeries[i]) {
-				int resource = i == 0 ? R.xml.line_point_formatter_with_plf1 : i == 1 ? R.xml.line_point_formatter_with_plf2 : R.xml.line_point_formatter_with_plf3;
+				int resource = LINE_STYLES[i];
 
 				LineAndPointFormatter seriesFormat = new LineAndPointFormatter();
 				seriesFormat.setPointLabelFormatter(new PointLabelFormatter());
@@ -66,9 +67,10 @@ public abstract class AbstractXYSensorSeriesWrapper {
 				plot.addSeries(this.seriesList[i], seriesFormat);
 			}
 		}
+		
 	}
 
-	public boolean updateSeriesConfiguration(XYPlot plot, boolean anyway) {
+	/*public boolean updateSeriesConfiguration(XYPlot plot, boolean anyway) {
 		if (updateShowSeries() || anyway) {
 			removeFromPlot(plot);
 			initSeries(plot);
@@ -76,7 +78,7 @@ public abstract class AbstractXYSensorSeriesWrapper {
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	abstract Number getDataX(int i);
 

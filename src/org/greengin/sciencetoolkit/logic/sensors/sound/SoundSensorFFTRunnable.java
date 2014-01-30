@@ -10,7 +10,7 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class SoundSensorRunnable implements Runnable {
+public class SoundSensorFFTRunnable implements Runnable {
 	private Lock recordLock = new ReentrantLock();
 
 	private boolean enabled;
@@ -23,8 +23,11 @@ public class SoundSensorRunnable implements Runnable {
 	private int bufferLength;
 	private short buffer[];
 	private AudioRecord record;
+	private int fftN;
+	private FFT fft;
+	private double fftRe[];
 
-	public SoundSensorRunnable(Context context) {
+	public SoundSensorFFTRunnable(Context context) {
 		this.context = context;
 		this.mediaSource = MediaRecorder.AudioSource.MIC;
 		this.record = null;
@@ -32,6 +35,7 @@ public class SoundSensorRunnable implements Runnable {
 
 	@Override
 	public void run() {
+
 		this.enabled = true;
 
 		android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
@@ -42,10 +46,14 @@ public class SoundSensorRunnable implements Runnable {
 			try {
 				recordLock.lock();
 
-				if (this.requestedLength > 0) {
+				if (this.requestedLength > 0) {					
 					this.length = this.requestedLength;
 					this.bufferLength = this.length * this.freq / 1000;
 					this.buffer = new short[this.bufferLength];
+
+					this.fftN = (int) Math.pow(2, Math.floor(Math.log(this.bufferLength) / Math.log(2)));
+					this.fft = new FFT(this.fftN);
+					this.fftRe = new double[this.fftN];
 
 					if (record != null) {
 						record.stop();
@@ -75,8 +83,18 @@ public class SoundSensorRunnable implements Runnable {
 						value += is * is;
 					}
 					value = (float) (10 * Math.log10(value / bufferLength));
+
+					for (int i = 0; i < fftN; i++) {
+						fftRe[i] = buffer[i];
+					}
+
+					fft.fft(fftRe);
+					fft.filter(fftRe);
+
+					float maxfreq = (float) fft.getMaxFreq(fftRe, this.freq);
 					intent = new Intent(SoundSensorFFTWrapper.STK_SOUND_SENSOR_NEWVALUE);
 					intent.putExtra("value", value);
+					intent.putExtra("maxfreq", maxfreq);
 				} catch (Exception e) {
 
 				}

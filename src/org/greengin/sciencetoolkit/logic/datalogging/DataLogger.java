@@ -126,6 +126,10 @@ public class DataLogger {
 		}
 	}
 
+	public boolean isIdle() {
+		return !running;
+	}
+	
 	public boolean isRunning() {
 		return running;
 	}
@@ -137,10 +141,10 @@ public class DataLogger {
 			profile = ProfileManager.get().getActiveProfile();
 			profileId = profile.getString("id");
 			geolocated = profile.getBool("requires_location");
-			/*if (geolocated) {
-				CurrentLocation.get().startlocation();
-			}*/
-			
+			/*
+			 * if (geolocated) { CurrentLocation.get().startlocation(); }
+			 */
+
 			pipes.clear();
 
 			Vector<Model> sensors = profile.getModel("sensors", true).getModels();
@@ -185,13 +189,13 @@ public class DataLogger {
 			pipes.clear();
 
 			serializer.close();
-			
-			if (geolocated) {			
-				//CurrentLocation.get().stoplocation();
+
+			if (geolocated) {
+				// CurrentLocation.get().stoplocation();
 				String loc = CurrentLocation.get().locationString();
 				DataLogger.get().getSeriesMetadata(profileId, seriesFile).setString("location", loc);
 			}
-			
+
 			running = false;
 			fireStatusModified();
 
@@ -204,6 +208,10 @@ public class DataLogger {
 		return series;
 	}
 
+	public File getCurrentSeriesFile() {
+		return seriesFile;
+	}
+
 	public int getSeriesCount(String profileId) {
 		return this.fileManager.seriesCount(profileId);
 	}
@@ -212,7 +220,11 @@ public class DataLogger {
 		return this.fileManager.series(profileId);
 	}
 
-	public HashMap<String, Integer> getCurrentSeriesSampleCount() {
+	public HashMap<String, Integer> getCurrentSeriesSampleCountMap() {
+		return this.serializer.getCountMap();
+	}
+
+	public int getCurrentSeriesSampleCount() {
 		return this.serializer.getCount();
 	}
 
@@ -220,7 +232,6 @@ public class DataLogger {
 		// this.helper.emptyData(null);
 	}
 
-	
 	public void deleteData(String profileId) {
 		this.fileManager.deleteSeries(profileId);
 		Model profile = ProfileManager.get().get(profileId);
@@ -245,25 +256,25 @@ public class DataLogger {
 		this.fireStatusModified();
 	}
 
-	public void markAsSent(String profileId, File series, boolean sent) {
+	public void markAsSent(String profileId, File series, int status) {
 		Model profile = ProfileManager.get().get(profileId);
 
 		if (profile != null) {
 			Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
-			if (sent) {
-				seriesModel.setBool("uploaded", true, true);
-			} else {
-				seriesModel.clear(series.getName(), true);
-			}
+			seriesModel.setInt("uploaded", status, true);
 
 			ProfileManager.get().forceSave();
 			this.fireStatusModified();
 		}
 	}
 
-	public boolean isSent(String profileId, File series) {
+	public int currentUploadedStatus() {
+		return profileId == null || seriesFile == null ? -1 : this.uploadedStatus(profileId, seriesFile);
+	}
+
+	public int uploadedStatus(String profileId, File series) {
 		Model profile = ProfileManager.get().get(profileId);
-		return profile != null && profile.getModel("series", true).getModel(series.getName(), true).getBool("uploaded", false);
+		return profile.getModel("series", true).getModel(series.getName(), true).getInt("uploaded", 0);
 	}
 
 	public Model getSeriesMetadata(String profileId, File series) {

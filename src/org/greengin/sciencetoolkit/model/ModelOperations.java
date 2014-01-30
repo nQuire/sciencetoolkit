@@ -5,8 +5,35 @@ import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import android.hardware.SensorManager;
 
 public class ModelOperations {
-	static final int[] delayOptions = new int[] { SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_GAME};
-	static final int[] delays = new int[] { 200000, 60000, 20000};
+	static final int[] delayOptions = new int[] { SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_GAME };
+	static final int[] delays = new int[] { 200000, 60000, 20000 };
+
+	public static double fitFateInRange(double rate, int units, Double min, Double max) {
+		double unitK;
+
+		switch (units) {
+
+		case 1: // samples/min
+			unitK = 60.;
+			break;
+		case 2: // samples/hour
+			unitK = 3600.;
+			break;
+		default:
+			unitK = 1;
+			break;
+		}
+
+		double afterUnits = rate / unitK;
+
+		if (min != null && afterUnits < min) {
+			return min.doubleValue() * unitK;
+		} else if (max != null && afterUnits > max) {
+			return max.doubleValue() * unitK;
+		} else {
+			return rate;
+		}
+	}
 
 	public static int rate2period(Model model, String key, double defaultValue, Double min, Double max) {
 		double v = model.getDouble(key, defaultValue);

@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 public class RemoteApi implements ModelNotificationListener {
 	static final String REMOTE_LOGIN_URL = "https://nquireprojects.appspot.com/_ah/login?auth=";
@@ -73,7 +72,6 @@ public class RemoteApi implements ModelNotificationListener {
 
 		if (newAccount != this.account) {
 			this.account = newAccount;
-			Log.d("stk remote", "account: " + this.account);
 		}
 	}
 
@@ -87,7 +85,6 @@ public class RemoteApi implements ModelNotificationListener {
 
 	private void getAuthToken(RemoteCapableActivity activity, RemoteAction action) {
 		if (this.account != null) {
-			Log.d("stk auth", "get auth token");
 			accountManager.getAuthToken(this.account, "ah", null, activity, new GetAuthTokenCallback(activity, action), null);
 		}
 	}
@@ -102,37 +99,27 @@ public class RemoteApi implements ModelNotificationListener {
 		}
 
 		public void run(AccountManagerFuture<Bundle> result) {
-			Log.d("stk auth", "run get auth");
 			Bundle bundle;
 			try {
 				bundle = result.getResult();
 				Intent intent = (Intent) bundle.get(AccountManager.KEY_INTENT);
 				if (intent != null) {
-					Log.d("stk auth", "get auth intent");
 					// User input required
 					this.activity.remoteSetOnResumeAction(this.action);
 					this.activity.startActivity(intent);
 				} else {
-					Log.d("stk auth", "get auth no intent");
-					Log.d("stk auth", "onget auth token!");
 					String auth_token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
 					this.activity.remoteSetOnResumeAction(null);
 					new GetCookieTask(this.action).execute(auth_token);
 				}
 			} catch (OperationCanceledException e) {
 				this.activity.remoteSetOnResumeAction(null);
-				Log.d("stk auth", "get auth op canceled");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (AuthenticatorException e) {
 				this.activity.remoteSetOnResumeAction(null);
-				Log.d("stk auth", "get auth authenticator exception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				this.activity.remoteSetOnResumeAction(null);
-				Log.d("stk auth", "get auth ioexception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -146,7 +133,6 @@ public class RemoteApi implements ModelNotificationListener {
 		}
 
 		protected Boolean doInBackground(String... tokens) {
-			Log.d("stk auth", "get cookie run");
 			try {
 				// Don't follow redirects
 				http_client.getParams().setBooleanParameter(ClientPNames.HANDLE_REDIRECTS, false);
@@ -157,13 +143,11 @@ public class RemoteApi implements ModelNotificationListener {
 				boolean result = true;
 
 				if (response.getStatusLine().getStatusCode() != 302) {
-					Log.d("stk auth", "get cookie response should be a redirect");
 					// Response should be a redirect
 					result = false;
 				} else {
 					for (Cookie cookie : http_client.getCookieStore().getCookies()) {
 						if (cookie.getName().equals("ACSID")) {
-							Log.d("stk auth", "get cookie acsid found");
 							result = true;
 							break;
 						}
@@ -173,12 +157,8 @@ public class RemoteApi implements ModelNotificationListener {
 				return result;
 
 			} catch (ClientProtocolException e) {
-				Log.d("stk auth", "get cookie clientprotocolexception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				Log.d("stk auth", "get cookie ioexception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				http_client.getParams().setBooleanParameter(ClientPNames.HANDLE_REDIRECTS, true);
@@ -187,7 +167,6 @@ public class RemoteApi implements ModelNotificationListener {
 		}
 
 		protected void onPostExecute(Boolean result) {
-			Log.d("stk auth", "get cookie post");
 			new AuthenticatedRequestTask().execute(action);
 		}
 	}
@@ -197,7 +176,6 @@ public class RemoteApi implements ModelNotificationListener {
 		@Override
 		protected RemoteAction doInBackground(RemoteAction... actions) {
 			RemoteAction action = actions[0];
-			Log.d("stk auth", "request task run");
 			try {
 				HttpRequestBase[] requests = action.createRequests(REMOTE_REQUEST_URL);
 				for (int i = 0; i < requests.length; i++) {
@@ -208,7 +186,6 @@ public class RemoteApi implements ModelNotificationListener {
 					String line;
 					StringBuffer answer = new StringBuffer();
 					while ((line = reader.readLine()) != null) {
-						Log.d("stk auth", line);
 						answer.append(line).append('\n');
 					}
 					reader.close();
@@ -218,21 +195,15 @@ public class RemoteApi implements ModelNotificationListener {
 				}
 				return action;
 			} catch (IllegalStateException e) {
-				Log.d("stk auth", "request task illegalstateexception");
 				e.printStackTrace();
 				action.error("illegal state");
 			} catch (ClientProtocolException e) {
-				Log.d("stk auth", "request task clientprotocolexception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				action.error("protocol");
 			} catch (IOException e) {
-				Log.d("stk auth", "request task ioexception");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				action.error("protocol");
 			} catch (NullPointerException e) {
-				Log.d("stk auth", "request task nullpointer");
 				e.printStackTrace();
 				action.error("null");
 			}
@@ -241,7 +212,6 @@ public class RemoteApi implements ModelNotificationListener {
 		
 
 		protected void onPostExecute(RemoteAction result) {
-			Log.d("stk auth", "request task post execute");
 			result.close();
 		}
 	}

@@ -15,8 +15,6 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 public class UploadRemoteAction extends RemoteJsonAction {
 	String profileId;
 	File series;
@@ -25,7 +23,7 @@ public class UploadRemoteAction extends RemoteJsonAction {
 		this.profileId = profileId;
 		this.series = series;
 
-		DataLogger.get().markAsSent(profileId, series, true);
+		DataLogger.get().markAsSent(profileId, series, 1);
 	}
 
 	private String createJsonBody() {
@@ -74,9 +72,8 @@ public class UploadRemoteAction extends RemoteJsonAction {
 	public void result(int request, JSONObject result) {
 		try {
 			if (result.getBoolean("ok")) {
-				Log.d("stk upload", "ok!");
+				DataLogger.get().markAsSent(profileId, series, 2);
 			} else {
-				Log.d("stk upload", "not ok!");
 				error(result.getString("reason"));
 			}
 		} catch (JSONException e) {
@@ -87,8 +84,7 @@ public class UploadRemoteAction extends RemoteJsonAction {
 
 	@Override
 	public void error(String error) {
-		Log.d("stk upload", error);
-		DataLogger.get().markAsSent(profileId, series, false);
+		DataLogger.get().markAsSent(profileId, series, 0);
 	}
 
 }

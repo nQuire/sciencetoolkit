@@ -146,7 +146,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		super.modelModified(null);
 		listeners.fireEvent("list");
 
-		if (makeActive && !DataLogger.get().isRunning()) {
+		if (makeActive && DataLogger.get().isIdle()) {
 			switchActiveProfile(newProfile.getString("id"));
 		}
 	}
@@ -385,12 +385,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public void updateRemoteProfiles(JSONObject remoteData) {
 		try {
 			if (remoteData.getBoolean("ok")) {
-				Log.d("stk remote update", "ok!");
 				JSONObject jprojects = remoteData.getJSONObject("projects");
 				Iterator<?> prjit = jprojects.keys();
 				while (prjit.hasNext()) {
 					String prjkey = (String) prjit.next();
-					Log.d("stk remote update", "project: " + prjkey);
 					JSONObject jprj = jprojects.getJSONObject(prjkey);
 					Iterator<?> prfit = jprj.keys();
 					while (prfit.hasNext()) {
@@ -398,9 +396,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 						JSONObject jprf = jprj.getJSONObject(prfkey);
 
 						String title = jprf.getString("title");
-						int seriesCount = jprf.getInt("series_count");
-
-						Log.d("stk remote update", "profile: " + prfkey + " " + title + " " + seriesCount);
+						//int seriesCount = jprf.getInt("series_count");
 
 						String profileId = String.format("r.%s.%s", prjkey, prfkey);
 
@@ -412,8 +408,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 						profile.setBool("is_remote", true, true);
 						profile.setBool("requires_location", jprf.getBoolean("requires_location"), true);
 						
-						Log.d("stk remote update", "location? " + profile.getBool("requires_location"));
-
 						JSONObject inputs = jprf.getJSONObject("inputs");
 						Iterator<?> inpit = inputs.keys();
 						profile.clear("sensors", true);
@@ -424,7 +418,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 							double rate = jinp.getDouble("rate");
 							String sensorType = jinp.getString("sensor");
 
-							Log.d("stk remote update", "input: " + inpkey + " " + sensorType + " " + rate);
 							String sensorId = sensorType + ":0";
 							if (SensorWrapperManager.get().getSensors().containsKey(sensorId)) {
 								Model profileSensor = addSensor(profile, inpkey, sensorId, true);

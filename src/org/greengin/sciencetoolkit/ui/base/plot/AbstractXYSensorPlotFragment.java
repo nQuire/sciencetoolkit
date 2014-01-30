@@ -7,29 +7,25 @@ import java.text.ParsePosition;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 
 import com.androidplot.Plot;
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.XYStepMode;
+import com.androidplot.xy.YValueMarker;
 
 import android.app.Activity;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 public abstract class AbstractXYSensorPlotFragment extends EventFragment implements OnClickListener {
 
@@ -41,6 +37,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	protected Model seriesSettings;
 
 	protected View plotPanel;
+	protected LinearLayout plotContainer;
 	protected XYPlot plot;
 	ImageButton closeButton;
 
@@ -57,46 +54,50 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		this.sensorId = null;
 		this.sensor = null;
 	}
+	
+	@Override
+	public void onDetach() {
+		this.close();
+		super.onDetach();
+	}
+
+	/*
+	 * 
+	 * <com.androidplot.xy.XYPlot android:id="@+id/plot"
+	 * android:layout_width="match_parent" android:layout_height="match_parent"
+	 * android:layout_below="@id/plot_header"
+	 * android:layout_margin="@dimen/plot_margin"
+	 * androidPlot.domainLabelWidget.labelPaint
+	 * .textSize="@dimen/plot_domain_label_font_size"
+	 * androidPlot.graphWidget.domainLabelPaint
+	 * .textSize="@dimen/plot_domain_tick_label_font_size"
+	 * androidPlot.graphWidget
+	 * .domainOriginLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
+	 * androidPlot.graphWidget.rangeLabelPaint.textSize=
+	 * "@dimen/plot_range_tick_label_font_size"
+	 * androidPlot.graphWidget.rangeOriginLabelPaint
+	 * .textSize="@dimen/plot_range_tick_label_font_size"
+	 * androidPlot.legendWidget.heightMetric.value="25dp"
+	 * androidPlot.legendWidget.iconSizeMetrics.heightMetric.value="15dp"
+	 * androidPlot.legendWidget.iconSizeMetrics.widthMetric.value="15dp"
+	 * androidPlot.legendWidget.positionMetrics.anchor="right_bottom"
+	 * androidPlot
+	 * .legendWidget.textPaint.textSize="@dimen/plot_legend_text_font_size"
+	 * androidPlot
+	 * .rangeLabelWidget.labelPaint.textSize="@dimen/plot_range_label_font_size"
+	 * androidPlot.titleWidget.labelPaint.textSize="@dimen/plot_title_font_size"
+	 * android:paddingTop="@dimen/plot_padding"
+	 * android:paddingLeft="@dimen/plot_padding"
+	 * android:paddingRight="@dimen/plot_padding"
+	 * android:paddingBottom="@dimen/plot_padding_bottom" />
+	 */
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		plotPanel = inflater.inflate(R.layout.panel_plot, container, false);
-
-		plot = (XYPlot) plotPanel.findViewById(R.id.plot);
-
-		plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
-		plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
-
-		plot.setUserRangeOrigin(0);
-
-		plot.setDomainValueFormat(new TimePlotDomainFormat());
-
-		int background = this.getActivity().getResources().getColor(R.color.plot_outter_background);
-		int gridBackground = this.getActivity().getResources().getColor(R.color.plot_inner_background);
-		int lineColor = this.getActivity().getResources().getColor(R.color.plot_main_line);
-		int sublineColor = this.getActivity().getResources().getColor(R.color.plot_minor_line);
-		int transparent = this.getActivity().getResources().getColor(R.color.transparent);
-
-		plot.setBorderStyle(Plot.BorderStyle.NONE, null, null);
-
-		plot.getBackgroundPaint().setColor(background);
-		plot.getGraphWidget().getBackgroundPaint().setColor(background);
-		plot.getGraphWidget().getCursorLabelBackgroundPaint().setColor(background);
-		plot.getGraphWidget().getGridBackgroundPaint().setColor(gridBackground);
-
-		plot.getGraphWidget().getDomainGridLinePaint().setColor(lineColor);
-		plot.getGraphWidget().getDomainSubGridLinePaint().setColor(sublineColor);
-		plot.getGraphWidget().getDomainOriginLinePaint().setColor(lineColor);
-		plot.getGraphWidget().getRangeGridLinePaint().setColor(lineColor);
-		plot.getGraphWidget().getRangeSubGridLinePaint().setColor(sublineColor);
-		plot.getGraphWidget().getRangeOriginLinePaint().setColor(lineColor);
-
-		plot.getGraphWidget().setMargins(10f, 20f, 20f, 20f);
-		plot.getGraphWidget().setPadding(0f, 0f, 0f, 20f);
+		plotContainer = (LinearLayout) plotPanel.findViewById(R.id.plot_container);
 
 		scaleDetector = new PlotScaleGestureDetector();
-
-		plot.setOnTouchListener(scaleDetector);
 
 		closeButton = (ImageButton) this.plotPanel.findViewById(R.id.plot_close);
 		closeButton.setOnClickListener(this);
@@ -107,9 +108,54 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		return plotPanel;
 	}
 
-	public void updateSeriesConfig(boolean anyway) {
-		this.series.updateSeriesConfiguration(plot, anyway);
+	private void createPlot() {
+		plot = new XYPlot(plotContainer.getContext(), "plot");
+		plotContainer.addView(plot);
+		
+		
+
+		plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
+		plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
+		plot.setDomainValueFormat(new TimePlotDomainFormat());
+
+		int background = this.getActivity().getResources().getColor(R.color.plot_outter_background);
+		int gridBackground = this.getActivity().getResources().getColor(R.color.plot_inner_background);
+		int lineColor = this.getActivity().getResources().getColor(R.color.plot_main_line);
+		int sublineColor = this.getActivity().getResources().getColor(R.color.plot_minor_line);
+		int transparent = this.getActivity().getResources().getColor(R.color.transparent);
+		
+		plot.setBorderStyle(Plot.BorderStyle.NONE, null, null);
+
+		plot.getBackgroundPaint().setColor(background);
+		plot.getGraphWidget().getBackgroundPaint().setColor(background);
+		plot.getGraphWidget().getCursorLabelBackgroundPaint().setColor(background);
+		plot.getGraphWidget().getGridBackgroundPaint().setColor(gridBackground);
+
+		plot.getGraphWidget().getDomainGridLinePaint().setColor(lineColor);
+
+		plot.getGraphWidget().getDomainGridLinePaint().setColor(lineColor);
+		plot.getGraphWidget().getDomainSubGridLinePaint().setColor(sublineColor);
+		plot.getGraphWidget().getDomainOriginLinePaint().setColor(lineColor);
+		plot.getGraphWidget().getRangeGridLinePaint().setColor(lineColor);
+		plot.getGraphWidget().getRangeSubGridLinePaint().setColor(sublineColor);
+		plot.getGraphWidget().getRangeOriginLinePaint().setColor(lineColor);
+		
+		YValueMarker zero = new YValueMarker(0, null);
+		zero.getLinePaint().setColor(lineColor);
+		zero.getLinePaint().setStrokeWidth(5);
+		zero.getTextPaint().setColor(transparent);
+		
+		plot.addMarker(zero);
+
+		plot.getGraphWidget().setMargins(10f, 20f, 20f, 20f);
+		plot.getGraphWidget().setPadding(0f, 0f, 0f, 20f);
+
+		plot.setOnTouchListener(scaleDetector);
 	}
+
+	/*public void updateSeriesConfig(boolean anyway) {
+		this.series.updateSeriesConfiguration(plot, anyway);
+	}*/
 
 	private class TimePlotDomainFormat extends NumberFormat {
 
@@ -147,11 +193,16 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	}
 
 	protected void close() {
+		if (plot != null) {
+			plotContainer.removeView(plot);
+			plot = null;
+		}
 		this.plotPanel.setVisibility(View.GONE);
 	}
 
 	public void open() {
 		this.plotPanel.setVisibility(View.VISIBLE);
+		this.createPlot();
 	}
 
 	@Override
@@ -209,9 +260,9 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 				if (scaling) {
 					updateValues(event);
 					if (pt1 != pb1) {
-						float nmax = (((min - max)*pb0 + max) * pt1 + (max - min)*pb1*pt0 - max*pb1) / (pt1 - pb1);
-						float nmin = nmax + ((min - max)*pt0 + (max - min)*pb0)/(pt1 - pb1);
-						
+						float nmax = (((min - max) * pb0 + max) * pt1 + (max - min) * pb1 * pt0 - max * pb1) / (pt1 - pb1);
+						float nmin = nmax + ((min - max) * pt0 + (max - min) * pb0) / (pt1 - pb1);
+
 						max = nmax;
 						min = nmin;
 

@@ -13,18 +13,20 @@ import org.greengin.sciencetoolkit.model.Model;
 public class DataLoggerSerializer {
 	
 	BufferedWriter writer;
-	HashMap<String, Integer> count;
+	HashMap<String, Integer> countMap;
+	int count;
 	DataLogger manager;
 	
 	public DataLoggerSerializer(DataLogger manager) {
 		this.writer = null;
-		this.count = new HashMap<String, Integer>();
+		this.countMap = new HashMap<String, Integer>();
 		this.manager = manager;
 	}
 	
 	public boolean open(File file, Model profile) {
 		try {
-			count.clear();
+			countMap.clear();
+			count = 0;
 			
 			this.writer = new BufferedWriter(new FileWriter(file));
 			this.writer.write(String.format("# profile: %s\n", profile.getString("id")));
@@ -64,12 +66,17 @@ public class DataLoggerSerializer {
 			e.printStackTrace();
 		}
 		
-		int n = count.containsKey(sensorId) ? count.get(sensorId) + 1: 1;
-		count.put(sensorId, n);
+		int n = countMap.containsKey(sensorId) ? countMap.get(sensorId) + 1: 1;
+		countMap.put(sensorId, n);
+		count ++;
 		manager.fireDataModified();
 	}
 	
-	public HashMap<String, Integer> getCount() {
+	public HashMap<String, Integer> getCountMap() {
+		return countMap;
+	}
+	
+	public int getCount() {
 		return count;
 	}
 	

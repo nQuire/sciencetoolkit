@@ -12,7 +12,6 @@ import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 public class SensorWrapperManager {
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
@@ -90,7 +89,6 @@ public class SensorWrapperManager {
 			String id = String.format(format, i);
 			if (!sensors.containsKey(id)) {
 				sensors.put(id, null);
-				Log.d("stk sensors", "new id: " + id);
 				return id;
 			}
 		}

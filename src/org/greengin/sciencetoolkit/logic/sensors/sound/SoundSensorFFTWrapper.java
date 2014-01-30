@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class SoundSensorWrapper extends SensorWrapper implements ModelNotificationListener {
+public class SoundSensorFFTWrapper extends SensorWrapper implements ModelNotificationListener {
 	public static final String STK_SOUND_SENSOR_NEWVALUE = "STK_SOUND_SENSOR_NEWVALUE";
 
 	public static boolean isAvailable(Context applicationContext) {
@@ -22,13 +22,13 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 
 	String settingsId;
 	Model settings;
-	SoundSensorRunnable runnable;
+	SoundSensorFFTRunnable runnable;
 	float[] values;
 
-	public SoundSensorWrapper(Context applicationContext) {
+	public SoundSensorFFTWrapper(Context applicationContext) {
 		super (SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND);
 		
-		this.runnable = new SoundSensorRunnable(applicationContext);
+		this.runnable = new SoundSensorFFTRunnable(applicationContext);
 		this.runnable.setFreq(44100);
 		
 		this.settingsId = "sensor:" + getId();
@@ -36,15 +36,15 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 		this.settings = SettingsManager.get().get(settingsId);
 		this.runnable.setLength(settings.getInt("record_period", ModelDefaults.SOUND_SENSOR_PERIOD));
 
-		values = new float[1];
+		values = new float[2];
 
 		LocalBroadcastManager.getInstance(applicationContext).registerReceiver(new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				setSoundLevel(intent.getFloatExtra("value", 0));
+				setSoundLevel(intent.getFloatExtra("value", 0), intent.getFloatExtra("maxfreq", 0));
 			}
 
-		}, new IntentFilter(SoundSensorWrapper.STK_SOUND_SENSOR_NEWVALUE));
+		}, new IntentFilter(SoundSensorFFTWrapper.STK_SOUND_SENSOR_NEWVALUE));
 		
 		SettingsManager.get().registerDirectListener(settingsId, this);
 	}
@@ -82,14 +82,15 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 		}
 	}
 
-	private void setSoundLevel(float i) {
+	private void setSoundLevel(float i, float f) {
 		values[0] = i;
-		fireInput(values, 1);
+		values[1] = f;
+		fireInput(values, 2);
 	}
 
 	@Override
 	public int getValueCount() {
-		return 1;
+		return 2;
 	}
 
 	@Override

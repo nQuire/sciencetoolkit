@@ -2,8 +2,6 @@ package org.greengin.sciencetoolkit.logic.sensors.device;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.model.ModelDefaults;
-import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 
@@ -12,11 +10,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
-import android.util.Log;
 
 public class DeviceSensorWrapper extends SensorWrapper implements SensorEventListener, ModelNotificationListener {
-	
-	
+
 	SensorManager sensorManager;
 	Sensor sensor;
 	int currentDelay;
@@ -66,14 +62,18 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	}
 
 	private void updateDelay() {
-		int newDelay = ModelOperations.delayOption2deviceSensorDelay(settings, "delay", ModelDefaults.SENSOR_DELAY, this);
-		Log.d("std sensor", newDelay + " " + this.currentDelay);
+		int newDelay = SensorManager.SENSOR_DELAY_FASTEST;
+		/*
+		 * ModelOperations.delayOption2deviceSensorDelay(settings, "delay",
+		 * ModelDefaults.SENSOR_DELAY, this);
+		 */
+		
 		if (newDelay != this.currentDelay) {
 			this.currentDelay = newDelay;
 			if (isRegistered) {
 				unregister();
+				register();
 			}
-			register();
 		}
 	}
 

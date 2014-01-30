@@ -4,12 +4,10 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
-import org.greengin.sciencetoolkit.ui.base.modelconfig.settings.LivePlotSettingsFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.LiveXYSensorPlotFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
