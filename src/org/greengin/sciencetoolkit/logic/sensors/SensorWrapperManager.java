@@ -8,6 +8,8 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.location.LocationGpsSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
+import org.greengin.sciencetoolkit.model.Model;
+import org.greengin.sciencetoolkit.model.SettingsManager;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -79,6 +81,28 @@ public class SensorWrapperManager {
 			}
 		}
 		return list;
+	}
+	
+	public Vector<SensorWrapper> getShownSensors() {
+		Model settings = SettingsManager.get().get("sensor_list");
+		Vector<SensorWrapper> shownSensors = new Vector<SensorWrapper>();
+		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
+			if (settings.getBool(sensorId, true)) {
+				shownSensors.add(getSensor(sensorId));
+			}
+		}	
+		return shownSensors;
+	}
+	
+	public Vector<String> getShownSensorIds() {
+		Model settings = SettingsManager.get().get("sensor_list");
+		Vector<String> sensorIds = new Vector<String>();
+		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
+			if (settings.getBool(sensorId, true)) {
+				sensorIds.add(sensorId);
+			}
+		}	
+		return sensorIds;
 	}
 	
 	public synchronized String getId(int type) {

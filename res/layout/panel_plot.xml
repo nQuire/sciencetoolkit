@@ -34,14 +34,20 @@
             android:scaleType="fitXY"
             android:src="@drawable/project_button_close" />
     </RelativeLayout>
-    
-    <LinearLayout 
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/plot_sensor_browser"
+        android:layout_alignParentBottom="true"
+        layout="@layout/panel_sensor_browser" />
+
+    <LinearLayout
         android:id="@+id/plot_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/plot_sensor_browser"
         android:layout_below="@id/plot_header"
-        android:orientation="vertical"/>
-        
-
+        android:orientation="vertical" />
 
 </RelativeLayout>

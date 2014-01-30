@@ -34,14 +34,9 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 	}
 	
 	public void updateSensorList(boolean notify) {
-		Model settings = SettingsManager.get().get("sensor_list");
 		
-		this.sensors = new Vector<SensorWrapper>();
-		for (String sensorId : SensorWrapperManager.get().getSensorsIds()) {
-			if (settings.getBool(sensorId, true)) {
-				sensors.add(SensorWrapperManager.get().getSensor(sensorId));
-			}
-		}		
+		
+		this.sensors = SensorWrapperManager.get().getShownSensors();
 		
 		Collections.sort(sensors, new Comparator<SensorWrapper>() {
 			@Override

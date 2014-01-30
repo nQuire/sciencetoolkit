@@ -7,7 +7,7 @@ import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 
-public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
+public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements SensorBrowserListener {
 
 	DataPipe dataPipe;
 	FixedRateDataFilter periodFilter;
@@ -18,17 +18,17 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 	}
 
 	@Override
-	synchronized protected void close() {
+	protected void destroyPlot() {
 		if (dataPipe != null) {
 			dataPipe.detach();
 			dataPipe = null;
 			series.removeFromPlot(plot);
 		}
-		super.close();
+		super.destroyPlot();
 	}
 
-	synchronized public void open(String sensorId) {
-		super.open();
+	public void openPlot(String sensorId) {
+		super.openPlot();
 
 		this.sensorId = sensorId;
 		this.sensor = SensorWrapperManager.get().getSensor(sensorId);
@@ -43,6 +43,8 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 		this.dataPipe.attach();
 
 		this.series.initSeries(plot);
+		
+		this.sensorBrowser.setSensors(this, SensorWrapperManager.get().getShownSensorIds(), sensorId);
 	}
 
 	@Override
@@ -62,6 +64,12 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment {
 
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter.setPeriod(period);
+	}
+
+	@Override
+	public void sensorBrowserSelected(String sensorId) {
+		destroyPlot();
+		openPlot(sensorId);
 	}
 
 }

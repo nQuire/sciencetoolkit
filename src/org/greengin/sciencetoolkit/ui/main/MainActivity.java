@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.ui.main;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity;
+import org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager;
 import org.greengin.sciencetoolkit.ui.main.explore.ExploreFragment;
 import org.greengin.sciencetoolkit.ui.main.record.RecordFragment;
 import org.greengin.sciencetoolkit.ui.main.share.ShareFragment;
@@ -30,7 +31,7 @@ public class MainActivity extends SettingsControlledActivity implements ActionBa
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	StkViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class MainActivity extends SettingsControlledActivity implements ActionBa
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (StkViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -68,6 +69,10 @@ public class MainActivity extends SettingsControlledActivity implements ActionBa
 			// this tab is selected.
 			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
 		}
+	}
+	
+	public void setPagingEnabled(boolean enabled) {
+		mViewPager.setPagingEnabled(enabled);
 	}
 
 	@Override

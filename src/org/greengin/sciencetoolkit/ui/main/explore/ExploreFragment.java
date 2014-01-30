@@ -87,7 +87,7 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 		if (ProfileManager.get().activeProfileIsDefault()) {
 			ProfileManager.get().addSensorToActiveProfile(sensorId);
 		}
-		fragment.open(sensorId);
+		fragment.openPlot(sensorId);
 	}
 
 }

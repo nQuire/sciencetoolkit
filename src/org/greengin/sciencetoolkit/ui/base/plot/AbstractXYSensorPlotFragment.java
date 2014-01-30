@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
@@ -42,7 +43,9 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	ImageButton closeButton;
 
 	PlotScaleGestureDetector scaleDetector;
-
+	SensorBrowserLayout sensorBrowser;
+	
+	
 	protected String getDomainLabel() {
 		return "Time";
 	}
@@ -98,7 +101,9 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		plotContainer = (LinearLayout) plotPanel.findViewById(R.id.plot_container);
 
 		scaleDetector = new PlotScaleGestureDetector();
-
+		
+		sensorBrowser = (SensorBrowserLayout) plotPanel.findViewById(R.id.plot_sensor_browser).findViewById(R.id.sensor_browser_layout);
+		
 		closeButton = (ImageButton) this.plotPanel.findViewById(R.id.plot_close);
 		closeButton.setOnClickListener(this);
 
@@ -193,17 +198,23 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	}
 
 	protected void close() {
+		destroyPlot();
+		this.plotPanel.setVisibility(View.GONE);
+	}
+	
+	protected void destroyPlot() {
 		if (plot != null) {
 			plotContainer.removeView(plot);
 			plot = null;
 		}
-		this.plotPanel.setVisibility(View.GONE);
 	}
+	
 
-	public void open() {
+	public void openPlot() {
 		this.plotPanel.setVisibility(View.VISIBLE);
 		this.createPlot();
 	}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -276,5 +287,4 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 			return true;
 		}
 	}
-
 }
