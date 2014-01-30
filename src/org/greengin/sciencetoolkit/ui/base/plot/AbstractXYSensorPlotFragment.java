@@ -146,7 +146,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		zero.getTextPaint().setColor(transparent);
 		
 		plot.addMarker(zero);
-
+		
 		plot.getGraphWidget().setMargins(10f, 20f, 20f, 20f);
 		plot.getGraphWidget().setPadding(0f, 0f, 0f, 20f);
 
