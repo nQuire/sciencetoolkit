@@ -1,155 +1,68 @@
 package org.greengin.sciencetoolkit.ui.main;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity;
-import org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager;
+import org.greengin.sciencetoolkit.ui.base.SwipeActivity;
 import org.greengin.sciencetoolkit.ui.main.explore.ExploreFragment;
 import org.greengin.sciencetoolkit.ui.main.record.RecordFragment;
 import org.greengin.sciencetoolkit.ui.main.share.ShareFragment;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 
-public class MainActivity extends SettingsControlledActivity implements ActionBar.TabListener {
-
-	private static int mLastTab = -1;
-	/**
-	 * The {@link android.support.v4.view.PagerAdapter} that will provide
-	 * fragments for each of the sections. We use a
-	 * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
-	 * will keep every loaded fragment in memory. If this becomes too memory
-	 * intensive, it may be best to switch to a
-	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
-
-	/**
-	 * The {@link ViewPager} that will host the section contents.
-	 */
-	StkViewPager mViewPager;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.view_main);
-
-		// Set up the action bar.
-		final ActionBar actionBar = getSupportActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the app.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-		// Set up the ViewPager with the sections adapter.
-		mViewPager = (StkViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mSectionsPagerAdapter);
-
-		// When swiping between different sections, select the corresponding
-		// tab. We can also use ActionBar.Tab#select() to do this if we have
-		// a reference to the Tab.
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				mLastTab = position;
-				actionBar.setSelectedNavigationItem(position);
-			}
-		});
-
-		// For each of the sections in the app, add a tab to the action bar.
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
-			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-		}
-	}
+public class MainActivity extends SwipeActivity {
+	private static int lastTab = -1;
 	
-	public void setPagingEnabled(boolean enabled) {
-		mViewPager.setPagingEnabled(enabled);
+	@Override
+	public int getOnResumeTab() {
+		return lastTab;
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		if (mLastTab >= 0) {
-			getSupportActionBar().setSelectedNavigationItem(mLastTab);
-		}
+	public void setOnResumeTab(int position) {
+		lastTab = position;		
 	}
 
 	@Override
-	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-		// When the given tab is selected, switch to the corresponding page in
-		// the ViewPager.
-		if (mViewPager.getCurrentItem() != tab.getPosition()) {
-			mViewPager.setCurrentItem(tab.getPosition());
-		}
+	public int getContentViewLayoutId() {
+		return R.layout.view_main;
 	}
 
 	@Override
-	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+	public int getViewPagerLayoutId() {
+		return R.id.pager;
 	}
 
 	@Override
-	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+	public int getTabCount() {
+		return 3;
 	}
 
-	/**
-	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-	 * one of the sections/tabs/pages.
-	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-		Fragment[] fragments;
-
-		public SectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
-
-			fragments = new Fragment[] { null, null, null };
-		}
-
-		@Override
-		public Fragment getItem(int position) {
-			if (fragments[position] == null) {
-				switch (position) {
-				case 0:
-					fragments[0] = new ExploreFragment();
-					break;
-				case 1:
-					fragments[1] = new RecordFragment();
-					break;
-				case 2:
-					fragments[2] = new ShareFragment();
-					break;
-				}
-			}
-			return fragments[position];
-		}
-
-		@Override
-		public int getCount() {
-			// Show 3 total pages.
-			return 3;
-		}
-
-		@Override
-		public CharSequence getPageTitle(int position) {
-			switch (position) {
-			case 0:
-				return getString(R.string.main_activity_tab_1);
-			case 1:
-				return getString(R.string.main_activity_tab_2);
-			case 2:
-				return getString(R.string.main_activity_tab_3);
-			}
+	@Override
+	public Fragment createTabFragment(int position) {
+		switch (position) {
+		case 0:
+			return new ExploreFragment();
+		case 1:
+			return new RecordFragment();
+		case 2:
+			return new ShareFragment();
+		default:
 			return null;
 		}
 	}
+
+	@Override
+	public CharSequence getTabTitle(int position) {
+		switch (position) {
+		case 0:
+			return getString(R.string.main_activity_tab_1);
+		case 1:
+			return getString(R.string.main_activity_tab_2);
+		case 2:
+			return getString(R.string.main_activity_tab_3);
+		default:
+			return null;
+		}
+	}
+
 
 }

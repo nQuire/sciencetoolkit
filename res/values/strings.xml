@@ -36,12 +36,11 @@
     <string name="add_profile_sensor_oklabel1">Add 1 sensor</string>
     <string name="add_profile_sensor_oklabelmany">Add %1d sensors</string>
     <string name="profile_sensor_not_selected">&lt;no sensor selected&gt;</string>
-    
     <string name="recording_1">Recording: 1 sample</string>
     <string name="recording_many">Recording: %1d samples</string>
     <string name="recorded_1">Recorded series: 1 sample</string>
     <string name="recorded_many">Recorded series: %1d samples</string>
-    
+
     <!-- main activity - share tab -->
     <string name="share_active_project">ACTIVE PROJECT</string>
     <string name="share_other_projects">OTHER PROJECTS</string>
@@ -71,6 +70,7 @@
     <!-- button commons -->
     <string name="button_label_set">Set</string>
     <string name="button_label_cancel">Cancel</string>
+    <string name="button_label_upload">Upload</string>
     <string name="button_label_delete">Delete</string>
     <string name="button_label_view">View</string>
     <string name="button_label_close">Close</string>
@@ -83,7 +83,7 @@
     <string name="dialog_seconds_picker_title">Set time</string>
     <string name="dialog_seconds_picker_time_separator">:</string>
     <string name="dialog_seconds_picker_time_ms_separator">.</string>
-    
+
     <!-- rate -->
     <string name="sample_rate_dlg_msg">Select the sampling rate for this sensor, or remove it from this list.</string>
     <string name="sample_rate_label">Sample rate: </string>
@@ -91,10 +91,16 @@
     <string name="sample_rate_ok">Update</string>
     <string name="sample_rate_delete">Remove</string>
     <string name="sample_rate_prompt">Select units</string>
+
     <string-array name="sample_rate_units">
         <item>sec</item>
         <item>min</item>
         <item>hour</item>
     </string-array>
+
+    <!-- data viewer -->
+    <string name="data_viewer_activity_title">Data viewer</string>
+    <string name="data_viewer_tab_1">Series</string>
+    <string name="data_viewer_tab_2">Plot</string>
 
 </resources>

@@ -6,12 +6,15 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,7 +77,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 		buttonAddProject = (ImageButton) rootView.findViewById(R.id.share_project_add);
 		buttonAddProject.setOnClickListener(this);
-		
+
 		buttonUpdateProject = (ImageButton) rootView.findViewById(R.id.share_project_cloud);
 		buttonUpdateProject.setOnClickListener(this);
 
@@ -158,7 +161,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 		} else if (v == buttonAddProject) {
 			EditTextDlg.open(this.getActivity(), R.string.new_project_dlg_title, R.string.new_project_dlg_message, R.string.new_project_dlg_oklabel, "", true, this);
 		} else if (v == buttonUpdateProject) {
-			((RemoteCapableActivity)getActivity()).remoteRequest(new UpdateRemoteAction());
+			((RemoteCapableActivity) getActivity()).remoteRequest(new UpdateRemoteAction());
 		}
 	}
 
@@ -172,8 +175,9 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void profileView(String profileId) {
-		// TODO Auto-generated method stub
-
+		Intent intent = new Intent(getActivity(), DataViewerActivity.class);
+		intent.putExtra(Arguments.ARG_PROFILE, profileId);
+		startActivity(intent);
 	}
 
 	@Override

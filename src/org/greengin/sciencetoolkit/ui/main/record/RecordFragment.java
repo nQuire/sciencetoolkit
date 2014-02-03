@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg;
@@ -20,8 +21,10 @@ import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView;
+import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -310,6 +313,10 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			uploadSeries();
 		} else if (v == buttonDiscard) {
 			discardSeries();
+		} else if (v == buttonView) {
+			Intent intent = new Intent(getActivity(), DataViewerActivity.class);
+			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());		
+	    	startActivity(intent);
 		}
 	}
 
