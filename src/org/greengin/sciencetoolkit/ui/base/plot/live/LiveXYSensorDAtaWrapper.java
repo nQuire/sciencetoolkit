@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.plot;
+package org.greengin.sciencetoolkit.ui.base.plot.live;
 
 import java.util.LinkedList;
 import java.util.concurrent.locks.Lock;
@@ -9,12 +9,13 @@ import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
 import org.greengin.sciencetoolkit.logic.streams.DataInput;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
+import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorSeriesWrapper;
 
 import com.androidplot.xy.XYPlot;
 
 import android.content.Context;
 
-public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper implements DataInput {
+public class LiveXYSensorDAtaWrapper extends AbstractXYSensorSeriesWrapper implements DataInput {
 
 	private Lock lock = new ReentrantLock();
 
@@ -25,7 +26,7 @@ public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper imp
 	XYPlot plot;
 	Model seriesSettings;
 	
-	public LiveXYSensorSeriesWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
+	public LiveXYSensorDAtaWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
 		super(sensor);
 		this.context = context;
 		this.values = new LinkedList<TimeValue>();
@@ -66,7 +67,7 @@ public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper imp
 	}
 
 	@Override
-	Number getDataX(int i) {
+	protected Number getDataX(int i) {
 		lock.lock();
 		long value = values.size() > i ? values.get(i).time : 0;
 		lock.unlock();
@@ -74,7 +75,7 @@ public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper imp
 	}
 
 	@Override
-	Number getDataY(int i, int seriesIndex) {
+	protected Number getDataY(int i, int seriesIndex) {
 		lock.lock();
 		float value = values.size() > i ? values.get(i).value[seriesIndex] : 0;
 		lock.unlock();
@@ -82,7 +83,7 @@ public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper imp
 	}
 
 	@Override
-	int getDataSize() {
+	protected int getDataSize() {
 		return values.size();
 	}
 }

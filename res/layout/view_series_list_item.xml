@@ -21,13 +21,27 @@
         android:singleLine="false"
         android:textStyle="bold" />
 
+    <org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorView
+        android:id="@+id/series_selected"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:adjustViewBounds="true"
+        android:background="@drawable/color_view_shape"
+        android:contentDescription="@string/button_label_upload"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_cloud" />
+
     <ImageButton
         android:id="@+id/series_discard"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="@dimen/share_profile_button_size"
         android:layout_height="@dimen/share_profile_button_size"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/series_selected"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_delete"

@@ -1,11 +1,14 @@
 package org.greengin.sciencetoolkit.ui.dataviewer;
 
 import java.io.File;
+import java.util.Hashtable;
+import java.util.Map.Entry;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -24,26 +27,44 @@ public class SeriesListAdapter extends BaseAdapter {
 	Model profile;
 	boolean isRemote = false;
 	File[] seriesList;
+	Hashtable<String, Integer> seriesIndex;
 
+	OnClickListener editTitleListener;
 	OnClickListener uploadListener;
 	OnClickListener discardListener;
+	OnClickListener toggleListener;
 
 	public SeriesListAdapter(Context context, String profileId, SeriesListListener listener, LayoutInflater inflater) {
 		this.listener = listener;
 		this.inflater = inflater;
 		this.profile = ProfileManager.get().get(profileId);
+		this.seriesIndex = new Hashtable<String, Integer>();
 
+		this.editTitleListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SeriesListAdapter.this.listener.seriesEdit(profile, (File) v.getTag());
+			}
+		};
+		
 		this.uploadListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SeriesListAdapter.this.listener.seriesUpload((File) v.getTag());
+				SeriesListAdapter.this.listener.seriesUpload(profile, (File) v.getTag());
 			}
 		};
 
 		this.discardListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SeriesListAdapter.this.listener.seriesDelete((File) v.getTag());
+				SeriesListAdapter.this.listener.seriesDelete(profile, (File) v.getTag());
+			}
+		};
+		
+		this.toggleListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SeriesListAdapter.this.listener.seriesToggled(profile, (File) v.getTag());
 			}
 		};
 
@@ -54,9 +75,37 @@ public class SeriesListAdapter extends BaseAdapter {
 		updateSeriesList(true);
 	}
 
+	private int getAvailableColorIndex() {
+		for (int i = 0;; i++) {
+			boolean available = true;
+			for (Entry<String, Integer> entry : seriesIndex.entrySet()) {
+				if (entry.getValue() == i) {
+					available = false;
+					break;
+				}
+			}
+			if (available) {
+				return i;
+			}
+		}
+	}
+
 	public void updateSeriesList(boolean notify) {
 		this.isRemote = profile.getBool("is_remote");
 		this.seriesList = DataLogger.get().getSeries(profile.getString("id"));
+		Model seriesContainerModel = profile.getModel("series", true);
+
+		for (File f : seriesList) {
+			boolean enabled = seriesContainerModel.getModel(f.getName(), true).getBool("dataviewershow", true);
+			if (enabled) {
+				Integer value = seriesIndex.get(f.getName());
+				if (value == null || value.intValue() < 0) {
+					seriesIndex.put(f.getName(), getAvailableColorIndex());
+				}
+			} else {
+				seriesIndex.put(f.getName(), -1);
+			}
+		}
 
 		if (notify) {
 			this.notifyDataSetChanged();
@@ -93,6 +142,9 @@ public class SeriesListAdapter extends BaseAdapter {
 		TextView seriesNameView = (TextView) view.findViewById(R.id.series_name);
 		seriesNameView.setText(seriesName);
 		seriesNameView.setTag(series);
+		if (newView) {
+			seriesNameView.setOnClickListener(editTitleListener);
+		}
 
 		ImageButton uploadButton = (ImageButton) view.findViewById(R.id.series_upload);
 
@@ -109,14 +161,19 @@ public class SeriesListAdapter extends BaseAdapter {
 		}
 
 		ImageButton discardButton = (ImageButton) view.findViewById(R.id.series_discard);
-
 		discardButton.setTag(series);
 		if (newView) {
 			discardButton.setOnClickListener(discardListener);
 		}
 		
+		ColorView toggleButton = (ColorView) view.findViewById(R.id.series_selected);
+		toggleButton.setColorIndex(seriesIndex.get(series.getName()));
+		toggleButton.setTag(series);
+		if (newView) {
+			toggleButton.setOnClickListener(toggleListener);
+		}
+		
 		return view;
 	}
-
 
 }

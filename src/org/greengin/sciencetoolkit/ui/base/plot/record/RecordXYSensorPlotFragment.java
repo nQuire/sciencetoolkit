@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.plot;
+package org.greengin.sciencetoolkit.ui.base.plot.record;
 
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
@@ -15,6 +15,8 @@ import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment;
+import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +75,7 @@ public class RecordXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 		if (profileSensorId != null) {
 			record = DataLogger.get().getCurrentRecord(profileSensorId);
 			if (record != null) {
-				this.series = new RecordXYSensorSeriesWrapper(this.sensor, getActivity(), record);
+				this.series = new RecordXYSensorDataWrapper(this.sensor, getActivity(), record);
 				this.series.initSeries(plot);
 			}
 		}
@@ -116,7 +118,7 @@ public class RecordXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 	}
 
 	@Override
-	NumberFormat createDomainNumberFormat() {
+	protected NumberFormat createDomainNumberFormat() {
 		return new RecordTimePlotDomainFormat();
 	}
 

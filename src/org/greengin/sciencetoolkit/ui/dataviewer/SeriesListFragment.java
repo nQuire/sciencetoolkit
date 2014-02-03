@@ -3,7 +3,10 @@ package org.greengin.sciencetoolkit.ui.dataviewer;
 import java.io.File;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.Arguments;
+import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
+import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 
@@ -70,20 +73,47 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 	}
 
 	@Override
-	public void seriesDelete(File series) {
-		// TODO Auto-generated method stub
+	public void seriesDelete(Model profile, File series) {
 
 	}
 
 	@Override
-	public void seriesUpload(File series) {
-		// TODO Auto-generated method stub
+	public void seriesUpload(Model profile, File series) {
 
 	}
 
 	@Override
-	public void seriesSelected(File series, boolean selected) {
-		// TODO Auto-generated method stub
+	public void seriesEdit(Model profile, File series) {
+		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
+		String seriesName = seriesModel.getString("title", series.getName());
+		EditTextDlg.open(this.getActivity(), R.string.series_edit_name_title, R.string.series_edit_name_msg, R.string.button_label_set, seriesName, true, new EditSeriesTitleManager(profile, series));
+	}
+
+	@Override
+	public void seriesToggled(Model profile, File series) {
+		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
+		boolean enabled = seriesModel.getBool("dataviewershow", true);
+		seriesModel.setBool("dataviewershow", !enabled);
+		adapter.updateSeriesList();
+	}
+
+	private class EditSeriesTitleManager implements EditTextActionListener {
+		Model profile;
+		File series;
+
+		public EditSeriesTitleManager(Model profile, File series) {
+			this.profile = profile;
+			this.series = series;
+		}
+
+		@Override
+		public void editTextComplete(String value) {
+			if (value != null) {
+				Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
+				seriesModel.setString("title", value);
+				adapter.updateSeriesList();
+			}
+		}
 
 	}
 

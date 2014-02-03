@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Vector;
-
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.location.LocationGpsSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -174,6 +173,7 @@ public class SensorWrapperManager {
 		}
 	}
 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public static int intType(String type) {
 		if ("snd".equals(type)) {

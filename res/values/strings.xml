@@ -102,5 +102,6 @@
     <string name="data_viewer_activity_title">Data viewer</string>
     <string name="data_viewer_tab_1">Series</string>
     <string name="data_viewer_tab_2">Plot</string>
-
+	<string name="series_edit_name_title">Series title</string>
+	<string name="series_edit_name_msg">Edit title for this series of data.</string>
 </resources>

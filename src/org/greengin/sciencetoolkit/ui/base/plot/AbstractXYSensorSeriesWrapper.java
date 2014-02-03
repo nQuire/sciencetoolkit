@@ -63,11 +63,11 @@ public abstract class AbstractXYSensorSeriesWrapper {
 		}
 	}*/
 
-	abstract Number getDataX(int i);
+	protected abstract Number getDataX(int i);
 
-	abstract Number getDataY(int i, int seriesIndex);
+	protected abstract Number getDataY(int i, int seriesIndex);
 
-	abstract int getDataSize();
+	protected abstract int getDataSize();
 
 	private class SensorXYSeries implements XYSeries {
 		int index;

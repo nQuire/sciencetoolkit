@@ -19,7 +19,7 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionL
 import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
-import org.greengin.sciencetoolkit.ui.base.plot.RecordXYSensorPlotFragment;
+import org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView;
 import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;

@@ -38,8 +38,8 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 
 	PlotScaleGestureDetector scaleDetector;
 	
-	View sensorBrowserContainer;
-	SensorBrowserLayout sensorBrowser;
+	protected View sensorBrowserContainer;
+	protected SensorBrowserLayout sensorBrowser;
 	
 	protected String getDomainLabel() {
 		return "Time";
@@ -255,5 +255,5 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		}
 	}
 	
-	abstract NumberFormat createDomainNumberFormat();
+	protected abstract NumberFormat createDomainNumberFormat();
 }

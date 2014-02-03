@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.base.plot;
+package org.greengin.sciencetoolkit.ui.base.plot.live;
 
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
@@ -13,6 +13,8 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
+import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment;
+import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
 public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements SensorBrowserListener {
 
@@ -43,13 +45,13 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 		this.sensorId = sensorId;
 		this.sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.seriesSettings = SettingsManager.get().get("liveplot:" + sensorId);
-		this.series = new LiveXYSensorSeriesWrapper(plot, this.sensor, seriesSettings, getActivity());
+		this.series = new LiveXYSensorDAtaWrapper(plot, this.sensor, seriesSettings, getActivity());
 
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
 		this.dataPipe = new DataPipe(sensor);
 		this.dataPipe.addFilter(this.periodFilter);
-		this.dataPipe.setEnd((LiveXYSensorSeriesWrapper) this.series);
+		this.dataPipe.setEnd((LiveXYSensorDAtaWrapper) this.series);
 		this.dataPipe.attach();
 
 		this.series.initSeries(plot);
@@ -70,7 +72,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 
 	public void updatePlot() {
 		//this.updateSeriesConfig(false);
-		((LiveXYSensorSeriesWrapper) this.series).updateViewPeriod();
+		((LiveXYSensorDAtaWrapper) this.series).updateViewPeriod();
 
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter.setPeriod(period);
@@ -83,7 +85,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 	}
 
 	@Override
-	NumberFormat createDomainNumberFormat() {
+	protected NumberFormat createDomainNumberFormat() {
 		return new LiveTimePlotDomainFormat();
 	}
 	
