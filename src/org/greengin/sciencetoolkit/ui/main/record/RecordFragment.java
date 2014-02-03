@@ -13,11 +13,12 @@ import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener;
-import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SamplingRateDlg;
+import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.plot.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
 
@@ -36,11 +37,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecordFragment extends EventFragment implements OnClickListener, SelectSensorActionListener, OnItemClickListener, ProfileSensorActionListener {
+public class RecordFragment extends EventFragment implements OnClickListener, SelectSensorActionListener, OnItemClickListener, ProfileSensorActionListener, RecordSensorListener {
 
 	private enum RecordState {
 		IDLE, RECORDING, DECIDING
 	};
+
+	RecordXYSensorPlotFragment plotFragment;
 
 	RecordSensorListAdapter adapter;
 
@@ -95,7 +98,10 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 		View rootView = inflater.inflate(R.layout.view_record, container, false);
 
-		adapter = new RecordSensorListAdapter(inflater);
+		plotFragment = new RecordXYSensorPlotFragment();
+		getChildFragmentManager().beginTransaction().add(R.id.record_content_panel, plotFragment).addToBackStack(null).commit();
+
+		adapter = new RecordSensorListAdapter(this.getActivity(), this, inflater);
 		ListView grid = (ListView) rootView.findViewById(R.id.sensor_list);
 		grid.setAdapter(adapter);
 		grid.setOnItemClickListener(this);
@@ -263,24 +269,28 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	}
 
 	private class EventListener extends EventManagerListener {
+
+		@Override
 		public void eventSetting(String event, boolean whilePaused) {
 			switchProfile();
 		}
 
+		@Override
 		public void eventProfile(String event, boolean whilePaused) {
 			if (event != null && event.equals(ProfileManager.get().getActiveProfileId())) {
 				updateProfileView();
 			}
 		}
 
-		public void eventData(String event, boolean whilePaused) {
-			if ("data".equals(event)) {
-				updateSamplesCount();
-			} else {
-				updateButtonPanel();
-			}
+		@Override
+		public void eventNewData(String event, boolean whilePaused) {
+			updateSamplesCount();
 		}
 
+		@Override
+		public void eventDataStatus(String event, boolean whilePaused) {
+			updateButtonPanel();
+		}
 	}
 
 	@Override
@@ -318,15 +328,9 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (DataLogger.get().isIdle()) {
-			String profileSensorId = (String) view.getTag();
-			Model profileSensor = ProfileManager.get().getActiveProfile().getModel("sensors", true).getModel(profileSensorId);
 
-			double rate = profileSensor.getDouble("sample_rate", ModelDefaults.DATA_LOGGING_RATE);
-			int units = profileSensor.getInt("sample_rate_ux", ModelDefaults.DATA_LOGGING_UNITS);
+		plotFragment.openPlot((String) view.getTag());
 
-			SamplingRateDlg.open(getActivity(), profileSensor, rate, units, this);
-		}
 	}
 
 	@Override
@@ -343,6 +347,18 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	@Override
 	public void profileSensorRateDelete() {
 
+	}
+
+	@Override
+	public void recordSensorEdit(String profileSensorId) {
+		if (DataLogger.get().isIdle()) {
+			Model profile = ProfileManager.get().getActiveProfile();
+
+			Model profileSensor = ProfileManager.get().getActiveProfile().getModel("sensors", true).getModel(profileSensorId);
+			double rate = profileSensor.getDouble("sample_rate", ModelDefaults.DATA_LOGGING_RATE);
+			int units = profileSensor.getInt("sample_rate_ux", ModelDefaults.DATA_LOGGING_UNITS);
+			ProfileSensorDlg.open(getActivity(), profile, profileSensor, rate, units, this);
+		}
 	}
 
 }

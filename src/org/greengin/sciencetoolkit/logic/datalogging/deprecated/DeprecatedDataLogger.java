@@ -77,7 +77,7 @@ public class DeprecatedDataLogger implements DataLoggerDataListener {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				for (DataLoggerStatusListener listener : statusListeners) {
-					listener.dataLoggerStatusModified();
+					listener.dataLoggerStatusModified("event");
 				}
 			}
 		};

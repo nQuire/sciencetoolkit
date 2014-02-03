@@ -1,14 +1,9 @@
 package org.greengin.sciencetoolkit.ui.base.plot;
 
-import java.text.DecimalFormat;
-import java.text.FieldPosition;
 import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 
 import com.androidplot.Plot;
@@ -27,6 +22,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public abstract class AbstractXYSensorPlotFragment extends EventFragment implements OnClickListener {
 
@@ -35,19 +31,22 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 
 	protected AbstractXYSensorSeriesWrapper series;
 
-	protected Model seriesSettings;
-
 	protected View plotPanel;
 	protected LinearLayout plotContainer;
 	protected XYPlot plot;
 	ImageButton closeButton;
 
 	PlotScaleGestureDetector scaleDetector;
-	SensorBrowserLayout sensorBrowser;
 	
+	View sensorBrowserContainer;
+	SensorBrowserLayout sensorBrowser;
 	
 	protected String getDomainLabel() {
 		return "Time";
+	}
+	
+	public void setTitle(String title) {
+		((TextView) plotPanel.findViewById(R.id.plot_header_label)).setTag(title);
 	}
 
 	@Override
@@ -102,7 +101,8 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 
 		scaleDetector = new PlotScaleGestureDetector();
 		
-		sensorBrowser = (SensorBrowserLayout) plotPanel.findViewById(R.id.plot_sensor_browser).findViewById(R.id.sensor_browser_layout);
+		sensorBrowserContainer = plotPanel.findViewById(R.id.plot_sensor_browser);
+		sensorBrowser = (SensorBrowserLayout) sensorBrowserContainer.findViewById(R.id.sensor_browser_layout);
 		
 		closeButton = (ImageButton) this.plotPanel.findViewById(R.id.plot_close);
 		closeButton.setOnClickListener(this);
@@ -114,14 +114,14 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	}
 
 	private void createPlot() {
-		plot = new XYPlot(plotContainer.getContext(), "plot");
+		plot = new XYPlot(plotContainer.getContext(), (String) null);
 		plotContainer.addView(plot);
 		
 		
 
 		plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
 		plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
-		plot.setDomainValueFormat(new TimePlotDomainFormat());
+		plot.setDomainValueFormat(createDomainNumberFormat());
 
 		int background = this.getActivity().getResources().getColor(R.color.plot_outter_background);
 		int gridBackground = this.getActivity().getResources().getColor(R.color.plot_inner_background);
@@ -162,40 +162,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		this.series.updateSeriesConfiguration(plot, anyway);
 	}*/
 
-	private class TimePlotDomainFormat extends NumberFormat {
-
-		private static final long serialVersionUID = 2941418063711671809L;
-
-		DecimalFormat df;
-
-		public TimePlotDomainFormat() {
-			this.df = new DecimalFormat();
-		}
-
-		@Override
-		public StringBuffer format(double d, StringBuffer sb, FieldPosition fp) {
-			return format((long) d, sb, fp);
-		}
-
-		@Override
-		public StringBuffer format(long l, StringBuffer sb, FieldPosition fp) {
-			long dm = Math.max(0, System.currentTimeMillis() - l);
-			int ds = (int) Math.log10(Math.max(1, dm));
-
-			if (ds < 3) {
-				return sb.append(dm).append(" ms");
-			} else {
-				df.setMaximumFractionDigits(Math.max(0, ds - 2));
-				return sb.append(df.format(dm * .001)).append(" s");
-			}
-		}
-
-		@Override
-		public Number parse(String arg0, ParsePosition arg1) {
-			return null;
-		}
-
-	}
+	
 
 	protected void close() {
 		destroyPlot();
@@ -287,4 +254,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 			return true;
 		}
 	}
+	
+	abstract NumberFormat createDomainNumberFormat();
 }

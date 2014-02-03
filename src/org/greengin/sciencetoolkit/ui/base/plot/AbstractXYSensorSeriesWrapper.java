@@ -2,7 +2,6 @@ package org.greengin.sciencetoolkit.ui.base.plot;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
-import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
 import com.androidplot.xy.LineAndPointFormatter;
@@ -18,35 +17,19 @@ public abstract class AbstractXYSensorSeriesWrapper {
 	SensorXYSeries[] seriesList;
 	int valueCount;
 	String[] seriesTitle;
-	Model seriesSettings;
-	String seriesSettingPrefix;
 
-	public AbstractXYSensorSeriesWrapper(SensorWrapper sensor, Model seriesSettings, String seriesSettingPrefix) {
-		this.seriesSettings = seriesSettings;
-		this.seriesSettingPrefix = seriesSettingPrefix;
+	public AbstractXYSensorSeriesWrapper(SensorWrapper sensor) {
 
 		valueCount = sensor.getValueCount();
 		showSeries = new boolean[valueCount];
-		updateShowSeries();
 
 		seriesList = new SensorXYSeries[valueCount];
 		for (int i = 0; i < seriesList.length; i++) {
+			showSeries[i] = true;
 			seriesList[i] = new SensorXYSeries(i);
 		}
 
 		seriesTitle = SensorUIData.getValueLabels(sensor.getType());
-	}
-
-	private boolean updateShowSeries() {
-		boolean modified = false;
-		for (int i = 0; i < valueCount; i++) {
-			boolean setting = seriesSettings.getBool(seriesSettingPrefix + i, true);
-			if (showSeries[i] != setting) {
-				showSeries[i] = setting;
-				modified = true;
-			}
-		}
-		return modified;
 	}
 
 	public void removeFromPlot(XYPlot plot) {

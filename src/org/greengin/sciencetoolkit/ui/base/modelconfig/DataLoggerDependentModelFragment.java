@@ -27,7 +27,7 @@ public abstract class DataLoggerDependentModelFragment extends CheckEnabledModel
 	}
 
 	@Override
-	public void dataLoggerStatusModified() {
+	public void dataLoggerStatusModified(String msg) {
 		checkSettingsEnabled();		
 	}
 }

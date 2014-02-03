@@ -3,7 +3,7 @@ package org.greengin.sciencetoolkit.ui.base.events;
 import java.util.List;
 
 public class EventManagerListener {
-	public void events(List<String> settingsEvents, List<String> profileEvents, List<String> dataEvents, boolean whilePaused) {
+	public void events(List<String> settingsEvents, List<String> profileEvents, List<String> dataEvents, List<String> dataStatusEvents, boolean whilePaused) {
 		if (settingsEvents.size() > 0) {
 			this.eventsSettings(settingsEvents, whilePaused);
 		}
@@ -11,7 +11,10 @@ public class EventManagerListener {
 			this.eventsProfiles(profileEvents, whilePaused);
 		}
 		if (dataEvents.size() > 0) {
-			this.eventsData(dataEvents, whilePaused);
+			this.eventsNewData(dataEvents, whilePaused);
+		}
+		if (dataStatusEvents.size() > 0) {
+			this.eventsDataStatus(dataStatusEvents, whilePaused);
 		}
 	}
 
@@ -27,9 +30,15 @@ public class EventManagerListener {
 		}
 	}
 
-	public void eventsData(List<String> dataEvents, boolean whilePaused) {
+	public void eventsNewData(List<String> dataEvents, boolean whilePaused) {
 		for (String e : dataEvents) {
-			this.eventData(e, whilePaused);
+			this.eventNewData(e, whilePaused);
+		}
+	}
+	
+	public void eventsDataStatus(List<String> dataStatusEvents, boolean whilePaused) {
+		for (String e : dataStatusEvents) {
+			this.eventDataStatus(e, whilePaused);
 		}
 	}
 
@@ -39,6 +48,9 @@ public class EventManagerListener {
 	public void eventProfile(String event, boolean whilePaused) {
 	}
 
-	public void eventData(String event, boolean whilePaused) {
+	public void eventNewData(String event, boolean whilePaused) {
+	}
+	
+	public void eventDataStatus(String event, boolean whilePaused) {
 	}
 }

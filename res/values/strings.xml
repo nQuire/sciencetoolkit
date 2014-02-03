@@ -88,8 +88,8 @@
     <string name="sample_rate_dlg_msg">Select the sampling rate for this sensor, or remove it from this list.</string>
     <string name="sample_rate_label">Sample rate: </string>
     <string name="sample_rate_separator"> / </string>
-    <string name="sample_rate_ok">Set sampling rate</string>
-    <string name="sample_rate_delete">Remove sensor</string>
+    <string name="sample_rate_ok">Update</string>
+    <string name="sample_rate_delete">Remove</string>
     <string name="sample_rate_prompt">Select units</string>
     <string-array name="sample_rate_units">
         <item>sec</item>

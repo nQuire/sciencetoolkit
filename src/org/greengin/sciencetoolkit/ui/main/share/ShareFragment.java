@@ -135,7 +135,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	private class EventListener extends EventManagerListener {
 
 		@Override
-		public void events(List<String> settingsEvents, List<String> profileEvents, List<String> dataEvents, boolean whilePaused) {
+		public void events(List<String> settingsEvents, List<String> profileEvents, List<String> dataEvents, List<String> dataStatusEvents, boolean whilePaused) {
 			updateProfiles();
 		}
 	}

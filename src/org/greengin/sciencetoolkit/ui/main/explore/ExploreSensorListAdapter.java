@@ -7,8 +7,6 @@ import java.util.Vector;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
 import android.view.LayoutInflater;

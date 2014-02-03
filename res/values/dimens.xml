@@ -2,7 +2,7 @@
 
     <!-- record item -->
     <dimen name="record_project_panel_margin">5dp</dimen>
-    <dimen name="record_item_icon_size">25dp</dimen>
+    <dimen name="record_item_icon_size">35dp</dimen>
     <dimen name="record_item_vertical_margin">8dp</dimen>
     <dimen name="record_item_icon_margin">16dp</dimen>
     <dimen name="button_pane_vertical_margin">16dp</dimen>

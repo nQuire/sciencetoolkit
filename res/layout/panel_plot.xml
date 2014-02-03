@@ -15,10 +15,10 @@
         android:paddingTop="@dimen/plot_header_padding_vertical" >
 
         <TextView
+            android:id="@+id/plot_header_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/plot_live_label"
             android:textColor="@color/plot_header_text"
             android:textStyle="bold" />
 

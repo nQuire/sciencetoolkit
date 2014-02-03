@@ -290,14 +290,41 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	}
 
 	public boolean sensorInProfile(String sensorId, Model profile) {
+		return getSensorProfileId(sensorId, profile) != null;
+	}
+	
+	public String getSensorProfileIdInActiveProfile(String sensorId) {
+		return getSensorProfileId(sensorId, getActiveProfile());
+	}
+	
+	public String getSensorProfileId(String sensorId, Model profile) {
 		if (sensorId != null && profile != null) {
 			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
 				if (sensorId.equals(profileSensor.getString("sensorid"))) {
-					return true;
+					return profileSensor.getString("id");
 				}
 			}
 		}
-		return false;
+		return null;
+	}
+
+	public Vector<String> getSensorsInActiveProfile() {
+		return getSensorsInProfile(getActiveProfile());
+	}
+
+	public Vector<String> getSensorsInProfile(Model profile) {
+		Vector<String> sensorIds = new Vector<String>();
+
+		if (profile != null) {
+			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
+				String sensorId = profileSensor.getString("sensorid", null);
+				if (sensorId != null) {
+					sensorIds.add(profileSensor.getString("sensorid"));
+				}
+			}
+		}
+
+		return sensorIds;
 	}
 
 	@Override
@@ -396,7 +423,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 						JSONObject jprf = jprj.getJSONObject(prfkey);
 
 						String title = jprf.getString("title");
-						//int seriesCount = jprf.getInt("series_count");
+						// int seriesCount = jprf.getInt("series_count");
 
 						String profileId = String.format("r.%s.%s", prjkey, prfkey);
 
@@ -407,7 +434,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 						profile.setString("title", title, true);
 						profile.setBool("is_remote", true, true);
 						profile.setBool("requires_location", jprf.getBoolean("requires_location"), true);
-						
+
 						JSONObject inputs = jprf.getJSONObject("inputs");
 						Iterator<?> inpit = inputs.keys();
 						profile.clear("sensors", true);

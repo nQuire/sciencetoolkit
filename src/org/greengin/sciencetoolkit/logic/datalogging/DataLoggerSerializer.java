@@ -69,7 +69,7 @@ public class DataLoggerSerializer {
 		int n = countMap.containsKey(sensorId) ? countMap.get(sensorId) + 1: 1;
 		countMap.put(sensorId, n);
 		count ++;
-		manager.fireDataModified();
+		manager.fireDataModified(sensorProfileId);
 	}
 	
 	public HashMap<String, Integer> getCountMap() {

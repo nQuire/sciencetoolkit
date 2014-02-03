@@ -1,8 +1,15 @@
 package org.greengin.sciencetoolkit.ui.base.plot;
 
+import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+
+import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
+import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -11,6 +18,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 
 	DataPipe dataPipe;
 	FixedRateDataFilter periodFilter;
+	protected Model seriesSettings;
 
 	@Override
 	protected String getDomainLabel() {
@@ -29,7 +37,9 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 
 	public void openPlot(String sensorId) {
 		super.openPlot();
-
+		
+		setTitle(getResources().getString(R.string.plot_live_label));
+		
 		this.sensorId = sensorId;
 		this.sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.seriesSettings = SettingsManager.get().get("liveplot:" + sensorId);
@@ -70,6 +80,45 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 	public void sensorBrowserSelected(String sensorId) {
 		destroyPlot();
 		openPlot(sensorId);
+	}
+
+	@Override
+	NumberFormat createDomainNumberFormat() {
+		return new LiveTimePlotDomainFormat();
+	}
+	
+	
+	private class LiveTimePlotDomainFormat extends NumberFormat {
+
+		private static final long serialVersionUID = -1726050106365327017L;
+		DecimalFormat df;
+
+		public LiveTimePlotDomainFormat() {
+			this.df = new DecimalFormat();
+		}
+
+		@Override
+		public StringBuffer format(double d, StringBuffer sb, FieldPosition fp) {
+			return format((long) d, sb, fp);
+		}
+
+		@Override
+		public StringBuffer format(long l, StringBuffer sb, FieldPosition fp) {
+			long dm = Math.max(0, System.currentTimeMillis() - l);
+			int ds = (int) Math.log10(Math.max(1, dm));
+
+			if (ds < 3) {
+				return sb.append(dm).append(" ms");
+			} else {
+				df.setMaximumFractionDigits(Math.max(0, ds - 2));
+				return sb.append(df.format(dm * .001)).append(" s");
+			}
+		}
+
+		@Override
+		public Number parse(String arg0, ParsePosition arg1) {
+			return null;
+		}
 	}
 
 }

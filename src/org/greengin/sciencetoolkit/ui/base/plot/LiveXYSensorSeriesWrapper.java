@@ -15,8 +15,6 @@ import com.androidplot.xy.XYPlot;
 import android.content.Context;
 
 public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper implements DataInput {
-	public static final String EVENT_FILTER = "LIVEPLOT";
-	public static final String SERIES_SHOW_PREFIX_FILTER = "LIVEPLOT";
 
 	private Lock lock = new ReentrantLock();
 
@@ -25,12 +23,14 @@ public class LiveXYSensorSeriesWrapper extends AbstractXYSensorSeriesWrapper imp
 
 	Context context;
 	XYPlot plot;
+	Model seriesSettings;
 	
 	public LiveXYSensorSeriesWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
-		super(sensor, settings, SERIES_SHOW_PREFIX_FILTER);
+		super(sensor);
 		this.context = context;
 		this.values = new LinkedList<TimeValue>();
 		this.plot = plot;
+		this.seriesSettings = settings;
 		updateViewPeriod();
 	}
 

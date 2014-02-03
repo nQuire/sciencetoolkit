@@ -14,6 +14,7 @@ import org.greengin.sciencetoolkit.model.SettingsManager;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.Build;
 
 public class SensorWrapperManager {
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
@@ -37,11 +38,10 @@ public class SensorWrapperManager {
 		this.sensors = new HashMap<String, SensorWrapper>();
 		this.sensorIds = new Vector<String>();
 	}
-	
+
 	private void loadSensors(Context applicationContext) {
 		SensorManager sensorManager = (SensorManager) applicationContext.getSystemService(Context.SENSOR_SERVICE);
 		List<Sensor> deviceSensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
-
 
 		for (Sensor sensor : deviceSensors) {
 			addSensor(new DeviceSensorWrapper(sensor, sensorManager));
@@ -50,7 +50,7 @@ public class SensorWrapperManager {
 		if (SoundSensorWrapper.isAvailable(applicationContext)) {
 			addSensor(new SoundSensorWrapper(applicationContext));
 		}
-		
+
 		if (LocationGpsSensorWrapper.isAvailable(applicationContext)) {
 			addSensor(new LocationGpsSensorWrapper(applicationContext));
 		}
@@ -72,17 +72,21 @@ public class SensorWrapperManager {
 	public SensorWrapper getSensor(Object key) {
 		return this.sensors.get(key);
 	}
-	
-	public List<SensorWrapper> getSameTypeSensors(SensorWrapper sensor) {
+
+	public List<SensorWrapper> getSensorsOfType(String type) {
+		return getSensorsOfType(intType(type));
+	}
+
+	public List<SensorWrapper> getSensorsOfType(int type) {
 		Vector<SensorWrapper> list = new Vector<SensorWrapper>();
 		for (Entry<String, SensorWrapper> entry : sensors.entrySet()) {
-			if (entry.getValue().getType() == sensor.getType()) {
+			if (entry.getValue().getType() == type) {
 				list.add(entry.getValue());
 			}
 		}
 		return list;
 	}
-	
+
 	public Vector<SensorWrapper> getShownSensors() {
 		Model settings = SettingsManager.get().get("sensor_list");
 		Vector<SensorWrapper> shownSensors = new Vector<SensorWrapper>();
@@ -90,10 +94,10 @@ public class SensorWrapperManager {
 			if (settings.getBool(sensorId, true)) {
 				shownSensors.add(getSensor(sensorId));
 			}
-		}	
+		}
 		return shownSensors;
 	}
-	
+
 	public Vector<String> getShownSensorIds() {
 		Model settings = SettingsManager.get().get("sensor_list");
 		Vector<String> sensorIds = new Vector<String>();
@@ -101,14 +105,14 @@ public class SensorWrapperManager {
 			if (settings.getBool(sensorId, true)) {
 				sensorIds.add(sensorId);
 			}
-		}	
+		}
 		return sensorIds;
 	}
-	
+
 	public synchronized String getId(int type) {
 		String typeStr = SensorWrapperManager.type(type);
 		String format = typeStr + ":%d";
-		
+
 		for (int i = 0;; i++) {
 			String id = String.format(format, i);
 			if (!sensors.containsKey(id)) {
@@ -117,7 +121,7 @@ public class SensorWrapperManager {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static String type(int type) {
 		switch (type) {
@@ -168,6 +172,74 @@ public class SensorWrapperManager {
 		default:
 			return "uknown";
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static int intType(String type) {
+		if ("snd".equals(type)) {
+			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND;
+		} else if ("gps".equals(type)) {
+			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION;
+		} else if ("pro".equals(type)) {
+			return Sensor.TYPE_PROXIMITY;
+		} else if ("lig".equals(type)) {
+			return Sensor.TYPE_LIGHT;
+		} else if ("mag".equals(type)) {
+			return Sensor.TYPE_MAGNETIC_FIELD;
+		} else if ("gyr".equals(type)) {
+			return Sensor.TYPE_GYROSCOPE;
+		} else if ("orn".equals(type)) {
+			return Sensor.TYPE_ORIENTATION;
+		} else if ("acc".equals(type)) {
+			return Sensor.TYPE_ACCELEROMETER;
+		} else if ("pre".equals(type)) {
+			return Sensor.TYPE_PRESSURE;
+		}else if ("tmp".equals(type)) {
+			return Sensor.TYPE_TEMPERATURE;
+		}
+
+		if (Build.VERSION.SDK_INT >= 9) {
+			if ("gra".equals(type)) {
+				return Sensor.TYPE_GRAVITY;
+			} else if ("rot".equals(type)) {
+				return Sensor.TYPE_ROTATION_VECTOR;
+			} else if ("lacc".equals(type)) {
+				return Sensor.TYPE_LINEAR_ACCELERATION;
+			}
+		}
+		
+		if (Build.VERSION.SDK_INT >= 14) {
+			if ("relhum".equals(type)) {
+				return Sensor.TYPE_RELATIVE_HUMIDITY;
+			} else if ("ambtmp".equals(type)) {
+				return Sensor.TYPE_AMBIENT_TEMPERATURE;
+			}
+		}
+
+		if (Build.VERSION.SDK_INT >= 18) {
+			if ("magunc".equals(type)) {
+				return Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED;
+
+			} else if ("gyrunc".equals(type)) {
+				return Sensor.TYPE_GYROSCOPE_UNCALIBRATED;
+			} else if ("gamerot".equals(type)) {
+				return Sensor.TYPE_GAME_ROTATION_VECTOR;
+			} else if ("sigmot".equals(type)) {
+				return Sensor.TYPE_SIGNIFICANT_MOTION;
+			}
+		}
+
+		if (Build.VERSION.SDK_INT >= 19) {
+			if ("georot".equals(type)) {
+				return Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR;
+			} else if ("stpcnt".equals(type)) {
+				return Sensor.TYPE_STEP_COUNTER;
+			} else if ("stpdet".equals(type)) {
+				return Sensor.TYPE_STEP_DETECTOR;
+			}
+		}
+
+		return -1;
 	}
 
 }

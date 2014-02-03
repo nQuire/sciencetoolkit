@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.greengin.sciencetoolkit.logic.location.CurrentLocation;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
 import org.greengin.sciencetoolkit.model.Model;
@@ -44,6 +45,7 @@ public class DataLogger {
 	Model profile;
 	int series;
 	File seriesFile;
+	HashMap<String, Vector<TimeValue>> seriesRecord;
 	boolean running;
 	boolean geolocated;
 	Vector<DataPipe> pipes;
@@ -80,8 +82,9 @@ public class DataLogger {
 		statusReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				String msg = intent.getExtras().getString("msg");
 				for (DataLoggerStatusListener listener : statusListeners) {
-					listener.dataLoggerStatusModified();
+					listener.dataLoggerStatusModified(msg);
 				}
 			}
 		};
@@ -154,17 +157,21 @@ public class DataLogger {
 				series = fileManager.startNewSeries(profileId);
 				seriesFile = fileManager.getCurrentSeriesFile(profileId);
 				serializer.open(seriesFile, profile);
+				seriesRecord = new HashMap<String, Vector<TimeValue>>();
 
 				for (Model profileSensor : sensors) {
 					String profileSensorId = profileSensor.getString("id");
 					String sensorId = profileSensor.getString("sensorid");
 					SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 					int period = ModelOperations.rate2period(profileSensor, "sample_rate", ModelDefaults.DATA_LOGGING_RATE, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
-
+					
+					Vector<TimeValue> record = new Vector<TimeValue>();
+					seriesRecord.put(profileSensorId, record);
+					
 					if (sensor != null) {
 						DataPipe pipe = new DataPipe(sensor);
 						pipe.addFilter(new FixedRateDataFilter(period));
-						pipe.setEnd(new DataLoggingInput(profileId, profileSensorId, sensorId, serializer));
+						pipe.setEnd(new DataLoggingInput(profileId, profileSensorId, sensorId, serializer, record));
 						pipes.add(pipe);
 					}
 				}
@@ -173,7 +180,7 @@ public class DataLogger {
 					pipe.attach();
 				}
 
-				fireStatusModified();
+				fireStatusModified("start");
 			}
 		}
 		runningLock.unlock();
@@ -197,7 +204,7 @@ public class DataLogger {
 			}
 
 			running = false;
-			fireStatusModified();
+			fireStatusModified("stop");
 
 		}
 
@@ -228,6 +235,10 @@ public class DataLogger {
 		return this.serializer.getCount();
 	}
 
+	public Vector<TimeValue> getCurrentRecord(String profileSensorId) {
+		return this.seriesRecord != null ? this.seriesRecord.get(profileSensorId) : null;
+	}
+
 	public void deleteAllData() {
 		// this.helper.emptyData(null);
 	}
@@ -239,7 +250,7 @@ public class DataLogger {
 			profile.clear("series", true);
 			ProfileManager.get().forceSave();
 		}
-		this.fireStatusModified();
+		this.fireStatusModified("delete");
 	}
 
 	public void deleteData(int series) {
@@ -253,7 +264,7 @@ public class DataLogger {
 			profile.getModel("series", true).clear(deleted.getName(), true);
 			ProfileManager.get().forceSave();
 		}
-		this.fireStatusModified();
+		this.fireStatusModified("delete");
 	}
 
 	public void markAsSent(String profileId, File series, int status) {
@@ -264,7 +275,7 @@ public class DataLogger {
 			seriesModel.setInt("uploaded", status, true);
 
 			ProfileManager.get().forceSave();
-			this.fireStatusModified();
+			this.fireStatusModified("upload");
 		}
 	}
 
@@ -282,17 +293,18 @@ public class DataLogger {
 		return profile.getModel("series", true).getModel(series.getName(), true).getModel("metadata", true);
 	}
 
-	private void fireStatusModified() {
+	private void fireStatusModified(String event) {
 		if (statusListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_STATUS);
+			intent.putExtra("msg", event);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}
 
-	public void fireDataModified() {
+	public void fireDataModified(String profileSensorId) {
 		if (dataListeners.size() > 0) {
 			Intent intent = new Intent(DataLogger.DATA_LOGGING_NEW_DATA);
-			intent.putExtra("msg", profileId);
+			intent.putExtra("msg", profileSensorId);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent);
 		}
 	}

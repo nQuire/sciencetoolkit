@@ -1,5 +1,5 @@
 package org.greengin.sciencetoolkit.logic.datalogging;
 
 public interface DataLoggerStatusListener {
-	void dataLoggerStatusModified();
+	void dataLoggerStatusModified(String msg);
 }

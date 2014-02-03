@@ -23,12 +23,14 @@ public class EventManager {
 	Vector<String> settings;
 	Vector<String> profiles;
 	Vector<String> data;
+	Vector<String> dataStatus;
 
 	ReentrantLock lock;
 
 	SettingsListener settingsListener;
 	ProfilesListener profilesListener;
 	DataListener dataListener;
+	DataStatusListener dataStatusListener;
 
 	public EventManager() {
 		this.isPaused = true;
@@ -43,10 +45,12 @@ public class EventManager {
 		this.settings = new Vector<String>();
 		this.profiles = new Vector<String>();
 		this.data = new Vector<String>();
+		this.dataStatus = new Vector<String>();
 
 		this.settingsListener = new SettingsListener();
 		this.profilesListener = new ProfilesListener();
 		this.dataListener = new DataListener();
+		this.dataStatusListener = new DataStatusListener();
 
 		this.lock = new ReentrantLock();
 	}
@@ -93,13 +97,13 @@ public class EventManager {
 
 	public void listenToLoggerStatus() {
 		if (!loggerStatusListener) {
-			DataLogger.get().registerStatusListener(dataListener);
+			DataLogger.get().registerStatusListener(dataStatusListener);
 			loggerStatusListener = true;
 		}
 	}
 
 	public void stopListeningToLoggerStatus() {
-		DataLogger.get().unregisterStatusListener(dataListener);
+		DataLogger.get().unregisterStatusListener(dataStatusListener);
 		loggerStatusListener = false;
 	}
 	
@@ -154,11 +158,12 @@ public class EventManager {
 
 	private void notifyEvents(boolean whilePaused) {
 		if (listener != null) {
-			listener.events(settings, profiles, data, whilePaused);
+			listener.events(settings, profiles, data, dataStatus, whilePaused);
 		}
 		settings.clear();
 		profiles.clear();
 		data.clear();
+		dataStatus.clear();
 	}
 
 	private class SettingsListener implements ModelNotificationListener {
@@ -175,15 +180,17 @@ public class EventManager {
 		}
 	}
 
-	private class DataListener implements DataLoggerDataListener, DataLoggerStatusListener {
-		@Override
-		public void dataLoggerStatusModified() {
-			addEvent(data, "status");
-		}
-
+	private class DataListener implements DataLoggerDataListener {
 		@Override
 		public void dataLoggerDataModified(String msg) {
-			addEvent(data, "data");
+			addEvent(data, msg);
+		}
+	}
+	
+	private class DataStatusListener implements DataLoggerStatusListener {
+		@Override
+		public void dataLoggerStatusModified(String msg) {
+			addEvent(dataStatus, msg);
 		}
 	}
 
