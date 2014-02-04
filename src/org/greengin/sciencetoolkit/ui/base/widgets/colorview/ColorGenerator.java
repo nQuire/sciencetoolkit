@@ -1,6 +1,6 @@
 package org.greengin.sciencetoolkit.ui.base.widgets.colorview;
 
-import android.util.Log;
+import android.graphics.Color;
 
 public class ColorGenerator {
 
@@ -30,6 +30,11 @@ public class ColorGenerator {
 		}
 
 		return output.toString();
+	}
+	
+	public static int getAndroidColor(int n) {
+		int[] rgb = getRbgColor(n);
+		return Color.rgb(rgb[0], rgb[1], rgb[2]);
 	}
 	
 	public static int[] getIntRGB(float[] frgb) {
@@ -102,7 +107,6 @@ public class ColorGenerator {
 			angle_step = angle_0 * 2f;
 		}
 		float angle = angle_0 + n_in_turn * angle_step;
-		Log.d("stk color", "" + n + " " + angle);
 		return angle;
 	}
 

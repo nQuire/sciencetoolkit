@@ -13,7 +13,6 @@ import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -105,19 +104,16 @@ public class BlinkingImageView extends ImageView {
 	}
 
 	public void onAttachedToWindow() {
-		Log.d("stk blinking", "attached");
 		super.onAttachedToWindow();
 		start();
 	}
 
 	public void onDetachedFromWindow() {
-		Log.d("stk blinking", "detached");
 		super.onDetachedFromWindow();
 		stop();
 	}
 
 	public void onWindowVisibilityChanged(int visibility) {
-		Log.d("stk blinking", "changed: " + visibility);
 		if (visibility == View.VISIBLE) {
 			if (running) {
 				start();

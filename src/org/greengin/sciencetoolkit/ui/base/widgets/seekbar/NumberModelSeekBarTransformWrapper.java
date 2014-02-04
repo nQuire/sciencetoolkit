@@ -3,7 +3,6 @@ package org.greengin.sciencetoolkit.ui.base.widgets.seekbar;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener;
 
-import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -46,7 +45,6 @@ public class NumberModelSeekBarTransformWrapper implements OnSeekBarChangeListen
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		if (fromUser) {
 			Number value = transform.transformSeekBarPos2Value(progress);
-			Log.d("stk range", "val " + progress + " " + value);
 			if (setValue(value) && listener != null) {
 				listener.modelKeyModified(widgetKey);
 			}			

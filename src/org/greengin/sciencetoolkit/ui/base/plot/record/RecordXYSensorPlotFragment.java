@@ -10,19 +10,23 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
-import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment;
+import org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
 import android.os.Bundle;
 import android.view.View;
 
-public class RecordXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements SensorBrowserListener {
-
+public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment implements SensorBrowserListener {
+	
+	RecordXYSensorDataWrapper series;
+	
+	SensorWrapper sensor;
 	String profileSensorId;
 	boolean plotActive;
 	Vector<TimeValue> record;
@@ -63,7 +67,7 @@ public class RecordXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 
 		Model profileSensor = ProfileManager.get().getActiveProfile().getModel("sensors", true).getModel(profileSensorId);
 
-		this.sensorId = profileSensor.getString("sensorid", null);
+		String sensorId = profileSensor.getString("sensorid", null);
 		this.sensor = sensorId != null ? SensorWrapperManager.get().getSensor(sensorId) : null;
 
 		this.sensorBrowserContainer.setVisibility(View.GONE);

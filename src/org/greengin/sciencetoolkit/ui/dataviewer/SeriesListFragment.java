@@ -32,8 +32,6 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 		eventManager.setListener(new EventListener());
 		eventManager.listenToLoggerStatus();
-
-		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -92,8 +90,8 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 	@Override
 	public void seriesToggled(Model profile, File series) {
 		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
-		boolean enabled = seriesModel.getBool("dataviewershow", true);
-		seriesModel.setBool("dataviewershow", !enabled);
+		int index = seriesModel.getInt("dataviewershow", -1);
+		seriesModel.setInt("dataviewershow", index < 0 ? adapter.getAvailableColorIndex() : -1);
 		adapter.updateSeriesList();
 	}
 

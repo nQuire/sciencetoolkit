@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.text.ParsePosition;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.streams.DataPipe;
 import org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter;
@@ -13,11 +14,12 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.SettingsManager;
-import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment;
+import org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
-public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements SensorBrowserListener {
-
+public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment implements SensorBrowserListener {
+	LiveXYSensorDataWrapper series;
+	
 	DataPipe dataPipe;
 	FixedRateDataFilter periodFilter;
 	protected Model seriesSettings;
@@ -42,16 +44,15 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 		
 		setTitle(getResources().getString(R.string.plot_live_label));
 		
-		this.sensorId = sensorId;
-		this.sensor = SensorWrapperManager.get().getSensor(sensorId);
+		SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.seriesSettings = SettingsManager.get().get("liveplot:" + sensorId);
-		this.series = new LiveXYSensorDAtaWrapper(plot, this.sensor, seriesSettings, getActivity());
+		this.series = new LiveXYSensorDataWrapper(plot, sensor, seriesSettings, getActivity());
 
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
 		this.dataPipe = new DataPipe(sensor);
 		this.dataPipe.addFilter(this.periodFilter);
-		this.dataPipe.setEnd((LiveXYSensorDAtaWrapper) this.series);
+		this.dataPipe.setEnd((LiveXYSensorDataWrapper) this.series);
 		this.dataPipe.attach();
 
 		this.series.initSeries(plot);
@@ -72,7 +73,7 @@ public class LiveXYSensorPlotFragment extends AbstractXYSensorPlotFragment imple
 
 	public void updatePlot() {
 		//this.updateSeriesConfig(false);
-		((LiveXYSensorDAtaWrapper) this.series).updateViewPeriod();
+		((LiveXYSensorDataWrapper) this.series).updateViewPeriod();
 
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter.setPeriod(period);

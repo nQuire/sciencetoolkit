@@ -1,6 +1,5 @@
 package org.greengin.sciencetoolkit.ui.base.animations;
 
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -20,7 +19,6 @@ public class HeightAnimation extends Animation {
 
 	@Override
 	protected void applyTransformation(float interpolatedTime, Transformation t) {
-		Log.d("stk", "animation");
 		view.getLayoutParams().height = startH + (int) (diff * interpolatedTime);
 		view.requestLayout();
 	}

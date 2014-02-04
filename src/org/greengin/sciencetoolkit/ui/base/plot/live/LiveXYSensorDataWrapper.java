@@ -15,7 +15,7 @@ import com.androidplot.xy.XYPlot;
 
 import android.content.Context;
 
-public class LiveXYSensorDAtaWrapper extends AbstractXYSensorSeriesWrapper implements DataInput {
+public class LiveXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper implements DataInput {
 
 	private Lock lock = new ReentrantLock();
 
@@ -26,7 +26,7 @@ public class LiveXYSensorDAtaWrapper extends AbstractXYSensorSeriesWrapper imple
 	XYPlot plot;
 	Model seriesSettings;
 	
-	public LiveXYSensorDAtaWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
+	public LiveXYSensorDataWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
 		super(sensor);
 		this.context = context;
 		this.values = new LinkedList<TimeValue>();

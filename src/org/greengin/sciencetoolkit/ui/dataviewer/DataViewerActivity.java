@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.dataviewer;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.base.SwipeActivity;
+import org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -47,7 +48,7 @@ public class DataViewerActivity extends SwipeActivity {
 	public Fragment createTabFragment(int position) {
 		Bundle arguments = new Bundle();
 		arguments.putString(Arguments.ARG_PROFILE, profileId);
-		Fragment f = position == 0 ? new SeriesListFragment() : new Fragment();
+		Fragment f = position == 0 ? new SeriesListFragment() : new SeriesXYSensorPlotFragment();
 		f.setArguments(arguments);
 		return f;
 	}

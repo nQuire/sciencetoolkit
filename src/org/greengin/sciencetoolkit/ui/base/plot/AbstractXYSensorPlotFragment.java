@@ -3,7 +3,6 @@ package org.greengin.sciencetoolkit.ui.base.plot;
 import java.text.NumberFormat;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 
 import com.androidplot.Plot;
@@ -14,27 +13,20 @@ import com.androidplot.xy.YValueMarker;
 import android.app.Activity;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public abstract class AbstractXYSensorPlotFragment extends EventFragment implements OnClickListener {
-
-	protected String sensorId;
-	protected SensorWrapper sensor;
-
-	protected AbstractXYSensorSeriesWrapper series;
+public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 
 	protected View plotPanel;
 	protected LinearLayout plotContainer;
 	protected XYPlot plot;
-	ImageButton closeButton;
 
 	PlotScaleGestureDetector scaleDetector;
 	
@@ -48,55 +40,19 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 	public void setTitle(String title) {
 		((TextView) plotPanel.findViewById(R.id.plot_header_label)).setTag(title);
 	}
+	
+	protected int layoutId() {
+		return R.layout.panel_plot;
+	}
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-
-		this.sensorId = null;
-		this.sensor = null;
 	}
 	
 	@Override
-	public void onDetach() {
-		this.close();
-		super.onDetach();
-	}
-
-	/*
-	 * 
-	 * <com.androidplot.xy.XYPlot android:id="@+id/plot"
-	 * android:layout_width="match_parent" android:layout_height="match_parent"
-	 * android:layout_below="@id/plot_header"
-	 * android:layout_margin="@dimen/plot_margin"
-	 * androidPlot.domainLabelWidget.labelPaint
-	 * .textSize="@dimen/plot_domain_label_font_size"
-	 * androidPlot.graphWidget.domainLabelPaint
-	 * .textSize="@dimen/plot_domain_tick_label_font_size"
-	 * androidPlot.graphWidget
-	 * .domainOriginLabelPaint.textSize="@dimen/plot_domain_tick_label_font_size"
-	 * androidPlot.graphWidget.rangeLabelPaint.textSize=
-	 * "@dimen/plot_range_tick_label_font_size"
-	 * androidPlot.graphWidget.rangeOriginLabelPaint
-	 * .textSize="@dimen/plot_range_tick_label_font_size"
-	 * androidPlot.legendWidget.heightMetric.value="25dp"
-	 * androidPlot.legendWidget.iconSizeMetrics.heightMetric.value="15dp"
-	 * androidPlot.legendWidget.iconSizeMetrics.widthMetric.value="15dp"
-	 * androidPlot.legendWidget.positionMetrics.anchor="right_bottom"
-	 * androidPlot
-	 * .legendWidget.textPaint.textSize="@dimen/plot_legend_text_font_size"
-	 * androidPlot
-	 * .rangeLabelWidget.labelPaint.textSize="@dimen/plot_range_label_font_size"
-	 * androidPlot.titleWidget.labelPaint.textSize="@dimen/plot_title_font_size"
-	 * android:paddingTop="@dimen/plot_padding"
-	 * android:paddingLeft="@dimen/plot_padding"
-	 * android:paddingRight="@dimen/plot_padding"
-	 * android:paddingBottom="@dimen/plot_padding_bottom" />
-	 */
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		plotPanel = inflater.inflate(R.layout.panel_plot, container, false);
+		plotPanel = inflater.inflate(layoutId(), container, false);
 		plotContainer = (LinearLayout) plotPanel.findViewById(R.id.plot_container);
 
 		scaleDetector = new PlotScaleGestureDetector();
@@ -104,20 +60,12 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		sensorBrowserContainer = plotPanel.findViewById(R.id.plot_sensor_browser);
 		sensorBrowser = (SensorBrowserLayout) sensorBrowserContainer.findViewById(R.id.sensor_browser_layout);
 		
-		closeButton = (ImageButton) this.plotPanel.findViewById(R.id.plot_close);
-		closeButton.setOnClickListener(this);
-
-		this.close();
-
-		this.series = null;
 		return plotPanel;
 	}
 
-	private void createPlot() {
+	protected void createPlot() {
 		plot = new XYPlot(plotContainer.getContext(), (String) null);
 		plotContainer.addView(plot);
-		
-		
 
 		plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
 		plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
@@ -158,17 +106,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		plot.setOnTouchListener(scaleDetector);
 	}
 
-	/*public void updateSeriesConfig(boolean anyway) {
-		this.series.updateSeriesConfiguration(plot, anyway);
-	}*/
-
-	
-
-	protected void close() {
-		destroyPlot();
-		this.plotPanel.setVisibility(View.GONE);
-	}
-	
+		
 	protected void destroyPlot() {
 		if (plot != null) {
 			plotContainer.removeView(plot);
@@ -176,20 +114,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 		}
 	}
 	
-
-	public void openPlot() {
-		this.plotPanel.setVisibility(View.VISIBLE);
-		this.createPlot();
-	}
-	
-
-	@Override
-	public void onClick(View v) {
-		if (v == closeButton) {
-			close();
-		}
-	}
-
 	private class PlotScaleGestureDetector implements OnTouchListener {
 
 		float rt, rh;
@@ -215,6 +139,8 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
+			Log.d("stk plot", "on touch");
+			
 			int action = event.getAction();
 			switch (action & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_POINTER_DOWN:
@@ -240,12 +166,13 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment impleme
 					if (pt1 != pb1) {
 						float nmax = (((min - max) * pb0 + max) * pt1 + (max - min) * pb1 * pt0 - max * pb1) / (pt1 - pb1);
 						float nmin = nmax + ((min - max) * pt0 + (max - min) * pb0) / (pt1 - pb1);
-
+						Log.d("stk plot", "on touch " + nmax + " " + max);
 						max = nmax;
 						min = nmin;
 
 						plot.setRangeLowerBoundary(min, BoundaryMode.FIXED);
 						plot.setRangeUpperBoundary(max, BoundaryMode.FIXED);
+						plot.redraw();
 					}
 				}
 				break;

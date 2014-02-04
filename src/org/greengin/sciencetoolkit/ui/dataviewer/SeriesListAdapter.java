@@ -1,8 +1,7 @@
 package org.greengin.sciencetoolkit.ui.dataviewer;
 
 import java.io.File;
-import java.util.Hashtable;
-import java.util.Map.Entry;
+import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
@@ -27,7 +26,6 @@ public class SeriesListAdapter extends BaseAdapter {
 	Model profile;
 	boolean isRemote = false;
 	File[] seriesList;
-	Hashtable<String, Integer> seriesIndex;
 
 	OnClickListener editTitleListener;
 	OnClickListener uploadListener;
@@ -38,7 +36,6 @@ public class SeriesListAdapter extends BaseAdapter {
 		this.listener = listener;
 		this.inflater = inflater;
 		this.profile = ProfileManager.get().get(profileId);
-		this.seriesIndex = new Hashtable<String, Integer>();
 
 		this.editTitleListener = new OnClickListener() {
 			@Override
@@ -75,36 +72,36 @@ public class SeriesListAdapter extends BaseAdapter {
 		updateSeriesList(true);
 	}
 
-	private int getAvailableColorIndex() {
-		for (int i = 0;; i++) {
-			boolean available = true;
-			for (Entry<String, Integer> entry : seriesIndex.entrySet()) {
-				if (entry.getValue() == i) {
-					available = false;
-					break;
-				}
-			}
-			if (available) {
-				return i;
+	public int getAvailableColorIndex() {
+		Vector<Model> seriesDataList =  profile.getModel("series", true).getModels("dataviewershow");
+		int color = 0;
+		for (Model seriesData : seriesDataList) {
+			int sc = seriesData.getInt("dataviewershow", -1);
+			if (sc == color) {
+				color++;
+			} else if (sc > color) {
+				break;
 			}
 		}
+		return color;
 	}
 
 	public void updateSeriesList(boolean notify) {
 		this.isRemote = profile.getBool("is_remote");
 		this.seriesList = DataLogger.get().getSeries(profile.getString("id"));
 		Model seriesContainerModel = profile.getModel("series", true);
-
+		
+		boolean updated = false;
 		for (File f : seriesList) {
-			boolean enabled = seriesContainerModel.getModel(f.getName(), true).getBool("dataviewershow", true);
-			if (enabled) {
-				Integer value = seriesIndex.get(f.getName());
-				if (value == null || value.intValue() < 0) {
-					seriesIndex.put(f.getName(), getAvailableColorIndex());
-				}
-			} else {
-				seriesIndex.put(f.getName(), -1);
+			Model seriesData = seriesContainerModel.getModel(f.getName(), true, true);
+			if (seriesData.getInt("dataviewershow", -2) == -2) {
+				seriesData.setInt("dataviewershow", getAvailableColorIndex(), true);
+				updated = true;
 			}
+		}
+		
+		if (updated) {
+			profile.fireModifiedEvent();
 		}
 
 		if (notify) {
@@ -167,7 +164,7 @@ public class SeriesListAdapter extends BaseAdapter {
 		}
 		
 		ColorView toggleButton = (ColorView) view.findViewById(R.id.series_selected);
-		toggleButton.setColorIndex(seriesIndex.get(series.getName()));
+		toggleButton.setColorIndex(seriesModel.getInt("dataviewershow", -1));
 		toggleButton.setTag(series);
 		if (newView) {
 			toggleButton.setOnClickListener(toggleListener);

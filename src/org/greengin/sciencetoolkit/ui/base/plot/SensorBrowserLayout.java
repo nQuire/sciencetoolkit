@@ -8,13 +8,12 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
-import org.greengin.sciencetoolkit.ui.main.MainActivity;
+import org.greengin.sciencetoolkit.ui.base.SwipeActivity;
 
 import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -122,8 +121,6 @@ public class SensorBrowserLayout extends ViewGroup implements OnTouchListener {
 
 		int x = deltaX + width / 2 - itemWidth / 2 - itemWidth * this.selectedIndex;
 		
-		Log.d("stk browser", "layout");
-
 		for (int i = 0; i < this.getChildCount(); i++, x += itemWidth) {
 			View v = getChildAt(i);
 			v.layout(x, 0, x + itemWidth, height);
@@ -144,7 +141,7 @@ public class SensorBrowserLayout extends ViewGroup implements OnTouchListener {
 	private void processTouchEvent(MotionEvent event) {
 		switch(event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
-			((MainActivity) getContext()).setPagingEnabled(false);
+			((SwipeActivity) getContext()).setPagingEnabled(false);
 			touchX = event.getX(0);
 			downX = touchX;
 			downTime = System.currentTimeMillis();
@@ -155,7 +152,7 @@ public class SensorBrowserLayout extends ViewGroup implements OnTouchListener {
 			if (Math.abs(event.getX(0) - downX) < 5 && System.currentTimeMillis() - downTime < 500 && touchedView != null) {
 				listener.sensorBrowserSelected(touchedView);
 			}
-			((MainActivity) getContext()).setPagingEnabled(true);
+			((SwipeActivity) getContext()).setPagingEnabled(true);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			deltaX += event.getX(0) - touchX;
