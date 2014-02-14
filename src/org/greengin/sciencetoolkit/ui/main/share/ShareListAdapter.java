@@ -3,7 +3,6 @@ package org.greengin.sciencetoolkit.ui.main.share;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 
@@ -32,18 +31,14 @@ public class ShareListAdapter extends BaseAdapter {
 
 	public void updateProfileList(String selectedProfileId, boolean notify) {
 		this.selectedProfileId = selectedProfileId;
-		String activeProfileId = ProfileManager.get().getActiveProfileId();
 		profiles.clear();
 		for (String profileId : ProfileManager.get().getProfileIds()) {
-			if (!ProfileManager.DEFAULT_PROFILE_ID.equals(profileId) && !profileId.equals(activeProfileId)) {
+			if (!ProfileManager.DEFAULT_PROFILE_ID.equals(profileId)) {
 				profiles.add(ProfileManager.get().get(profileId));
 			}
 		}
 
-		int defaultCount = DataLogger.get().getSeriesCount(ProfileManager.DEFAULT_PROFILE_ID);
-		if (defaultCount > 0) {
-			profiles.add(ProfileManager.get().get(ProfileManager.DEFAULT_PROFILE_ID));
-		}
+		profiles.add(ProfileManager.get().get(ProfileManager.DEFAULT_PROFILE_ID));
 
 		if (notify) {
 			this.notifyDataSetChanged();
@@ -68,11 +63,12 @@ public class ShareListAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Model profile = profiles.get(position);
-
+		String profileId = profile.getString("id");
+		
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_share_item, parent, false) : convertView;
 
-		manager.prepareView(view, profile, profile.getString("id").equals(selectedProfileId), true);
+		manager.prepareView(view, profile, ProfileManager.get().profileIdIsActive(profileId), profileId.equals(selectedProfileId), true);
 
 		return view;
 	}

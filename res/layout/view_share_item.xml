@@ -2,61 +2,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/profile_in_list"
     android:paddingBottom="@dimen/share_item_vertical_padding"
     android:paddingLeft="@dimen/share_item_horizontal_padding"
     android:paddingRight="@dimen/share_item_horizontal_padding"
     android:paddingTop="@dimen/share_item_vertical_padding" >
 
     <LinearLayout
-        android:id="@+id/profile_icons"
-        android:layout_width="@dimen/share_profile_small_icon_size"
+        android:id="@+id/share_default_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical" >
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/project_type_device"
+        <LinearLayout
+            android:id="@+id/profile_icons"
             android:layout_width="@dimen/share_profile_small_icon_size"
-            android:layout_height="@dimen/share_profile_small_icon_size"
-            android:contentDescription="@string/project_type_device"
-            android:src="@drawable/type_device" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/project_type_cloud"
-            android:layout_width="@dimen/share_profile_small_icon_size"
-            android:layout_height="@dimen/share_profile_small_icon_size"
-            android:contentDescription="@string/project_type_cloud"
-            android:src="@drawable/type_cloud" />
+            <ImageView
+                android:id="@+id/project_type_device"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_device"
+                android:src="@drawable/type_device" />
 
-        <ImageView
-            android:id="@+id/project_type_geolocated"
-            android:layout_width="@dimen/share_profile_small_icon_size"
-            android:layout_height="@dimen/share_profile_small_icon_size"
-            android:contentDescription="@string/project_type_geolocated"
-            android:src="@drawable/type_geolocated" />
+            <ImageView
+                android:id="@+id/project_type_cloud"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_cloud"
+                android:src="@drawable/type_cloud" />
+
+            <ImageView
+                android:id="@+id/project_type_geolocated"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_geolocated"
+                android:src="@drawable/type_geolocated" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/profile_icons"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+                android:background="@color/dark_text_button"
+                android:ellipsize="none"
+                android:paddingBottom="@dimen/dark_text_button_padding_vertical"
+                android:paddingLeft="@dimen/dark_text_button_padding_horizontal"
+                android:paddingRight="@dimen/dark_text_button_padding_horizontal"
+                android:paddingTop="@dimen/dark_text_button_padding_vertical"
+                android:singleLine="false" />
+
+            <TextView
+                android:id="@+id/profile_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_name"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+                android:layout_toRightOf="@id/profile_icons"
+                android:ellipsize="none"
+                android:singleLine="false" />
+        </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/profile_name"
+    <LinearLayout
+        android:id="@+id/active_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
-        android:layout_toRightOf="@id/profile_icons"
-        android:ellipsize="none"
-        android:singleLine="false"
-        android:textStyle="bold" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/share_default_content"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/profile_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profile_name"
-        android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
-        android:layout_toRightOf="@id/profile_icons"
-        android:ellipsize="none"
-        android:singleLine="false" />
+        <ImageView
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="@dimen/share_profile_small_icon_size"
+            android:layout_marginRight="@dimen/share_header_icon_margin"
+            android:contentDescription="@string/project_type_cloud"
+            android:src="@drawable/icon_active" />
+
+        <TextView
+            android:id="@+id/active_project_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/profile_discard"

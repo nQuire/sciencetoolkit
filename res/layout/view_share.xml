@@ -19,65 +19,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/share_active_header_icon"
-                android:layout_width="@dimen/share_header_icon_size"
-                android:layout_height="@dimen/share_header_icon_size"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/share_header_icon_margin"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/share_active_project"
-                android:scaleType="fitXY"
-                android:src="@drawable/icon_active" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/share_active_header_icon"
-                android:text="@string/share_active_project" />
-
-            <ImageButton
-                android:id="@+id/share_active_project_close"
-                android:layout_width="@dimen/share_header_button_size"
-                android:layout_height="@dimen/share_header_button_size"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:background="@color/transparent"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/button_label_close"
-                android:src="@drawable/project_button_close" />
-        </RelativeLayout>
-
-        <include layout="@layout/widget_lighter_line" />
-
-        <include
-            android:id="@+id/active_profile"
-            layout="@layout/view_share_item" />
-
-        <TextView
-            android:id="@+id/no_active_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/share_no_profile"
-            android:textColor="@color/subtle_text"
-            android:textStyle="italic" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/share_section_margin"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:text="@string/share_other_projects" />
+                android:text="@string/share_projects_header" />
 
             <ImageButton
                 android:id="@+id/share_project_add"
@@ -102,14 +49,12 @@
                 android:src="@drawable/project_button_cloud" />
         </RelativeLayout>
 
-        <include layout="@layout/widget_lighter_line" />
+        <include layout="@layout/widget_lighter_line_mu" />
 
         <ListView
             android:id="@+id/profile_list"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:divider="@color/transparent"
-            android:dividerHeight="@dimen/share_project_list_margin"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:gravity="center" >
@@ -120,7 +65,7 @@
         android:id="@+id/switch_profile_controls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:background="@color/background_button_panel"
         android:orientation="vertical" >
 

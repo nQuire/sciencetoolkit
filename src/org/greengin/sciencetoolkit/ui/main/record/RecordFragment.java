@@ -122,8 +122,8 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		buttonStop = (ImageButton) rootView.findViewById(R.id.record_series_stop);
 		buttonStop.setOnClickListener(this);
 
-		buttonView = (ImageButton) rootView.findViewById(R.id.record_series_view);
-		buttonView.setOnClickListener(this);
+		/*buttonView = (ImageButton) rootView.findViewById(R.id.record_series_view);
+		buttonView.setOnClickListener(this);*/
 
 		buttonKeep = (ImageButton) rootView.findViewById(R.id.record_series_keep);
 		buttonKeep.setOnClickListener(this);
@@ -352,8 +352,10 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	}
 
 	@Override
-	public void profileSensorRateDelete() {
-
+	public void profileSensorRateDelete(String sensorId) {
+		if (DataLogger.get().isIdle()) {
+			ProfileManager.get().removeSensorFromActiveProfile(sensorId);
+		}
 	}
 
 	@Override

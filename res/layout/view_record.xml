@@ -28,7 +28,6 @@
                 android:layout_height="@dimen/record_header_icon_size"
                 android:layout_marginRight="@dimen/record_header_icon_margin"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/share_active_project"
                 android:scaleType="fitXY"
                 android:src="@drawable/recording" />
 
@@ -88,7 +87,7 @@
                     android:text="@string/record_series_stop" />
             </LinearLayout>
 
-            <LinearLayout
+           <!--  <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -107,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/record_series_view" />
-            </LinearLayout>
+            </LinearLayout> -->
         </org.greengin.sciencetoolkit.ui.base.widgets.ButtonPanelLayout>
     </LinearLayout>
 
@@ -156,7 +155,7 @@
                     android:text="@string/record_series_discard" />
             </LinearLayout>
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -175,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/record_series_share" />
-            </LinearLayout>
+            </LinearLayout>  --> 
 
             <LinearLayout
                 android:id="@+id/record_series_upload_container"
@@ -211,7 +210,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@color/transparent"
                     android:contentDescription="@string/record_series_keep"
-                    android:src="@drawable/series_button_close" />
+                    android:src="@drawable/series_button_save" />
 
                 <TextView
                     android:layout_width="wrap_content"

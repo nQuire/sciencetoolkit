@@ -1,6 +1,8 @@
 package org.greengin.sciencetoolkit.ui.main.explore;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
@@ -84,8 +87,11 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		String sensorId = (String)view.getTag(); 
-		if (ProfileManager.get().activeProfileIsDefault()) {
+		if (ProfileManager.get().getActiveProfile().getModel("sensors").getModels().size() == 0 && DataLogger.get().isIdle()) {
 			ProfileManager.get().addSensorToActiveProfile(sensorId);
+			
+			String text = String.format(getResources().getString(R.string.explore_sensor_added_to_recording), SensorWrapperManager.get().getSensor(sensorId).getName());
+			Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
 		}
 		fragment.openPlot(sensorId);
 	}

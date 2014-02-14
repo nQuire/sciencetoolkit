@@ -26,12 +26,9 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class ShareFragment extends EventFragment implements OnClickListener, ProjectItemEventListener, EditTextActionListener {
 
-	View activeProfilePanel;
-	TextView noActiveProfileNotice;
 	ProjectItemManager itemManager;
 	ShareListAdapter adapter;
 
@@ -41,7 +38,6 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	int panelSwitchActiveheight;
 	ImageButton buttonAddProject;
 	ImageButton buttonUpdateProject;
-	ImageButton buttonCloseActive;
 	ImageButton buttonSwitchActive;
 	ImageButton buttonCancelSwitch;
 
@@ -49,7 +45,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.itemManager = new ProjectItemManager(this);
+		this.itemManager = new ProjectItemManager(getActivity(), this);
 		eventManager.setListener(new EventListener());
 
 		eventManager.listenToSettings("profiles");
@@ -69,9 +65,6 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 		this.adapter = new ShareListAdapter(inflater, this.itemManager);
 
-		this.activeProfilePanel = rootView.findViewById(R.id.active_profile);
-		this.noActiveProfileNotice = (TextView) rootView.findViewById(R.id.no_active_profile);
-
 		ListView list = (ListView) rootView.findViewById(R.id.profile_list);
 		list.setAdapter(adapter);
 
@@ -80,9 +73,6 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 		buttonUpdateProject = (ImageButton) rootView.findViewById(R.id.share_project_cloud);
 		buttonUpdateProject.setOnClickListener(this);
-
-		buttonCloseActive = (ImageButton) rootView.findViewById(R.id.share_active_project_close);
-		buttonCloseActive.setOnClickListener(this);
 
 		panelSwitchActive = rootView.findViewById(R.id.switch_profile_controls);
 		panelSwitchActiveheight = 288;
@@ -120,18 +110,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	}
 
 	private void updateProfiles() {
-		buttonCloseActive.setEnabled(!ProfileManager.get().activeProfileIsDefault());
 		buttonSwitchActive.setEnabled(this.selectedProfileId != null);
-
-		if (ProfileManager.DEFAULT_PROFILE_ID.equals(ProfileManager.get().getActiveProfileId())) {
-			activeProfilePanel.setVisibility(View.GONE);
-			noActiveProfileNotice.setVisibility(View.VISIBLE);
-		} else {
-			this.itemManager.prepareView(activeProfilePanel, ProfileManager.get().getActiveProfile(), false, false);
-			noActiveProfileNotice.setVisibility(View.GONE);
-			activeProfilePanel.setVisibility(View.VISIBLE);
-		}
-
 		this.adapter.updateProfileList(this.selectedProfileId);
 	}
 
@@ -145,9 +124,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void onClick(View v) {
-		if (v == buttonCloseActive) {
-			ProfileManager.get().switchActiveProfile(ProfileManager.DEFAULT_PROFILE_ID);
-		} else if (v == buttonCancelSwitch) {
+		if (v == buttonCancelSwitch) {
 			animateSwitchControls(false);
 			this.selectedProfileId = null;
 			this.updateProfiles();
@@ -167,7 +144,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void profileSelected(String profileId) {
-		boolean validSelection = profileId != null && !ProfileManager.DEFAULT_PROFILE_ID.equals(profileId) && !ProfileManager.get().profileIdIsActive(profileId);
+		boolean validSelection = profileId != null && !ProfileManager.get().profileIdIsActive(profileId);
 		this.selectedProfileId = validSelection ? profileId : null;
 		this.animateSwitchControls(validSelection);
 		this.updateProfiles();
@@ -191,6 +168,10 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 		if (value != null) {
 			ProfileManager.get().createProfile(value, false, false);
 		}
+	}
+
+	@Override
+	public void profileEdit(String profileId) {		
 	}
 
 }

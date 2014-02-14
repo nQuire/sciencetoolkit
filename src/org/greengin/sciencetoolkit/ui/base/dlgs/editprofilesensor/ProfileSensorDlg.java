@@ -26,7 +26,8 @@ public class ProfileSensorDlg {
 	}
 
 	private static class ProfileSensorDlgBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener, TextWatcher {
-
+		
+		Model profileSensor;
 		boolean isRemote;
 		String profileSensorId;
 		EditText editRate;
@@ -40,6 +41,7 @@ public class ProfileSensorDlg {
 			super(context);
 
 			this.listener = listener;
+			this.profileSensor = profileSensor;
 			this.profileSensorId = profileSensor.getString("id");
 
 			SensorWrapper sensor = SensorWrapperManager.get().getSensor(profileSensor.getString("sensorid"));
@@ -104,6 +106,8 @@ public class ProfileSensorDlg {
 						listener.profileSensorRateEditComplete(false, null, 0, 0);
 					}
 				}
+			} else if (which == DialogInterface.BUTTON_NEGATIVE) {
+				ProfileSensorDeleteDlg.open(getContext(), profileSensor, listener);
 			}
 			dlg.dismiss();
 		}
