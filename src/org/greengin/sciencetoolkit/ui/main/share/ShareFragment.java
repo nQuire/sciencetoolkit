@@ -3,11 +3,15 @@ package org.greengin.sciencetoolkit.ui.main.share;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.remote.RemoteApi2;
 import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
+import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.Arguments;
-import org.greengin.sciencetoolkit.ui.base.animations.Animations;
+import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener;
+import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
@@ -23,36 +27,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class ShareFragment extends EventFragment implements OnClickListener, ProjectItemEventListener, EditTextActionListener {
+public class ShareFragment extends EventFragment implements OnClickListener, ProjectItemEventListener, EditTextActionListener, ProfileActionListener {
 
 	ProjectItemManager itemManager;
 	ShareListAdapter adapter;
 
-	String selectedProfileId;
-
-	View panelSwitchActive;
-	int panelSwitchActiveheight;
 	ImageButton buttonAddProject;
 	ImageButton buttonUpdateProject;
-	ImageButton buttonSwitchActive;
-	ImageButton buttonCancelSwitch;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.itemManager = new ProjectItemManager(getActivity(), this);
+		this.itemManager = new ProjectItemManager(this);
 		eventManager.setListener(new EventListener());
 
 		eventManager.listenToSettings("profiles");
 		eventManager.listenToLoggerStatus();
 		eventManager.listenToProfiles();
-
-		this.selectedProfileId = null;
 
 		setHasOptionsMenu(true);
 	}
@@ -74,18 +69,6 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 		buttonUpdateProject = (ImageButton) rootView.findViewById(R.id.share_project_cloud);
 		buttonUpdateProject.setOnClickListener(this);
 
-		panelSwitchActive = rootView.findViewById(R.id.switch_profile_controls);
-		panelSwitchActiveheight = 288;
-
-		buttonSwitchActive = (ImageButton) panelSwitchActive.findViewById(R.id.switch_profile_confirm);
-		buttonSwitchActive.setOnClickListener(this);
-		buttonCancelSwitch = (ImageButton) panelSwitchActive.findViewById(R.id.switch_profile_cancel);
-		buttonCancelSwitch.setOnClickListener(this);
-
-		LayoutParams params = panelSwitchActive.getLayoutParams();
-		params.height = 0;
-		panelSwitchActive.setLayoutParams(params);
-
 		updateProfiles();
 
 		return rootView;
@@ -93,25 +76,25 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.record, menu);
+		inflater.inflate(R.menu.share, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
+		case R.id.action_application_login:
+			RemoteApi2.get().tryToLogin((RemoteCapableActivity) getActivity());
+			return true;
+		case R.id.action_application_logout:
+			RemoteApi2.get().logout();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void animateSwitchControls(boolean shown) {
-		Animations.animateHeight(panelSwitchActive, shown ? panelSwitchActiveheight : 0);
-	}
-
 	private void updateProfiles() {
-		buttonSwitchActive.setEnabled(this.selectedProfileId != null);
-		this.adapter.updateProfileList(this.selectedProfileId);
+		this.adapter.updateProfileList(null);
 	}
 
 	private class EventListener extends EventManagerListener {
@@ -124,18 +107,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void onClick(View v) {
-		if (v == buttonCancelSwitch) {
-			animateSwitchControls(false);
-			this.selectedProfileId = null;
-			this.updateProfiles();
-		} else if (v == buttonSwitchActive) {
-			animateSwitchControls(false);
-			if (selectedProfileId != null) {
-				String profileId = selectedProfileId;
-				selectedProfileId = null;
-				ProfileManager.get().switchActiveProfile(profileId);
-			}
-		} else if (v == buttonAddProject) {
+		if (v == buttonAddProject) {
 			EditTextDlg.open(this.getActivity(), R.string.new_project_dlg_title, R.string.new_project_dlg_message, R.string.new_project_dlg_oklabel, "", true, this);
 		} else if (v == buttonUpdateProject) {
 			((RemoteCapableActivity) getActivity()).remoteRequest(new UpdateRemoteAction());
@@ -144,10 +116,10 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void profileSelected(String profileId) {
-		boolean validSelection = profileId != null && !ProfileManager.get().profileIdIsActive(profileId);
-		this.selectedProfileId = validSelection ? profileId : null;
-		this.animateSwitchControls(validSelection);
-		this.updateProfiles();
+		if (DataLogger.get().isIdle() && profileId != null && !ProfileManager.get().profileIdIsActive(profileId)) {
+			ProfileManager.get().switchActiveProfile(profileId);
+			//this.updateProfiles();
+		}
 	}
 
 	@Override
@@ -158,12 +130,6 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	}
 
 	@Override
-	public void profileDelete(String profileId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void editTextComplete(String value) {
 		if (value != null) {
 			ProfileManager.get().createProfile(value, false, false);
@@ -171,7 +137,30 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	}
 
 	@Override
-	public void profileEdit(String profileId) {		
+	public void profileEdit(String profileId) {
+		Model profile = ProfileManager.get().get(profileId);
+		if (profile != null) {
+			boolean canDelete = canDeleteProfile(profile);
+			ProfileDlg.open(getActivity(), profile, canDelete, this);
+		}
+	}
+
+	@Override
+	public void profileDelete(Model profile) {
+		if (canDeleteProfile(profile)) {
+			ProfileManager.get().deleteProfile(profile.getString("id"));
+		}
+	}
+
+	private boolean canDeleteProfile(Model profile) {
+		return !ProfileManager.get().profileIsActive(profile);
+	}
+
+	@Override
+	public void profileTitleEditComplete(Model profile, String title) {
+		if (title != null) {
+			profile.setString("title", title);
+		}
 	}
 
 }

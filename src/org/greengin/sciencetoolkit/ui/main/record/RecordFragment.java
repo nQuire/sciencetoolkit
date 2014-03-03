@@ -33,14 +33,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecordFragment extends EventFragment implements OnClickListener, SelectSensorActionListener, OnItemClickListener, ProfileSensorActionListener, RecordSensorListener {
+public class RecordFragment extends EventFragment implements OnClickListener, SelectSensorActionListener, ProfileSensorActionListener, RecordSensorListener {
 
 	private enum RecordState {
 		IDLE, RECORDING, DECIDING
@@ -51,7 +49,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	RecordSensorListAdapter adapter;
 
 	RecordState state;
-	int currentSeries;
+	File currentSeries;
 	boolean canUploadSeries;
 
 	BlinkingImageView recordingIcon;
@@ -83,7 +81,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		super.onCreate(savedInstanceState);
 
 		this.state = DataLogger.get().isRunning() ? RecordState.RECORDING : RecordState.IDLE;
-		this.currentSeries = 0;
+		this.currentSeries = null;
 
 		eventManager.setListener(new EventListener());
 
@@ -104,10 +102,9 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		plotFragment = new RecordXYSensorPlotFragment();
 		getChildFragmentManager().beginTransaction().add(R.id.record_content_panel, plotFragment).addToBackStack(null).commit();
 
-		adapter = new RecordSensorListAdapter(this.getActivity(), this, inflater);
-		ListView grid = (ListView) rootView.findViewById(R.id.sensor_list);
-		grid.setAdapter(adapter);
-		grid.setOnItemClickListener(this);
+		adapter = new RecordSensorListAdapter(this, inflater);
+		ListView list = (ListView) rootView.findViewById(R.id.sensor_list);
+		list.setAdapter(adapter);
 
 		recordingIcon = (BlinkingImageView) rootView.findViewById(R.id.recording_icon);
 		recordingLabel = (TextView) rootView.findViewById(R.id.recording_label);
@@ -122,8 +119,11 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		buttonStop = (ImageButton) rootView.findViewById(R.id.record_series_stop);
 		buttonStop.setOnClickListener(this);
 
-		/*buttonView = (ImageButton) rootView.findViewById(R.id.record_series_view);
-		buttonView.setOnClickListener(this);*/
+		/*
+		 * buttonView = (ImageButton)
+		 * rootView.findViewById(R.id.record_series_view);
+		 * buttonView.setOnClickListener(this);
+		 */
 
 		buttonKeep = (ImageButton) rootView.findViewById(R.id.record_series_keep);
 		buttonKeep.setOnClickListener(this);
@@ -160,7 +160,6 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -170,7 +169,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		if (this.state == RecordState.IDLE) {
 			DataLogger.get().startNewSeries();
 			this.state = RecordState.RECORDING;
-			this.currentSeries = DataLogger.get().getCurrentSeries();
+			this.currentSeries = DataLogger.get().getCurrentSeriesFile();
 			updateSamplesCount();
 			updateButtonPanel();
 		}
@@ -198,7 +197,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		if (this.state == RecordState.DECIDING) {
 			DataLogger.get().deleteData(this.currentSeries);
 			this.state = RecordState.IDLE;
-			this.currentSeries = 0;
+			this.currentSeries = null;
 			updateButtonPanel();
 			animateraiseSeriesPanel(false);
 		}
@@ -219,7 +218,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	private void keepSeries() {
 		if (this.state == RecordState.DECIDING) {
 			this.state = RecordState.IDLE;
-			this.currentSeries = 0;
+			this.currentSeries = null;
 			updateButtonPanel();
 			animateraiseSeriesPanel(false);
 		}
@@ -248,19 +247,15 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		this.adapter.updateSensorList();
 		this.updateButtonPanel();
 
-		if (ProfileManager.get().activeProfileIsDefault()) {
-			projectTitlePanel.setVisibility(View.GONE);
-		} else {
-			Model profile = ProfileManager.get().getActiveProfile();
-			ProjectItemManager.setProjectIcons(projectTitlePanel, profile);
-			projectTitleView.setText(profile.getString("title"));
-			projectTitlePanel.setVisibility(View.VISIBLE);
-		}
+		Model profile = ProfileManager.get().getActiveProfile();
+		ProjectItemManager.setProjectIcons(projectTitlePanel, profile);
+		projectTitleView.setText(profile.getString("title"));
+		projectTitlePanel.setVisibility(View.VISIBLE);
 	}
 
 	private void switchProfile() {
 		this.state = RecordState.IDLE;
-		this.currentSeries = 0;
+		this.currentSeries = null;
 
 		updateProfileView();
 	}
@@ -315,8 +310,8 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			discardSeries();
 		} else if (v == buttonView) {
 			Intent intent = new Intent(getActivity(), DataViewerActivity.class);
-			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());		
-	    	startActivity(intent);
+			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());
+			startActivity(intent);
 		}
 	}
 
@@ -333,12 +328,6 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		return !ProfileManager.get().sensorInActiveProfile(sensorId);
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-		plotFragment.openPlot((String) view.getTag());
-
-	}
 
 	@Override
 	public void profileSensorRateEditComplete(boolean set, String profileSensorId, double rate, int units) {
@@ -368,6 +357,11 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			int units = profileSensor.getInt("sample_rate_ux", ModelDefaults.DATA_LOGGING_UNITS);
 			ProfileSensorDlg.open(getActivity(), profile, profileSensor, rate, units, this);
 		}
+	}
+
+	@Override
+	public void recordSensorSelected(String profileSensorId) {
+		plotFragment.openPlot(profileSensorId);		
 	}
 
 }

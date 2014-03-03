@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 public class MainActivity extends SwipeActivity {
 	private static int lastTab = -1;
 	
+	
+	
 	@Override
 	public int getOnResumeTab() {
 		return lastTab;

@@ -211,9 +211,6 @@ public class DataLogger {
 		runningLock.unlock();
 	}
 
-	public int getCurrentSeries() {
-		return series;
-	}
 
 	public File getCurrentSeriesFile() {
 		return seriesFile;
@@ -225,6 +222,10 @@ public class DataLogger {
 
 	public File[] getSeries(String profileId) {
 		return this.fileManager.series(profileId);
+	}
+	
+	public File getSeriesFile(String profileId, String fileName) {
+		return this.fileManager.seriesFile(profileId, fileName);
 	}
 
 	public HashMap<String, Integer> getCurrentSeriesSampleCountMap() {
@@ -253,15 +254,15 @@ public class DataLogger {
 		this.fireStatusModified("delete");
 	}
 
-	public void deleteData(int series) {
+	public void deleteData(File series) {
 		this.deleteData(ProfileManager.get().getActiveProfileId(), series);
 	}
 
-	public void deleteData(String profileId, int series) {
-		File deleted = this.fileManager.deleteSeries(profileId, series);
+	public void deleteData(String profileId, File series) {
+		this.fileManager.deleteSeries(series);
 		Model profile = ProfileManager.get().get(profileId);
 		if (profile != null) {
-			profile.getModel("series", true).clear(deleted.getName(), true);
+			profile.getModel("series", true).clear(series.getName(), true);
 			ProfileManager.get().forceSave();
 		}
 		this.fireStatusModified("delete");
@@ -314,4 +315,9 @@ public class DataLogger {
 		return false;
 	}
 
+	
+	public HashMap<String, String> getSensorsInSeries(File series) {
+		return this.serializer.getSensorsInSeries(series);
+	}
+	
 }

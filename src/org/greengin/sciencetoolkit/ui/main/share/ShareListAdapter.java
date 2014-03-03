@@ -17,6 +17,7 @@ public class ShareListAdapter extends BaseAdapter {
 	ProjectItemManager manager;
 	Vector<Model> profiles;
 	String selectedProfileId;
+	
 
 	public ShareListAdapter(LayoutInflater inflater, ProjectItemManager manager) {
 		this.inflater = inflater;
@@ -33,12 +34,8 @@ public class ShareListAdapter extends BaseAdapter {
 		this.selectedProfileId = selectedProfileId;
 		profiles.clear();
 		for (String profileId : ProfileManager.get().getProfileIds()) {
-			if (!ProfileManager.DEFAULT_PROFILE_ID.equals(profileId)) {
-				profiles.add(ProfileManager.get().get(profileId));
-			}
+			profiles.add(ProfileManager.get().get(profileId));
 		}
-
-		profiles.add(ProfileManager.get().get(ProfileManager.DEFAULT_PROFILE_ID));
 
 		if (notify) {
 			this.notifyDataSetChanged();
@@ -64,11 +61,11 @@ public class ShareListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Model profile = profiles.get(position);
 		String profileId = profile.getString("id");
-		
+
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_share_item, parent, false) : convertView;
 
-		manager.prepareView(view, profile, ProfileManager.get().profileIdIsActive(profileId), profileId.equals(selectedProfileId), true);
+		manager.prepareView(view, profile, ProfileManager.get().profileIdIsActive(profileId), profileId.equals(selectedProfileId));
 
 		return view;
 	}

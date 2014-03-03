@@ -8,8 +8,7 @@
     <color name="background_button_panel">#232425</color>
     <color name="background_button_panel_header">#1e1b1e</color>
     
-    <color name="profile_selected_in_list">#247396</color>
-    <color name="profile_in_list">#232425</color>
+    <color name="list_item_selected">#247396</color>
     
     <color name="subtle_text">#a0a0a0</color>
     

@@ -52,7 +52,8 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 
 	private void setupActionBar() {
 		if (controlledSettingsHasParent) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+			getSupportActionBar().setHomeButtonEnabled(false);
 		}
 	}
 

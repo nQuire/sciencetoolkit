@@ -3,8 +3,11 @@ package org.greengin.sciencetoolkit.ui.dataviewer;
 import java.io.File;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.Arguments;
+import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener;
+import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
@@ -19,7 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class SeriesListFragment extends EventFragment implements SeriesListListener {
+public class SeriesListFragment extends EventFragment implements SeriesListListener, SeriesActionListener {
 
 	SeriesListAdapter adapter;
 	String profileId;
@@ -72,27 +75,34 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 	@Override
 	public void seriesDelete(Model profile, File series) {
+		SeriesDeleteDlg.open(getActivity(), profile, series, this);
+	}
+	
 
+	@Override
+	public void seriesDeleted(Model profile, File series) {
+		if (series.getName().equals(profile.getModel("dataviewer", true).getString("series"))) {
+			profile.getModel("dataviewer", true).clear("series");
+		}
+		
+		DataLogger.get().deleteData(profile.getString("id"), series);
 	}
 
 	@Override
 	public void seriesUpload(Model profile, File series) {
-
-	}
-
-	@Override
-	public void seriesEdit(Model profile, File series) {
-		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
-		String seriesName = seriesModel.getString("title", series.getName());
+		String seriesName = SeriesListFragment.seriesName(profile, series);
 		EditTextDlg.open(this.getActivity(), R.string.series_edit_name_title, R.string.series_edit_name_msg, R.string.button_label_set, seriesName, true, new EditSeriesTitleManager(profile, series));
 	}
 
 	@Override
-	public void seriesToggled(Model profile, File series) {
-		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
-		int index = seriesModel.getInt("dataviewershow", -1);
-		seriesModel.setInt("dataviewershow", index < 0 ? adapter.getAvailableColorIndex() : -1);
-		adapter.updateSeriesList();
+	public void seriesEdit(Model profile, File series) {
+		String seriesName = SeriesListFragment.seriesName(profile, series);
+		EditTextDlg.open(this.getActivity(), R.string.series_edit_name_title, R.string.series_edit_name_msg, R.string.button_label_set, seriesName, true, new EditSeriesTitleManager(profile, series));
+	}
+
+	@Override
+	public void seriesSelected(Model profile, File series) {
+		((DataViewerActivity)getActivity()).getSupportActionBar().setSelectedNavigationItem(1);
 	}
 
 	private class EditSeriesTitleManager implements EditTextActionListener {
@@ -114,5 +124,11 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 		}
 
 	}
+	
+	public static String seriesName(Model profile, File series) {
+		return profile.getModel("series", true).getModel(series.getName(), true, true).getString("title", series.getName().replaceFirst("[.][^.]+$", ""));
+	}
+
+
 
 }

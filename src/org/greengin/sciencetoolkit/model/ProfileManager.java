@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
@@ -34,7 +35,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	Model settings;
 	Model appSettings;
-
+	
 	Comparator<String> profileIdComparator;
 
 	private ProfileManager(Context applicationContext) {
@@ -74,6 +75,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	private void initDefaultProfile() {
 		if (!items.containsKey(ProfileManager.DEFAULT_PROFILE_ID)) {
 			Model defaultProfile = createEmptyProfile(ProfileManager.DEFAULT_PROFILE_ID);
+			defaultProfile.setString("title", applicationContext.getString(R.string.default_profile_title), true);
 			modelModified(defaultProfile);
 			listeners.fireEvent("list");
 
@@ -283,6 +285,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 				return test;
 			}
 		}
+	}
+	
+	public int getProfileCount() {
+		return this.items.size();
 	}
 
 	public boolean sensorInActiveProfile(String sensorId) {

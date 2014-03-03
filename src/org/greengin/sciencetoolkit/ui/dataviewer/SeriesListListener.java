@@ -7,6 +7,6 @@ import org.greengin.sciencetoolkit.model.Model;
 public interface SeriesListListener {
 	void seriesDelete(Model profile, File series);
 	void seriesUpload(Model profile, File series);
-	void seriesToggled(Model profile, File series);
+	void seriesSelected(Model profile, File series);
 	void seriesEdit(Model profile, File series);
 }

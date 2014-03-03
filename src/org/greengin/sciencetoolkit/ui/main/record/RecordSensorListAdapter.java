@@ -11,41 +11,47 @@ import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecordSensorListAdapter extends BaseAdapter implements OnClickListener {
+public class RecordSensorListAdapter extends BaseAdapter {
 
 	RecordSensorListener listener;
 	LayoutInflater inflater;
 
 	boolean isRemote = false;
 	Vector<Model> profileSensors;
+	
+	OnClickListener selectListener;
+	OnClickListener editListener;
 
 	DecimalFormat formatter = new DecimalFormat("@@##");
 
-	int editablePaddingVertical;
-	int editablePaddingHorizontal;
-	int editableBackground;
-	int transparentBackground;
-
-	public RecordSensorListAdapter(Context context, RecordSensorListener listener, LayoutInflater inflater) {
+	public RecordSensorListAdapter(RecordSensorListener listener, LayoutInflater inflater) {
 		this.listener = listener;
 		this.inflater = inflater;
 		this.profileSensors = null;
+		
+		selectListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RecordSensorListAdapter.this.listener.recordSensorSelected((String) v.getTag());
+			}
+		};
+		editListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RecordSensorListAdapter.this.listener.recordSensorEdit((String) v.getTag());
+			}
+		};
+		
 		updateSensorList(false);
-
-		editablePaddingVertical = context.getResources().getDimensionPixelSize(R.dimen.dark_text_button_padding_vertical);
-		editablePaddingHorizontal = context.getResources().getDimensionPixelSize(R.dimen.dark_text_button_padding_horizontal);
-		editableBackground = context.getResources().getColor(R.color.dark_text_button);
-		transparentBackground = context.getResources().getColor(R.color.transparent);
-
 	}
 
 	public void updateSensorList() {
@@ -97,38 +103,23 @@ public class RecordSensorListAdapter extends BaseAdapter implements OnClickListe
 		View view = newView ? inflater.inflate(R.layout.view_record_item, parent, false) : convertView;
 
 		view.setTag(profileSensorId);
-
+		view.setOnClickListener(selectListener);
+		
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
 
 		icon.setImageResource(SensorUIData.getSensorResource(sensorType));
 
 		TextView sensorNameView = (TextView) view.findViewById(R.id.sensor_name);
 		sensorNameView.setText(sensorName);
-		makeEditable(sensorNameView, isRemote, profileSensorId);
 
 		TextView rateView = (TextView) view.findViewById(R.id.sample_rate);
 		rateView.setText(rateLabel);
-		rateView.setTag(profileSensorId);
-		makeEditable(rateView, !isRemote, profileSensorId);
+		
+		ImageButton button = (ImageButton) view.findViewById(R.id.sensor_config);
+		button.setTag(profileSensorId);
+		button.setOnClickListener(editListener);
+		
 		return view;
-	}
-
-	private void makeEditable(View v, boolean editable, String profileSensorId) {
-		if (editable) {
-			v.setPadding(editablePaddingHorizontal, editablePaddingVertical, editablePaddingHorizontal, editablePaddingVertical);
-			v.setBackgroundColor(editableBackground);
-			v.setOnClickListener(this);
-			v.setTag(profileSensorId);
-		} else {
-			v.setPadding(0, 0, 0, 0);
-			v.setBackgroundColor(transparentBackground);
-			v.setOnClickListener(null);
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		listener.recordSensorEdit((String) v.getTag());
 	}
 
 }

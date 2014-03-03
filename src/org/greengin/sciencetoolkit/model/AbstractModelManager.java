@@ -17,7 +17,7 @@ public abstract class AbstractModelManager implements ModelChangeListener, Model
 	int saveDelay;
 	String filename;
 
-	Context applicationContext;
+	protected Context applicationContext;
 	Hashtable<String, Model> items;
 
 	protected AbstractModelManager(Context applicationContext, String filename, int saveDelay) {

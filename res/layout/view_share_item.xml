@@ -57,12 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
-                android:background="@color/dark_text_button"
                 android:ellipsize="none"
-                android:paddingBottom="@dimen/dark_text_button_padding_vertical"
-                android:paddingLeft="@dimen/dark_text_button_padding_horizontal"
-                android:paddingRight="@dimen/dark_text_button_padding_horizontal"
-                android:paddingTop="@dimen/dark_text_button_padding_vertical"
                 android:singleLine="false" />
 
             <TextView
@@ -99,30 +94,30 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/profile_discard"
+        android:id="@+id/profile_config"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/share_profile_button_size"
-        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_width="@dimen/button_in_list"
+        android:layout_height="@dimen/button_in_list"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
-        android:src="@drawable/project_button_delete" />
+        android:src="@drawable/project_button_config" />
 
     <ImageButton
-        android:id="@+id/profile_view"
+        android:id="@+id/profile_activate"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/share_profile_button_size"
-        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_width="@dimen/button_in_list"
+        android:layout_height="@dimen/button_in_list"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/profile_discard"
+        android:layout_toLeftOf="@id/profile_config"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
-        android:contentDescription="@string/button_label_view"
+        android:contentDescription="@string/button_label_set"
         android:scaleType="fitXY"
-        android:src="@drawable/project_button_view" />
+        android:src="@drawable/project_button_activate" />
 
 </RelativeLayout>

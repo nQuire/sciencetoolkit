@@ -87,7 +87,8 @@
                     android:text="@string/record_series_stop" />
             </LinearLayout>
 
-           <!--  <LinearLayout
+            <!--
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -106,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/record_series_view" />
-            </LinearLayout> -->
+            </LinearLayout>
+            -->
         </org.greengin.sciencetoolkit.ui.base.widgets.ButtonPanelLayout>
     </LinearLayout>
 
@@ -155,7 +157,8 @@
                     android:text="@string/record_series_discard" />
             </LinearLayout>
 
-           <!-- <LinearLayout
+            <!--
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -174,7 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/record_series_share" />
-            </LinearLayout>  --> 
+            </LinearLayout>
+            -->
 
             <LinearLayout
                 android:id="@+id/record_series_upload_container"
@@ -320,8 +324,7 @@
                     android:layout_height="fill_parent"
                     android:divider="@color/darker_line"
                     android:dividerHeight="@dimen/darker_line_height"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
+                    
                     android:gravity="center" >
                 </ListView>
             </LinearLayout>

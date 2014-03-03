@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:android="http://schemas.android.com/apk/res/android"
     fillPaint.color="#00000000"
-    linePaint.color="#0af8d9"
+    linePaint.color="#fcc724"
     linePaint.strokeWidth="2dp"
-    vertexPaint.color="#0af8d9" />
+    vertexPaint.color="#fcc724" />

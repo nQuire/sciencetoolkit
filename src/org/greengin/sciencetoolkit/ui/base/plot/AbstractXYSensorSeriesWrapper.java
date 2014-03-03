@@ -15,7 +15,7 @@ public abstract class AbstractXYSensorSeriesWrapper {
 
 	boolean[] showSeries;
 	SensorXYSeries[] seriesList;
-	int valueCount;
+	protected int valueCount;
 	String[] seriesTitle;
 
 	public AbstractXYSensorSeriesWrapper(SensorWrapper sensor) {

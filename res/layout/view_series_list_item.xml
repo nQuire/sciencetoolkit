@@ -13,26 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="@color/dark_text_button"
-        android:paddingBottom="@dimen/dark_text_button_padding_vertical"
-        android:paddingLeft="@dimen/dark_text_button_padding_horizontal"
-        android:paddingRight="@dimen/dark_text_button_padding_horizontal"
-        android:paddingTop="@dimen/dark_text_button_padding_vertical"
         android:singleLine="false"
         android:textStyle="bold" />
-
-    <org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorView
-        android:id="@+id/series_selected"
-        android:layout_width="@dimen/share_profile_button_size"
-        android:layout_height="@dimen/share_profile_button_size"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:adjustViewBounds="true"
-        android:background="@drawable/color_view_shape"
-        android:contentDescription="@string/button_label_upload"
-        android:scaleType="fitXY"
-        android:src="@drawable/project_button_cloud" />
 
     <ImageButton
         android:id="@+id/series_discard"
@@ -41,12 +23,26 @@
         android:layout_height="@dimen/share_profile_button_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/series_selected"
+        android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_delete" />
+    
+    <ImageButton
+        android:id="@+id/series_config"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/series_discard"
+        android:adjustViewBounds="true"
+        android:background="@color/transparent"
+        android:contentDescription="@string/button_label_delete"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_config" />
 
     <ImageButton
         android:id="@+id/series_upload"
@@ -55,7 +51,7 @@
         android:layout_height="@dimen/share_profile_button_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/series_discard"
+        android:layout_toLeftOf="@id/series_config"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_upload"

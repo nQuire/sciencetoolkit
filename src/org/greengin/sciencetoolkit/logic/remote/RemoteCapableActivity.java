@@ -1,6 +1,5 @@
 package org.greengin.sciencetoolkit.logic.remote;
 
-import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 
 import android.support.v7.app.ActionBarActivity;
 
@@ -14,7 +13,8 @@ public class RemoteCapableActivity extends ActionBarActivity {
 	}
 	
 	public void remoteRequest(RemoteAction action) {
-		RemoteApi.get().request(this, action);
+		this.remoteOnResumeAction = null;
+		RemoteApi2.get().request(this, action, false);
 	}
 	
 	public void remoteSetOnResumeAction(RemoteAction remoteOnResumeAction) {
@@ -29,7 +29,8 @@ public class RemoteCapableActivity extends ActionBarActivity {
 			RemoteAction action = remoteOnResumeAction;
 			remoteOnResumeAction = null;
 			
-			RemoteApi.get().request(this, action);
+			RemoteApi2.get().request(this, action, true);
 		}
 	}
+
 }

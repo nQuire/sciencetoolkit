@@ -43,7 +43,7 @@ public class RemoteApi implements ModelNotificationListener {
 	Context applicationContext;
 	String accountName;
 	Account account;
-	DefaultHttpClient http_client;;
+	DefaultHttpClient http_client;
 
 	private RemoteApi(Context applicationContext) {
 		this.applicationContext = applicationContext;

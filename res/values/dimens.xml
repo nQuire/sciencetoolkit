@@ -1,5 +1,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-
+	
+    <!-- common -->
+    <dimen name="button_in_list">32dp</dimen>
+    
     <!-- record item -->
     <dimen name="record_project_panel_margin">5dp</dimen>
     <dimen name="record_item_icon_size">35dp</dimen>

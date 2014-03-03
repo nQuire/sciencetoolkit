@@ -13,7 +13,6 @@ import com.androidplot.xy.YValueMarker;
 import android.app.Activity;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -139,8 +138,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			Log.d("stk plot", "on touch");
-			
 			int action = event.getAction();
 			switch (action & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_POINTER_DOWN:
@@ -166,7 +163,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 					if (pt1 != pb1) {
 						float nmax = (((min - max) * pb0 + max) * pt1 + (max - min) * pb1 * pt0 - max * pb1) / (pt1 - pb1);
 						float nmin = nmax + ((min - max) * pt0 + (max - min) * pb0) / (pt1 - pb1);
-						Log.d("stk plot", "on touch " + nmax + " " + max);
 						max = nmax;
 						min = nmin;
 
