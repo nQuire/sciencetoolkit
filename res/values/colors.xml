@@ -12,6 +12,9 @@
     
     <color name="subtle_text">#a0a0a0</color>
     
+    <color name="inactive_project_label">#a0a0a0</color>
+    <color name="active_project_label">#39b6ec</color>
+    
     
     
     <color name="dark_text_button">#232425</color>

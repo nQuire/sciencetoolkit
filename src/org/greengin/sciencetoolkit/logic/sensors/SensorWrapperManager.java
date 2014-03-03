@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Vector;
+
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.location.LocationGpsSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -38,6 +40,8 @@ public class SensorWrapperManager {
 		this.sensorIds = new Vector<String>();
 	}
 
+	
+	@SuppressWarnings("deprecation")
 	private void loadSensors(Context applicationContext) {
 		SensorManager sensorManager = (SensorManager) applicationContext.getSystemService(Context.SENSOR_SERVICE);
 		List<Sensor> deviceSensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
@@ -52,6 +56,32 @@ public class SensorWrapperManager {
 
 		if (LocationGpsSensorWrapper.isAvailable(applicationContext)) {
 			addSensor(new LocationGpsSensorWrapper(applicationContext));
+		}
+		
+		if (!SettingsManager.get().get("sensor_initial_selection").getBool("filtered")) {
+			
+			SettingsManager.get().get("sensor_initial_selection").setBool("filtered", true);
+			SettingsManager.get().get("sensor_initial_selection").setBool("ack", false);
+			
+			for (Entry<String, SensorWrapper> entry : sensors.entrySet()) {
+				switch (entry.getValue().getType()) {
+				case Sensor.TYPE_ACCELEROMETER:
+				case Sensor.TYPE_LINEAR_ACCELERATION:
+				case Sensor.TYPE_AMBIENT_TEMPERATURE:
+				case Sensor.TYPE_ORIENTATION:
+				case Sensor.TYPE_GYROSCOPE:
+				case Sensor.TYPE_LIGHT:
+				case Sensor.TYPE_PRESSURE:
+				case Sensor.TYPE_RELATIVE_HUMIDITY:
+				case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
+				case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
+					SettingsManager.get().get("sensor_list").setBool(entry.getKey(), true);
+					break;
+				default:
+					SettingsManager.get().get("sensor_list").setBool(entry.getKey(), false);
+					break;
+				}
+			}
 		}
 	}
 

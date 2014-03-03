@@ -1,6 +1,6 @@
 
 
 - use new icons
-- confirmation popups
 - dataviewer list: show sensors
+- connect with website
 

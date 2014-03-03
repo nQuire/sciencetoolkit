@@ -8,7 +8,7 @@ import org.greengin.sciencetoolkit.model.ProfileManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProjectItemManager {
@@ -48,20 +48,18 @@ public class ProjectItemManager {
 		title.setTextAppearance(profileView.getContext(), R.style.boldText);
 		title.setText(profile.getString("title"));
 
-		LinearLayout activeLabelContainer = (LinearLayout) profileView.findViewById(R.id.active_project);
-		if (active) {
-			TextView activeLabel = (TextView) activeLabelContainer.findViewById(R.id.active_project_label);
-			activeLabel.setText(R.string.share_project_active);
-			activeLabelContainer.setVisibility(View.VISIBLE);
-		} else {
-			activeLabelContainer.setVisibility(View.GONE);
-		}
+		TextView activeLabel = (TextView) profileView.findViewById(R.id.active_project_label);
+		activeLabel.setText(active ? R.string.share_project_active : R.string.share_project_inactive);
+		activeLabel.setTextColor(profileView.getResources().getColor(active ? R.color.active_project_label : R.color.inactive_project_label));
 		
 		ImageButton activateButton = (ImageButton) profileView.findViewById(R.id.profile_activate);
+		ImageView activeIcon = (ImageView) profileView.findViewById(R.id.profile_active_big);
 		if (ProfileManager.get().profileIdIsActive(profileId)) {
 			activateButton.setVisibility(View.GONE);
+			activeIcon.setVisibility(View.VISIBLE);
 		} else {
 			activateButton.setEnabled(DataLogger.get().isIdle());
+			activeIcon.setVisibility(View.GONE);
 			activateButton.setVisibility(View.VISIBLE);
 		}
 

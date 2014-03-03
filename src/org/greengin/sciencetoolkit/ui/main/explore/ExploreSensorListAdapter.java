@@ -33,7 +33,6 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 	
 	public void updateSensorList(boolean notify) {
 		
-		
 		this.sensors = SensorWrapperManager.get().getShownSensors();
 		
 		Collections.sort(sensors, new Comparator<SensorWrapper>() {

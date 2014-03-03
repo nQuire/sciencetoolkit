@@ -12,7 +12,10 @@
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
     <string name="explore_sensor_added_to_recording">Sensor %1$s has been added to the RECORD tab.</string>
-
+    
+    <string name="explore_confirm_hidden_sensors_title">More sensors!</string>
+    <string name="explore_confirm_hidden_sensors_msg">Go to "Show/hide sensors" in the top-right corner menu to see the full list of sensors in this device!</string>
+    
     <!-- main activity - explore tab - settings -->
     <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
 
@@ -49,6 +52,7 @@
     <!-- main activity - share tab -->
     <string name="share_projects_header">PROJECTS</string>
     <string name="share_project_active">Active project</string>
+    <string name="share_project_inactive">Inactive</string>
     <string name="default_profile_title">Deafult project</string>
     <string name="switch_profile_header">Switch active project?</string>
     <string name="switch_profile">Switch</string>
@@ -113,5 +117,9 @@
     <string name="series_edit_name_msg">Edit title for this series of data.</string>
     <string name="series_delete_dlg_title">Remove series</string>
     <string name="series_delete_dlg_msg">Do you want to remove series %1$s from this device?</string>
-
+	
+    <!-- ack -->
+    <string name="ack_remember_decision">Don\'t show this again.</string>
+    <string name="ack_remember_yes">Don\'t request confirmation again.</string>
+    
 </resources>

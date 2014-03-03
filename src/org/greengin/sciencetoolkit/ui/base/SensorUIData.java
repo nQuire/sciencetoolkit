@@ -77,41 +77,44 @@ public class SensorUIData {
 		switch (type) {
 		case Sensor.TYPE_ACCELEROMETER:
 		case Sensor.TYPE_LINEAR_ACCELERATION:
+			return R.drawable.sensor_lacc;
+		case Sensor.TYPE_GRAVITY:
+			return R.drawable.sensor_gra;
+		case Sensor.TYPE_PROXIMITY:
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
 		case Sensor.TYPE_STEP_COUNTER:
 		case Sensor.TYPE_STEP_DETECTOR:
-			return R.drawable.sensor_acceleration;
+			return R.drawable.sensor_ste;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
-			return R.drawable.sensor_temperature;
+			return R.drawable.sensor_tmp;
 		case Sensor.TYPE_GAME_ROTATION_VECTOR:
+			return R.drawable.sensor_rot_gam;
 		case Sensor.TYPE_ROTATION_VECTOR:
+			return R.drawable.sensor_rot;
 		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
-			return R.drawable.sensor_rotation;
-		case Sensor.TYPE_GRAVITY:
-			return R.drawable.sensor_gravity;
+			return R.drawable.sensor_rot_geo;
 		case Sensor.TYPE_GYROSCOPE:
+			return R.drawable.sensor_gyr;
 		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
-			return R.drawable.sensor_gyroscope;
+			return R.drawable.sensor_gyr_u;
 		case Sensor.TYPE_LIGHT:
-			return R.drawable.sensor_light;
+			return R.drawable.sensor_lgt;
 		case Sensor.TYPE_MAGNETIC_FIELD:
 		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
-			return R.drawable.sensor_magnet;
+			return R.drawable.sensor_mag;
 		case Sensor.TYPE_ORIENTATION:
-			return R.drawable.sensor_compass;
+			return R.drawable.sensor_ori;
 		case Sensor.TYPE_PRESSURE:
-			return R.drawable.sensor_pressure;
-		case Sensor.TYPE_PROXIMITY:
-			return R.drawable.sensor_proximity;
+			return R.drawable.sensor_pre;
 		case Sensor.TYPE_RELATIVE_HUMIDITY:
-			return R.drawable.sensor_humidity;
+			return R.drawable.sensor_hum;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
-			return R.drawable.sensor_sound;
+			return R.drawable.sensor_snd;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
-			return R.drawable.sensor_gyroscope;
+			return R.drawable.sensor_gps;
 		default:
-			return R.drawable.sensor_pressure;
+			return R.drawable.sensor_ste;
 		}
 	}
 
