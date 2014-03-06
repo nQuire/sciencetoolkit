@@ -19,7 +19,11 @@
                 android:id="@+id/action_application_logout"
                 android:orderInCategory="100"
                 android:title="@string/menu_item_application_logout"/>
-            </menu>
+            <item
+                android:id="@+id/action_application_about"
+                android:orderInCategory="100"
+                android:title="@string/menu_item_application_about"/>
+        </menu>
     </item>
 
 </menu>

@@ -1,6 +1,4 @@
 
-
-- use new icons
-- dataviewer list: show sensors
 - connect with website
+- dataviewer plot: time
 

@@ -321,10 +321,7 @@
                 <ListView
                     android:id="@+id/sensor_list"
                     android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:divider="@color/darker_line"
-                    android:dividerHeight="@dimen/darker_line_height"
-                    
+                    android:layout_height="fill_parent"                    
                     android:gravity="center" >
                 </ListView>
             </LinearLayout>

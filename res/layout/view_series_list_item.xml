@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:singleLine="false"
         android:textStyle="bold" />
 
@@ -21,15 +21,15 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="@dimen/share_profile_button_size"
         android:layout_height="@dimen/share_profile_button_size"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_delete" />
-    
+
     <ImageButton
         android:id="@+id/series_config"
         style="?android:attr/buttonStyleSmall"
@@ -57,5 +57,13 @@
         android:contentDescription="@string/button_label_upload"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_cloud" />
+
+    <TextView
+        android:id="@+id/series_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/series_name"
+        android:singleLine="true" />
 
 </RelativeLayout>

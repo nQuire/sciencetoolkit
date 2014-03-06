@@ -6,6 +6,8 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 
 import com.androidplot.Plot;
+import com.androidplot.ui.SizeLayoutType;
+import com.androidplot.ui.YLayoutStyle;
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.YValueMarker;
@@ -92,6 +94,11 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 		plot.getGraphWidget().getRangeSubGridLinePaint().setColor(sublineColor);
 		plot.getGraphWidget().getRangeOriginLinePaint().setColor(lineColor);
 		
+		
+		plot.getLegendWidget().getPositionMetrics().getYPositionMetric().set(25, YLayoutStyle.ABSOLUTE_FROM_BOTTOM);
+		plot.getLegendWidget().getHeightMetric().set(30, SizeLayoutType.ABSOLUTE);
+		plot.getLegendWidget().getTextPaint().setTextSize(20f);
+		
 		YValueMarker zero = new YValueMarker(0, null);
 		zero.getLinePaint().setColor(lineColor);
 		zero.getLinePaint().setStrokeWidth(5);
@@ -99,7 +106,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 		
 		plot.addMarker(zero);
 		
-		plot.getGraphWidget().setMargins(10f, 20f, 20f, 20f);
+		plot.getGraphWidget().setMargins(10f, 20f, 20f, 30f);
 		plot.getGraphWidget().setPadding(0f, 0f, 0f, 20f);
 
 		plot.setOnTouchListener(scaleDetector);

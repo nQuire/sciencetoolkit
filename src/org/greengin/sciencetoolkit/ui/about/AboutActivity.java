@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.welcome;
+package org.greengin.sciencetoolkit.ui.about;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity;
@@ -9,12 +9,12 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class WelcomeActivity extends SettingsControlledActivity {
+public class AboutActivity extends SettingsControlledActivity {
 
-	public WelcomeActivity() {
-		super(0, false);
+	public AboutActivity() {
+		super(true);
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,7 +23,6 @@ public class WelcomeActivity extends SettingsControlledActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.welcome, menu);
 		return true;
 	}

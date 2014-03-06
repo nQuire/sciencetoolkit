@@ -16,6 +16,10 @@ public abstract class SwipeActivity extends SettingsControlledActivity implement
 
 	StkViewPager mViewPager;
 	
+	public SwipeActivity(boolean hasParent) {
+		super(-1, hasParent);
+	}
+	
 	abstract public int getContentViewLayoutId();
 	abstract public int getViewPagerLayoutId();
 	abstract public int getTabCount();

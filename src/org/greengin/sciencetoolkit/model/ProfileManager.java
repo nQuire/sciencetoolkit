@@ -35,7 +35,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	Model settings;
 	Model appSettings;
-	
+
 	Comparator<String> profileIdComparator;
 
 	private ProfileManager(Context applicationContext) {
@@ -128,22 +128,13 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 		profile.setString("id", id, true);
 		profile.getModel("sensors", true, true);
+		profile.setBool("initial_edit", true);
 		return profile;
 	}
 
-	public void createProfile(String title, boolean makeActive, boolean copyFromDefault) {
+	public void createProfile(String title, boolean makeActive) {
 		Model newProfile = createEmptyProfile(getNewId());
 		newProfile.setString("title", title, true);
-
-		if (copyFromDefault) {
-			Model defaultProfile = get(ProfileManager.DEFAULT_PROFILE_ID);
-
-			if (newProfile != null && defaultProfile != null && newProfile != defaultProfile) {
-				Model profileSensors = defaultProfile.getModel("sensors", true, true);
-				newProfile.clear("sensors", true);
-				newProfile.setModel("sensors", profileSensors.cloneModel(newProfile), true);
-			}
-		}
 
 		super.modelModified(null);
 		listeners.fireEvent("list");
@@ -165,28 +156,20 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 				DataLogger.get().stopSeries();
 			}
 
-			if (profileIdIsDefault(profileId)) {
-				updateDefaultProfileWithCurrent(true);
-			}
-
 			settings.setString("current_profile", profileId);
-
 			updateGlobalSensors();
 		}
 	}
 
-	public int profileCount() {
-		return this.items.size();
-	}
 
-	public void addSensor(Model profile, String sensorId) {
-		addSensor(profile, sensorId, false);
-	}
-
-	public void addSensorToActiveProfile(String sensorId) {
+	public boolean sensorSelectedInExplore(String sensorId) {
 		Model profile = getActiveProfile();
-		if (profile != null) {
-			addSensor(profile, sensorId);
+		if (profile != null && profile.getBool("initial_edit", false) && !profile.getBool("is_remote") && DataLogger.get().isIdle()) {
+			profile.getModel("sensors").clearAll(true);
+			addSensor(profile, sensorId, false);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -195,9 +178,11 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		if (profile != null) {
 			removeSensor(profile, sensorId);
 		}
+
+		profile.setBool("initial_edit", profile.getModel("sensors", true).getModels().size() == 0);
 	}
 
-	public Model addSensor(Model profile, String sensorId, boolean suppressSave) {
+	private Model addSensor(Model profile, String sensorId, boolean suppressSave) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		String id = null;
 		for (int i = 0;; i++) {
@@ -210,7 +195,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		return addSensor(profile, id, sensorId, suppressSave);
 	}
 
-	public Model addSensor(Model profile, String profileSensorId, String sensorId, boolean suppressSave) {
+	private Model addSensor(Model profile, String profileSensorId, String sensorId, boolean suppressSave) {
 		Model profileSensors = profile.getModel("sensors", true, true);
 		int weight = profileSensors.getModels().size();
 
@@ -235,9 +220,10 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	public void addSensors(Model profile, Vector<String> sensorIds) {
 		addSensors(profile, sensorIds, false);
+		profile.setBool("initial_edit", false);
 	}
 
-	public void addSensors(Model profile, Vector<String> sensorIds, boolean suppressSave) {
+	private void addSensors(Model profile, Vector<String> sensorIds, boolean suppressSave) {
 		for (String sensorId : sensorIds) {
 			addSensor(profile, sensorId, true);
 		}
@@ -249,6 +235,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	public void removeSensor(Model profile, String sensorId) {
 		Model profileSensors = profile.getModel("sensors", true);
+		
 		for (Model profileSensor : profileSensors.getModels()) {
 			if (sensorId.equals(profileSensor.getString("sensorid"))) {
 				profileSensors.clear(profileSensor.getString("id"));
@@ -286,7 +273,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 		}
 	}
-	
+
 	public int getProfileCount() {
 		return this.items.size();
 	}
@@ -298,11 +285,11 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 	public boolean sensorInProfile(String sensorId, Model profile) {
 		return getSensorProfileId(sensorId, profile) != null;
 	}
-	
+
 	public String getSensorProfileIdInActiveProfile(String sensorId) {
 		return getSensorProfileId(sensorId, getActiveProfile());
 	}
-	
+
 	public String getSensorProfileId(String sensorId, Model profile) {
 		if (sensorId != null && profile != null) {
 			for (Model profileSensor : profile.getModel("sensors", true).getModels()) {
@@ -345,17 +332,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 			}
 
 			listeners.fireEvent(profileId);
-		}
-	}
-
-	private void updateDefaultProfileWithCurrent(boolean suppressSave) {
-		Model profile = getActiveProfile();
-		Model defaultProfile = get(ProfileManager.DEFAULT_PROFILE_ID);
-
-		if (profile != null && defaultProfile != null && profile != defaultProfile) {
-			Model profileSensors = profile.getModel("sensors", true, true);
-			defaultProfile.clear("sensors", true);
-			defaultProfile.setModel("sensors", profileSensors.cloneModel(defaultProfile), suppressSave);
 		}
 	}
 
@@ -440,7 +416,8 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 						profile.setString("title", title, true);
 						profile.setBool("is_remote", true, true);
 						profile.setBool("requires_location", jprf.getBoolean("requires_location"), true);
-
+						profile.setBool("initial_edit", false);
+						
 						JSONObject inputs = jprf.getJSONObject("inputs");
 						Iterator<?> inpit = inputs.keys();
 						profile.clear("sensors", true);

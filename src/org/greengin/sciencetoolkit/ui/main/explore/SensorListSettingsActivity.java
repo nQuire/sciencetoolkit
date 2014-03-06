@@ -8,6 +8,10 @@ import android.os.Bundle;
 
 public class SensorListSettingsActivity extends SettingsControlledActivity {
 
+	public SensorListSettingsActivity() {
+		super(true);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

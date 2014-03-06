@@ -39,7 +39,6 @@ public class SensorSelectDlg {
 			this.selected = new Vector<String>();
 			
 			layout = LayoutInflater.from(context).inflate(R.layout.dlg_select_sensors, null);
-
 			
 			view = (GridView) layout.findViewById(R.id.sensor_list);
 			adapter = new SelectSensorListAdapter(LayoutInflater.from(context), selected, listener);

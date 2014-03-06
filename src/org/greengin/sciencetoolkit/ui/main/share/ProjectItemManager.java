@@ -89,9 +89,6 @@ public class ProjectItemManager {
 
 		((TextView) profileView.findViewById(R.id.profile_data)).setText(dataText);
 
-		profileView.setBackgroundColor(profileView.getContext().getResources().getColor(selected ? R.color.list_item_selected
-				: R.color.transparent));
-
 		setProjectIcons(profileView, profile);
 	}
 

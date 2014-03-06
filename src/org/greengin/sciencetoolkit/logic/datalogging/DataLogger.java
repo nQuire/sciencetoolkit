@@ -132,7 +132,7 @@ public class DataLogger {
 	public boolean isIdle() {
 		return !running;
 	}
-	
+
 	public boolean isRunning() {
 		return running;
 	}
@@ -144,9 +144,12 @@ public class DataLogger {
 			profile = ProfileManager.get().getActiveProfile();
 			profileId = profile.getString("id");
 			geolocated = profile.getBool("requires_location");
-			/*
-			 * if (geolocated) { CurrentLocation.get().startlocation(); }
-			 */
+
+			profile.setBool("initial_edit", false);
+			
+			if (geolocated) {
+				CurrentLocation.get().startlocation();
+			}
 
 			pipes.clear();
 
@@ -164,10 +167,10 @@ public class DataLogger {
 					String sensorId = profileSensor.getString("sensorid");
 					SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 					int period = ModelOperations.rate2period(profileSensor, "sample_rate", ModelDefaults.DATA_LOGGING_RATE, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
-					
+
 					Vector<TimeValue> record = new Vector<TimeValue>();
 					seriesRecord.put(profileSensorId, record);
-					
+
 					if (sensor != null) {
 						DataPipe pipe = new DataPipe(sensor);
 						pipe.addFilter(new FixedRateDataFilter(period));
@@ -211,7 +214,6 @@ public class DataLogger {
 		runningLock.unlock();
 	}
 
-
 	public File getCurrentSeriesFile() {
 		return seriesFile;
 	}
@@ -223,7 +225,7 @@ public class DataLogger {
 	public File[] getSeries(String profileId) {
 		return this.fileManager.series(profileId);
 	}
-	
+
 	public File getSeriesFile(String profileId, String fileName) {
 		return this.fileManager.seriesFile(profileId, fileName);
 	}
@@ -315,9 +317,12 @@ public class DataLogger {
 		return false;
 	}
 
-	
+	public long getSeriesDuration(File series) {
+		return this.serializer.duration(series);
+	}
+
 	public HashMap<String, String> getSensorsInSeries(File series) {
 		return this.serializer.getSensorsInSeries(series);
 	}
-	
+
 }

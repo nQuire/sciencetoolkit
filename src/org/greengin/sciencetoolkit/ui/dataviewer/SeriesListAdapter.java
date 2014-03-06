@@ -117,6 +117,9 @@ public class SeriesListAdapter extends BaseAdapter {
 
 		TextView seriesNameView = (TextView) view.findViewById(R.id.series_name);
 		seriesNameView.setText(seriesName);
+		
+		TextView seriesDurationView = (TextView) view.findViewById(R.id.series_duration);
+		seriesDurationView.setText(String.format("%.1f sec", .001 * DataLogger.get().getSeriesDuration(series)));
 
 		ImageButton uploadButton = (ImageButton) view.findViewById(R.id.series_upload);
 

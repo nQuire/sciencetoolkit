@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 public class AppSettingsActivity extends SettingsControlledActivity {
 
+	
+
 	public static final String SELECT_ACCOUNT = "SELECT_ACCOUNT";
 
 	DefaultHttpClient http_client = new DefaultHttpClient();
@@ -23,6 +25,12 @@ public class AppSettingsActivity extends SettingsControlledActivity {
 	Button selectAccount;
 	TextView accountLabel;
 
+	
+	public AppSettingsActivity() {
+		super(true);
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

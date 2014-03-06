@@ -2,51 +2,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/item_list_background"
+    android:focusable="false"
     android:paddingBottom="@dimen/record_item_vertical_margin"
-    android:paddingTop="@dimen/record_item_vertical_margin" android:focusable="false">
+    android:paddingTop="@dimen/record_item_vertical_margin" >
 
     <ImageView
         android:id="@+id/sensor_icon"
-        android:layout_width="@dimen/record_item_icon_size"
-        android:layout_height="@dimen/record_item_icon_size"
+        android:layout_width="@dimen/sensor_icon_big_size"
+        android:layout_height="@dimen/sensor_icon_big_size"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/record_item_icon_margin"
         android:contentDescription="@string/explore_sensor_icon_description" />
-
-    <TextView
-        android:id="@+id/sensor_name"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/record_item_icon_size"
-        android:layout_alignBottom="@id/sensor_icon"
-        android:layout_alignTop="@id/sensor_icon"
-        android:layout_toRightOf="@id/sensor_icon"
-        android:gravity="center_vertical" />
 
     <ImageButton
         android:id="@+id/sensor_config"
         android:layout_width="@dimen/button_in_list"
         android:layout_height="@dimen/button_in_list"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:background="@color/transparent"
+        android:focusable="false"
         android:scaleType="fitXY"
-        android:src="@drawable/project_button_config" 
-        android:focusable="false"/>
+        android:src="@drawable/project_button_config" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/sensor_name"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/sensor_name" >
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/sensor_config"
+        android:layout_toRightOf="@id/sensor_icon" >
+
+        <TextView
+            android:id="@+id/sensor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
         <TextView
             android:id="@+id/sample_rate_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_below="@id/sensor_name"
             android:layout_marginRight="@dimen/record_item_icon_margin"
             android:text="@string/sampling_rate"
             android:textStyle="bold" />
@@ -55,7 +55,7 @@
             android:id="@+id/sample_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_below="@id/sensor_name"
             android:layout_toRightOf="@id/sample_rate_label"
             android:textStyle="bold" />
     </RelativeLayout>

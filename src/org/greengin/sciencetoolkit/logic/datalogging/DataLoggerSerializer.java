@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.HashMap;
 
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
@@ -104,6 +105,104 @@ public class DataLoggerSerializer {
 		}
 
 		return sensors;
+	}
+
+	public long duration(File series) {
+		long a = timestamp(firstDataLine(series));
+		long b = timestamp(lastDataLine(series));
+		return a >= 0 && b >= 0 ? b - a : -1;
+	}
+
+	private String firstDataLine(File series) {
+		String result = null;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(series));
+			while (true) {
+				String line = reader.readLine();
+				if (line == null) {
+					break;
+				} else if (line.length() > 0 && !line.startsWith("#")) {
+					result = line;
+					break;
+				}
+			}
+			reader.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	private long timestamp(String line) {
+		if (line != null) {
+			String[] parts = line.split(",");
+			if (parts.length > 2) {
+				try {
+					return Long.parseLong(parts[1]);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return -1l;
+	}
+
+	/**
+	 * From:
+	 * http://stackoverflow.com/questions/686231/quickly-read-the-last-line
+	 * -of-a-text-file			Log.d("stk", "!!!");
+
+	 * 
+	 * @param series
+	 * @return
+	 */
+	private String lastDataLine(File series) {
+		RandomAccessFile fileHandler = null;
+		try {
+			fileHandler = new RandomAccessFile(series, "r");
+			long fileLength = fileHandler.length() - 1;
+			StringBuilder sb = new StringBuilder();
+
+			for (long filePointer = fileLength; filePointer != -1; filePointer--) {
+				fileHandler.seek(filePointer);
+				int readByte = fileHandler.readByte();
+
+				if (readByte == 0xA) {
+					if (filePointer == fileLength) {
+						continue;
+					} else {
+						break;
+					}
+				} else if (readByte == 0xD) {
+					if (filePointer == fileLength - 1) {
+						continue;
+					} else {
+						break;
+					}
+				}
+
+				sb.append((char) readByte);
+			}
+			
+			return sb.reverse().toString();
+		} catch (java.io.FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (fileHandler != null) {
+				try {
+					fileHandler.close();
+				} catch (IOException e) {
+					/* ignore */
+				}
+			}
+		}
 	}
 
 }

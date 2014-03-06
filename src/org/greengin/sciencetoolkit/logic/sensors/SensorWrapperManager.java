@@ -7,6 +7,8 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.location.LocationGpsSensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.signal.CdmaSensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.signal.GsmSensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.SettingsManager;
@@ -20,6 +22,9 @@ import android.os.Build;
 public class SensorWrapperManager {
 	public static final int CUSTOM_SENSOR_TYPE_SOUND = 1001;
 	public static final int CUSTOM_SENSOR_TYPE_GPS_LOCATION = 1002;
+	
+	public static final int CUSTOM_SENSOR_TYPE_GSM = 1003;
+	public static final int CUSTOM_SENSOR_TYPE_CDMA = 1004;
 
 	private static SensorWrapperManager instance;
 
@@ -57,14 +62,20 @@ public class SensorWrapperManager {
 		if (LocationGpsSensorWrapper.isAvailable(applicationContext)) {
 			addSensor(new LocationGpsSensorWrapper(applicationContext));
 		}
-		
+
+		addSensor(new GsmSensorWrapper(applicationContext));
+		addSensor(new CdmaSensorWrapper(applicationContext));
+
 		if (!SettingsManager.get().get("sensor_initial_selection").getBool("filtered")) {
 			
 			SettingsManager.get().get("sensor_initial_selection").setBool("filtered", true);
 			SettingsManager.get().get("sensor_initial_selection").setBool("ack", false);
-			
+			Vector<Integer> types = new Vector<Integer>();
 			for (Entry<String, SensorWrapper> entry : sensors.entrySet()) {
-				switch (entry.getValue().getType()) {
+				int type = entry.getValue().getType();
+				boolean show = false;
+				
+				switch (type) {
 				case Sensor.TYPE_ACCELEROMETER:
 				case Sensor.TYPE_LINEAR_ACCELERATION:
 				case Sensor.TYPE_AMBIENT_TEMPERATURE:
@@ -75,13 +86,15 @@ public class SensorWrapperManager {
 				case Sensor.TYPE_RELATIVE_HUMIDITY:
 				case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
 				case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
-					SettingsManager.get().get("sensor_list").setBool(entry.getKey(), true);
-					break;
-				default:
-					SettingsManager.get().get("sensor_list").setBool(entry.getKey(), false);
+					if (!types.contains(type)) {
+						show = true;
+						types.add(type);
+					}
 					break;
 				}
-			}
+				
+				SettingsManager.get().get("sensor_list").setBool(entry.getKey(), show);
+			}	
 		}
 	}
 
@@ -198,6 +211,10 @@ public class SensorWrapperManager {
 			return "snd";
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
 			return "gps";
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+			return "gsm";
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return "cdma";
 		default:
 			return "uknown";
 		}
@@ -210,6 +227,10 @@ public class SensorWrapperManager {
 			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND;
 		} else if ("gps".equals(type)) {
 			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION;
+		} else if ("gsm".equals(type)) {
+			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM;
+		} else if ("cdma".equals(type)) {
+			return SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA;
 		} else if ("pro".equals(type)) {
 			return Sensor.TYPE_PROXIMITY;
 		} else if ("lig".equals(type)) {
@@ -224,7 +245,7 @@ public class SensorWrapperManager {
 			return Sensor.TYPE_ACCELEROMETER;
 		} else if ("pre".equals(type)) {
 			return Sensor.TYPE_PRESSURE;
-		}else if ("tmp".equals(type)) {
+		} else if ("tmp".equals(type)) {
 			return Sensor.TYPE_TEMPERATURE;
 		}
 

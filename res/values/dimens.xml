@@ -2,10 +2,10 @@
 	
     <!-- common -->
     <dimen name="button_in_list">32dp</dimen>
+    <dimen name="sensor_icon_big_size">64dp</dimen>
     
     <!-- record item -->
     <dimen name="record_project_panel_margin">5dp</dimen>
-    <dimen name="record_item_icon_size">35dp</dimen>
     <dimen name="record_item_vertical_margin">8dp</dimen>
     <dimen name="record_item_icon_margin">16dp</dimen>
     <dimen name="button_pane_vertical_margin">16dp</dimen>

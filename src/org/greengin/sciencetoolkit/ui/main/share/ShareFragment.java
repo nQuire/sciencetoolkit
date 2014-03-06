@@ -132,7 +132,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	@Override
 	public void editTextComplete(String value) {
 		if (value != null) {
-			ProfileManager.get().createProfile(value, false, false);
+			ProfileManager.get().createProfile(value, true);
 		}
 	}
 

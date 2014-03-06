@@ -195,7 +195,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 	private void discardSeries() {
 		if (this.state == RecordState.DECIDING) {
-			DataLogger.get().deleteData(this.currentSeries);
+			DataLogger.get().deleteData(currentSeries);
 			this.state = RecordState.IDLE;
 			this.currentSeries = null;
 			updateButtonPanel();
@@ -218,6 +218,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	private void keepSeries() {
 		if (this.state == RecordState.DECIDING) {
 			this.state = RecordState.IDLE;
+			ProfileManager.get().getActiveProfile().getModel("dataviewer", true).setString("series", currentSeries.getName());
 			this.currentSeries = null;
 			updateButtonPanel();
 			animateraiseSeriesPanel(false);
@@ -332,11 +333,13 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	@Override
 	public void profileSensorRateEditComplete(boolean set, String profileSensorId, double rate, int units) {
 		if (set) {
+			Model profile = ProfileManager.get().getActiveProfile();
 			int newUnits = Math.min(2, Math.max(0, units));
 			double newRate = ModelOperations.fitFateInRange(rate, newUnits, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
-			Model profileSensor = ProfileManager.get().getActiveProfile().getModel("sensors", true).getModel(profileSensorId, true);
+			Model profileSensor = profile.getModel("sensors", true).getModel(profileSensorId, true);
 			profileSensor.setDouble("sample_rate", newRate, true);
 			profileSensor.setInt("sample_rate_ux", newUnits);
+			profile.setBool("initial_edit", false);
 		}
 	}
 

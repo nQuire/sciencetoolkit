@@ -4,15 +4,15 @@
     android:layout_height="150dp" >
 
     <ImageView
-        android:paddingLeft="8sp"
-        android:paddingRight="8sp"
-        android:paddingTop="8sp"
         android:id="@+id/sensor_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/explore_sensor_icon_description" />
+        android:contentDescription="@string/explore_sensor_icon_description"
+        android:paddingLeft="8sp"
+        android:paddingRight="8sp"
+        android:paddingTop="8sp" />
 
     <TextView
         android:id="@+id/sensor_name"
@@ -21,7 +21,7 @@
         android:layout_below="@id/sensor_icon"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textSize="12sp" 
+        android:textSize="12sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

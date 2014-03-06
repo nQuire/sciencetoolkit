@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.microphone"
@@ -32,7 +33,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity"
+            android:name="org.greengin.sciencetoolkit.ui.main.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,12 +41,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.main.MainActivity"
+            android:name="org.greengin.sciencetoolkit.ui.about.AboutActivity"
             android:label="@string/app_name"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.welcome.WelcomeActivity" />
+                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
             android:name="org.greengin.sciencetoolkit.ui.main.explore.SensorListSettingsActivity"

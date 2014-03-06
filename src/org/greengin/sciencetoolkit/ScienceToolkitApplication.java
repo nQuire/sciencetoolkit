@@ -27,7 +27,6 @@ public class ScienceToolkitApplication extends Application {
         DataLogger.init(context);
         
         CurrentLocation.init(context);
-        CurrentLocation.get().startlocation();
         
         RemoteApi2.init(context);
 

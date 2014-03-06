@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/item_list_background"
+    android:focusable="false"
     android:paddingBottom="@dimen/share_item_vertical_padding"
     android:paddingLeft="@dimen/share_item_horizontal_padding"
     android:paddingRight="@dimen/share_item_horizontal_padding"
@@ -62,9 +64,9 @@
 
             <TextView
                 android:id="@+id/active_project_label"
-                android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin" />
 
             <TextView
                 android:id="@+id/profile_data"

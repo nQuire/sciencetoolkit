@@ -68,6 +68,18 @@ public class Model {
 		}
 	}
 
+	public boolean clearAll(boolean suppressSave) {
+		if (entries.size() > 0) {
+			entries.clear();
+			if (!suppressSave) {
+				listener.modelModified(this);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean clear(String key) {
 		return clear(key, false);
 	}
@@ -217,7 +229,7 @@ public class Model {
 			return null;
 		}
 	}
-	
+
 	public Hashtable<String, String> getStrings() {
 		Hashtable<String, String> values = new Hashtable<String, String>();
 		for (Entry<String, Object> entry : entries.entrySet()) {

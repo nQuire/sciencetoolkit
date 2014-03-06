@@ -9,9 +9,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public class DataViewerActivity extends SwipeActivity {
+	
+
 	private static int lastTab = -1;
 
 	String profileId;
+
+	public DataViewerActivity() {
+		super(true);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -5,11 +5,13 @@ import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.SettingsManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
+import org.greengin.sciencetoolkit.ui.about.AboutActivity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 public class SettingsControlledActivity extends RemoteCapableActivity {
@@ -19,9 +21,9 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 	boolean controlledRotationActive;
 	boolean controlledSettingsHasParent;
 
-	public SettingsControlledActivity() {
-		this(-1, true);
-		this.controlledRotationLastValue = -1;
+	public SettingsControlledActivity(boolean hasParent) {
+		this(-1, hasParent);
+		this.controlledRotationLastValue = 0;
 	}
 
 	public SettingsControlledActivity(int overrideSettings, boolean hasParent) {
@@ -52,8 +54,8 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 
 	private void setupActionBar() {
 		if (controlledSettingsHasParent) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-			getSupportActionBar().setHomeButtonEnabled(false);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			// getSupportActionBar().setHomeButtonEnabled(true);
 		}
 	}
 
@@ -70,6 +72,11 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 			startActivity(intent);
 			return true;
 		}
+		case R.id.action_application_about: {
+			Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+			startActivity(intent);
+			return true;
+		}
 
 		}
 		return super.onOptionsItemSelected(item);
@@ -79,7 +86,9 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 	public void onResume() {
 		super.onResume();
 
+		Log.d("stk rotation", "resome 1");
 		if (controlledRotationActive) {
+			Log.d("stk rotation", "resome 2");
 			updateScreenOrientationValue();
 			SettingsManager.get().registerDirectListener("app", this.controlledRotationListener);
 		}
@@ -96,19 +105,22 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 		int value = SettingsManager.get().get("app").getInt("screen_orientation", ModelDefaults.APP_SCREEN_ORIENTATION);
 		if (value != controlledRotationLastValue) {
 			controlledRotationLastValue = value;
-			updateScreenOrientation();
 		}
+		updateScreenOrientation();
 	}
 
 	private void updateScreenOrientation() {
 		switch (controlledRotationLastValue) {
 		case 0:
+			Log.d("stk", "portrait");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			break;
 		case 1:
+			Log.d("stk", "landscape");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			break;
 		case 2:
+			Log.d("stk", "sensor");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			break;
 		}

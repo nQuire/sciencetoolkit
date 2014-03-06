@@ -7,12 +7,17 @@ import android.hardware.Sensor;
 
 public class SensorUIData {
 
-	private static final String[][] LABELS = new String[][] { new String[] { "x", "y", "z" }, new String[] { "Temperature" }, new String[] { "Light level" }, new String[] { "Pressure" }, new String[] { "Proximity" }, new String[] { "Rel. humidity" }, new String[] { "Sound level", "Max. freq." }, new String[] { "Latitude", "Longitude" /*
-																																																																																				 * ,
-																																																																																				 * "Altitude"
-																																																																																				 * ,
-																																																																																				 * "Precision"
-																																																																																				 */}, new String[] { "", "", "", "", "", "", "", "" } };
+	private static final String[][] LABELS = new String[][] { 
+		new String[] { "x", "y", "z" }, 
+		new String[] { "Temperature" }, 
+		new String[] { "Light level" }, 
+		new String[] { "Pressure" }, 
+		new String[] { "Proximity" }, 
+		new String[] { "Rel. humidity" }, 
+		new String[] { "Sound level", "Max. freq." }, 
+		new String[] { "Latitude", "Longitude" /** ,* "Altitude"* ,* "Precision"*/}, 
+		new String[] { "Strength"}, 
+		new String[] { "", "", "", "", "", "", "", "" } };
 
 	/*
 	 * 
@@ -160,15 +165,19 @@ public class SensorUIData {
 			return 16;
 		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
 			return 17;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+			return 18;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return 19;
 
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
-			return 18;
-		case Sensor.TYPE_STEP_COUNTER:
-			return 19;
-		case Sensor.TYPE_STEP_DETECTOR:
 			return 20;
-		default:
+		case Sensor.TYPE_STEP_COUNTER:
 			return 21;
+		case Sensor.TYPE_STEP_DETECTOR:
+			return 22;
+		default:
+			return 23;
 		}
 	}
 
@@ -202,6 +211,9 @@ public class SensorUIData {
 			return LABELS[6];
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
 			return LABELS[7];
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return LABELS[8];
 		default:
 			return LABELS[8];
 		}
