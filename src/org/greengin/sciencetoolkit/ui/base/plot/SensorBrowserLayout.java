@@ -149,7 +149,7 @@ public class SensorBrowserLayout extends ViewGroup implements OnTouchListener {
 		case MotionEvent.ACTION_POINTER_UP:
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
-			if (Math.abs(event.getX(0) - downX) < 5 && System.currentTimeMillis() - downTime < 500 && touchedView != null) {
+			if (Math.abs(event.getX(0) - downX) < 10 && System.currentTimeMillis() - downTime < 500 && touchedView != null) {
 				listener.sensorBrowserSelected(touchedView);
 			}
 			((SwipeActivity) getContext()).setPagingEnabled(true);

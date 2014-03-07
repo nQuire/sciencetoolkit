@@ -65,7 +65,7 @@ public class SeriesXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper {
 
 	@Override
 	protected Number getDataX(int i) {
-		return values.size() > i ? values.get(i).time : 0;
+		return values.size() > i ? values.get(i).time - values.get(0).time : 0;
 	}
 
 	@Override

@@ -11,8 +11,12 @@ import android.widget.ImageButton;
 
 public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements OnClickListener {
 
+
 	protected ImageButton closeButton;
 
+	
+
+	
 	@Override
 	public void onDetach() {
 		this.close();

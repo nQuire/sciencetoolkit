@@ -288,7 +288,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 		@Override
 		public void eventDataStatus(String event, boolean whilePaused) {
-			updateButtonPanel();
+			updateProfileView();
 		}
 	}
 

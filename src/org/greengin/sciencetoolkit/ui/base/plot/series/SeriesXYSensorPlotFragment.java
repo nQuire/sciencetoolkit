@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 
 public class SeriesXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements SensorBrowserListener {
 
+
 	SeriesXYSensorDataWrapper series;
 
 	String profileId;
@@ -33,6 +34,8 @@ public class SeriesXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 	Vector<String> sensors;
 	File seriesFile;
 
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,6 +44,8 @@ public class SeriesXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 
 		eventManager.setListener(new SeriesEventManagerListener());
 		eventManager.listenToProfiles();
+		
+		setScaleParams(false, true);
 
 		series = null;
 	}
@@ -85,7 +90,6 @@ public class SeriesXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 		sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.sensorBrowser.setSensors(this, sensors, sensorId);
 		createPlot();
-		plot.getLayoutManager().remove(plot.getLegendWidget());
 		series = new SeriesXYSensorDataWrapper(plot, seriesFile, sensors2profile.get(sensorId), sensor);
 		series.initSeries(plot);
 	}

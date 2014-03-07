@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.Model;
@@ -118,6 +119,7 @@ public class RecordSensorListAdapter extends BaseAdapter {
 		ImageButton button = (ImageButton) view.findViewById(R.id.sensor_config);
 		button.setTag(profileSensorId);
 		button.setOnClickListener(editListener);
+		button.setEnabled(DataLogger.get().isIdle());
 		
 		return view;
 	}

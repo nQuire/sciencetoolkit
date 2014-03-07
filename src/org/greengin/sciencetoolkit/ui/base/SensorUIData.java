@@ -81,15 +81,18 @@ public class SensorUIData {
 	public static int getSensorResource(int type) {
 		switch (type) {
 		case Sensor.TYPE_ACCELEROMETER:
+			return R.drawable.sensor_acc;
 		case Sensor.TYPE_LINEAR_ACCELERATION:
 			return R.drawable.sensor_lacc;
 		case Sensor.TYPE_GRAVITY:
 			return R.drawable.sensor_gra;
 		case Sensor.TYPE_PROXIMITY:
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
+			return R.drawable.sensor_sigmot;
 		case Sensor.TYPE_STEP_COUNTER:
-		case Sensor.TYPE_STEP_DETECTOR:
 			return R.drawable.sensor_ste;
+		case Sensor.TYPE_STEP_DETECTOR:
+			return R.drawable.sensor_sted;
 		case Sensor.TYPE_AMBIENT_TEMPERATURE:
 		case Sensor.TYPE_TEMPERATURE:
 			return R.drawable.sensor_tmp;
@@ -106,8 +109,9 @@ public class SensorUIData {
 		case Sensor.TYPE_LIGHT:
 			return R.drawable.sensor_lgt;
 		case Sensor.TYPE_MAGNETIC_FIELD:
-		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
 			return R.drawable.sensor_mag;
+		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+			return R.drawable.sensor_mag_u;
 		case Sensor.TYPE_ORIENTATION:
 			return R.drawable.sensor_ori;
 		case Sensor.TYPE_PRESSURE:

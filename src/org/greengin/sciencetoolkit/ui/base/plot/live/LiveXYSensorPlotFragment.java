@@ -18,12 +18,16 @@ import org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
 public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment implements SensorBrowserListener {
+	
+
+
 	LiveXYSensorDataWrapper series;
 	
 	DataPipe dataPipe;
 	FixedRateDataFilter periodFilter;
 	protected Model seriesSettings;
 
+	
 	@Override
 	protected String getDomainLabel() {
 		return "Seconds ago";

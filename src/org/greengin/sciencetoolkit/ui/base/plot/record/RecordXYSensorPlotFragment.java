@@ -24,6 +24,7 @@ import android.view.View;
 
 public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment implements SensorBrowserListener {
 	
+
 	RecordXYSensorDataWrapper series;
 	
 	SensorWrapper sensor;
@@ -32,6 +33,8 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 	Vector<TimeValue> record;
 	RedrawTimer redrawTimer;
 
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -142,8 +145,6 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 
 		@Override
 		public StringBuffer format(long l, StringBuffer sb, FieldPosition fp) {
-			long t0 = record != null && record.size() > 0 ? record.get(0).time : 0;
-			l -= t0;
 
 			int ds = (int) Math.log10(Math.max(1, l));
 

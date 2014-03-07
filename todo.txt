@@ -1,4 +1,3 @@
 
 - connect with website
-- dataviewer plot: time
 

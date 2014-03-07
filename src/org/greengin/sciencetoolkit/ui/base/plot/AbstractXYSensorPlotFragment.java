@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.base.plot;
 import java.text.NumberFormat;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ui.base.SwipeActivity;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 
 import com.androidplot.Plot;
@@ -15,6 +16,7 @@ import com.androidplot.xy.YValueMarker;
 import android.app.Activity;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,11 +30,21 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 	protected View plotPanel;
 	protected LinearLayout plotContainer;
 	protected XYPlot plot;
+	
+	protected boolean growAfterScale = true;
+	protected boolean scaleX = false;
 
 	PlotScaleGestureDetector scaleDetector;
 	
 	protected View sensorBrowserContainer;
 	protected SensorBrowserLayout sensorBrowser;
+	
+	
+	
+	public void setScaleParams(boolean growAfterScale, boolean scaleX) {
+		this.growAfterScale = growAfterScale;
+		this.scaleX = scaleX;
+	}
 	
 	protected String getDomainLabel() {
 		return "Time";
@@ -123,13 +135,20 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 	private class PlotScaleGestureDetector implements OnTouchListener {
 
 		float rt, rh;
-		float pt0, pb0;
-		float pt1, pb1;
-		float max, min;
+		float pmin0y, pmax0y;
+		float pmin1y, pmax1y;
+		float maxy, miny;
+		
+		float rl, rw;
+		float pmax0x, pmin0x;
+		float pmax1x, pmin1x;
+		float maxx, minx;
+
 		boolean scaling;
 
 		public PlotScaleGestureDetector() {
-			pt1 = pb1 = 0;
+			pmin1y = pmax1y = 0;
+			pmin1x = pmax1x = 0;
 			scaling = false;
 		}
 
@@ -137,10 +156,18 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 			RectF rect = plot.getGraphWidget().getGridRect();
 			rt = rect.top;
 			rh = rect.bottom - rt;
-			pt0 = pt1;
-			pb0 = pb1;
-			pt1 = (Math.min(event.getY(0), event.getY(1)) - rt) / rh;
-			pb1 = (Math.max(event.getY(0), event.getY(1)) - rt) / rh;
+			pmin0y = pmin1y;
+			pmax0y = pmax1y;
+			pmin1y = (Math.min(event.getY(0), event.getY(1)) - rt) / rh;
+			pmax1y = (Math.max(event.getY(0), event.getY(1)) - rt) / rh;
+			
+			rl = rect.right;
+			rw = rect.left - rl;
+			pmin0x = pmin1x;
+			pmax0x = pmax1x;
+			pmin1x = (Math.min(event.getX(0), event.getX(1)) - rl) / rw;
+			pmax1x = (Math.max(event.getX(0), event.getX(1)) - rl) / rw;
+
 		}
 
 		@Override
@@ -150,15 +177,18 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 			case MotionEvent.ACTION_POINTER_DOWN:
 				if (event.getPointerCount() == 2) {
 					scaling = true;
-					max = plot.getCalculatedMaxY().floatValue();
-					min = plot.getCalculatedMinY().floatValue();
+					maxy = plot.getCalculatedMaxY().floatValue();
+					miny = plot.getCalculatedMinY().floatValue();
+					
+					minx = plot.getCalculatedMinX().floatValue();
+					maxx = plot.getCalculatedMaxX().floatValue();
 					updateValues(event);
 				}
 				break;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_POINTER_UP:
 			case MotionEvent.ACTION_CANCEL:
-				if (scaling) {
+				if (scaling && growAfterScale) {
 					plot.setRangeLowerBoundary(0, BoundaryMode.GROW);
 					plot.setRangeUpperBoundary(0, BoundaryMode.GROW);
 				}
@@ -167,20 +197,30 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 			case MotionEvent.ACTION_MOVE: {
 				if (scaling) {
 					updateValues(event);
-					if (pt1 != pb1) {
-						float nmax = (((min - max) * pb0 + max) * pt1 + (max - min) * pb1 * pt0 - max * pb1) / (pt1 - pb1);
-						float nmin = nmax + ((min - max) * pt0 + (max - min) * pb0) / (pt1 - pb1);
-						max = nmax;
-						min = nmin;
+					if (pmin1y != pmax1y) {
+						float nmaxy = (((miny - maxy) * pmax0y + maxy) * pmin1y + (maxy - miny) * pmax1y * pmin0y - maxy * pmax1y) / (pmin1y - pmax1y);
+						float nminy = nmaxy + ((miny - maxy) * pmin0y + (maxy - miny) * pmax0y) / (pmin1y - pmax1y);
+						maxy = nmaxy;
+						miny = nminy;
 
-						plot.setRangeLowerBoundary(min, BoundaryMode.FIXED);
-						plot.setRangeUpperBoundary(max, BoundaryMode.FIXED);
-						plot.redraw();
+						plot.setRangeLowerBoundary(miny, BoundaryMode.FIXED);
+						plot.setRangeUpperBoundary(maxy, BoundaryMode.FIXED);
 					}
+					if (scaleX && pmin1x != pmax1x) {
+						float nmaxx = (((minx - maxx) * pmax0x + maxx) * pmin1x + (maxx - minx) * pmax1x * pmin0x - maxx * pmax1x) / (pmin1x - pmax1x);
+						float nminx = nmaxx + ((minx - maxx) * pmin0x + (maxx - minx) * pmax0x) / (pmin1x - pmax1x);
+						Log.d("stk plot", "[" + minx + " " + maxx + "] [" + nminx + " " + nmaxx + "]");
+						maxx = nmaxx;
+						minx = nminx;
+						plot.setDomainBoundaries(minx, BoundaryMode.FIXED, maxx, BoundaryMode.FIXED);
+					}
+					plot.redraw();
 				}
 				break;
 			}
 			}
+			
+			((SwipeActivity) getActivity()).setPagingEnabled(!scaling);
 			return true;
 		}
 	}

@@ -29,7 +29,7 @@ public class RecordXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper {
 	@Override
 	protected Number getDataX(int i) {
 		lock.lock();
-		long value = record.size() > i ? record.get(i).time : 0;
+		long value = record.size() > i ? record.get(i).time - record.get(0).time : 0;
 		lock.unlock();
 		return value;
 	}
