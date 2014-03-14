@@ -15,6 +15,6 @@ public abstract class RemoteAction {
 	public void close() {
 	}
 
-	public void error(String error) {
+	public void error(int request, String error) {
 	}	
 }

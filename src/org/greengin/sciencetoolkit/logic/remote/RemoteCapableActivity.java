@@ -14,7 +14,7 @@ public class RemoteCapableActivity extends ActionBarActivity {
 	
 	public void remoteRequest(RemoteAction action) {
 		this.remoteOnResumeAction = null;
-		RemoteApi2.get().request(this, action, false);
+		RemoteApi.get().request(this, action, false);
 	}
 	
 	public void remoteSetOnResumeAction(RemoteAction remoteOnResumeAction) {
@@ -29,7 +29,7 @@ public class RemoteCapableActivity extends ActionBarActivity {
 			RemoteAction action = remoteOnResumeAction;
 			remoteOnResumeAction = null;
 			
-			RemoteApi2.get().request(this, action, true);
+			RemoteApi.get().request(this, action, true);
 		}
 	}
 

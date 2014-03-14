@@ -1,8 +1,6 @@
 package org.greengin.sciencetoolkit.logic.remote;
 
 import java.io.File;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -12,56 +10,37 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.model.Model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UploadRemoteAction extends RemoteJsonAction {
+	Model profile;
 	String profileId;
+	String projectId;
 	File series;
 
-	public UploadRemoteAction(String profileId, File series) {
-		this.profileId = profileId;
+	public UploadRemoteAction(Model profile, File series) {
+		this.profile = profile;
+		this.profileId = profile.getString("id");
+		this.projectId = profile.getModel("remote_info", true).getString("project");
 		this.series = series;
 
 		DataLogger.get().markAsSent(profileId, series, 1);
 	}
 
-	private String createJsonBody() {
-		try {
-
-			Hashtable<String, String> metadata = DataLogger.get().getSeriesMetadata(profileId, series).getStrings();
-
-			JSONObject jsobj = new JSONObject();
-			jsobj.put("id", profileId);
-			JSONObject jsmetadata = new JSONObject();
-			for (Entry<String, String> entry : metadata.entrySet()) {
-				Object v;
-				try {
-					v = new JSONObject(entry.getValue());
-				} catch (JSONException e) {
-					e.printStackTrace();
-					v = entry.getValue();
-				}
-				jsmetadata.put(entry.getKey(), v);
-			}
-			
-			jsobj.put("metadata", jsmetadata);
-
-			return jsobj.toString();
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 	@Override
 	public HttpRequestBase[] createRequests(String urlBase) {
-		HttpPost post = new HttpPost(urlBase + "upload");
+		HttpPost post = new HttpPost(String.format("%sproject/%s/senseit/data", urlBase, projectId));
 
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
 		ContentBody cbFile = new FileBody(series);
+		entityBuilder.addTextBody("title", DataLogger.get().seriesName(profile, series), ContentType.TEXT_PLAIN);
+		if (profile.getBool("requires_location")) {
+			String location = DataLogger.get().getSeriesMetadata(profileId, series).getString("location");
+			entityBuilder.addTextBody("geolocation", location);
+		}
 		entityBuilder.addPart("file", cbFile);
-		entityBuilder.addTextBody("body", createJsonBody(), ContentType.APPLICATION_JSON);
 		HttpEntity entity = entityBuilder.build();
 		post.setEntity(entity);
 
@@ -71,19 +50,20 @@ public class UploadRemoteAction extends RemoteJsonAction {
 	@Override
 	public void result(int request, JSONObject result) {
 		try {
-			if (result.getBoolean("ok")) {
+			String id = result.getString("newItemId"); 
+			if (id != null) {
 				DataLogger.get().markAsSent(profileId, series, 2);
 			} else {
-				error(result.getString("reason"));
+				error(request, result.getString("create"));
 			}
 		} catch (JSONException e) {
-			error("json");
+			error(request, "json");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void error(String error) {
+	public void error(int request, String error) {
 		DataLogger.get().markAsSent(profileId, series, 0);
 	}
 

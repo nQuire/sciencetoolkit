@@ -328,5 +328,10 @@ public class DataLogger {
 	public File getPublicFile(Model profile, File series) {
 		return this.fileManager.getPublicFile(profile, series);
 	}
+	
+	public String seriesName(Model profile, File series) {
+		return profile.getModel("series", true).getModel(series.getName(), true, true).getString("title", series.getName().replaceFirst("[.][^.]+$", ""));
+	}
+
 
 }

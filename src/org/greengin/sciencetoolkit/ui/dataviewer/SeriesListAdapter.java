@@ -118,7 +118,7 @@ public class SeriesListAdapter extends BaseAdapter {
 		Model seriesModel = profile.getModel("series", true).getModel(series.getName(), true, true);
 		int seriesUploadStatus = seriesModel.getInt("uploaded", 0);
 		
-		String seriesName = SeriesListFragment.seriesName(profile, series);
+		String seriesName = DataLogger.get().seriesName(profile, series);
 
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_series_list_item, parent, false) : convertView;
@@ -130,7 +130,6 @@ public class SeriesListAdapter extends BaseAdapter {
 		seriesDurationView.setText(String.format("%.1f sec", .001 * DataLogger.get().getSeriesDuration(series)));
 
 		ImageButton uploadButton = (ImageButton) view.findViewById(R.id.series_upload);
-
 		uploadButton.setTag(series);
 		if (newView) {
 			uploadButton.setOnClickListener(uploadListener);

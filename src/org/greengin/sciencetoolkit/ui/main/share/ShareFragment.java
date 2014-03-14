@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.logic.remote.RemoteApi2;
+import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.model.Model;
@@ -83,10 +83,10 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_application_login:
-			RemoteApi2.get().tryToLogin((RemoteCapableActivity) getActivity());
+			RemoteApi.get().tryToLogin((RemoteCapableActivity) getActivity());
 			return true;
 		case R.id.action_application_logout:
-			RemoteApi2.get().logout();
+			RemoteApi.get().logout();
 			return true;
 		}
 

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
+import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
+import org.greengin.sciencetoolkit.logic.remote.UploadRemoteAction;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener;
@@ -92,13 +94,12 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 	@Override
 	public void seriesUpload(Model profile, File series) {
-		String seriesName = SeriesListFragment.seriesName(profile, series);
-		EditTextDlg.open(this.getActivity(), R.string.series_edit_name_title, R.string.series_edit_name_msg, R.string.button_label_set, seriesName, true, new EditSeriesTitleManager(profile, series));
+		((RemoteCapableActivity) getActivity()).remoteRequest(new UploadRemoteAction(profile, series));
 	}
 
 	@Override
 	public void seriesEdit(Model profile, File series) {
-		String seriesName = SeriesListFragment.seriesName(profile, series);
+		String seriesName = DataLogger.get().seriesName(profile, series);
 		EditTextDlg.open(this.getActivity(), R.string.series_edit_name_title, R.string.series_edit_name_msg, R.string.button_label_set, seriesName, true, new EditSeriesTitleManager(profile, series));
 	}
 
@@ -127,10 +128,7 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 	}
 
-	public static String seriesName(Model profile, File series) {
-		return profile.getModel("series", true).getModel(series.getName(), true, true).getString("title", series.getName().replaceFirst("[.][^.]+$", ""));
-	}
-
+	
 	@Override
 	public void seriesShare(Model profile, File series) {
 		File export = DataLogger.get().getPublicFile(profile, series);
@@ -141,7 +139,7 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 		if (uris.size() > 0) {
 			String shareMenuTitle = getResources().getString(R.string.series_share_title);
-			String subject = String.format(getResources().getString(R.string.series_share_subject), seriesName(profile, series));
+			String subject = String.format(getResources().getString(R.string.series_share_subject), DataLogger.get().seriesName(profile, series));
 			String body = getResources().getString(R.string.series_share_body);
 
 			Intent sendIntent = new Intent();

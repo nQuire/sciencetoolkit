@@ -11,6 +11,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener;
 import org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -161,7 +162,6 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 		}
 	}
 
-
 	public boolean sensorSelectedInExplore(String sensorId) {
 		Model profile = getActiveProfile();
 		if (profile != null && profile.getBool("initial_edit", false) && !profile.getBool("is_remote") && DataLogger.get().isIdle()) {
@@ -235,7 +235,7 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	public void removeSensor(Model profile, String sensorId) {
 		Model profileSensors = profile.getModel("sensors", true);
-		
+
 		for (Model profileSensor : profileSensors.getModels()) {
 			if (sensorId.equals(profileSensor.getString("sensorid"))) {
 				profileSensors.clear(profileSensor.getString("id"));
@@ -393,54 +393,58 @@ public class ProfileManager extends AbstractModelManager implements ModelNotific
 
 	public void updateRemoteProfiles(JSONObject remoteData) {
 		try {
-			if (remoteData.getBoolean("ok")) {
-				JSONObject jprojects = remoteData.getJSONObject("projects");
-				Iterator<?> prjit = jprojects.keys();
-				while (prjit.hasNext()) {
-					String prjkey = (String) prjit.next();
-					JSONObject jprj = jprojects.getJSONObject(prjkey);
-					Iterator<?> prfit = jprj.keys();
-					while (prfit.hasNext()) {
-						String prfkey = (String) prfit.next();
-						JSONObject jprf = jprj.getJSONObject(prfkey);
+			Iterator<?> projectIt = remoteData.keys();
+			while (projectIt.hasNext()) {
 
-						String title = jprf.getString("title");
-						// int seriesCount = jprf.getInt("series_count");
+				String jsonProjectId = (String) projectIt.next();
+				JSONArray jsonProjectArray = remoteData.getJSONArray(jsonProjectId);
 
-						String profileId = String.format("r.%s.%s", prjkey, prfkey);
+				for (int i = 0; i < jsonProjectArray.length(); i++) {
+					JSONObject jsonProfileContainerObj = jsonProjectArray.getJSONObject(i);
+					String jsonProfileTitle = jsonProfileContainerObj.getString("title");
+					JSONObject jsonProfileObj = jsonProfileContainerObj.getJSONObject("obj");
+					String jsonProfileId = jsonProfileObj.getString("id");
 
-						Model profile = get(profileId);
-						if (profile == null) {
-							profile = createEmptyProfile(profileId);
-						}
-						profile.setString("title", title, true);
-						profile.setBool("is_remote", true, true);
-						profile.setBool("requires_location", jprf.getBoolean("requires_location"), true);
-						profile.setBool("initial_edit", false);
-						
-						JSONObject inputs = jprf.getJSONObject("inputs");
-						Iterator<?> inpit = inputs.keys();
-						profile.clear("sensors", true);
+					String profileId = String.format("r.%s.%s", jsonProjectId, jsonProfileId);
 
-						while (inpit.hasNext()) {
-							String inpkey = (String) inpit.next();
-							JSONObject jinp = inputs.getJSONObject(inpkey);
-							double rate = jinp.getDouble("rate");
-							String sensorType = jinp.getString("sensor");
+					Model profile = get(profileId);
+					if (profile == null) {
+						profile = createEmptyProfile(profileId);
+					}
 
-							String sensorId = sensorType + ":0";
-							if (SensorWrapperManager.get().getSensors().containsKey(sensorId)) {
-								Model profileSensor = addSensor(profile, inpkey, sensorId, true);
-								profileSensor.setString("sensor_type", sensorType);
-								profileSensor.setDouble("sample_rate", rate, true);
-							}
+					profile.setString("title", jsonProfileTitle, true);
+					profile.setBool("initial_edit", false);
+					profile.setBool("is_remote", true, true);
+					profile.setBool("requires_location", jsonProfileObj.getBoolean("geolocated"), true);
+					
+					Model remoteInfo = profile.getModel("remote_info", true, true);
+					remoteInfo.setString("project", jsonProjectId);
+					remoteInfo.setString("profile", jsonProfileId);
+					
+					profile.clear("sensors", true);
+					
+					JSONArray jsonInputsArray = jsonProfileObj.getJSONArray("sensorInputs");
+
+					for (int j = 0; j < jsonInputsArray.length(); j++) {
+						JSONObject jsonInputObj = jsonInputsArray.getJSONObject(j);
+						String jsonInputId = jsonInputObj.getString("id");
+
+						double rate = jsonInputObj.getDouble("rate");
+						String sensorType = jsonInputObj.getString("sensor");
+
+						String sensorId = sensorType + ":0";
+						if (SensorWrapperManager.get().getSensors().containsKey(sensorId)) {
+							Model profileSensor = addSensor(profile, jsonInputId, sensorId, true);
+							profileSensor.setString("sensor_type", sensorType);
+							profileSensor.setDouble("sample_rate", rate, true);
 						}
 					}
 				}
-
-				this.forceSave();
-				listeners.fireEvent("list");
 			}
+
+			this.forceSave();
+			listeners.fireEvent("list");
+			
 		} catch (JSONException e) {
 			Log.d("stk remote update", e.getMessage());
 			e.printStackTrace();

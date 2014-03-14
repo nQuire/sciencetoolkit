@@ -47,7 +47,7 @@
                 android:background="@color/transparent"
                 android:scaleType="fitXY"
                 android:src="@drawable/project_button_cloud" 
-                android:visibility="gone"/>
+                android:visibility="visible"/>
         </RelativeLayout>
 
         <include layout="@layout/widget_lighter_line_mu" />

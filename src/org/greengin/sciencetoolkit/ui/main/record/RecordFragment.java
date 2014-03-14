@@ -205,12 +205,11 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 	private void uploadSeries() {
 		Model profile = ProfileManager.get().getActiveProfile();
-		String profileId = profile.getString("id");
 		int uploadState = DataLogger.get().currentUploadedStatus();
 
 		if (this.state == RecordState.DECIDING && profile.getBool("is_remote") && uploadState == 0) {
 			File series = DataLogger.get().getCurrentSeriesFile();
-			UploadRemoteAction action = new UploadRemoteAction(profileId, series);
+			UploadRemoteAction action = new UploadRemoteAction(profile, series);
 			((RemoteCapableActivity) getActivity()).remoteRequest(action);
 		}
 	}

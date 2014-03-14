@@ -4,8 +4,8 @@ package org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor;
 import java.io.File;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,7 +31,7 @@ public class SeriesDeleteDlg {
 			this.profile = profile;
 			this.series = series;
 
-			String seriesName = SeriesListFragment.seriesName(profile, series);
+			String seriesName = DataLogger.get().seriesName(profile, series);
 			setTitle(context.getString(R.string.series_delete_dlg_title));
 			
 			setMessage(String.format(context.getString(R.string.series_delete_dlg_msg), seriesName));

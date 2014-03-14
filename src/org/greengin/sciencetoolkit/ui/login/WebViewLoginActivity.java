@@ -1,6 +1,6 @@
 package org.greengin.sciencetoolkit.ui.login;
 
-import org.greengin.sciencetoolkit.logic.remote.RemoteApi2;
+import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -51,8 +51,8 @@ public class WebViewLoginActivity extends ActionBarActivity {
 					String[] parts = pairs[i].split("=", 2);
 					// If token is found, return it to the calling activity.
 					if (parts.length == 2 && parts[0].equalsIgnoreCase("JSESSIONID")) {
-						RemoteApi2.get().setSession(parts[1]);
-						finish();
+						RemoteApi.get().setSession(parts[1]);
+						//finish();
 					}
 				}
 			}
