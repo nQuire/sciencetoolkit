@@ -46,7 +46,8 @@
                 android:adjustViewBounds="true"
                 android:background="@color/transparent"
                 android:scaleType="fitXY"
-                android:src="@drawable/project_button_cloud" />
+                android:src="@drawable/project_button_cloud" 
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <include layout="@layout/widget_lighter_line_mu" />

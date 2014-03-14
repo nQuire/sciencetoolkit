@@ -12,10 +12,9 @@
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
     <string name="explore_sensor_added_to_recording">Sensor %1$s has been added to the RECORD tab.</string>
-    
     <string name="explore_confirm_hidden_sensors_title">More sensors!</string>
     <string name="explore_confirm_hidden_sensors_msg">For the complete list of available sensors in this device, go to "Show/hide sensors" in the top-right corner menu.</string>
-    
+
     <!-- main activity - explore tab - settings -->
     <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
 
@@ -118,9 +117,39 @@
     <string name="series_edit_name_msg">Edit title for this series of data.</string>
     <string name="series_delete_dlg_title">Remove series</string>
     <string name="series_delete_dlg_msg">Do you want to remove series %1$s from this device?</string>
-	
+    <string name="series_share_title">Share recorded series</string>
+    <string name="series_share_subject">Sense-it series: %1s</string>
+    <string name="series_share_body">Recorded series in CSV format attached.</string>
+
     <!-- ack -->
     <string name="ack_remember_decision">Don\'t show this again.</string>
     <string name="ack_remember_yes">Don\'t request confirmation again.</string>
-    
+
+    <!-- about -->
+    <string name="about_version">Sense-it app 1 Beta 1.0</string>
+    <string name="about_subtitle">A sensor app for Android</string>
+    <string name="about_cr">
+        <![CDATA[Copyright © 2014, 
+        <a href="http://www.open.ac.uk">The Open University</a>. All rights reserved.<br/>
+        Funded by <a href="http://www.nominettrust.org.uk/">Nominet Trust</a>.
+        ]]> 
+    </string>
+    <string name="about_link">www.nquire.info</string>
+    <string name="about_text">
+        <![CDATA[The Sense-it app is provided by 
+        <a href="http://www.open.ac.uk">The Open University</a>, UK, 
+        a company incorporated by Royal Charter in England and Wales. 
+        Our main office is at Walton Hall, Milton Keynes MK7 6AA. 
+        If you wish to contact us, send a letter to the above address or an email to 
+        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
+        
+        We exclude any warranty, express or implied, as to the quality, accuracy, timeliness, 
+        completeness, performance, fitness for a particular purpose of the application or any of its contents. 
+        We will not be liable for any damages (including without limitation damages for loss of profit, 
+        revenue or anticipated savings) arising in contract, tort or otherwise from the use of or 
+        inability to use the application or any of its contents or from any action taken 
+        (or refrained from being taken) as a result of using the application or any such contents. 
+        ]]>
+        </string>
+
 </resources>

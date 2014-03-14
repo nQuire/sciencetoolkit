@@ -1,5 +1,6 @@
 art
 res/drawable/sensor_*
+res/drawable/button_*
 bin
 gen
 .settings

@@ -32,6 +32,7 @@ public class SeriesListAdapter extends BaseAdapter {
 	OnClickListener discardListener;
 	OnClickListener editListener;
 	OnClickListener selectListener;
+	OnClickListener shareListener;
 
 	public SeriesListAdapter(Context context, String profileId, SeriesListListener listener, LayoutInflater inflater) {
 		this.context = context;
@@ -67,6 +68,13 @@ public class SeriesListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				SeriesListAdapter.this.listener.seriesDelete(profile, (File) v.getTag());
+			}
+		};
+		
+		this.shareListener = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SeriesListAdapter.this.listener.seriesShare(profile, (File) v.getTag());
 			}
 		};
 		
@@ -147,6 +155,11 @@ public class SeriesListAdapter extends BaseAdapter {
 			editButton.setOnClickListener(editListener);
 		}
 		
+		ImageButton shareButton = (ImageButton) view.findViewById(R.id.series_share);
+		shareButton.setTag(series);
+		if (newView) {
+			shareButton.setOnClickListener(shareListener);
+		}
 		
 		view.setTag(series);
 		if (newView) {

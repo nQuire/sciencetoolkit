@@ -45,13 +45,27 @@
         android:src="@drawable/project_button_config" />
 
     <ImageButton
-        android:id="@+id/series_upload"
+        android:id="@+id/series_share"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="@dimen/share_profile_button_size"
         android:layout_height="@dimen/share_profile_button_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/series_config"
+        android:adjustViewBounds="true"
+        android:background="@color/transparent"
+        android:contentDescription="@string/button_label_upload"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_share" />
+
+    <ImageButton
+        android:id="@+id/series_upload"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/series_share"
         android:adjustViewBounds="true"
         android:background="@color/transparent"
         android:contentDescription="@string/button_label_upload"

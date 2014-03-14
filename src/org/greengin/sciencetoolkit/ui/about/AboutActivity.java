@@ -6,8 +6,10 @@ import org.greengin.sciencetoolkit.ui.main.MainActivity;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.text.Html;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class AboutActivity extends SettingsControlledActivity {
 
@@ -19,6 +21,12 @@ public class AboutActivity extends SettingsControlledActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_welcome);
+		
+		TextView about = (TextView) findViewById(R.id.about_text);
+		about.setText(Html.fromHtml(getString(R.string.about_text)));
+		
+		TextView cr = (TextView) findViewById(R.id.about_cr);
+		cr.setText(Html.fromHtml(getString(R.string.about_cr)));
 	}
 
 	@Override

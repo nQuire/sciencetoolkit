@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.ui.dataviewer;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
@@ -13,6 +14,8 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -77,14 +80,13 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 	public void seriesDelete(Model profile, File series) {
 		SeriesDeleteDlg.open(getActivity(), profile, series, this);
 	}
-	
 
 	@Override
 	public void seriesDeleted(Model profile, File series) {
 		if (series.getName().equals(profile.getModel("dataviewer", true).getString("series"))) {
 			profile.getModel("dataviewer", true).clear("series");
 		}
-		
+
 		DataLogger.get().deleteData(profile.getString("id"), series);
 	}
 
@@ -102,7 +104,7 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 
 	@Override
 	public void seriesSelected(Model profile, File series) {
-		((DataViewerActivity)getActivity()).getSupportActionBar().setSelectedNavigationItem(1);
+		((DataViewerActivity) getActivity()).getSupportActionBar().setSelectedNavigationItem(1);
 	}
 
 	private class EditSeriesTitleManager implements EditTextActionListener {
@@ -124,11 +126,36 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 		}
 
 	}
-	
+
 	public static String seriesName(Model profile, File series) {
 		return profile.getModel("series", true).getModel(series.getName(), true, true).getString("title", series.getName().replaceFirst("[.][^.]+$", ""));
 	}
 
+	@Override
+	public void seriesShare(Model profile, File series) {
+		File export = DataLogger.get().getPublicFile(profile, series);
+		ArrayList<Uri> uris = new ArrayList<Uri>();
+		if (export != null) {
+			uris.add(Uri.fromFile(export));
+		}
 
+		if (uris.size() > 0) {
+			String shareMenuTitle = getResources().getString(R.string.series_share_title);
+			String subject = String.format(getResources().getString(R.string.series_share_subject), seriesName(profile, series));
+			String body = getResources().getString(R.string.series_share_body);
+
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+			sendIntent.setType("plain/text");
+			sendIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {});
+			sendIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+			ArrayList<String> bodyContent = new ArrayList<String>();
+			bodyContent.add(body);
+			sendIntent.putExtra(Intent.EXTRA_TEXT, bodyContent);
+
+			sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+			startActivity(Intent.createChooser(sendIntent, shareMenuTitle));
+		}
+	}
 
 }

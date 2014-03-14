@@ -1,9 +1,16 @@
 package org.greengin.sciencetoolkit.logic.datalogging;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 
+import org.greengin.sciencetoolkit.model.Model;
+
 import android.content.Context;
+import android.os.Environment;
 
 public class DataLoggerFileManager {
 
@@ -112,5 +119,43 @@ public class DataLoggerFileManager {
 		}
 		
 		f.delete();
+	}
+	
+	public File getPublicFile(Model profile, File series) {
+		String state = Environment.getExternalStorageState();
+		if (profile != null && series != null && Environment.MEDIA_MOUNTED.equals(state)) {
+			File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+			File export = null;
+			String filename = series.getName().replaceFirst("[.][^.]+$", "");
+			String baseName = String.format("senseit_%s_%s%%s.csv",  profile.getString("id"), filename);
+			for (int i = 0;; i++) {
+				String name = String.format(baseName, i == 0 ? "" : ("_" + i));
+				export = new File(path, name);
+				if (!export.exists()) {
+					break;
+				}
+			}
+
+			try {
+				InputStream in = new FileInputStream(series);
+			    OutputStream out = new FileOutputStream(export);
+
+			    // Transfer bytes from in to out
+			    byte[] buf = new byte[1024];
+			    int len;
+			    while ((len = in.read(buf)) > 0) {
+			        out.write(buf, 0, len);
+			    }
+			    in.close();
+			    out.close();
+			    
+				return export;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 }

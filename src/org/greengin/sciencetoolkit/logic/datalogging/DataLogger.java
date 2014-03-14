@@ -324,5 +324,9 @@ public class DataLogger {
 	public HashMap<String, String> getSensorsInSeries(File series) {
 		return this.serializer.getSensorsInSeries(series);
 	}
+	
+	public File getPublicFile(Model profile, File series) {
+		return this.fileManager.getPublicFile(profile, series);
+	}
 
 }

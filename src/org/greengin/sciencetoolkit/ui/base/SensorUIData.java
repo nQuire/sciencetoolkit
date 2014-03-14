@@ -87,6 +87,7 @@ public class SensorUIData {
 		case Sensor.TYPE_GRAVITY:
 			return R.drawable.sensor_gra;
 		case Sensor.TYPE_PROXIMITY:
+			return R.drawable.sensor_pro;
 		case Sensor.TYPE_SIGNIFICANT_MOTION:
 			return R.drawable.sensor_sigmot;
 		case Sensor.TYPE_STEP_COUNTER:
@@ -122,6 +123,10 @@ public class SensorUIData {
 			return R.drawable.sensor_snd;
 		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
 			return R.drawable.sensor_gps;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return R.drawable.sensor_cdma;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+			return R.drawable.sensor_gsm;
 		default:
 			return R.drawable.sensor_ste;
 		}

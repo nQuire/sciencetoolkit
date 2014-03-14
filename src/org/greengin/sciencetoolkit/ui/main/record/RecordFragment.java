@@ -337,7 +337,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			int newUnits = Math.min(2, Math.max(0, units));
 			double newRate = ModelOperations.fitFateInRange(rate, newUnits, null, ModelDefaults.DATA_LOGGING_RATE_MAX);
 			Model profileSensor = profile.getModel("sensors", true).getModel(profileSensorId, true);
-			profileSensor.setDouble("sample_rate", newRate, true);
+			profileSensor.setDouble("sample_rate", newRate);
 			profileSensor.setInt("sample_rate_ux", newUnits);
 			profile.setBool("initial_edit", false);
 		}
