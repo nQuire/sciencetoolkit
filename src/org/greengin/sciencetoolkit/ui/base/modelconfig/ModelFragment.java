@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.model.Model;
-import org.greengin.sciencetoolkit.ui.base.widgets.datetime.DateTimeHelperPair;
-import org.greengin.sciencetoolkit.ui.base.widgets.datetime.DateTimePickerHelper;
 import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper;
 import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform;
 import org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar;
@@ -214,39 +212,6 @@ public abstract class ModelFragment extends Fragment implements ModelKeyChangeLi
 		return spinner;
 	}
 
-	protected DateTimeHelperPair addOptionDateTime(String key, String label, String description, long defaultValue) {
-		return addOptionDateTime(key, label, description, false, defaultValue);
-	}
-
-	protected DateTimeHelperPair addOptionDateTime(String key, String label, String description, boolean includeSeconds, long defaultValue) {
-
-		EditText date = new EditText(rootContainer.getContext());
-		date.setClickable(true);
-		date.setFocusable(false);
-		date.setKeyListener(null);
-
-		DateTimePickerHelper dateHelper = new DateTimePickerHelper(getActivity(), date, model, key, "date", defaultValue, this);
-		date.setOnClickListener(dateHelper);
-
-		String timeType = includeSeconds ? "millis" : "time";
-
-		EditText time = new EditText(rootContainer.getContext());
-		time.setClickable(true);
-		time.setFocusable(false);
-		time.setKeyListener(null);
-
-		DateTimePickerHelper timeHelper = new DateTimePickerHelper(getActivity(), time, model, key, timeType, defaultValue, this);
-		time.setOnClickListener(timeHelper);
-
-		View[] views = new View[] { date, time };
-		addRow(label, description, views);
-
-		return new DateTimeHelperPair(dateHelper, timeHelper);
-	}
-
-	protected DateTimeHelperPair addOptionDateTimeMillis(String key, String label, String description, long defaultValue) {
-		return addOptionDateTime(key, label, description, true, defaultValue);
-	}
 
 	protected TransformSeekBar addOptionSeekbar(String modelKey, String widgetKey, String label, String description, Number defaultValue, SeekBarTransform transform) {
 		TransformSeekBar bar = new TransformSeekBar(rootContainer.getContext());

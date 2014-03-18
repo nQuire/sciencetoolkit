@@ -11,7 +11,6 @@ import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
 import org.greengin.sciencetoolkit.model.ProfileManager;
-import org.greengin.sciencetoolkit.ui.base.Arguments;
 import org.greengin.sciencetoolkit.ui.base.animations.Animations;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg;
@@ -21,10 +20,9 @@ import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView;
-import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -58,18 +56,17 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 	ImageButton buttonStart;
 	ImageButton buttonStop;
-	ImageButton buttonView;
+	//ImageButton buttonView;
 	ImageButton buttonDiscard;
-	ImageButton buttonShare;
-	ImageButton buttonUpload;
+	//ImageButton buttonShare;
+	//ImageButton buttonUpload;
 	ImageButton buttonKeep;
 
-	View buttonUploadContainer;
+	//View buttonUploadContainer;
 
 	LinearLayout recordingPanel;
 	LinearLayout seriesPanel;
-	int seriesPanelHeight;
-
+	
 	TextView recordingLabel;
 	TextView recordedLabel;
 
@@ -128,17 +125,16 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		buttonKeep = (ImageButton) rootView.findViewById(R.id.record_series_keep);
 		buttonKeep.setOnClickListener(this);
 
-		buttonUpload = (ImageButton) rootView.findViewById(R.id.record_series_upload);
+		/*buttonUpload = (ImageButton) rootView.findViewById(R.id.record_series_upload);
 		buttonUpload.setOnClickListener(this);
 		buttonUploadContainer = rootView.findViewById(R.id.record_series_upload_container);
-
+*/
 		buttonDiscard = (ImageButton) rootView.findViewById(R.id.record_series_discard);
 		buttonDiscard.setOnClickListener(this);
 
 		recordingPanel = (LinearLayout) rootView.findViewById(R.id.record_controls);
 
 		seriesPanel = (LinearLayout) rootView.findViewById(R.id.complete_series_controls);
-		seriesPanelHeight = 288;
 
 		ViewGroup.LayoutParams params = seriesPanel.getLayoutParams();
 		params.height = 0;
@@ -176,7 +172,8 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 	}
 
 	private void animateraiseSeriesPanel(boolean up) {
-		Animations.animateHeight(seriesPanel, up ? seriesPanelHeight : 0);
+		int height = up ? recordingPanel.getHeight() : 0;
+		Animations.animateHeight(seriesPanel, height);
 	}
 
 	private void stopSeries() {
@@ -232,8 +229,8 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 
 		boolean remote = ProfileManager.get().getActiveProfile().getBool("is_remote");
 		int remoteStatus = remote ? DataLogger.get().currentUploadedStatus() : 0;
-		buttonUploadContainer.setVisibility(remote ? View.VISIBLE : View.GONE);
-		buttonUpload.setEnabled(remote && remoteStatus == 0);
+		//buttonUploadContainer.setVisibility(remote ? View.VISIBLE : View.GONE);
+		//buttonUpload.setEnabled(remote && remoteStatus == 0);
 		buttonDiscard.setEnabled(remoteStatus != 1);
 
 		recordingIcon.setBlinking(state == RecordState.RECORDING);
@@ -304,15 +301,15 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			stopSeries();
 		} else if (v == buttonKeep) {
 			keepSeries();
-		} else if (v == buttonUpload) {
+		} /*else if (v == buttonUpload) {
 			uploadSeries();
-		} else if (v == buttonDiscard) {
+		} */else if (v == buttonDiscard) {
 			discardSeries();
-		} else if (v == buttonView) {
+		} /*else if (v == buttonView) {
 			Intent intent = new Intent(getActivity(), DataViewerActivity.class);
 			intent.putExtra(Arguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());
 			startActivity(intent);
-		}
+		}*/
 	}
 
 	@Override

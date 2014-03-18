@@ -23,13 +23,12 @@ public class ProjectItemManager {
 	OnClickListener editListener;
 
 	public static void setProjectIcons(View containerView, Model profile) {
-		boolean isDefault = ProfileManager.DEFAULT_PROFILE_ID.equals(profile.getString("id"));
 		boolean isRemote = profile.getBool("is_remote");
 		boolean geolocated = profile.getBool("requires_location");
 
-		containerView.findViewById(R.id.project_type_device).setVisibility(!isDefault && !isRemote ? View.VISIBLE : View.GONE);
-		containerView.findViewById(R.id.project_type_cloud).setVisibility(!isDefault && isRemote ? View.VISIBLE : View.GONE);
-		containerView.findViewById(R.id.project_type_geolocated).setVisibility(!isDefault && geolocated ? View.VISIBLE : View.GONE);
+		containerView.findViewById(R.id.project_type_device).setVisibility(!isRemote ? View.VISIBLE : View.GONE);
+		containerView.findViewById(R.id.project_type_cloud).setVisibility(isRemote ? View.VISIBLE : View.GONE);
+		containerView.findViewById(R.id.project_type_geolocated).setVisibility(geolocated ? View.VISIBLE : View.GONE);
 	}
 
 	public ProjectItemManager(ProjectItemEventListener listener) {

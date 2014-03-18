@@ -27,4 +27,9 @@
 	<color name="plot_main_line">#0a6015</color>
 	<color name="plot_minor_line">#0f4112</color>
 			
+	<!-- plots -->
+	<color name="plot_1">#00ace2</color>
+	<color name="plot_2">#dc1340</color>
+	<color name="plot_3">#fcc724</color>
+	<color name="plot_4">#b0b70f</color>
 </resources>

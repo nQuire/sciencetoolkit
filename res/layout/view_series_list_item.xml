@@ -25,7 +25,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@color/android:transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_delete" />
@@ -39,7 +39,7 @@
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/series_discard"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_config" />
@@ -53,7 +53,7 @@
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/series_config"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_upload"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_share" />
@@ -67,7 +67,7 @@
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/series_share"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_upload"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_cloud" />

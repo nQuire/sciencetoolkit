@@ -8,13 +8,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotFragment implements OnClickListener {
 
 
 	protected ImageButton closeButton;
-
-	
 
 	
 	@Override
@@ -27,6 +26,10 @@ public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotF
 		return R.layout.panel_plot_closable;
 	}
 
+	protected void setHeaderTitle(String title) {
+		((TextView) this.getView().findViewById(R.id.plot_header_label)).setText(title);
+	}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View plotPanel = super.onCreateView(inflater, container, savedInstanceState);

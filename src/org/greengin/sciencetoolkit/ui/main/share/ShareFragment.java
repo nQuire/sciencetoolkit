@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.main.share;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.ScienceToolkitApplication;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
@@ -67,7 +68,12 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 		buttonAddProject.setOnClickListener(this);
 
 		buttonUpdateProject = (ImageButton) rootView.findViewById(R.id.share_project_cloud);
-		buttonUpdateProject.setOnClickListener(this);
+		if (ScienceToolkitApplication.REMOTE_ENABLED) {
+			buttonUpdateProject.setVisibility(View.VISIBLE);
+			buttonUpdateProject.setOnClickListener(this);
+		} else {
+			buttonUpdateProject.setVisibility(View.GONE);
+		}
 
 		updateProfiles();
 
@@ -76,7 +82,8 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.share, menu);
+		int menuResource = ScienceToolkitApplication.REMOTE_ENABLED ? R.menu.share : R.menu.share_no_remote;
+		inflater.inflate(menuResource, menu);
 	}
 
 	@Override
@@ -118,7 +125,7 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	public void profileSelected(String profileId) {
 		if (DataLogger.get().isIdle() && profileId != null && !ProfileManager.get().profileIdIsActive(profileId)) {
 			ProfileManager.get().switchActiveProfile(profileId);
-			//this.updateProfiles();
+			// this.updateProfiles();
 		}
 	}
 

@@ -16,7 +16,6 @@ import com.androidplot.xy.YValueMarker;
 import android.app.Activity;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -88,7 +87,7 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 		int gridBackground = this.getActivity().getResources().getColor(R.color.plot_inner_background);
 		int lineColor = this.getActivity().getResources().getColor(R.color.plot_main_line);
 		int sublineColor = this.getActivity().getResources().getColor(R.color.plot_minor_line);
-		int transparent = this.getActivity().getResources().getColor(R.color.transparent);
+		int transparent = this.getActivity().getResources().getColor(android.R.color.transparent);
 		
 		plot.setBorderStyle(Plot.BorderStyle.NONE, null, null);
 
@@ -209,7 +208,6 @@ public abstract class AbstractXYSensorPlotFragment extends EventFragment {
 					if (scaleX && pmin1x != pmax1x) {
 						float nmaxx = (((minx - maxx) * pmax0x + maxx) * pmin1x + (maxx - minx) * pmax1x * pmin0x - maxx * pmax1x) / (pmin1x - pmax1x);
 						float nminx = nmaxx + ((minx - maxx) * pmin0x + (maxx - minx) * pmax0x) / (pmin1x - pmax1x);
-						Log.d("stk plot", "[" + minx + " " + maxx + "] [" + nminx + " " + nmaxx + "]");
 						maxx = nmaxx;
 						minx = nminx;
 						plot.setDomainBoundaries(minx, BoundaryMode.FIXED, maxx, BoundaryMode.FIXED);

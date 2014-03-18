@@ -4,6 +4,8 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
+import android.graphics.Color;
+
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.PointLabelFormatter;
 import com.androidplot.xy.XYPlot;
@@ -11,8 +13,8 @@ import com.androidplot.xy.XYSeries;
 
 public abstract class AbstractXYSensorSeriesWrapper {
 
-	private final static int[] LINE_STYLES = new int[] { R.xml.line_point_formatter_with_plf1, R.xml.line_point_formatter_with_plf2, R.xml.line_point_formatter_with_plf3, R.xml.line_point_formatter_with_plf4 };
-
+	static final int[] COLORS = new int[] {R.color.plot_1, R.color.plot_2, R.color.plot_3, R.color.plot_4};
+	
 	boolean[] showSeries;
 	SensorXYSeries[] seriesList;
 	protected int valueCount;
@@ -41,12 +43,18 @@ public abstract class AbstractXYSensorSeriesWrapper {
 	public void initSeries(XYPlot plot) { 
 		for (int i = 0; i < this.seriesList.length; i++) {
 			if (this.showSeries[i]) {
-				int resource = LINE_STYLES[i];
+				
+				int color = plot.getContext().getResources().getColor(COLORS[i % COLORS.length]);
 
 				LineAndPointFormatter seriesFormat = new LineAndPointFormatter();
 				seriesFormat.setPointLabelFormatter(new PointLabelFormatter());
-				seriesFormat.configure(plot.getContext(), resource);
+				seriesFormat.getFillPaint().setColor(Color.TRANSPARENT);
+				seriesFormat.getLinePaint().setStrokeWidth(2f);
+				seriesFormat.getLinePaint().setColor(color);;
+				seriesFormat.getVertexPaint().setColor(color);
+				
 				seriesFormat.setPointLabeler(null);
+				
 				plot.addSeries(this.seriesList[i], seriesFormat);
 			}
 		}

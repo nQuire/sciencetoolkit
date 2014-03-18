@@ -22,7 +22,7 @@
         android:layout_height="@dimen/button_in_list"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:focusable="false"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_config" />

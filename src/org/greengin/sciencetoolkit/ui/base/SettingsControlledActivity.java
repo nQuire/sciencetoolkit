@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class SettingsControlledActivity extends RemoteCapableActivity {
@@ -86,9 +85,7 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 	public void onResume() {
 		super.onResume();
 
-		Log.d("stk rotation", "resome 1");
 		if (controlledRotationActive) {
-			Log.d("stk rotation", "resome 2");
 			updateScreenOrientationValue();
 			SettingsManager.get().registerDirectListener("app", this.controlledRotationListener);
 		}
@@ -112,15 +109,12 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 	private void updateScreenOrientation() {
 		switch (controlledRotationLastValue) {
 		case 0:
-			Log.d("stk", "portrait");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 			break;
 		case 1:
-			Log.d("stk", "landscape");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 			break;
 		case 2:
-			Log.d("stk", "sensor");
 			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			break;
 		}

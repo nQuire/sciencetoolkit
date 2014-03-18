@@ -12,6 +12,7 @@
     <dimen name="record_header_icon_size">16dp</dimen>
     <dimen name="record_header_icon_margin">16dp</dimen>
     <dimen name="record_header_button_size">32dp</dimen>
+    <dimen name="record_button_size">64dp</dimen>
     
     <!-- share tab -->
     <dimen name="share_header_icon_size">16dp</dimen>

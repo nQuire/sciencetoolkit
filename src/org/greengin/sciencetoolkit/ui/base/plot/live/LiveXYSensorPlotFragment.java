@@ -51,7 +51,9 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 		SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.seriesSettings = SettingsManager.get().get("liveplot:" + sensorId);
 		this.series = new LiveXYSensorDataWrapper(plot, sensor, seriesSettings, getActivity());
-
+		
+		this.setHeaderTitle(sensor.getName());
+		
 		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", ModelDefaults.LIVEPLOT_SAMPLING_RATE, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, ModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
 		this.dataPipe = new DataPipe(sensor);

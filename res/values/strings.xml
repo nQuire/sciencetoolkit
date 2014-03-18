@@ -52,7 +52,7 @@
     <string name="share_projects_header">PROJECTS</string>
     <string name="share_project_active">[Active project]</string>
     <string name="share_project_inactive">[Inactive]</string>
-    <string name="default_profile_title">Deafult project</string>
+    <string name="default_profile_title">Default project</string>
     <string name="switch_profile_header">Switch active project?</string>
     <string name="switch_profile">Switch</string>
     <string name="project_type_device">Local project</string>
@@ -126,7 +126,7 @@
     <string name="ack_remember_yes">Don\'t request confirmation again.</string>
 
     <!-- about -->
-    <string name="about_version">Sense-it app 1 Beta 1.0</string>
+    <string name="about_version">Sense-it 1.0 Beta 1</string>
     <string name="about_subtitle">A sensor app for Android</string>
     <string name="about_cr">
         <![CDATA[Copyright © 2014, 

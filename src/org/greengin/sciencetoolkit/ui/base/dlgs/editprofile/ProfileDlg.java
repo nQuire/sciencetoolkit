@@ -23,6 +23,7 @@ public class ProfileDlg {
 		AlertDialog dlg;
 		ProfileActionListener listener;
 		boolean canDelete;
+		Context context;
 
 		public ProfileSensorDlgBuilder(Context context, Model profile, boolean canDelete, ProfileActionListener listener) {
 			super(context);
@@ -30,6 +31,7 @@ public class ProfileDlg {
 			this.listener = listener;
 			this.profile = profile;
 			this.canDelete = canDelete;
+			this.context = context;
 			
 			String title = profile.getString("title");
 
@@ -63,7 +65,7 @@ public class ProfileDlg {
 			} else if (which == DialogInterface.BUTTON_NEUTRAL) {
 						listener.profileTitleEditComplete(profile, null);
 			} else if (which == DialogInterface.BUTTON_NEGATIVE) {
-				ProfileDeleteDlg.open(getContext(), profile, listener);
+				ProfileDeleteDlg.open(context, profile, listener);
 			}
 			dlg.dismiss();
 		}

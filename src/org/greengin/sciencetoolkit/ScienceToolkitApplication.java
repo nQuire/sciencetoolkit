@@ -15,6 +15,8 @@ import android.content.Context;
 
 public class ScienceToolkitApplication extends Application {
 
+	public static final boolean REMOTE_ENABLED = true;
+	
     public void onCreate(){
         super.onCreate();
         Context context = this.getApplicationContext();

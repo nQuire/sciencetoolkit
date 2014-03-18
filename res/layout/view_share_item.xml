@@ -88,7 +88,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_config" />
@@ -102,7 +102,7 @@
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/profile_config"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_set"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_activate" />
@@ -115,7 +115,7 @@
         android:layout_marginRight="@dimen/share_profile_button_margin"
         android:layout_toLeftOf="@id/profile_config"
         android:adjustViewBounds="true"
-        android:background="@color/transparent"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_set"
         android:scaleType="fitXY"
         android:src="@drawable/icon_active" />
