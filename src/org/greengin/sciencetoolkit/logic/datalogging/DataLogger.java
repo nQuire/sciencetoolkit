@@ -146,10 +146,9 @@ public class DataLogger {
 			geolocated = profile.getBool("requires_location");
 
 			profile.setBool("initial_edit", false);
-			
-			if (geolocated) {
-				CurrentLocation.get().startlocation();
-			}
+
+			geolocated = profile.getBool("requires_location");
+
 
 			pipes.clear();
 
@@ -201,7 +200,6 @@ public class DataLogger {
 			serializer.close();
 
 			if (geolocated) {
-				// CurrentLocation.get().stoplocation();
 				String loc = CurrentLocation.get().locationString();
 				DataLogger.get().getSeriesMetadata(profileId, seriesFile).setString("location", loc);
 			}
@@ -332,6 +330,7 @@ public class DataLogger {
 	public String seriesName(Model profile, File series) {
 		return profile.getModel("series", true).getModel(series.getName(), true, true).getString("title", series.getName().replaceFirst("[.][^.]+$", ""));
 	}
+
 
 
 }

@@ -1,9 +1,10 @@
 package org.greengin.sciencetoolkit.logic.remote;
 
 
-import android.support.v7.app.ActionBarActivity;
+import org.greengin.sciencetoolkit.logic.appstatus.ApplicationStatusActivity;
 
-public class RemoteCapableActivity extends ActionBarActivity {
+
+public class RemoteCapableActivity extends ApplicationStatusActivity {
 	
 	
 	public void remoteRequest(RemoteAction action) {

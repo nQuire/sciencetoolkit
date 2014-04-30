@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit;
 
 
-
+import org.greengin.sciencetoolkit.logic.appstatus.ApplicationStatusManager;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.location.CurrentLocation;
@@ -27,6 +27,8 @@ public class ScienceToolkitApplication extends Application {
         
         DeprecatedDataLogger.init(context);
         DataLogger.init(context);
+        
+        ApplicationStatusManager.init(context);
         
         CurrentLocation.init(context);
         

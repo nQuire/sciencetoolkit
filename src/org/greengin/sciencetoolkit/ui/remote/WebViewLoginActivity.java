@@ -1,11 +1,11 @@
 package org.greengin.sciencetoolkit.ui.remote;
 
+import org.greengin.sciencetoolkit.logic.appstatus.ApplicationStatusActivity;
 import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.CookieManager;
@@ -14,7 +14,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class WebViewLoginActivity extends ActionBarActivity {
+public class WebViewLoginActivity extends ApplicationStatusActivity {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
