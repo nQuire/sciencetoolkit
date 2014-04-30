@@ -5,7 +5,6 @@ import java.util.List;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.ScienceToolkitApplication;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.model.Model;
@@ -18,6 +17,7 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
+import org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -89,11 +89,9 @@ public class ShareFragment extends EventFragment implements OnClickListener, Pro
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_application_login:
-			RemoteApi.get().tryToLogin((RemoteCapableActivity) getActivity());
-			return true;
-		case R.id.action_application_logout:
-			RemoteApi.get().logout();
+		case R.id.action_application_connect:
+			Intent intent = new Intent(getActivity(), ProjectBrowserActivity.class);
+			startActivity(intent);
 			return true;
 		}
 

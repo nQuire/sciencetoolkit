@@ -17,6 +17,7 @@ public abstract class RemoteJsonAction extends RemoteAction {
 			this.result(request, jobj);
 		} catch (JSONException e) {
 			this.error(request, "json");
+			Log.e("stk remote", result);
 			e.printStackTrace();
 		}
 	}

@@ -5,18 +5,25 @@ import java.io.InputStreamReader;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
-import org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity;
+import org.greengin.sciencetoolkit.ui.remote.WebViewLoginActivity;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.webkit.CookieSyncManager;
 
 public class RemoteApi {
+
+	public static final String REMOTE_EVENT_FILTER = "REMOTE_EVENT_FILTER";
+
+	public static final String DOMAIN = "pontos.open.ac.uk";
+	public static final String PATH = "/nquire-it/";
 
 	private static RemoteApi instance;
 
@@ -31,7 +38,16 @@ public class RemoteApi {
 	Context applicationContext;
 	boolean logged;
 	String token;
+	String username;
 	DefaultHttpClient httpClient;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public boolean isLogged() {
+		return logged;
+	}
 
 	private RemoteApi(Context applicationContext) {
 		this.applicationContext = applicationContext;
@@ -40,6 +56,7 @@ public class RemoteApi {
 
 		CookieSyncManager.createInstance(applicationContext);
 	}
+
 
 	public void request(RemoteCapableActivity activity, RemoteAction action, boolean afterLoginAttempt) {
 		if (logged) {
@@ -56,17 +73,17 @@ public class RemoteApi {
 
 	public void setSession(String session) {
 		BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", session);
-		cookie.setDomain("pontos.open.ac.uk");
-		cookie.setPath("/sense-it-web/");
+		cookie.setDomain(DOMAIN);
+		cookie.setPath(PATH);
 
 		httpClient.getCookieStore().addCookie(cookie);
 
-		new ActionThread(new LoginAction(true)).start();
+		new ActionThread(new GetTokenAction(true)).start();
 	}
 
 	public void logout() {
 		if (logged) {
-			new ActionThread(new LoginAction(false)).start();
+			new ActionThread(new GetTokenAction(false)).start();
 		}
 	}
 
@@ -86,10 +103,10 @@ public class RemoteApi {
 
 		public void run() {
 			try {
-				HttpRequestBase[] requests = action.createRequests("http://pontos.open.ac.uk/sense-it-web/api/");
+				HttpRequestBase[] requests = action.createRequests("http://" + DOMAIN + PATH + "api/");
 
 				for (int i = 0; i < requests.length; i++) {
-					requests[i].addHeader("token", token);
+					requests[i].addHeader("nquire-it-token", token);
 					action.aboutToRun(i);
 					try {
 						HttpResponse response = httpClient.execute(requests[i]);
@@ -103,27 +120,33 @@ public class RemoteApi {
 						response.getEntity().consumeContent();
 						action.result(i, answer.toString());
 					} catch (Exception e) {
+						e.printStackTrace();
 						action.error(i, e.getMessage());
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			Intent i = new Intent(REMOTE_EVENT_FILTER);
+			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(i);
 		}
 	}
 
-	private class LoginAction extends RemoteJsonAction {
+	private class GetTokenAction extends RemoteJsonAction {
 
 		boolean login;
 
-		public LoginAction(boolean login) {
+		public GetTokenAction(boolean login) {
 			this.login = login;
 		}
 
 		@Override
 		public HttpRequestBase[] createRequests(String urlBase) {
-			String url = String.format("%sopenid/%s", urlBase, login ? "profile" : "logout");
-			return new HttpRequestBase[] { new HttpGet(url) };
+
+			HttpRequestBase request = login ? new HttpGet(urlBase + "security/status") : new HttpPost(urlBase + "security/logout");
+
+			return new HttpRequestBase[] { request };
 		}
 
 		@Override
@@ -131,9 +154,11 @@ public class RemoteApi {
 			try {
 				token = result.getString("token");
 				logged = result.getBoolean("logged");
+				username = logged ? result.getJSONObject("profile").getString("username") : null;
 			} catch (Exception e) {
 				logged = false;
 				token = null;
+				username = null;
 			}
 
 			Log.d("stk remote", "logged: " + logged + " " + token);

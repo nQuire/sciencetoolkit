@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="31"
-    android:versionName="1.0 Beta 1" >
+    android:versionCode="32"
+    android:versionName="1.0 Beta 2" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -35,6 +35,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -71,13 +72,21 @@
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity"
+            android:name="org.greengin.sciencetoolkit.ui.remote.WebViewLoginActivity"
             android:label="@string/sensor_list_settings_activity_title"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
-        </application>
+        <activity
+            android:name="org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity"
+            android:label="@string/title_activity_project_browser" >
+            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+        </activity>
+    </application>
 
 </manifest>

@@ -107,16 +107,20 @@ public class SettingsControlledActivity extends RemoteCapableActivity {
 	}
 
 	private void updateScreenOrientation() {
-		switch (controlledRotationLastValue) {
-		case 0:
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-			break;
-		case 1:
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-			break;
-		case 2:
-			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-			break;
+		try {
+			switch (controlledRotationLastValue) {
+			case 0:
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				break;
+			case 1:
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				break;
+			case 2:
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+				break;
+			}
+		} catch (NullPointerException e) {
+
 		}
 	}
 

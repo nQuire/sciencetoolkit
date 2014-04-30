@@ -5189,7 +5189,7 @@ org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SensorConfigViewCreator:
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SoundSensorConfigViewCreator:
     9:9:public SoundSensorConfigViewCreator()
 org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment:
-    50:50:protected java.lang.String getDomainLabel()
+    49:49:protected java.lang.String getDomainLabel()
 org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserLayout:
     java.util.Hashtable viewPos
 org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment:

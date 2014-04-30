@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/share_item_vertical_padding"
+    android:paddingLeft="@dimen/share_item_horizontal_padding"
+    android:paddingRight="@dimen/share_item_horizontal_padding"
+    android:paddingTop="@dimen/share_item_vertical_padding" >
+
+    <TextView
+        android:id="@+id/project_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:singleLine="false"
+        android:textStyle="bold" />
+    
+    <TextView
+        android:id="@+id/project_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/project_title"
+        android:singleLine="true"/>
+    
+    <Button
+        android:id="@+id/project_toggle"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/project_browser_leave"/>
+    
+</RelativeLayout>

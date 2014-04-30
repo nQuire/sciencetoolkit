@@ -5,8 +5,6 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity;
-import org.greengin.sciencetoolkit.logic.remote.UploadRemoteAction;
 import org.greengin.sciencetoolkit.model.Model;
 import org.greengin.sciencetoolkit.model.ModelDefaults;
 import org.greengin.sciencetoolkit.model.ModelOperations;
@@ -200,7 +198,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		}
 	}
 
-	private void uploadSeries() {
+/*	private void uploadSeries() {
 		Model profile = ProfileManager.get().getActiveProfile();
 		int uploadState = DataLogger.get().currentUploadedStatus();
 
@@ -209,7 +207,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 			UploadRemoteAction action = new UploadRemoteAction(profile, series);
 			((RemoteCapableActivity) getActivity()).remoteRequest(action);
 		}
-	}
+	}*/
 
 	private void keepSeries() {
 		if (this.state == RecordState.DECIDING) {
@@ -248,6 +246,8 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		ProjectItemManager.setProjectIcons(projectTitlePanel, profile);
 		projectTitleView.setText(profile.getString("title"));
 		projectTitlePanel.setVisibility(View.VISIBLE);
+		
+		buttonAdd.setEnabled(!profile.getBool("is_remote") && DataLogger.get().isIdle());
 	}
 
 	private void switchProfile() {
