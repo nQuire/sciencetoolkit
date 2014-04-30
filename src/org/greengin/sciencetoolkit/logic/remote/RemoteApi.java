@@ -26,8 +26,8 @@ public class RemoteApi {
 	public static final String REMOTE_LOGIN_EVENT_FILTER = "REMOTE_EVENT_FILTER";
 
 	public static final String PROTOCOL = "http";
-	public static final String DOMAIN = "pontos.open.ac.uk";
-	public static final String PATH = "/nquire-it/";
+	public static final String DOMAIN = "nquire-it.org.uk";
+	public static final String PATH = "/";
 	public static final String WELCOME_PATH_SUFFIX = "welcome";
 
 	private static RemoteApi instance;
