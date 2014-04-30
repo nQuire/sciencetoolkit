@@ -11,6 +11,7 @@ import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.model.Model;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +49,7 @@ public class UploadRemoteAction extends RemoteJsonAction {
 	}
 
 	@Override
-	public void result(int request, JSONObject result) {
+	public void result(int request, JSONObject result, JSONArray array) {
 		try {
 			String id = result.getString("newItemId"); 
 			if (id != null) {

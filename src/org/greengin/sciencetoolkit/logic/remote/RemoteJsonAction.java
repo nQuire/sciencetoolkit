@@ -1,5 +1,6 @@
 package org.greengin.sciencetoolkit.logic.remote;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,19 +8,29 @@ import android.util.Log;
 
 public abstract class RemoteJsonAction extends RemoteAction {
 	
-	public abstract void result(int request, JSONObject result);
+	public abstract void result(int request, JSONObject result, JSONArray array);
 	
 	
 	final public void result(int request, String result) {
+		JSONObject jobj = null;
+		JSONArray jarray = null;
+		
 		try {
-			Log.d("stk remote", "upload: " + result);
-			JSONObject jobj = new JSONObject(result);
-			this.result(request, jobj);
-		} catch (JSONException e) {
-			this.error(request, "json");
+			jobj = new JSONObject(result);
+		} catch (JSONException ignored) {}
+		
+		try {
+			jarray = new JSONArray(result);
+		} catch (JSONException ignored) {}
+		
+		
+		if (jobj == null && jarray == null) {
 			Log.e("stk remote", result);
-			e.printStackTrace();
+			this.error(request, "json");
+		} else {
+			this.result(request, jobj, jarray);
 		}
+		
 	}
 
 }

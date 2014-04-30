@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.greengin.sciencetoolkit.R;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +41,6 @@ public class ProjectBrowserListAdapter extends BaseAdapter {
 	
 	public void updateProjectList(Vector<ProjectData> projects) {
 		this.projects = projects;
-		this.notifyDataSetChanged();
 	}
 
 	@Override
@@ -60,8 +60,9 @@ public class ProjectBrowserListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
 		ProjectData project = projects.get(position);
+		
+		Log.d("stk projects", position + " " + project.id + " " + project.joined);
 
 		boolean newView = convertView == null;
 		View view = newView ? inflater.inflate(R.layout.view_project_browser_item, parent, false) : convertView;

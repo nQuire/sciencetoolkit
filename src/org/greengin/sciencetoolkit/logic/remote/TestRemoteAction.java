@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.logic.remote;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.greengin.sciencetoolkit.model.ProfileManager;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TestRemoteAction extends RemoteJsonAction {
@@ -13,7 +14,7 @@ public class TestRemoteAction extends RemoteJsonAction {
 	}
 
 	@Override
-	public void result(int request, JSONObject result) {
+	public void result(int request, JSONObject result, JSONArray array) {
 		ProfileManager.get().updateRemoteProfiles(result);
 	}
 

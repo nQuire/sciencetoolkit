@@ -2,6 +2,8 @@ package org.greengin.sciencetoolkit.logic.remote;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Vector;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -10,6 +12,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
 import org.greengin.sciencetoolkit.ui.remote.WebViewLoginActivity;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -20,10 +23,12 @@ import android.webkit.CookieSyncManager;
 
 public class RemoteApi {
 
-	public static final String REMOTE_EVENT_FILTER = "REMOTE_EVENT_FILTER";
+	public static final String REMOTE_LOGIN_EVENT_FILTER = "REMOTE_EVENT_FILTER";
 
+	public static final String PROTOCOL = "http";
 	public static final String DOMAIN = "pontos.open.ac.uk";
 	public static final String PATH = "/nquire-it/";
+	public static final String WELCOME_PATH_SUFFIX = "welcome";
 
 	private static RemoteApi instance;
 
@@ -41,6 +46,10 @@ public class RemoteApi {
 	String username;
 	DefaultHttpClient httpClient;
 
+	Vector<RemoteAction> queue;
+	boolean running;
+	ReentrantLock runningLock;
+
 	public String getUsername() {
 		return username;
 	}
@@ -54,21 +63,42 @@ public class RemoteApi {
 		this.httpClient = new DefaultHttpClient();
 		this.logged = false;
 
+		queue = new Vector<RemoteAction>();
+		running = false;
+		runningLock = new ReentrantLock();
+
 		CookieSyncManager.createInstance(applicationContext);
 	}
 
-
-	public void request(RemoteCapableActivity activity, RemoteAction action, boolean afterLoginAttempt) {
+	public void request(RemoteCapableActivity activity, RemoteAction action) {
+		queue.add(action);
 		if (logged) {
-			execute(action);
-		} else if (!afterLoginAttempt) {
-			activity.remoteSetOnResumeAction(action);
+			if (!running) {
+				executeOne();
+			}
+		} else {
 			tryToLogin(activity);
 		}
 	}
 
-	private void execute(RemoteAction action) {
-		new ActionThread(action).start();
+	public void resumeRequests(RemoteCapableActivity activity) {
+		if (logged) {
+			if (queue.size() > 0 && !running) {
+				executeOne();
+			}
+		} else {
+			queue.clear();
+		}
+	}
+
+	private void executeOne() {
+		try {
+			running = true;
+			RemoteAction action = queue.remove(0);
+			new ActionThread(action).start();
+		} catch (Exception e) {
+			running = false;
+		}
 	}
 
 	public void setSession(String session) {
@@ -102,6 +132,7 @@ public class RemoteApi {
 		}
 
 		public void run() {
+			Log.d("stk remote", "start: " + action.getClass().getSimpleName());
 			try {
 				HttpRequestBase[] requests = action.createRequests("http://" + DOMAIN + PATH + "api/");
 
@@ -118,6 +149,7 @@ public class RemoteApi {
 						}
 						reader.close();
 						response.getEntity().consumeContent();
+
 						action.result(i, answer.toString());
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -127,9 +159,10 @@ public class RemoteApi {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			Intent i = new Intent(REMOTE_EVENT_FILTER);
-			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(i);
+
+			Log.d("stk remote", "end: " + action.getClass().getSimpleName());
+
+			executeOne();
 		}
 	}
 
@@ -150,7 +183,7 @@ public class RemoteApi {
 		}
 
 		@Override
-		public void result(int request, JSONObject result) {
+		public void result(int request, JSONObject result, JSONArray array) {
 			try {
 				token = result.getString("token");
 				logged = result.getBoolean("logged");
@@ -162,6 +195,10 @@ public class RemoteApi {
 			}
 
 			Log.d("stk remote", "logged: " + logged + " " + token);
+			Log.d("stk remote", result.toString());
+
+			Intent i = new Intent(REMOTE_LOGIN_EVENT_FILTER);
+			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(i);
 		}
 	}
 
