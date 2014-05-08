@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <color name="background_main">#333333</color>
+    <color name="background_tabs">#30ffff</color>
+    <color name="darker_line">#2e3031</color>
+    <color name="lighter_line">#39393b</color>
+    <color name="background_button_panel">#232425</color>
+    <color name="background_button_panel_header">#1e1b1e</color>
+    
+    <color name="list_item_selected">#247396</color>
+    
+    <color name="subtle_text">#a0a0a0</color>
+    
+    
+    <color name="dark_text_button">#232425</color>
+    <color name="dark_text_button_pressed">#5e6164</color>
+    
+</resources>

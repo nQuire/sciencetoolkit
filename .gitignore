@@ -1,7 +1,18 @@
-art
-res/drawable/sensor_*
-res/drawable/button_*
-bin
-gen
-.settings
+.metadata
 
+android-support-v7-appcompat
+
+senseit/res/drawable/sensor_*
+senseit/res/drawable/button_*
+senseit/bin
+senseit/gen
+senseit/.settings
+
+
+libandroidplot/bin
+libandroidplot/gen
+libandroidplot/.settings
+
+libcommon/bin
+libcommon/gen
+libcommon/.settings

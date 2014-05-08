@@ -1,0 +1,64 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    <!-- common -->
+    <dimen name="button_in_list">32dp</dimen>
+    <dimen name="sensor_icon_big_size">64dp</dimen>
+    
+    <!-- record item -->
+    <dimen name="record_project_panel_margin">5dp</dimen>
+    <dimen name="record_item_vertical_margin">8dp</dimen>
+    <dimen name="record_item_icon_margin">16dp</dimen>
+    <dimen name="button_pane_vertical_margin">16dp</dimen>
+    <dimen name="record_header_icon_size">16dp</dimen>
+    <dimen name="record_header_icon_margin">16dp</dimen>
+    <dimen name="record_header_button_size">32dp</dimen>
+    <dimen name="record_button_size">64dp</dimen>
+    
+    <!-- share tab -->
+    <dimen name="share_header_icon_size">16dp</dimen>
+    <dimen name="share_header_icon_margin">8dp</dimen>
+    <dimen name="share_header_button_size">38dp</dimen>
+    <dimen name="share_header_button_margin">16dp</dimen>
+    <dimen name="share_profile_button_size">24dp</dimen>
+    <dimen name="share_profile_button_margin">12dp</dimen>
+    <dimen name="share_item_vertical_padding">16dp</dimen>
+    <dimen name="share_item_horizontal_padding">8dp</dimen>
+    <dimen name="share_project_list_margin">8dp</dimen>
+    <dimen name="share_profile_small_icon_size">16dp</dimen>
+    <dimen name="share_profile_small_icon_margin">8dp</dimen>
+    <dimen name="share_section_margin">32dp</dimen>
+    
+    <!-- separator lines -->
+    <dimen name="darker_line_margin">10dp</dimen>
+    <dimen name="darker_line_height">2dp</dimen>
+    <dimen name="lighter_line_margin">10dp</dimen>
+    <dimen name="lighter_line_height">2dp</dimen>
+
+    <!-- text button -->
+    <dimen name="dark_text_button_padding_horizontal">10dp</dimen>
+    <dimen name="dark_text_button_padding_vertical">5dp</dimen>
+    
+    <!-- plot -->
+    <dimen name="plot_header_padding_vertical">12dp</dimen>
+    <dimen name="plot_header_padding_horizontal">12dp</dimen>
+    <dimen name="plot_header_button_size">38dp</dimen>
+    <dimen name="plot_margin">16dp</dimen>
+    <dimen name="plot_padding">16dp</dimen>
+    <dimen name="plot_padding_bottom">32dp</dimen>
+    
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="section_header_padding_top">24dp</dimen>
+    <dimen name="section_header_padding_bottom">12dp</dimen>
+    <dimen name="section_header_text_size">18dp</dimen>
+    <dimen name="plot_domain_label_font_size">10dp</dimen>
+    <dimen name="plot_range_label_font_size">10dp</dimen>
+    <dimen name="plot_range_tick_label_font_size">8dp</dimen>
+    <dimen name="plot_domain_tick_label_font_size">8dp</dimen>
+    <dimen name="plot_legend_text_font_size">10dp</dimen>
+    <dimen name="plot_title_font_size">13dp</dimen>
+    <dimen name="plot_point_font_size">8dp</dimen>
+
+</resources>

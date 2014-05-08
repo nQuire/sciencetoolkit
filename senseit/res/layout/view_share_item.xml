@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_list_background"
+    android:focusable="false"
+    android:paddingBottom="@dimen/share_item_vertical_padding"
+    android:paddingLeft="@dimen/share_item_horizontal_padding"
+    android:paddingRight="@dimen/share_item_horizontal_padding"
+    android:paddingTop="@dimen/share_item_vertical_padding" >
+
+    <LinearLayout
+        android:id="@+id/share_default_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/profile_icons"
+            android:layout_width="@dimen/share_profile_small_icon_size"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/project_type_device"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_device"
+                android:src="@drawable/type_device" />
+
+            <ImageView
+                android:id="@+id/project_type_cloud"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_cloud"
+                android:src="@drawable/type_cloud" />
+
+            <ImageView
+                android:id="@+id/project_type_geolocated"
+                android:layout_width="@dimen/share_profile_small_icon_size"
+                android:layout_height="@dimen/share_profile_small_icon_size"
+                android:contentDescription="@string/project_type_geolocated"
+                android:src="@drawable/type_geolocated" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile_texts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/profile_icons"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+                android:ellipsize="none"
+                android:singleLine="false" />
+
+            <TextView
+                android:id="@+id/active_project_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin" />
+
+            <TextView
+                android:id="@+id/profile_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_name"
+                android:layout_marginLeft="@dimen/share_profile_small_icon_margin"
+                android:layout_toRightOf="@id/profile_icons"
+                android:ellipsize="none"
+                android:singleLine="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/profile_config"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/button_in_list"
+        android:layout_height="@dimen/button_in_list"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_label_delete"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_config" />
+
+    <ImageButton
+        android:id="@+id/profile_activate"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/button_in_list"
+        android:layout_height="@dimen/button_in_list"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/profile_config"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_label_set"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_activate" />
+
+    <ImageView
+        android:id="@+id/profile_active_big"
+        android:layout_width="@dimen/button_in_list"
+        android:layout_height="@dimen/button_in_list"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/profile_config"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_label_set"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_active" />
+
+</RelativeLayout>

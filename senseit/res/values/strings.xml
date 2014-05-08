@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Sense-it</string>
+
+    <!-- main activity -->
+    <string name="main_activity_tab_1">Explore</string>
+    <string name="main_activity_tab_2">Record</string>
+    <string name="main_activity_tab_3">Share</string>
+    <string name="app_settings_activity_title">Global settings</string>
+
+    <!-- main activity - explore tab -->
+    <string name="explore_sensor_icon_description">Sensor icon</string>
+    <string name="explore_sensor_added_to_recording">Sensor %1$s has been added to the RECORD tab.</string>
+    <string name="explore_confirm_hidden_sensors_title">More sensors!</string>
+    <string name="explore_confirm_hidden_sensors_msg">For the complete list of available sensors in this device, go to "Show/hide sensors" in the top-right corner menu.</string>
+
+    <!-- main activity - explore tab - settings -->
+    <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
+
+    <!-- main activity - record tab -->
+    <string name="record_project_title_label">Project: </string>
+    <string name="selected_sensors">SELECTED SENSORS</string>
+    <string name="sampling_rate">Sampling rate: </string>
+    <string name="sampling_rate_sec">%1$s/s</string>
+    <string name="sampling_rate_min">%1$s/min</string>
+    <string name="sampling_rate_hour">%1$s/hour</string>
+    <string name="no_sensor_selected">&lt;select specific sensor&gt;</string>
+    <string name="record_series_start">Start</string>
+    <string name="record_series_stop">Stop</string>
+    <string name="record_series_view">View data</string>
+    <string name="record_series_discard">Discard</string>
+    <string name="record_series_keep">Save</string>
+    <string name="record_series_share">Share</string>
+    <string name="record_series_upload">Upload</string>
+    <string name="add_profile_sensor_title">Add sensors</string>
+    <string name="add_profile_sensor_msg">Select sensors for data recording.</string>
+    <string name="add_profile_sensor_oklabel0">Add selected</string>
+    <string name="add_profile_sensor_oklabel1">Add 1 sensor</string>
+    <string name="add_profile_sensor_oklabelmany">Add %1d sensors</string>
+    <string name="profile_sensor_not_selected">&lt;no sensor selected&gt;</string>
+    <string name="recording_1">Recording: 1 sample</string>
+    <string name="recording_many">Recording: %1d samples</string>
+    <string name="recorded_1">Recorded series: 1 sample</string>
+    <string name="recorded_many">Recorded series: %1d samples</string>
+    <string name="delete_profile_sensor_dlg_title">Remove sensor</string>
+    <string name="delete_profile_sensor_dlg_msg">Do you want to remove %1$s from this project?</string>
+    <string name="delete_profile_dlg_title">Remove project</string>
+    <string name="delete_profile_dlg_msg">Do you want to remove project %1$s and all its recorded data from this device?</string>
+
+    <!-- main activity - share tab -->
+    <string name="share_projects_header">PROJECTS</string>
+    <string name="share_project_active">[Active project]</string>
+    <string name="share_project_inactive">[Inactive]</string>
+    <string name="default_profile_title">Default project</string>
+    <string name="switch_profile_header">Switch active project?</string>
+    <string name="switch_profile">Switch</string>
+    <string name="project_type_device">Local project</string>
+    <string name="project_type_cloud">Remote project</string>
+    <string name="project_type_geolocated">Geolocated project</string>
+    <string name="new_project_dlg_title">Create new project</string>
+    <string name="new_project_dlg_message">Input the name for your new project.</string>
+    <string name="new_project_dlg_oklabel">Create</string>
+
+    <!-- plot -->
+    <string name="plot_live_label">LIVE VALUES</string>
+    <string name="plot_recording_label">RECORDING IN PROGRESS</string>
+
+    <!-- data count -->
+    <string name="data_count_none">No data</string>
+    <string name="data_count_one">1 sample</string>
+    <string name="data_count_many">%1d samples</string>
+    <string name="series_count_none">No series</string>
+    <string name="series_count_one">1 series</string>
+    <string name="series_count_many">%1d series</string>
+
+
+    <!-- menu items -->
+    <string name="menu_item_sensor_select">Show/hide sensors</string>
+    <string name="menu_item_application_about">About Sense-it</string>
+    <string name="menu_item_application_connect">Connect</string>
+
+    <!-- seconds picker dlg -->
+    <string name="dialog_seconds_picker_title">Set time</string>
+    <string name="dialog_seconds_picker_time_separator">:</string>
+    <string name="dialog_seconds_picker_time_ms_separator">.</string>
+
+    <!-- rate -->
+    <string name="sample_rate_dlg_msg">Select the sampling rate for this sensor, or remove it from this list.</string>
+    <string name="sample_rate_label">Sample rate: </string>
+    <string name="sample_rate_separator"> / </string>
+    <string name="sample_rate_ok">Update</string>
+    <string name="sample_rate_delete">Remove</string>
+    <string name="sample_rate_prompt">Select units</string>
+
+    <string-array name="sample_rate_units">
+        <item>sec</item>
+        <item>min</item>
+        <item>hour</item>
+    </string-array>
+
+    <!-- data viewer -->
+    <string name="data_viewer_activity_title">Data viewer</string>
+    <string name="data_viewer_tab_1">Series</string>
+    <string name="data_viewer_tab_2">Plot</string>
+    <string name="series_edit_name_title">Series title</string>
+    <string name="series_edit_name_msg">Edit title for this series of data.</string>
+    <string name="series_delete_dlg_title">Remove series</string>
+    <string name="series_delete_dlg_msg">Do you want to remove series %1$s from this device?</string>
+    <string name="series_share_title">Share recorded series</string>
+    <string name="series_share_subject">Sense-it series: %1s</string>
+    <string name="series_share_body">Recorded series in CSV format attached.</string>
+
+    <!-- project browser -->
+    <string name="project_browser_not_logged">Not logged in.</string>
+    <string name="project_browser_logged_in">Logged in as: %1s.</string>
+    <string name="project_browser_login">Sign in</string>
+    <string name="project_browser_logout">Log out</string>
+    <string name="project_browser_join">Join</string>
+    <string name="project_browser_leave">Leave</string>
+    <string name="project_browser_projects">Projects:</string>
+    
+
+    <!-- about -->
+    <string name="about_version">Sense-it 1.0 Beta 1</string>
+    <string name="about_subtitle">A sensor app for Android</string>
+    <string name="about_cr">
+<![CDATA[Copyright © 2014, 
+        <a href="http://www.open.ac.uk">The Open University</a>. All rights reserved.<br/>
+        Funded by <a href="http://www.nominettrust.org.uk/">Nominet Trust</a>.
+        ]]>
+    </string>
+    <string name="about_link">www.nquire.info</string>
+    <string name="about_text">
+<![CDATA[The Sense-it app is provided by 
+        <a href="http://www.open.ac.uk">The Open University</a>, UK, 
+        a company incorporated by Royal Charter in England and Wales. 
+        Our main office is at Walton Hall, Milton Keynes MK7 6AA. 
+        If you wish to contact us, send a letter to the above address or an email to 
+        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
+        
+        We exclude any warranty, express or implied, as to the quality, accuracy, timeliness, 
+        completeness, performance, fitness for a particular purpose of the application or any of its contents. 
+        We will not be liable for any damages (including without limitation damages for loss of profit, 
+        revenue or anticipated savings) arising in contract, tort or otherwise from the use of or 
+        inability to use the application or any of its contents or from any action taken 
+        (or refrained from being taken) as a result of using the application or any such contents. 
+        ]]>
+    </string>
+    <string name="title_activity_project_browser">Shared Project Browser</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
