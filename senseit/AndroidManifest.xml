@@ -56,7 +56,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkig.common.ui.base.AppSettingsActivity"
+            android:name="org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity"
             android:label="@string/app_settings_activity_title"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
@@ -80,7 +80,7 @@
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity"
+            android:name="org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity"
             android:label="@string/title_activity_project_browser" >
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data

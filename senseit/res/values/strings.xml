@@ -111,14 +111,7 @@
     <string name="series_share_subject">Sense-it series: %1s</string>
     <string name="series_share_body">Recorded series in CSV format attached.</string>
 
-    <!-- project browser -->
-    <string name="project_browser_not_logged">Not logged in.</string>
-    <string name="project_browser_logged_in">Logged in as: %1s.</string>
-    <string name="project_browser_login">Sign in</string>
-    <string name="project_browser_logout">Log out</string>
-    <string name="project_browser_join">Join</string>
-    <string name="project_browser_leave">Leave</string>
-    <string name="project_browser_projects">Projects:</string>
+    
     
 
     <!-- about -->
@@ -147,8 +140,5 @@
         (or refrained from being taken) as a result of using the application or any such contents. 
         ]]>
     </string>
-    <string name="title_activity_project_browser">Shared Project Browser</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
 </resources>

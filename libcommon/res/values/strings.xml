@@ -12,11 +12,20 @@
     <string name="button_label_delete">Delete</string>
     <string name="button_label_view">View</string>
     <string name="button_label_close">Close</string>
-    
-        
+
     <!-- ack -->
     <string name="ack_remember_decision">Don\'t show this again.</string>
     <string name="ack_remember_yes">Don\'t request confirmation again.</string>
-    
+
+    <!-- project browser -->
+    <string name="project_browser_not_logged">Not logged in.</string>
+    <string name="project_browser_logged_in">Logged in as: %1s.</string>
+    <string name="project_browser_login">Sign in</string>
+    <string name="project_browser_logout">Log out</string>
+    <string name="project_browser_join">Join</string>
+    <string name="project_browser_leave">Leave</string>
+    <string name="project_browser_projects">Projects:</string>
+    <string name="title_activity_project_browser">Shared Project Browser</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

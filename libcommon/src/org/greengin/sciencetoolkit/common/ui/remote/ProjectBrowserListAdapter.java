@@ -1,8 +1,8 @@
-package org.greengin.sciencetoolkit.ui.remote;
+package org.greengin.sciencetoolkit.common.ui.remote;
 
 import java.util.Vector;
 
-import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.common.R;
 
 import android.util.Log;
 import android.view.LayoutInflater;

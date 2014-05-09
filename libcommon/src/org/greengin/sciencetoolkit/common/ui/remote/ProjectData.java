@@ -1,4 +1,4 @@
-package org.greengin.sciencetoolkit.ui.remote;
+package org.greengin.sciencetoolkit.common.ui.remote;
 
 public class ProjectData {
 	

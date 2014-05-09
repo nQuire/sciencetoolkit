@@ -2,12 +2,12 @@ package org.greengin.sciencetoolkit.ui.main.share;
 
 import java.util.List;
 
+import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.ui.base.SenseItArguments;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg;
@@ -16,7 +16,7 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
 import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
 import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
-import org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity;
+import org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -90,7 +90,7 @@ public class ShareFragment extends EventFragment implements OnClickListener,
 		switch (item.getItemId()) {
 		case R.id.action_application_connect:
 			Intent intent = new Intent(getActivity(),
-					ProjectBrowserActivity.class);
+					SenseItProjectBrowserActivity.class);
 			startActivity(intent);
 			return true;
 		}

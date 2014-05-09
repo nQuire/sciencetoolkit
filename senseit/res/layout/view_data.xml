@@ -1,4 +1,4 @@
-<org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<org.greengin.sciencetoolkit.common.ui.base.widgets.StkViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pager"
     android:layout_width="match_parent"

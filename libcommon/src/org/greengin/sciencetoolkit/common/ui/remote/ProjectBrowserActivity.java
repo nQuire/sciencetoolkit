@@ -1,15 +1,14 @@
-package org.greengin.sciencetoolkit.ui.remote;
+package org.greengin.sciencetoolkit.common.ui.remote;
 
 import java.util.Vector;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.greengin.sciencetoolkit.common.R;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteJsonAction;
 import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
-import org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction;
-import org.greengin.sciencetoolkit.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,10 +28,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.content.BroadcastReceiver;
 
-public class ProjectBrowserActivity extends RemoteCapableActivity implements ProjectMembershipListener {
+public abstract class ProjectBrowserActivity extends RemoteCapableActivity implements ProjectMembershipListener {
 
 	public static final String REMOTE_PROJECT_DATA_EVENT_FILTER = "REMOTE_PROJECT_DATA_EVENT_FILTER";
-
+	
+	String projectType;
+	
 	ProjectBrowserListAdapter adapter;
 	BroadcastReceiver loginEventReceiver;
 	BroadcastReceiver projectsEventReceiver;
@@ -40,7 +41,12 @@ public class ProjectBrowserActivity extends RemoteCapableActivity implements Pro
 	TextView status;
 	Button loginToggle;
 	ListView list;
-
+	
+	public ProjectBrowserActivity(String projectType) {
+		super();
+		this.projectType = projectType;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -143,6 +149,7 @@ public class ProjectBrowserActivity extends RemoteCapableActivity implements Pro
 		findViewById(R.id.project_browser_header).invalidate();
 		Log.d("stk projects", "updated");
 	}
+	
 
 	/**
 	 * 
@@ -172,9 +179,9 @@ public class ProjectBrowserActivity extends RemoteCapableActivity implements Pro
 			HttpRequestBase[] requests = new HttpRequestBase[1];
 
 			if (action == null) {
-				requests[0] = new HttpGet(urlBase + "projects/senseit");
+				requests[0] = new HttpGet(String.format("%sprojects/%s", urlBase, projectType));
 			} else {
-				requests[0] = new HttpPut(String.format("%sprojects/senseit/%d/%s", urlBase, projectId, action));
+				requests[0] = new HttpPut(String.format("%sprojects/%s/%d/%s", urlBase, projectType, projectId, action));
 			}
 
 			return requests;
@@ -207,9 +214,11 @@ public class ProjectBrowserActivity extends RemoteCapableActivity implements Pro
 			LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
 
 			if (action != null) {
-				remoteRequest(new UpdateRemoteAction());
+				projectMembershipUpdated();
 			}
 		}
 	}
+	
+	protected abstract void projectMembershipUpdated();
 
 }
