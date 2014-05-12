@@ -13,8 +13,8 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionLi
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
-import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class SeriesListFragment extends EventFragment implements SeriesListListener, SeriesActionListener {
+public class SeriesListFragment extends SenseItEventFragment implements SeriesListListener, SeriesActionListener {
 
 	SeriesListAdapter adapter;
 	String profileId;
@@ -71,7 +71,7 @@ public class SeriesListFragment extends EventFragment implements SeriesListListe
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class EventListener extends EventManagerListener {
+	private class EventListener extends SenseItEventManagerListener {
 		@Override
 		public void eventDataStatus(String event, boolean whilePaused) {
 			adapter.updateSeriesList();

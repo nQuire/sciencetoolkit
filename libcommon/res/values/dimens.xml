@@ -1,10 +1,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	
+
     <!-- common -->
     <dimen name="button_in_list">32dp</dimen>
-    
+    <dimen name="header_button_size">32dp</dimen>
+    <dimen name="header_button_margin">16dp</dimen>
+    <dimen name="header_icon_size">16dp</dimen>
+    <dimen name="header_icon_margin">16dp</dimen>
 
-    
     <!-- separator lines -->
     <dimen name="darker_line_margin">10dp</dimen>
     <dimen name="darker_line_height">2dp</dimen>

@@ -24,9 +24,9 @@
 
             <org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView
                 android:id="@+id/recording_icon"
-                android:layout_width="@dimen/record_header_icon_size"
-                android:layout_height="@dimen/record_header_icon_size"
-                android:layout_marginRight="@dimen/record_header_icon_margin"
+                android:layout_width="@dimen/header_icon_size"
+                android:layout_height="@dimen/header_icon_size"
+                android:layout_marginRight="@dimen/header_icon_margin"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/recording" />
@@ -313,8 +313,8 @@
 
                     <ImageButton
                         android:id="@+id/record_sensor_add"
-                        android:layout_width="@dimen/record_header_button_size"
-                        android:layout_height="@dimen/record_header_button_size"
+                        android:layout_width="@dimen/header_button_size"
+                        android:layout_height="@dimen/header_button_size"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@android:color/transparent"

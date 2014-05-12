@@ -13,7 +13,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.ui.base.SenseItArguments;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
@@ -104,7 +104,7 @@ public class SeriesXYSensorPlotFragment extends AbstractXYSensorPlotFragment imp
 		setSensor(sensorId);
 	}
 
-	private class SeriesEventManagerListener extends EventManagerListener {
+	private class SeriesEventManagerListener extends SenseItEventManagerListener {
 		@Override
 		public void eventProfile(String event, boolean whilePaused) {
 			update();

@@ -2,5 +2,24 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Spot-it</string>
+    
+    <!-- menu -->
+    <string name="menu_item_application_connect">Connect</string>
+    <string name="menu_item_application_about">About</string>
+
+    <!-- main activity -->
+    <string name="main_activity_tab_1">Projects</string>
+    <string name="main_activity_tab_2">Images</string>
+    <string name="main_activity_tab_3">Spot it!</string>
+
+    <!-- projects tab -->
+    <string name="projects_header">Projects</string>
+    <string name="project_active">[Active project]</string>
+    <string name="project_inactive">[Inactive]</string>
+    <string name="data_count_none">No images</string>
+    <string name="data_count_one">1 image</string>
+    <string name="data_count_many">%1d images</string>
+    <string name="delete_project_dlg_title">Remove project</string>
+    <string name="delete_project_dlg_msg">Do you want to remove project %1$s from this device?</string>
 
 </resources>

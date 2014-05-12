@@ -1,22 +1,20 @@
-package org.greengin.sciencetoolkit.ui.base.events;
+package org.greengin.sciencetoolkit.common.ui.base.events;
 
 import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
 
 import android.os.Bundle;
 
-public class EventActivity extends RemoteCapableActivity {
+public abstract class EventActivity<T extends EventManager> extends RemoteCapableActivity {
 
-	EventManager eventManager;
-
-	protected void setEventListener(EventManagerListener listener) {
-		this.eventManager.setListener(listener);
-	}
+	T eventManager;
+	
+	protected abstract T createEventManager(); 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.eventManager = new EventManager();
+		this.eventManager = createEventManager();
 	}
 
 	@Override

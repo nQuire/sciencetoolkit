@@ -56,23 +56,15 @@
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity"
-            android:label="@string/data_viewer_activity_title"
+            android:name="org.greengin.sciencetoolkit.common.ui.remote.WebViewLoginActivity"
+            android:label="@string/web_logging_activity_title"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.ui.remote.WebViewLoginActivity"
-            android:label="@string/sensor_list_settings_activity_title"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
-        </activity>
-        <activity
-            android:name="org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity"
+            android:name="org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity"
             android:label="@string/title_activity_project_browser" >
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data

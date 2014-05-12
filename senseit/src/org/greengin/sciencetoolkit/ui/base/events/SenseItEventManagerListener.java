@@ -2,7 +2,7 @@ package org.greengin.sciencetoolkit.ui.base.events;
 
 import java.util.List;
 
-public class EventManagerListener {
+public class SenseItEventManagerListener {
 	public void events(List<String> settingsEvents, List<String> profileEvents, List<String> dataEvents, List<String> dataStatusEvents, boolean whilePaused) {
 		if (settingsEvents.size() > 0) {
 			this.eventsSettings(settingsEvents, whilePaused);

@@ -45,27 +45,24 @@
 # view res/layout/abc_search_view.xml #generated:85
 -keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
 
+# view AndroidManifest.xml #generated:50
+-keep class org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity { <init>(...); }
+
+# view res/layout/view_main.xml #generated:1
+-keep class org.greengin.sciencetoolkit.common.ui.base.widgets.StkViewPager { <init>(...); }
+
+# view AndroidManifest.xml #generated:66
+-keep class org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:58
+-keep class org.greengin.sciencetoolkit.common.ui.remote.WebViewLoginActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:27
 -keep class org.greengin.sciencetoolkit.spotit.SpotItApplication { <init>(...); }
 
 # view AndroidManifest.xml #generated:42
--keep class org.greengin.sciencetoolkit.ui.about.AboutActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:58
--keep class org.greengin.sciencetoolkit.ui.base.AppSettingsActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:66
--keep class org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity { <init>(...); }
+-keep class org.greengin.sciencetoolkit.spotit.ui.about.AboutActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:33
--keep class org.greengin.sciencetoolkit.ui.main.MainActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:50
--keep class org.greengin.sciencetoolkit.ui.main.explore.SensorListSettingsActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:82
--keep class org.greengin.sciencetoolkit.ui.remote.ProjectBrowserActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:74
--keep class org.greengin.sciencetoolkit.ui.remote.WebViewLoginActivity { <init>(...); }
+-keep class org.greengin.sciencetoolkit.spotit.ui.main.MainActivity { <init>(...); }
 

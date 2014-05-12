@@ -9,16 +9,9 @@
     <dimen name="record_item_vertical_margin">8dp</dimen>
     <dimen name="record_item_icon_margin">16dp</dimen>
     <dimen name="button_pane_vertical_margin">16dp</dimen>
-    <dimen name="record_header_icon_size">16dp</dimen>
-    <dimen name="record_header_icon_margin">16dp</dimen>
-    <dimen name="record_header_button_size">32dp</dimen>
     <dimen name="record_button_size">64dp</dimen>
     
     <!-- share tab -->
-    <dimen name="share_header_icon_size">16dp</dimen>
-    <dimen name="share_header_icon_margin">8dp</dimen>
-    <dimen name="share_header_button_size">38dp</dimen>
-    <dimen name="share_header_button_margin">16dp</dimen>
     <dimen name="share_profile_button_size">24dp</dimen>
     <dimen name="share_profile_button_margin">12dp</dimen>
     <dimen name="share_item_vertical_padding">16dp</dimen>

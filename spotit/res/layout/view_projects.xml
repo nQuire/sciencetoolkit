@@ -24,17 +24,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
-                android:text="@string/share_projects_header" />
+                android:text="@string/projects_header" />
 
-            <ImageButton
-                android:id="@+id/share_project_add"
-                android:layout_width="@dimen/header_button_size"
-                android:layout_height="@dimen/header_button_size"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
-                android:scaleType="fitXY"
-                android:src="@drawable/project_button_add" />
 
             <ImageButton
                 android:id="@+id/share_project_cloud"
@@ -42,7 +33,7 @@
                 android:layout_height="@dimen/header_button_size"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/header_button_margin"
-                android:layout_toLeftOf="@id/share_project_add"
+                android:layout_alignParentRight="true"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"
@@ -53,7 +44,7 @@
         <include layout="@layout/widget_lighter_line_mu" />
 
         <ListView
-            android:id="@+id/profile_list"
+            android:id="@+id/project_list"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:gravity="center" >

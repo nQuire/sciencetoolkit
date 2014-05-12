@@ -13,8 +13,8 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListene
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg;
-import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
 import org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity;
 
@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class ShareFragment extends EventFragment implements OnClickListener,
+public class ShareFragment extends SenseItEventFragment implements OnClickListener,
 		ProjectItemEventListener, EditTextActionListener, ProfileActionListener {
 
 	ProjectItemManager itemManager;
@@ -102,7 +102,7 @@ public class ShareFragment extends EventFragment implements OnClickListener,
 		this.adapter.updateProfileList(null);
 	}
 
-	private class EventListener extends EventManagerListener {
+	private class EventListener extends SenseItEventManagerListener {
 
 		@Override
 		public void events(List<String> settingsEvents,

@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.common.ui.base.SwipeActivity;
-import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
 
 import com.androidplot.Plot;
 import com.androidplot.ui.SizeLayoutType;
@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public abstract class AbstractXYSensorPlotFragment extends EventFragment {
+public abstract class AbstractXYSensorPlotFragment extends SenseItEventFragment {
 
 	protected View plotPanel;
 	protected LinearLayout plotContainer;

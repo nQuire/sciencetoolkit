@@ -14,8 +14,8 @@ import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorA
 import org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg;
 import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionListener;
 import org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg;
-import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
@@ -33,7 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecordFragment extends EventFragment implements OnClickListener, SelectSensorActionListener, ProfileSensorActionListener, RecordSensorListener {
+public class RecordFragment extends SenseItEventFragment implements OnClickListener, SelectSensorActionListener, ProfileSensorActionListener, RecordSensorListener {
 
 	private enum RecordState {
 		IDLE, RECORDING, DECIDING
@@ -262,7 +262,7 @@ public class RecordFragment extends EventFragment implements OnClickListener, Se
 		recordingLabel.setText(label);
 	}
 
-	private class EventListener extends EventManagerListener {
+	private class EventListener extends SenseItEventManagerListener {
 
 		@Override
 		public void eventSetting(String event, boolean whilePaused) {

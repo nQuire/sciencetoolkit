@@ -15,7 +15,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.logic.sensors.TimeValue;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
@@ -100,7 +100,7 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 		}
 	}
 
-	private class RecordEventManagerListener extends EventManagerListener {
+	private class RecordEventManagerListener extends SenseItEventManagerListener {
 
 		@Override
 		public void eventSetting(String settingsId, boolean whilePaused) {

@@ -5,8 +5,8 @@ import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
-import org.greengin.sciencetoolkit.ui.base.events.EventFragment;
-import org.greengin.sciencetoolkit.ui.base.events.EventManagerListener;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
+import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment;
 
 import android.content.Intent;
@@ -22,7 +22,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-public class ExploreFragment extends EventFragment implements OnItemClickListener {
+public class ExploreFragment extends SenseItEventFragment implements OnItemClickListener {
 
 	ExploreSensorListAdapter adapter;
 	LiveXYSensorPlotFragment fragment;
@@ -72,7 +72,7 @@ public class ExploreFragment extends EventFragment implements OnItemClickListene
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class EventListener extends EventManagerListener {
+	private class EventListener extends SenseItEventManagerListener {
 		@Override
 		public void eventSetting(String settingsId, boolean whilePaused) {
 			if ("sensor_list".equals(settingsId)) {

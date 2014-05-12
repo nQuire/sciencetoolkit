@@ -1,19 +1,20 @@
-package org.greengin.sciencetoolkit.ui.base.events;
+package org.greengin.sciencetoolkit.common.ui.base.events;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class EventFragment extends Fragment {
+public abstract class EventFragment<T extends EventManager> extends Fragment {
 
-	protected EventManager eventManager;
+	protected T eventManager;
 
-
+	protected abstract T createEventManager(); 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.eventManager = new EventManager();
+		this.eventManager = createEventManager();
 	}
 
 	@Override

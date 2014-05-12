@@ -1,0 +1,15 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	
+    
+    <!-- share tab -->
+    <dimen name="projects_item_button_size">24dp</dimen>
+    <dimen name="projects_item_button_margin">12dp</dimen>
+    <dimen name="projects_item_vertical_padding">16dp</dimen>
+    <dimen name="projects_item_horizontal_padding">8dp</dimen>
+    <dimen name="projects_item_list_margin">8dp</dimen>
+    <dimen name="projects_item_small_icon_size">16dp</dimen>
+    <dimen name="projects_item_small_icon_margin">8dp</dimen>
+    <dimen name="projects_section_margin">32dp</dimen>
+
+
+</resources>

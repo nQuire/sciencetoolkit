@@ -7,7 +7,6 @@
     <string name="main_activity_tab_1">Explore</string>
     <string name="main_activity_tab_2">Record</string>
     <string name="main_activity_tab_3">Share</string>
-    <string name="app_settings_activity_title">Global settings</string>
 
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>

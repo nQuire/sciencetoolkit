@@ -1,61 +1,57 @@
-package org.greengin.sciencetoolkit.ui.base.events;
+package org.greengin.sciencetoolkit.spotit.ui.base.events;
 
 import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener;
-import org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener;
+import org.greengin.sciencetoolkit.common.ui.base.events.EventManager;
+import org.greengin.sciencetoolkit.spotit.logic.data.DataLoggerDataListener;
+import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
+import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 
-public class EventManager {
-	EventManagerListener listener;
+public class SpotItEventManager implements EventManager {
+	SpotItEventManagerListener listener;
 	boolean isPaused;
 	boolean newEvents;
 
 	Vector<String> settingListeners;
-	boolean profileListener;
+	boolean projectListener;
 	boolean loggedDataListener;
 	boolean loggerStatusListener;
 
 	Vector<String> settings;
 	Vector<String> profiles;
 	Vector<String> data;
-	Vector<String> dataStatus;
 
 	ReentrantLock lock;
 
 	SettingsListener settingsListener;
 	ProfilesListener profilesListener;
 	DataListener dataListener;
-	DataStatusListener dataStatusListener;
 
-	public EventManager() {
+	public SpotItEventManager() {
 		this.isPaused = true;
 		this.newEvents = false;
 
 		this.listener = null;
 		this.settingListeners = new Vector<String>();
-		this.profileListener = false;
+		this.projectListener = false;
 		this.loggedDataListener = false;
 		this.loggerStatusListener = false;
 
 		this.settings = new Vector<String>();
 		this.profiles = new Vector<String>();
 		this.data = new Vector<String>();
-		this.dataStatus = new Vector<String>();
 
 		this.settingsListener = new SettingsListener();
 		this.profilesListener = new ProfilesListener();
 		this.dataListener = new DataListener();
-		this.dataStatusListener = new DataStatusListener();
 
 		this.lock = new ReentrantLock();
 	}
 
-	public void setListener(EventManagerListener listener) {
+	public void setListener(SpotItEventManagerListener listener) {
 		this.listener = listener;
 	}
 
@@ -72,48 +68,37 @@ public class EventManager {
 	}
 
 	public void listenToProfiles() {
-		if (!profileListener) {
-			ProfileManager.get().registerUIListener(profilesListener);
-			profileListener = true;
+		if (!projectListener) {
+			ProjectManager.get().registerUIListener(profilesListener);
+			projectListener = true;
 		}
 	}
 
 	public void stopListeningToProfiles() {
-		ProfileManager.get().unregisterUIListener(profilesListener);
-		profileListener = false;
+		ProjectManager.get().unregisterUIListener(profilesListener);
+		projectListener = false;
 	}
 
 	public void listenToLoggedData() {
 		if (!loggedDataListener) {
-			DataLogger.get().registerDataListener(dataListener);
+			DataManager.get().registerDataListener(dataListener);
 			loggedDataListener = true;
 		}
 	}
 
 	public void stopListeningToLoggedData() {
-		DataLogger.get().unregisterDataListener(dataListener);
+		DataManager.get().unregisterDataListener(dataListener);
 		loggedDataListener = false;
 	}
-
-	public void listenToLoggerStatus() {
-		if (!loggerStatusListener) {
-			DataLogger.get().registerStatusListener(dataStatusListener);
-			loggerStatusListener = true;
-		}
-	}
-
-	public void stopListeningToLoggerStatus() {
-		DataLogger.get().unregisterStatusListener(dataStatusListener);
-		loggerStatusListener = false;
-	}
 	
+	@Override
 	public void destroy() {
 		for (String sid : settingListeners) {
 			SettingsManager.get().unregisterUIListener(sid, settingsListener);
 		}
 		settingListeners.clear();
 		
-		if (profileListener) {
+		if (projectListener) {
 			stopListeningToProfiles();
 		}
 		
@@ -121,9 +106,6 @@ public class EventManager {
 			stopListeningToLoggedData();
 		}
 		
-		if (loggerStatusListener) {
-			stopListeningToLoggerStatus();
-		}
 	}
 
 	private void addEvent(Vector<String> container, String event) {
@@ -140,12 +122,14 @@ public class EventManager {
 		lock.unlock();
 	}
 
+	@Override
 	public void pause() {
 		lock.lock();
 		this.isPaused = true;
 		lock.unlock();
 	}
 
+	@Override
 	public void resume() {
 		lock.lock();
 		this.isPaused = false;
@@ -158,12 +142,11 @@ public class EventManager {
 
 	private void notifyEvents(boolean whilePaused) {
 		if (listener != null) {
-			listener.events(settings, profiles, data, dataStatus, whilePaused);
+			listener.events(settings, profiles, data, whilePaused);
 		}
 		settings.clear();
 		profiles.clear();
 		data.clear();
-		dataStatus.clear();
 	}
 
 	private class SettingsListener implements ModelNotificationListener {
@@ -182,16 +165,10 @@ public class EventManager {
 
 	private class DataListener implements DataLoggerDataListener {
 		@Override
-		public void dataLoggerDataModified(String msg) {
+		public void dataLoggerDataEvent(String msg) {
 			addEvent(data, msg);
 		}
 	}
 	
-	private class DataStatusListener implements DataLoggerStatusListener {
-		@Override
-		public void dataLoggerStatusModified(String msg) {
-			addEvent(dataStatus, msg);
-		}
-	}
 
 }
