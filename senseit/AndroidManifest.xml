@@ -73,7 +73,7 @@
         </activity>
         <activity
             android:name="org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity"
-            android:label="@string/sensor_list_settings_activity_title"
+            android:label="@string/web_logging_activity_title"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

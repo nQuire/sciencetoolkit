@@ -42,34 +42,34 @@
         <activity
             android:name="org.greengin.sciencetoolkit.spotit.ui.about.AboutActivity"
             android:label="@string/app_name"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+                android:value="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" />
         </activity>
         <activity
             android:name="org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity"
             android:label="@string/app_settings_activity_title"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+                android:value="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.common.ui.remote.WebViewLoginActivity"
+            android:name="org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity"
             android:label="@string/web_logging_activity_title"
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            android:parentActivityName="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+                android:value="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" />
         </activity>
         <activity
-            android:name="org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity"
-            android:label="@string/title_activity_project_browser" >
-            android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
+            android:name="org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity"
+            android:label="@string/title_activity_project_browser" 
+            android:parentActivityName="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.greengin.sciencetoolkit.ui.main.MainActivity" />
+                android:value="org.greengin.sciencetoolkit.spotit.ui.main.MainActivity" />
         </activity>
     </application>
 

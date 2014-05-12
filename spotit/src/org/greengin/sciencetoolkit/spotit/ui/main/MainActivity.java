@@ -35,7 +35,7 @@ public class MainActivity extends SwipeActivity {
 
 	@Override
 	public int getTabCount() {
-		return 1;
+		return 3;
 	}
 
 	@Override
@@ -43,10 +43,10 @@ public class MainActivity extends SwipeActivity {
 		switch (position) {
 		case 0:
 			return new ProjectsFragment();
-/*		case 1:
-			return new RecordFragment();
+		case 1:
+			return new Fragment();
 		case 2:
-			return new ShareFragment();*/
+			return new Fragment();
 		default:
 			return null;
 		}
