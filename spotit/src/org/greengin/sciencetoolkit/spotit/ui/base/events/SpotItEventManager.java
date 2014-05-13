@@ -165,7 +165,7 @@ public class SpotItEventManager implements EventManager {
 
 	private class DataListener implements DataLoggerDataListener {
 		@Override
-		public void dataLoggerDataEvent(String msg) {
+		public void dataLoggerDataEvent(String msg, String eventData) {
 			addEvent(data, msg);
 		}
 	}

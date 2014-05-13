@@ -2,11 +2,19 @@ package org.greengin.sciencetoolkit.spotit.ui.main;
 
 import org.greengin.sciencetoolkit.common.ui.base.SwipeActivity;
 import org.greengin.sciencetoolkit.spotit.R;
+import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.greengin.sciencetoolkit.spotit.ui.main.projects.ProjectsFragment;
+import org.greengin.sciencetoolkit.spotit.ui.main.spotit.SpotItFragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 public class MainActivity extends SwipeActivity {
+	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	
+	
 	private static int lastTab = -1;
 	
 	public MainActivity() {
@@ -46,7 +54,7 @@ public class MainActivity extends SwipeActivity {
 		case 1:
 			return new Fragment();
 		case 2:
-			return new Fragment();
+			return new SpotItFragment();
 		default:
 			return null;
 		}
@@ -65,6 +73,24 @@ public class MainActivity extends SwipeActivity {
 			return null;
 		}
 	}
+	
+	
+	public void captureImage() {
+		Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+	    	DataManager.get().newData(data.getData().toString());
+	    }
+	}
+	
+	
+	
+	
 
 
 }

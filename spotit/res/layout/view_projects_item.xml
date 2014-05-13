@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
-        android:src="@drawable/project_button_delete" />
+        android:src="@drawable/blue_camera_button" />
     
     <ImageButton
         android:id="@+id/profile_activate"

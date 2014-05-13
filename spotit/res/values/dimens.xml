@@ -10,6 +10,8 @@
     <dimen name="projects_item_small_icon_size">16dp</dimen>
     <dimen name="projects_item_small_icon_margin">8dp</dimen>
     <dimen name="projects_section_margin">32dp</dimen>
+    
+    <dimen name="spotit_camera_button_size">128dp</dimen>
 
 
 </resources>
