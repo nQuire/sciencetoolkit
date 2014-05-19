@@ -1,8 +1,13 @@
 package org.greengin.sciencetoolkit.spotit.ui.main.images;
 
+import java.util.List;
+
+import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.spotit.R;
+import org.greengin.sciencetoolkit.spotit.logic.remote.UploadRemoteAction;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
+import org.greengin.sciencetoolkit.spotit.ui.main.MainActivity;
 import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
 
 import android.content.Intent;
@@ -13,9 +18,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.GridView;
 
-public class ImagesFragment extends SpotItEventFragment {
+
+public class ImagesFragment extends SpotItEventFragment implements ImageListener {
 
 	ImagesGridAdapter adapter;
 
@@ -37,12 +43,12 @@ public class ImagesFragment extends SpotItEventFragment {
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 
-		View rootView = inflater.inflate(R.layout.view_projects, container,
+		View rootView = inflater.inflate(R.layout.view_images, container,
 				false);
 
-		this.adapter = new ImagesGridAdapter(inflater);
+		this.adapter = new ImagesGridAdapter(inflater, this);
 
-		ListView list = (ListView) rootView.findViewById(R.id.project_list);
+		GridView list = (GridView) rootView.findViewById(R.id.image_list);
 		list.setAdapter(adapter);
 
 		return rootView;
@@ -68,6 +74,21 @@ public class ImagesFragment extends SpotItEventFragment {
 	}
 
 	private class EventListener extends SpotItEventManagerListener {
-
+		@Override
+		public void eventsNewData(List<String> dataEvents, boolean whilePaused) {
+			adapter.updateData();
+		}
 	}
+
+	@Override
+	public void imageUpload(Model observation) {
+		((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(observation));		
+	}
+
+	@Override
+	public void imageDelete(Model observation) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

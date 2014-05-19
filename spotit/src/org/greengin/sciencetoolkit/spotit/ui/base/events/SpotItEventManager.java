@@ -6,7 +6,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener;
 import org.greengin.sciencetoolkit.common.ui.base.events.EventManager;
-import org.greengin.sciencetoolkit.spotit.logic.data.DataLoggerDataListener;
 import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 
@@ -163,12 +162,14 @@ public class SpotItEventManager implements EventManager {
 		}
 	}
 
-	private class DataListener implements DataLoggerDataListener {
+	private class DataListener implements ModelNotificationListener {
+
 		@Override
-		public void dataLoggerDataEvent(String msg, String eventData) {
+		public void modelNotificationReceived(String msg) {
 			addEvent(data, msg);
 		}
 	}
+	
 	
 
 }

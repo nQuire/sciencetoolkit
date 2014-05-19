@@ -51,7 +51,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/project_delete"
         android:layout_width="@dimen/button_in_list"
         android:layout_height="@dimen/button_in_list"
@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_delete"
         android:scaleType="fitXY"
-        android:src="@drawable/blue_camera_button" />
+        android:src="@drawable/project_button_delete" />
     
     <ImageButton
         android:id="@+id/profile_activate"

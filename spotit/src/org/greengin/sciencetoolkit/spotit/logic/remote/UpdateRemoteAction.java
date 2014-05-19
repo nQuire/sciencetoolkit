@@ -16,8 +16,8 @@ public class UpdateRemoteAction extends RemoteJsonAction {
 	}
 
 	@Override
-	public void result(int request, JSONObject result, JSONArray array) {
-		ProjectManager.get().updateRemoteProjects(result);
+	public void result(int request, JSONObject obj, JSONArray result) {
+		ProjectManager.get().updateRemoteProjects(obj);
 	}
 	
 

@@ -251,43 +251,51 @@ public class Model {
 	}
 
 	public Vector<Model> getModels(String orderKey) {
+		return getModels(orderKey, false);
+	}
+
+	public Vector<Model> getModels(String orderKey, boolean reverse) {
 		Vector<Model> models = getModels();
 		if (orderKey != null) {
-			Collections.sort(models, new ModelComparator(orderKey));
+			Collections.sort(models, new ModelComparator(orderKey, reverse));
 		}
 		return models;
 	}
 
 	private static class ModelComparator implements Comparator<Model> {
 		String key;
-
-		public ModelComparator(String key) {
+		int k;
+		
+		public ModelComparator(String key, boolean reverse) {
 			this.key = key;
+			this.k = reverse ? -1 : 1;
 		}
 
 		@Override
 		public int compare(Model lhs, Model rhs) {
 			Object va = lhs.get(key, null);
 			Object vb = rhs.get(key, null);
+			int result;
 			if (va == null && vb == null) {
-				return 0;
+				result = 0;
 			} else if (va == null) {
-				return -1;
+				result = -1;
 			} else if (vb == null) {
-				return 1;
+				result = 1;
 			} else if (va instanceof String && vb instanceof String) {
-				return ((String) va).compareTo((String) vb);
+				result = ((String) va).compareTo((String) vb);
 			} else if (va instanceof Long && vb instanceof Long) {
-				return ((Long) va).compareTo((Long) vb);
+				result = ((Long) va).compareTo((Long) vb);
 			} else if (va instanceof Double && vb instanceof Double) {
-				return ((Double) va).compareTo((Double) vb);
+				result = ((Double) va).compareTo((Double) vb);
 			} else if (va instanceof Integer && vb instanceof Integer) {
-				return ((Integer) va).compareTo((Integer) vb);
+				result = ((Integer) va).compareTo((Integer) vb);
 			} else if (va instanceof Boolean && vb instanceof Boolean) {
-				return ((Boolean) va).compareTo((Boolean) vb);
+				result = ((Boolean) va).compareTo((Boolean) vb);
 			} else {
-				return 0;
+				result = 0;
 			}
+			return k * result;
 		}
 	}
 
