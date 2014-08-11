@@ -1,6 +1,8 @@
 package org.greengin.sciencetoolkit.ui.dataviewer;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.model.ProfileManager;
@@ -52,10 +54,14 @@ public class SeriesListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				File series = (File) v.getTag();
-				profile.getModel("dataviewer", true).setString("series",
-						series.getName());
-				SeriesListAdapter.this.listener.seriesSelected(profile, series);
-				updateSeriesList();
+				String currentSelected = profile.getModel("dataviewer", true).getString("series");
+				if (series.getName().equals(currentSelected)) {
+					SeriesListAdapter.this.listener.seriesSelected(profile, series);
+				} else {
+					profile.getModel("dataviewer", true).setString("series",
+							series.getName());
+					updateSeriesList();
+				}
 			}
 		};
 
@@ -93,7 +99,12 @@ public class SeriesListAdapter extends BaseAdapter {
 	public void updateSeriesList(boolean notify) {
 		this.isRemote = profile.getBool("is_remote");
 		this.seriesList = DataLogger.get().getSeries(profile.getString("id"));
-
+		Arrays.sort(this.seriesList, new Comparator<File>() {
+			@Override
+			public int compare(File a, File b) {
+				return (int)(b.lastModified() - a.lastModified()); 
+			}			
+		});
 		if (notify) {
 			this.notifyDataSetChanged();
 		}
@@ -137,6 +148,13 @@ public class SeriesListAdapter extends BaseAdapter {
 		seriesDurationView.setText(String.format("%.1f sec", .001 * DataLogger
 				.get().getSeriesDuration(series)));
 
+		ImageButton editButton = (ImageButton) view
+				.findViewById(R.id.series_config);
+		editButton.setTag(series);
+		if (newView) {
+			editButton.setOnClickListener(editListener);
+		}
+		
 		ImageButton uploadButton = (ImageButton) view
 				.findViewById(R.id.series_upload);
 		uploadButton.setVisibility(View.VISIBLE);
@@ -147,6 +165,7 @@ public class SeriesListAdapter extends BaseAdapter {
 
 		if (isRemote) {
 			uploadButton.setEnabled(seriesUploadStatus == 0);
+			editButton.setEnabled(seriesUploadStatus == 0);
 			uploadButton.setVisibility(View.VISIBLE);
 		} else {
 			uploadButton.setVisibility(View.GONE);
@@ -159,12 +178,7 @@ public class SeriesListAdapter extends BaseAdapter {
 			discardButton.setOnClickListener(discardListener);
 		}
 
-		ImageButton editButton = (ImageButton) view
-				.findViewById(R.id.series_config);
-		editButton.setTag(series);
-		if (newView) {
-			editButton.setOnClickListener(editListener);
-		}
+		
 
 		ImageButton shareButton = (ImageButton) view
 				.findViewById(R.id.series_share);

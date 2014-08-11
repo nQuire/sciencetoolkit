@@ -5786,7 +5786,9 @@ org.apache.http.client.methods.HttpHead -> org.a.a.b.c.i:
     java.lang.String getMethod() -> c_
 org.apache.http.client.methods.HttpPost -> org.a.a.b.c.j:
     java.lang.String getMethod() -> c_
-org.apache.http.client.methods.HttpRequestBase -> org.a.a.b.c.k:
+org.apache.http.client.methods.HttpPut -> org.a.a.b.c.k:
+    java.lang.String getMethod() -> c_
+org.apache.http.client.methods.HttpRequestBase -> org.a.a.b.c.l:
     org.apache.http.ProtocolVersion version -> c
     java.net.URI uri -> d
     org.apache.http.client.config.RequestConfig config -> e
@@ -5799,11 +5801,11 @@ org.apache.http.client.methods.HttpRequestBase -> org.a.a.b.c.k:
     void setConfig(org.apache.http.client.config.RequestConfig) -> a
     void setURI(java.net.URI) -> a
     java.lang.String toString() -> toString
-org.apache.http.client.methods.HttpUriRequest -> org.a.a.b.c.l:
+org.apache.http.client.methods.HttpUriRequest -> org.a.a.b.c.m:
     java.lang.String getMethod() -> c_
     java.net.URI getURI() -> i
     boolean isAborted() -> h
-org.apache.http.client.methods.RequestBuilder -> org.a.a.b.c.m:
+org.apache.http.client.methods.RequestBuilder -> org.a.a.b.c.n:
     java.lang.String method -> a
     org.apache.http.ProtocolVersion version -> b
     java.net.URI uri -> c
@@ -5815,10 +5817,10 @@ org.apache.http.client.methods.RequestBuilder -> org.a.a.b.c.m:
     org.apache.http.client.methods.RequestBuilder doCopy(org.apache.http.HttpRequest) -> b
     org.apache.http.client.methods.RequestBuilder setUri(java.net.URI) -> a
     org.apache.http.client.methods.HttpUriRequest build() -> a
-org.apache.http.client.methods.RequestBuilder$InternalEntityEclosingRequest -> org.a.a.b.c.n:
+org.apache.http.client.methods.RequestBuilder$InternalEntityEclosingRequest -> org.a.a.b.c.o:
     java.lang.String method -> c
     java.lang.String getMethod() -> c_
-org.apache.http.client.methods.RequestBuilder$InternalRequest -> org.a.a.b.c.o:
+org.apache.http.client.methods.RequestBuilder$InternalRequest -> org.a.a.b.c.p:
     java.lang.String method -> c
     java.lang.String getMethod() -> c_
 org.apache.http.client.params.HttpClientParamConfig -> org.a.a.b.d.a:
@@ -8088,9 +8090,309 @@ org.apache.http.util.VersionInfo -> org.a.a.n.i:
     java.lang.String toString() -> toString
     org.apache.http.util.VersionInfo loadVersionInfo(java.lang.String,java.lang.ClassLoader) -> a
     org.apache.http.util.VersionInfo fromMap(java.lang.String,java.util.Map,java.lang.ClassLoader) -> a
-org.greengin.sciencetoolkit.R -> org.greengin.sciencetoolkit.a:
-org.greengin.sciencetoolkit.R$styleable -> org.greengin.sciencetoolkit.b:
+org.greengin.sciencetoolkit.ScienceToolkitApplication -> org.greengin.sciencetoolkit.ScienceToolkitApplication:
+    void onCreate() -> onCreate
+org.greengin.sciencetoolkit.VersionManager -> org.greengin.sciencetoolkit.a:
+    void check(android.content.Context) -> a
+org.greengin.sciencetoolkit.common.R -> org.greengin.sciencetoolkit.common.a:
+org.greengin.sciencetoolkit.common.R$drawable -> org.greengin.sciencetoolkit.common.b:
+    int abc_ab_bottom_solid_dark_holo -> abc_ab_bottom_solid_dark_holo
+    int abc_ab_bottom_solid_light_holo -> abc_ab_bottom_solid_light_holo
+    int abc_ab_bottom_transparent_dark_holo -> abc_ab_bottom_transparent_dark_holo
+    int abc_ab_bottom_transparent_light_holo -> abc_ab_bottom_transparent_light_holo
+    int abc_ab_share_pack_holo_dark -> abc_ab_share_pack_holo_dark
+    int abc_ab_share_pack_holo_light -> abc_ab_share_pack_holo_light
+    int abc_ab_solid_dark_holo -> abc_ab_solid_dark_holo
+    int abc_ab_solid_light_holo -> abc_ab_solid_light_holo
+    int abc_ab_stacked_solid_dark_holo -> abc_ab_stacked_solid_dark_holo
+    int abc_ab_stacked_solid_light_holo -> abc_ab_stacked_solid_light_holo
+    int abc_ab_stacked_transparent_dark_holo -> abc_ab_stacked_transparent_dark_holo
+    int abc_ab_stacked_transparent_light_holo -> abc_ab_stacked_transparent_light_holo
+    int abc_ab_transparent_dark_holo -> abc_ab_transparent_dark_holo
+    int abc_ab_transparent_light_holo -> abc_ab_transparent_light_holo
+    int abc_cab_background_bottom_holo_dark -> abc_cab_background_bottom_holo_dark
+    int abc_cab_background_bottom_holo_light -> abc_cab_background_bottom_holo_light
+    int abc_cab_background_top_holo_dark -> abc_cab_background_top_holo_dark
+    int abc_cab_background_top_holo_light -> abc_cab_background_top_holo_light
+    int abc_ic_ab_back_holo_dark -> abc_ic_ab_back_holo_dark
+    int abc_ic_ab_back_holo_light -> abc_ic_ab_back_holo_light
+    int abc_ic_cab_done_holo_dark -> abc_ic_cab_done_holo_dark
+    int abc_ic_cab_done_holo_light -> abc_ic_cab_done_holo_light
+    int abc_ic_clear -> abc_ic_clear
+    int abc_ic_clear_disabled -> abc_ic_clear_disabled
+    int abc_ic_clear_holo_light -> abc_ic_clear_holo_light
+    int abc_ic_clear_normal -> abc_ic_clear_normal
+    int abc_ic_clear_search_api_disabled_holo_light -> abc_ic_clear_search_api_disabled_holo_light
+    int abc_ic_clear_search_api_holo_light -> abc_ic_clear_search_api_holo_light
+    int abc_ic_commit_search_api_holo_dark -> abc_ic_commit_search_api_holo_dark
+    int abc_ic_commit_search_api_holo_light -> abc_ic_commit_search_api_holo_light
+    int abc_ic_go -> abc_ic_go
+    int abc_ic_go_search_api_holo_light -> abc_ic_go_search_api_holo_light
+    int abc_ic_menu_moreoverflow_normal_holo_dark -> abc_ic_menu_moreoverflow_normal_holo_dark
+    int abc_ic_menu_moreoverflow_normal_holo_light -> abc_ic_menu_moreoverflow_normal_holo_light
+    int abc_ic_menu_share_holo_dark -> abc_ic_menu_share_holo_dark
+    int abc_ic_menu_share_holo_light -> abc_ic_menu_share_holo_light
+    int abc_ic_search -> abc_ic_search
+    int abc_ic_search_api_holo_light -> abc_ic_search_api_holo_light
+    int abc_ic_voice_search -> abc_ic_voice_search
+    int abc_ic_voice_search_api_holo_light -> abc_ic_voice_search_api_holo_light
+    int abc_item_background_holo_dark -> abc_item_background_holo_dark
+    int abc_item_background_holo_light -> abc_item_background_holo_light
+    int abc_list_divider_holo_dark -> abc_list_divider_holo_dark
+    int abc_list_divider_holo_light -> abc_list_divider_holo_light
+    int abc_list_focused_holo -> abc_list_focused_holo
+    int abc_list_longpressed_holo -> abc_list_longpressed_holo
+    int abc_list_pressed_holo_dark -> abc_list_pressed_holo_dark
+    int abc_list_pressed_holo_light -> abc_list_pressed_holo_light
+    int abc_list_selector_background_transition_holo_dark -> abc_list_selector_background_transition_holo_dark
+    int abc_list_selector_background_transition_holo_light -> abc_list_selector_background_transition_holo_light
+    int abc_list_selector_disabled_holo_dark -> abc_list_selector_disabled_holo_dark
+    int abc_list_selector_disabled_holo_light -> abc_list_selector_disabled_holo_light
+    int abc_list_selector_holo_dark -> abc_list_selector_holo_dark
+    int abc_list_selector_holo_light -> abc_list_selector_holo_light
+    int abc_menu_dropdown_panel_holo_dark -> abc_menu_dropdown_panel_holo_dark
+    int abc_menu_dropdown_panel_holo_light -> abc_menu_dropdown_panel_holo_light
+    int abc_menu_hardkey_panel_holo_dark -> abc_menu_hardkey_panel_holo_dark
+    int abc_menu_hardkey_panel_holo_light -> abc_menu_hardkey_panel_holo_light
+    int abc_search_dropdown_dark -> abc_search_dropdown_dark
+    int abc_search_dropdown_light -> abc_search_dropdown_light
+    int abc_spinner_ab_default_holo_dark -> abc_spinner_ab_default_holo_dark
+    int abc_spinner_ab_default_holo_light -> abc_spinner_ab_default_holo_light
+    int abc_spinner_ab_disabled_holo_dark -> abc_spinner_ab_disabled_holo_dark
+    int abc_spinner_ab_disabled_holo_light -> abc_spinner_ab_disabled_holo_light
+    int abc_spinner_ab_focused_holo_dark -> abc_spinner_ab_focused_holo_dark
+    int abc_spinner_ab_focused_holo_light -> abc_spinner_ab_focused_holo_light
+    int abc_spinner_ab_holo_dark -> abc_spinner_ab_holo_dark
+    int abc_spinner_ab_holo_light -> abc_spinner_ab_holo_light
+    int abc_spinner_ab_pressed_holo_dark -> abc_spinner_ab_pressed_holo_dark
+    int abc_spinner_ab_pressed_holo_light -> abc_spinner_ab_pressed_holo_light
+    int abc_tab_indicator_ab_holo -> abc_tab_indicator_ab_holo
+    int abc_tab_selected_focused_holo -> abc_tab_selected_focused_holo
+    int abc_tab_selected_holo -> abc_tab_selected_holo
+    int abc_tab_selected_pressed_holo -> abc_tab_selected_pressed_holo
+    int abc_tab_unselected_pressed_holo -> abc_tab_unselected_pressed_holo
+    int abc_textfield_search_default_holo_dark -> abc_textfield_search_default_holo_dark
+    int abc_textfield_search_default_holo_light -> abc_textfield_search_default_holo_light
+    int abc_textfield_search_right_default_holo_dark -> abc_textfield_search_right_default_holo_dark
+    int abc_textfield_search_right_default_holo_light -> abc_textfield_search_right_default_holo_light
+    int abc_textfield_search_right_selected_holo_dark -> abc_textfield_search_right_selected_holo_dark
+    int abc_textfield_search_right_selected_holo_light -> abc_textfield_search_right_selected_holo_light
+    int abc_textfield_search_selected_holo_dark -> abc_textfield_search_selected_holo_dark
+    int abc_textfield_search_selected_holo_light -> abc_textfield_search_selected_holo_light
+    int abc_textfield_searchview_holo_dark -> abc_textfield_searchview_holo_dark
+    int abc_textfield_searchview_holo_light -> abc_textfield_searchview_holo_light
+    int abc_textfield_searchview_right_holo_dark -> abc_textfield_searchview_right_holo_dark
+    int abc_textfield_searchview_right_holo_light -> abc_textfield_searchview_right_holo_light
+    int ic_action_collapse -> ic_action_collapse
+    int ic_action_discard -> ic_action_discard
+    int ic_action_edit -> ic_action_edit
+    int ic_action_expand -> ic_action_expand
+    int ic_action_overflow -> ic_action_overflow
+    int ic_action_save -> ic_action_save
+    int ic_action_search -> ic_action_search
+    int ic_action_settings -> ic_action_settings
+    int ic_action_upload -> ic_action_upload
+    int icon_active -> icon_active
+    int item_list_background -> item_list_background
+    int project_activate -> project_activate
+    int project_activate_disabled -> project_activate_disabled
+    int project_activate_pressed -> project_activate_pressed
+    int project_add -> project_add
+    int project_add_disabled -> project_add_disabled
+    int project_add_pressed -> project_add_pressed
+    int project_button_activate -> project_button_activate
+    int project_button_add -> project_button_add
+    int project_button_close -> project_button_close
+    int project_button_cloud -> project_button_cloud
+    int project_button_config -> project_button_config
+    int project_button_data -> project_button_data
+    int project_button_delete -> project_button_delete
+    int project_button_share -> project_button_share
+    int project_button_switch -> project_button_switch
+    int project_button_view -> project_button_view
+    int project_close -> project_close
+    int project_close_disabled -> project_close_disabled
+    int project_close_pressed -> project_close_pressed
+    int project_cloud -> project_cloud
+    int project_cloud_disabled -> project_cloud_disabled
+    int project_cloud_pressed -> project_cloud_pressed
+    int project_config -> project_config
+    int project_config_disabled -> project_config_disabled
+    int project_config_pressed -> project_config_pressed
+    int project_data -> project_data
+    int project_data_pressed -> project_data_pressed
+    int project_delete -> project_delete
+    int project_delete_disabled -> project_delete_disabled
+    int project_delete_pressed -> project_delete_pressed
+    int project_share -> project_share
+    int project_share_disabled -> project_share_disabled
+    int project_share_pressed -> project_share_pressed
+    int project_switch -> project_switch
+    int project_switch_disabled -> project_switch_disabled
+    int project_switch_pressed -> project_switch_pressed
+    int project_view -> project_view
+    int project_view_disabled -> project_view_disabled
+    int project_view_pressed -> project_view_pressed
+    int toast_error_shape -> toast_error_shape
+    int toast_shape -> toast_shape
+org.greengin.sciencetoolkit.common.R$id -> org.greengin.sciencetoolkit.common.c:
+    int ack -> ack
+    int action_application_settings -> action_application_settings
+    int action_bar -> action_bar
+    int action_bar_activity_content -> action_bar_activity_content
+    int action_bar_container -> action_bar_container
+    int action_bar_overlay_layout -> action_bar_overlay_layout
+    int action_bar_root -> action_bar_root
+    int action_bar_subtitle -> action_bar_subtitle
+    int action_bar_title -> action_bar_title
+    int action_context_bar -> action_context_bar
+    int action_menu_divider -> action_menu_divider
+    int action_menu_presenter -> action_menu_presenter
+    int action_mode_close_button -> action_mode_close_button
+    int action_settings -> action_settings
+    int activity_chooser_view_content -> activity_chooser_view_content
+    int always -> always
+    int app_settings -> app_settings
+    int beginning -> beginning
+    int checkbox -> checkbox
+    int collapseActionView -> collapseActionView
+    int default_activity_button -> default_activity_button
+    int dialog -> dialog
+    int disableHome -> disableHome
+    int dropdown -> dropdown
+    int edit_query -> edit_query
+    int end -> end
+    int expand_activities_button -> expand_activities_button
+    int expanded_menu -> expanded_menu
+    int home -> home
+    int homeAsUp -> homeAsUp
+    int icon -> icon
+    int ifRoom -> ifRoom
+    int image -> image
+    int label -> label
+    int listMode -> listMode
+    int list_item -> list_item
+    int login_status -> login_status
+    int login_toggle -> login_toggle
+    int middle -> middle
+    int never -> never
+    int none -> none
+    int normal -> normal
+    int progress_circular -> progress_circular
+    int progress_horizontal -> progress_horizontal
+    int project_author -> project_author
+    int project_browser_header -> project_browser_header
+    int project_list -> project_list
+    int project_title -> project_title
+    int project_toggle -> project_toggle
+    int radio -> radio
+    int sample_rate_container -> sample_rate_container
+    int search_badge -> search_badge
+    int search_bar -> search_bar
+    int search_button -> search_button
+    int search_close_btn -> search_close_btn
+    int search_edit_frame -> search_edit_frame
+    int search_go_btn -> search_go_btn
+    int search_mag_icon -> search_mag_icon
+    int search_plate -> search_plate
+    int search_src_text -> search_src_text
+    int search_voice_btn -> search_voice_btn
+    int settings_panel -> settings_panel
+    int shortcut -> shortcut
+    int showCustom -> showCustom
+    int showHome -> showHome
+    int showTitle -> showTitle
+    int split_action_bar -> split_action_bar
+    int submit_area -> submit_area
+    int tabMode -> tabMode
+    int title -> title
+    int top_action_bar -> top_action_bar
+    int up -> up
+    int useLogo -> useLogo
+    int widgetContainer -> widgetContainer
+    int withText -> withText
+org.greengin.sciencetoolkit.common.R$layout -> org.greengin.sciencetoolkit.common.d:
+    int abc_action_bar_decor -> abc_action_bar_decor
+    int abc_action_bar_decor_include -> abc_action_bar_decor_include
+    int abc_action_bar_decor_overlay -> abc_action_bar_decor_overlay
+    int abc_action_bar_home -> abc_action_bar_home
+    int abc_action_bar_tab -> abc_action_bar_tab
+    int abc_action_bar_tabbar -> abc_action_bar_tabbar
+    int abc_action_bar_title_item -> abc_action_bar_title_item
+    int abc_action_bar_view_list_nav_layout -> abc_action_bar_view_list_nav_layout
+    int abc_action_menu_item_layout -> abc_action_menu_item_layout
+    int abc_action_menu_layout -> abc_action_menu_layout
+    int abc_action_mode_bar -> abc_action_mode_bar
+    int abc_action_mode_close_item -> abc_action_mode_close_item
+    int abc_activity_chooser_view -> abc_activity_chooser_view
+    int abc_activity_chooser_view_include -> abc_activity_chooser_view_include
+    int abc_activity_chooser_view_list_item -> abc_activity_chooser_view_list_item
+    int abc_expanded_menu_layout -> abc_expanded_menu_layout
+    int abc_list_menu_item_checkbox -> abc_list_menu_item_checkbox
+    int abc_list_menu_item_icon -> abc_list_menu_item_icon
+    int abc_list_menu_item_layout -> abc_list_menu_item_layout
+    int abc_list_menu_item_radio -> abc_list_menu_item_radio
+    int abc_popup_menu_item_layout -> abc_popup_menu_item_layout
+    int abc_search_dropdown_item_icons_2line -> abc_search_dropdown_item_icons_2line
+    int abc_search_view -> abc_search_view
+    int dlg_ack -> dlg_ack
+    int panel_settings -> panel_settings
+    int settings_row_label -> settings_row_label
+    int support_simple_spinner_dropdown_item -> support_simple_spinner_dropdown_item
+    int view_app_settings -> view_app_settings
+    int view_project_browser -> view_project_browser
+    int view_project_browser_item -> view_project_browser_item
+    int widget_darker_line -> widget_darker_line
+    int widget_lighter_line -> widget_lighter_line
+    int widget_lighter_line_mu -> widget_lighter_line_mu
+    int widget_lighter_line_nm -> widget_lighter_line_nm
+org.greengin.sciencetoolkit.common.R$menu -> org.greengin.sciencetoolkit.common.e:
+    int project_browser -> project_browser
+    int settings_menu -> settings_menu
+org.greengin.sciencetoolkit.common.R$string -> org.greengin.sciencetoolkit.common.f:
+    int abc_action_bar_home_description -> abc_action_bar_home_description
+    int abc_action_bar_up_description -> abc_action_bar_up_description
+    int abc_action_menu_overflow_description -> abc_action_menu_overflow_description
+    int abc_action_mode_done -> abc_action_mode_done
+    int abc_activity_chooser_view_see_all -> abc_activity_chooser_view_see_all
+    int abc_activitychooserview_choose_application -> abc_activitychooserview_choose_application
+    int abc_searchview_description_clear -> abc_searchview_description_clear
+    int abc_searchview_description_query -> abc_searchview_description_query
+    int abc_searchview_description_search -> abc_searchview_description_search
+    int abc_searchview_description_submit -> abc_searchview_description_submit
+    int abc_searchview_description_voice -> abc_searchview_description_voice
+    int abc_shareactionprovider_share_with -> abc_shareactionprovider_share_with
+    int abc_shareactionprovider_share_with_application -> abc_shareactionprovider_share_with_application
+    int ack_remember_decision -> ack_remember_decision
+    int ack_remember_yes -> ack_remember_yes
+    int action_settings -> action_settings
+    int app_name -> app_name
+    int app_settings_activity_title -> app_settings_activity_title
+    int button_label_cancel -> button_label_cancel
+    int button_label_close -> button_label_close
+    int button_label_delete -> button_label_delete
+    int button_label_ok -> button_label_ok
+    int button_label_set -> button_label_set
+    int button_label_upload -> button_label_upload
+    int button_label_view -> button_label_view
+    int menu_item_application_settings -> menu_item_application_settings
+    int project_browser_join -> project_browser_join
+    int project_browser_leave -> project_browser_leave
+    int project_browser_logged_in -> project_browser_logged_in
+    int project_browser_login -> project_browser_login
+    int project_browser_logout -> project_browser_logout
+    int project_browser_not_logged -> project_browser_not_logged
+    int project_browser_projects -> project_browser_projects
+    int title_activity_project_browser -> title_activity_project_browser
+    int web_logging_activity_title -> web_logging_activity_title
+org.greengin.sciencetoolkit.common.R$styleable -> org.greengin.sciencetoolkit.common.g:
     int[] ActionBar -> ActionBar
+    int[] ActionBarLayout -> ActionBarLayout
+    int ActionBarLayout_android_layout_gravity -> ActionBarLayout_android_layout_gravity
+    int[] ActionBarWindow -> ActionBarWindow
+    int ActionBarWindow_windowActionBar -> ActionBarWindow_windowActionBar
+    int ActionBarWindow_windowActionBarOverlay -> ActionBarWindow_windowActionBarOverlay
+    int ActionBarWindow_windowSplitActionBar -> ActionBarWindow_windowSplitActionBar
     int ActionBar_background -> ActionBar_background
     int ActionBar_backgroundSplit -> ActionBar_backgroundSplit
     int ActionBar_backgroundStacked -> ActionBar_backgroundStacked
@@ -8110,12 +8412,6 @@ org.greengin.sciencetoolkit.R$styleable -> org.greengin.sciencetoolkit.b:
     int ActionBar_subtitleTextStyle -> ActionBar_subtitleTextStyle
     int ActionBar_title -> ActionBar_title
     int ActionBar_titleTextStyle -> ActionBar_titleTextStyle
-    int[] ActionBarLayout -> ActionBarLayout
-    int ActionBarLayout_android_layout_gravity -> ActionBarLayout_android_layout_gravity
-    int[] ActionBarWindow -> ActionBarWindow
-    int ActionBarWindow_windowActionBar -> ActionBarWindow_windowActionBar
-    int ActionBarWindow_windowActionBarOverlay -> ActionBarWindow_windowActionBarOverlay
-    int ActionBarWindow_windowSplitActionBar -> ActionBarWindow_windowSplitActionBar
     int[] ActionMenuItemView -> ActionMenuItemView
     int ActionMenuItemView_android_minWidth -> ActionMenuItemView_android_minWidth
     int[] ActionMenuView -> ActionMenuView
@@ -8198,17 +8494,433 @@ org.greengin.sciencetoolkit.R$styleable -> org.greengin.sciencetoolkit.b:
     int View_android_focusable -> View_android_focusable
     int View_paddingEnd -> View_paddingEnd
     int View_paddingStart -> View_paddingStart
-org.greengin.sciencetoolkit.ScienceToolkitApplication -> org.greengin.sciencetoolkit.ScienceToolkitApplication:
-    void onCreate() -> onCreate
-org.greengin.sciencetoolkit.VersionManager -> org.greengin.sciencetoolkit.c:
-    void check(android.content.Context) -> a
+org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusActivity -> org.greengin.sciencetoolkit.common.a.a.a:
+    void onResume() -> onResume
+    void onPause() -> onPause
+org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusListener -> org.greengin.sciencetoolkit.common.a.a.b:
+    void applicationStatusEvent(boolean) -> a
+org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager -> org.greengin.sciencetoolkit.common.a.a.c:
+    org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager instance -> b
+    java.util.Vector listeners -> c
+    boolean awake -> a
+    void init(android.content.Context) -> a
+    org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager get() -> a
+    boolean isAwake() -> b
+    void registerStatusListener(org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusListener) -> a
+    void setAwake(boolean) -> a
+org.greengin.sciencetoolkit.common.logic.location.LocationTracker -> org.greengin.sciencetoolkit.common.a.b.a:
+    android.content.Context applicationContext -> a
+    android.location.LocationManager locationManager -> b
+    java.util.List providers -> c
+    android.location.Location best -> d
+    void setListening(boolean) -> b
+    void updateLocation(android.location.Location) -> a
+    java.lang.String locationString() -> a
+    void onLocationChanged(android.location.Location) -> onLocationChanged
+    void onProviderDisabled(java.lang.String) -> onProviderDisabled
+    void onProviderEnabled(java.lang.String) -> onProviderEnabled
+    void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
+org.greengin.sciencetoolkit.common.logic.remote.RemoteAction -> org.greengin.sciencetoolkit.common.a.c.a:
+    org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
+    void aboutToRun(int) -> a
+    void result(int,java.lang.String) -> a
+    void error(int,java.lang.String) -> b
+org.greengin.sciencetoolkit.common.logic.remote.RemoteApi -> org.greengin.sciencetoolkit.common.a.c.b:
+    org.greengin.sciencetoolkit.common.logic.remote.RemoteApi instance -> i
+    android.content.Context applicationContext -> a
+    boolean logged -> b
+    java.lang.String token -> c
+    java.lang.String username -> d
+    org.apache.http.impl.client.DefaultHttpClient httpClient -> e
+    java.util.Vector queue -> f
+    boolean running -> g
+    java.util.concurrent.locks.ReentrantLock runningLock -> h
+    org.greengin.sciencetoolkit.common.logic.remote.RemoteApi get() -> a
+    void init(android.content.Context) -> a
+    java.lang.String getUsername() -> b
+    boolean isLogged() -> c
+    void request(org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity,org.greengin.sciencetoolkit.common.logic.remote.RemoteAction) -> a
+    void resumeRequests(org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity) -> a
+    void loginActionComplete() -> d
+    void executeOne() -> f
+    void setSession(java.lang.String) -> a
+    void logout() -> e
+    void tryToLogin(org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity) -> b
+    void access$0(org.greengin.sciencetoolkit.common.logic.remote.RemoteApi) -> a
+org.greengin.sciencetoolkit.common.logic.remote.RemoteApi$ActionThread -> org.greengin.sciencetoolkit.common.a.c.c:
+    org.greengin.sciencetoolkit.common.logic.remote.RemoteAction action -> a
+    org.greengin.sciencetoolkit.common.logic.remote.RemoteApi this$0 -> b
+    void run() -> run
+org.greengin.sciencetoolkit.common.logic.remote.RemoteApi$GetTokenAction -> org.greengin.sciencetoolkit.common.a.c.d:
+    boolean login -> a
+    org.greengin.sciencetoolkit.common.logic.remote.RemoteApi this$0 -> b
+    org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
+    void result(int,org.json.JSONObject,org.json.JSONArray) -> a
+    void error(int,java.lang.String) -> b
+org.greengin.sciencetoolkit.common.logic.remote.RemoteJsonAction -> org.greengin.sciencetoolkit.common.a.c.e:
+    void result(int,org.json.JSONObject,org.json.JSONArray) -> a
+    void result(int,java.lang.String) -> a
+org.greengin.sciencetoolkit.common.model.AbstractModelManager -> org.greengin.sciencetoolkit.common.b.a:
+    java.util.concurrent.locks.ReentrantLock lock -> a
+    java.util.Timer timer -> b
+    int saveDelay -> c
+    java.lang.String filename -> d
+    android.content.Context applicationContext -> e
+    java.util.Hashtable items -> f
+    void load() -> b
+    void forceSave() -> a
+    void save() -> d
+    org.greengin.sciencetoolkit.common.model.Model get(java.lang.String,boolean) -> a
+    void remove(java.lang.String) -> b_
+    void modelModified(org.greengin.sciencetoolkit.common.model.Model) -> a
+    void access$0(org.greengin.sciencetoolkit.common.model.AbstractModelManager) -> a
+org.greengin.sciencetoolkit.common.model.AbstractModelManager$1 -> org.greengin.sciencetoolkit.common.b.b:
+    org.greengin.sciencetoolkit.common.model.AbstractModelManager this$0 -> a
+    void run() -> run
+org.greengin.sciencetoolkit.common.model.Model -> org.greengin.sciencetoolkit.common.b.c:
+    org.greengin.sciencetoolkit.common.model.Model parent -> a
+    java.util.Hashtable entries -> b
+    org.greengin.sciencetoolkit.common.model.ModelChangeListener listener -> c
+    org.greengin.sciencetoolkit.common.model.Model cloneModel(org.greengin.sciencetoolkit.common.model.Model) -> a
+    boolean containsKey(java.lang.String) -> a
+    org.greengin.sciencetoolkit.common.model.Model getRootParent() -> a
+    void fireModifiedEvent() -> b
+    java.util.Hashtable entries() -> c
+    boolean set(java.lang.String,java.lang.Object,boolean) -> a
+    boolean clearAll(boolean) -> a
+    boolean clear(java.lang.String) -> b
+    boolean clear(java.lang.String,boolean) -> a
+    java.lang.Object get(java.lang.String,java.lang.Object) -> a
+    boolean setInt(java.lang.String,int) -> a
+    boolean setDouble(java.lang.String,double) -> a
+    boolean setString(java.lang.String,java.lang.String) -> a
+    boolean setBool(java.lang.String,boolean) -> b
+    boolean setModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model) -> a
+    boolean setInt(java.lang.String,int,boolean) -> a
+    boolean setLong(java.lang.String,long,boolean) -> a
+    boolean setDouble(java.lang.String,double,boolean) -> a
+    boolean setString(java.lang.String,java.lang.String,boolean) -> a
+    boolean setBool(java.lang.String,boolean,boolean) -> a
+    boolean setModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model,boolean) -> a
+    java.lang.Integer getInt(java.lang.String) -> c
+    java.lang.Integer getInt(java.lang.String,int) -> b
+    java.lang.Number getNumber(java.lang.String,java.lang.Number) -> a
+    java.lang.Double getDouble(java.lang.String,double) -> b
+    java.lang.Boolean getBool(java.lang.String) -> d
+    java.lang.Boolean getBool(java.lang.String,boolean) -> c
+    java.lang.String getString(java.lang.String) -> e
+    java.lang.String getString(java.lang.String,java.lang.String) -> b
+    boolean copyPrimitives(org.greengin.sciencetoolkit.common.model.Model,boolean) -> a
+    org.greengin.sciencetoolkit.common.model.Model getModel(java.lang.String) -> f
+    org.greengin.sciencetoolkit.common.model.Model getModel(java.lang.String,boolean) -> d
+    org.greengin.sciencetoolkit.common.model.Model getModel(java.lang.String,boolean,boolean) -> b
+    java.util.Vector getModels() -> d
+    java.util.Vector getModels(java.lang.String) -> g
+    java.util.Vector getModels(java.lang.String,boolean) -> e
+    java.lang.Object access$0(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,java.lang.Object) -> a
+org.greengin.sciencetoolkit.common.model.Model$ModelComparator -> org.greengin.sciencetoolkit.common.b.d:
+    java.lang.String key -> a
+    int k -> b
+    int compare(org.greengin.sciencetoolkit.common.model.Model,org.greengin.sciencetoolkit.common.model.Model) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
+org.greengin.sciencetoolkit.common.model.ModelChangeListener -> org.greengin.sciencetoolkit.common.b.e:
+    void modelModified(org.greengin.sciencetoolkit.common.model.Model) -> a
+org.greengin.sciencetoolkit.common.model.SettingsManager -> org.greengin.sciencetoolkit.common.b.f:
+    org.greengin.sciencetoolkit.common.model.SettingsManager instance -> g
+    java.util.Hashtable listeners -> h
+    void init(android.content.Context) -> a
+    org.greengin.sciencetoolkit.common.model.SettingsManager get() -> b
+    org.greengin.sciencetoolkit.common.model.Model get(java.lang.String) -> b
+    void modelModified(org.greengin.sciencetoolkit.common.model.Model) -> a
+    void registerUIListener(java.lang.String,org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> a
+    void unregisterUIListener(java.lang.String,org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> b
+    void registerDirectListener(java.lang.String,org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> c
+    void unregisterDirectListener(java.lang.String,org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> d
+    org.greengin.sciencetoolkit.common.model.events.NotificationListenerAggregator getAggregator(java.lang.String,boolean) -> b
+    int getCurrentVersion() -> c
+    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model,int) -> a
+org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener -> org.greengin.sciencetoolkit.common.b.a.a:
+    void modelNotificationReceived(java.lang.String) -> a
+org.greengin.sciencetoolkit.common.model.events.NotificationListenerAggregator -> org.greengin.sciencetoolkit.common.b.a.b:
+    java.util.concurrent.locks.ReentrantLock lock -> a
+    java.lang.String filter -> b
+    java.util.Vector directListeners -> c
+    java.util.Vector uilisteners -> d
+    boolean uilisteneractivated -> e
+    android.content.Context applicationContext -> f
+    void fireEvent(java.lang.String) -> a
+    void addDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> a
+    void removeDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> b
+    void addUIListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> c
+    void removeUIListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> d
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+org.greengin.sciencetoolkit.common.model.serialize.ModelDeserializer -> org.greengin.sciencetoolkit.common.b.b.a:
+    java.util.Hashtable xml2modelMap(org.greengin.sciencetoolkit.common.model.ModelChangeListener,org.greengin.sciencetoolkit.common.model.serialize.ModelVersionManager,android.content.Context,java.lang.String) -> a
+    org.w3c.dom.Element loadRootElement(android.content.Context,java.lang.String) -> a
+    void versionCheck(org.greengin.sciencetoolkit.common.model.serialize.ModelVersionManager,org.w3c.dom.Element,java.util.Hashtable) -> a
+    int getVersion(org.w3c.dom.Element) -> a
+    java.util.Hashtable xml2modelMap(org.w3c.dom.Element,org.greengin.sciencetoolkit.common.model.ModelChangeListener) -> a
+    org.greengin.sciencetoolkit.common.model.Model xml2model(org.w3c.dom.Element,org.greengin.sciencetoolkit.common.model.ModelChangeListener,org.greengin.sciencetoolkit.common.model.Model) -> a
+org.greengin.sciencetoolkit.common.model.serialize.ModelSerializer -> org.greengin.sciencetoolkit.common.b.b.b:
+    void model2xml(org.greengin.sciencetoolkit.common.model.serialize.ModelVersionManager,java.util.Hashtable,android.content.Context,java.lang.String) -> a
+    org.w3c.dom.Document model2xml(org.greengin.sciencetoolkit.common.model.serialize.ModelVersionManager,java.util.Hashtable) -> a
+    org.w3c.dom.Element model2xml(org.greengin.sciencetoolkit.common.model.Model,org.w3c.dom.Document,org.w3c.dom.Element) -> a
+org.greengin.sciencetoolkit.common.model.serialize.ModelVersionManager -> org.greengin.sciencetoolkit.common.b.b.c:
+    int getCurrentVersion() -> c
+    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model,int) -> a
+org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity -> org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity:
+    org.apache.http.impl.client.DefaultHttpClient http_client -> o
+    void onCreate(android.os.Bundle) -> onCreate
+org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity -> org.greengin.sciencetoolkit.common.ui.base.a:
+    void remoteRequest(org.greengin.sciencetoolkit.common.logic.remote.RemoteAction) -> a
+    void onResume() -> onResume
+org.greengin.sciencetoolkit.common.ui.base.SettingsControlledActivity -> org.greengin.sciencetoolkit.common.ui.base.b:
+    org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener controlledRotationListener -> p
+    int controlledRotationLastValue -> q
+    boolean controlledRotationActive -> r
+    boolean controlledSettingsHasParent -> s
+    void onCreate(android.os.Bundle) -> onCreate
+    void setupActionBar() -> i
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void onResume() -> onResume
+    void onPause() -> onPause
+    void updateScreenOrientationValue() -> j
+    void updateScreenOrientation() -> k
+    void access$0(org.greengin.sciencetoolkit.common.ui.base.SettingsControlledActivity) -> a
+org.greengin.sciencetoolkit.common.ui.base.SettingsControlledActivity$1 -> org.greengin.sciencetoolkit.common.ui.base.c:
+    org.greengin.sciencetoolkit.common.ui.base.SettingsControlledActivity this$0 -> a
+    void modelNotificationReceived(java.lang.String) -> a
+org.greengin.sciencetoolkit.common.ui.base.SwipeActivity -> org.greengin.sciencetoolkit.common.ui.base.d:
+    org.greengin.sciencetoolkit.common.ui.base.SwipeActivity$SectionsPagerAdapter mSectionsPagerAdapter -> o
+    org.greengin.sciencetoolkit.common.ui.base.widgets.StkViewPager mViewPager -> t
+    int getContentViewLayoutId() -> i
+    int getViewPagerLayoutId() -> j
+    int getTabCount() -> k
+    java.lang.CharSequence getTabTitle(int) -> b
+    android.support.v4.app.Fragment createTabFragment(int) -> c
+    int getOnResumeTab() -> l
+    void setOnResumeTab(int) -> d
+    void onCreate(android.os.Bundle) -> onCreate
+    void setPagingEnabled(boolean) -> b
+    void onResume() -> onResume
+    void onTabSelected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> a
+    void onTabUnselected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> b
+    void onTabReselected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> c
+org.greengin.sciencetoolkit.common.ui.base.SwipeActivity$1 -> org.greengin.sciencetoolkit.common.ui.base.e:
+    org.greengin.sciencetoolkit.common.ui.base.SwipeActivity this$0 -> a
+    android.support.v7.app.ActionBar val$actionBar -> b
+    void onPageSelected(int) -> a
+org.greengin.sciencetoolkit.common.ui.base.SwipeActivity$SectionsPagerAdapter -> org.greengin.sciencetoolkit.common.ui.base.f:
+    android.support.v4.app.Fragment[] fragments -> a
+    org.greengin.sciencetoolkit.common.ui.base.SwipeActivity this$0 -> b
+    android.support.v4.app.Fragment getItem(int) -> a
+    int getCount() -> b
+    java.lang.CharSequence getPageTitle(int) -> c
+org.greengin.sciencetoolkit.common.ui.base.ToastMaker -> org.greengin.sciencetoolkit.common.ui.base.g:
+    void t(android.app.Activity,java.lang.String,int,int,boolean) -> a
+    void te(android.app.Activity,java.lang.String,int,boolean) -> a
+    void ti(android.app.Activity,java.lang.String,int,boolean) -> b
+    void l(android.app.Activity,java.lang.String,boolean) -> a
+    void s(android.app.Activity,java.lang.String,boolean) -> b
+    void le(android.app.Activity,java.lang.String,boolean) -> c
+    void s(android.app.Activity,java.lang.String) -> a
+org.greengin.sciencetoolkit.common.ui.base.ToastMaker$ToastRunnable -> org.greengin.sciencetoolkit.common.ui.base.h:
+    android.app.Activity activity -> a
+    java.lang.String text -> b
+    int duration -> c
+    int background -> d
+    void run() -> run
+org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity -> org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity:
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity$1 -> org.greengin.sciencetoolkit.common.ui.base.i:
+    org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity this$0 -> a
+    void onProgressChanged(android.webkit.WebView,int) -> onProgressChanged
+org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity$2 -> org.greengin.sciencetoolkit.common.ui.base.j:
+    org.greengin.sciencetoolkit.common.ui.base.WebViewLoginActivity this$0 -> a
+    void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
+    void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    void onReceivedError(android.webkit.WebView,int,java.lang.String,java.lang.String) -> onReceivedError
+org.greengin.sciencetoolkit.common.ui.base.events.EventFragment -> org.greengin.sciencetoolkit.common.ui.base.a.a:
+    org.greengin.sciencetoolkit.common.ui.base.events.EventManager eventManager -> P
+    org.greengin.sciencetoolkit.common.ui.base.events.EventManager createEventManager() -> B
+    void onCreate(android.os.Bundle) -> d
+    void onPause() -> l
+    void onResume() -> k
+    void onDestroy() -> o
+org.greengin.sciencetoolkit.common.ui.base.events.EventManager -> org.greengin.sciencetoolkit.common.ui.base.a.b:
+    void pause() -> a
+    void resume() -> b
+    void destroy() -> c
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.CheckEnabledModelFragment -> org.greengin.sciencetoolkit.common.ui.base.b.a:
+    void onResume() -> k
+    void checkSettingsEnabled() -> B
+    boolean settingsShouldBeEnabled() -> C
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment -> org.greengin.sciencetoolkit.common.ui.base.b.b:
+    org.greengin.sciencetoolkit.common.model.Model model -> P
+    boolean settingsEnabled -> Q
+    android.widget.LinearLayout rootContainer -> R
+    android.view.LayoutInflater inflater -> S
+    org.greengin.sciencetoolkit.common.model.Model fetchModel() -> D
+    void onAttach(android.app.Activity) -> a
+    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
+    void createConfigOptions(android.view.View) -> a
+    void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number) -> a
+    void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[],java.lang.String) -> a
+    android.widget.CheckBox addOptionCheckbox(java.lang.String,java.lang.String,java.lang.String,boolean) -> a
+    android.widget.TextView addText(java.lang.String) -> a
+    android.widget.Spinner addOptionSelect(java.lang.String,java.lang.String,java.lang.String,java.util.List,int) -> a
+    void addRow(java.lang.String,java.lang.String,android.view.View) -> a
+    void addRow(java.lang.String,java.lang.String,android.view.View[]) -> a
+    void setSettingsEnabled(boolean) -> e
+    void setSettingsEnabled(android.view.View,boolean) -> a
+    void modelKeyModified(java.lang.String) -> c_
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$2 -> org.greengin.sciencetoolkit.common.ui.base.b.c:
+    org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment this$0 -> a
+    void onCheckedChanged(android.widget.CompoundButton,boolean) -> onCheckedChanged
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$3 -> org.greengin.sciencetoolkit.common.ui.base.b.d:
+    org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment this$0 -> a
+    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
+    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelKeyChangeListener -> org.greengin.sciencetoolkit.common.ui.base.b.e:
+    void modelKeyModified(java.lang.String) -> c_
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsFragmentManager -> org.greengin.sciencetoolkit.common.ui.base.b.f:
+    void insert(android.support.v4.app.FragmentManager,int,java.lang.String) -> a
+    void insert(android.support.v4.app.FragmentManager,int,java.lang.String,java.lang.String) -> a
+    org.greengin.sciencetoolkit.common.ui.base.modelconfig.settings.AbstractSettingsFragment get(java.lang.String,java.lang.String) -> a
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsNumberWatcher -> org.greengin.sciencetoolkit.common.ui.base.b.g:
+    org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelKeyChangeListener listener -> a
+    org.greengin.sciencetoolkit.common.model.Model settings -> b
+    java.lang.String key -> c
+    java.lang.String unitsKey -> d
+    boolean hasUnits -> e
+    double[] unitMultipliers -> f
+    android.widget.TextView numberEdit -> g
+    boolean number -> h
+    boolean decimal -> i
+    boolean signed -> j
+    java.lang.Number defaultValue -> k
+    java.lang.Number min -> l
+    java.lang.Number max -> m
+    double getUnitMultiplier() -> a
+    double checkValueInRange(double) -> a
+    int checkValueInRange(int) -> a
+    boolean update(android.text.Editable) -> a
+    void afterTextChanged(android.text.Editable) -> afterTextChanged
+    void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
+    void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
+    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
+    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.settings.AbstractSettingsFragment -> org.greengin.sciencetoolkit.common.ui.base.b.a.a:
+    org.greengin.sciencetoolkit.common.model.Model fetchModel() -> D
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.settings.AppSettingsFragment -> org.greengin.sciencetoolkit.common.ui.base.b.a.b:
+    void createConfigOptions(android.view.View) -> a
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView -> org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView:
+    java.lang.String filter -> a
+    int period -> b
+    java.util.Timer timer -> c
+    boolean running -> d
+    android.content.BroadcastReceiver receiver -> e
+    void init(android.util.AttributeSet) -> a
+    void toggle() -> a
+    void start() -> b
+    void stop() -> c
+    void setBlinking(boolean) -> setBlinking
+    void onAttachedToWindow() -> onAttachedToWindow
+    void onDetachedFromWindow() -> onDetachedFromWindow
+    void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
+    void access$0(org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView) -> a
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView$1 -> org.greengin.sciencetoolkit.common.ui.base.widgets.a:
+    org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView$2 -> org.greengin.sciencetoolkit.common.ui.base.widgets.b:
+    org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView this$0 -> a
+    void run() -> run
+org.greengin.sciencetoolkit.common.ui.base.widgets.ButtonPanelLayout -> org.greengin.sciencetoolkit.common.ui.base.widgets.ButtonPanelLayout:
+    void init() -> a
+    int getVisibleChildCount() -> getVisibleChildCount
+    void onMeasure(int,int) -> onMeasure
+    void onLayout(boolean,int,int,int,int) -> onLayout
+org.greengin.sciencetoolkit.common.ui.base.widgets.StkViewPager -> org.greengin.sciencetoolkit.common.ui.base.widgets.StkViewPager:
+    boolean enabled -> a
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    void setPagingEnabled(boolean) -> setPagingEnabled
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg -> org.greengin.sciencetoolkit.common.ui.base.widgets.a.a:
+    void confirm(android.content.Context,org.greengin.sciencetoolkit.common.model.Model,java.lang.String,org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckListener,boolean,int,int) -> a
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg$AckDlgBuilder -> org.greengin.sciencetoolkit.common.ui.base.widgets.a.b:
+    org.greengin.sciencetoolkit.common.model.Model confirmContainer -> a
+    java.lang.String confirmKey -> b
+    org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckListener listener -> c
+    boolean onlyRememberYes -> d
+    android.widget.CheckBox checkbox -> e
+    android.app.AlertDialog dlg -> f
+    void launch() -> a
+    void onClick(android.content.DialogInterface,int) -> onClick
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckListener -> org.greengin.sciencetoolkit.common.ui.base.widgets.a.c:
+    void ackDecision(boolean) -> a
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity -> org.greengin.sciencetoolkit.common.ui.a.a:
+    java.lang.String projectType -> o
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserListAdapter adapter -> p
+    android.content.BroadcastReceiver loginEventReceiver -> q
+    android.content.BroadcastReceiver projectsEventReceiver -> r
+    android.widget.TextView status -> s
+    android.widget.Button loginToggle -> t
+    android.widget.ListView list -> u
+    void onCreate(android.os.Bundle) -> onCreate
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    void onResume() -> onResume
+    void onPause() -> onPause
+    void projectMembershipAction(long,boolean) -> a
+    void updateView() -> j
+    void projectMembershipUpdated() -> i
+    void access$0(org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity) -> a
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity$1 -> org.greengin.sciencetoolkit.common.ui.a.b:
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity$2 -> org.greengin.sciencetoolkit.common.ui.a.c:
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity this$0 -> a
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity$3 -> org.greengin.sciencetoolkit.common.ui.a.d:
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity$ProjectMembershipAction -> org.greengin.sciencetoolkit.common.ui.a.e:
+    java.lang.String action -> a
+    long projectId -> b
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity this$0 -> c
+    org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
+    void result(int,org.json.JSONObject,org.json.JSONArray) -> a
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserListAdapter -> org.greengin.sciencetoolkit.common.ui.a.f:
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectMembershipListener listener -> a
+    android.view.LayoutInflater inflater -> b
+    boolean isRemote -> c
+    java.util.Vector projects -> d
+    android.view.View$OnClickListener toggleListener -> e
+    void updateProjectList(java.util.Vector) -> a
+    int getCount() -> getCount
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectData getItem(int) -> a
+    long getItemId(int) -> getItemId
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    java.lang.Object getItem(int) -> getItem
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserListAdapter$1 -> org.greengin.sciencetoolkit.common.ui.a.g:
+    org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserListAdapter this$0 -> a
+    void onClick(android.view.View) -> onClick
+org.greengin.sciencetoolkit.common.ui.remote.ProjectData -> org.greengin.sciencetoolkit.common.ui.a.h:
+    java.lang.String title -> a
+    long id -> b
+    boolean joined -> c
+    java.lang.String author -> d
+org.greengin.sciencetoolkit.common.ui.remote.ProjectMembershipListener -> org.greengin.sciencetoolkit.common.ui.a.i:
+    void projectMembershipAction(long,boolean) -> a
 org.greengin.sciencetoolkit.logic.datalogging.DataLogger -> org.greengin.sciencetoolkit.a.a.a:
     org.greengin.sciencetoolkit.logic.datalogging.DataLogger instance -> r
     java.util.concurrent.locks.ReentrantLock runningLock -> a
     java.util.concurrent.locks.ReentrantLock listenersLock -> b
     android.content.Context applicationContext -> c
     java.lang.String profileId -> d
-    org.greengin.sciencetoolkit.model.Model profile -> e
+    org.greengin.sciencetoolkit.common.model.Model profile -> e
     int series -> f
     java.io.File seriesFile -> g
     java.util.HashMap seriesRecord -> h
@@ -8243,13 +8955,13 @@ org.greengin.sciencetoolkit.logic.datalogging.DataLogger -> org.greengin.science
     void markAsSent(java.lang.String,java.io.File,int) -> a
     int currentUploadedStatus() -> h
     int uploadedStatus(java.lang.String,java.io.File) -> b
-    org.greengin.sciencetoolkit.model.Model getSeriesMetadata(java.lang.String,java.io.File) -> c
+    org.greengin.sciencetoolkit.common.model.Model getSeriesMetadata(java.lang.String,java.io.File) -> c
     void fireStatusModified(java.lang.String) -> f
     void fireDataModified(java.lang.String) -> e
     long getSeriesDuration(java.io.File) -> b
     java.util.HashMap getSensorsInSeries(java.io.File) -> c
-    java.io.File getPublicFile(org.greengin.sciencetoolkit.model.Model,java.io.File) -> a
-    java.lang.String seriesName(org.greengin.sciencetoolkit.model.Model,java.io.File) -> b
+    java.io.File getPublicFile(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> a
+    java.lang.String seriesName(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> b
 org.greengin.sciencetoolkit.logic.datalogging.DataLogger$1 -> org.greengin.sciencetoolkit.a.a.b:
     org.greengin.sciencetoolkit.logic.datalogging.DataLogger this$0 -> a
     void onReceive(android.content.Context,android.content.Intent) -> onReceive
@@ -8271,13 +8983,13 @@ org.greengin.sciencetoolkit.logic.datalogging.DataLoggerFileManager -> org.green
     void deleteSeries(java.lang.String) -> f
     void deleteSeries(java.io.File) -> a
     void deleteFolder(java.io.File) -> b
-    java.io.File getPublicFile(org.greengin.sciencetoolkit.model.Model,java.io.File) -> a
+    java.io.File getPublicFile(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> a
 org.greengin.sciencetoolkit.logic.datalogging.DataLoggerSerializer -> org.greengin.sciencetoolkit.a.a.f:
     java.io.BufferedWriter writer -> a
     java.util.HashMap countMap -> b
     int count -> c
     org.greengin.sciencetoolkit.logic.datalogging.DataLogger manager -> d
-    boolean open(java.io.File,org.greengin.sciencetoolkit.model.Model) -> a
+    boolean open(java.io.File,org.greengin.sciencetoolkit.common.model.Model) -> a
     boolean close() -> a
     void save(java.lang.String,java.lang.String,float[],int) -> a
     int getCount() -> b
@@ -8287,7 +8999,7 @@ org.greengin.sciencetoolkit.logic.datalogging.DataLoggerSerializer -> org.greeng
     long timestamp(java.lang.String) -> a
     java.lang.String lastDataLine(java.io.File) -> d
 org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener -> org.greengin.sciencetoolkit.a.a.g:
-    void dataLoggerStatusModified(java.lang.String) -> a
+    void dataLoggerStatusModified(java.lang.String) -> b
 org.greengin.sciencetoolkit.logic.datalogging.DataLoggingInput -> org.greengin.sciencetoolkit.a.a.h:
     java.lang.String profileId -> a
     java.lang.String profileSensorId -> b
@@ -8350,65 +9062,35 @@ org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedScienceToolki
     java.lang.String getExternalSensorId(java.lang.String) -> a
     android.database.Cursor getAllDataCursor() -> a
 org.greengin.sciencetoolkit.logic.location.CurrentLocation -> org.greengin.sciencetoolkit.a.b.a:
-    org.greengin.sciencetoolkit.logic.location.CurrentLocation instance -> e
-    android.content.Context applicationContext -> a
-    android.location.LocationManager locationManager -> b
-    java.util.List providers -> c
-    android.location.Location best -> d
-    org.greengin.sciencetoolkit.logic.location.CurrentLocation get() -> a
+    org.greengin.sciencetoolkit.logic.location.CurrentLocation instance -> f
+    java.util.Timer timer -> e
+    org.greengin.sciencetoolkit.logic.location.CurrentLocation get() -> b
     void init(android.content.Context) -> a
-    void startlocation() -> b
+    void checkLocationRequest() -> c
     void updateLocation(android.location.Location) -> a
-    java.lang.String locationString() -> c
+    java.lang.String locationString() -> a
     void onLocationChanged(android.location.Location) -> onLocationChanged
     void onProviderDisabled(java.lang.String) -> onProviderDisabled
     void onProviderEnabled(java.lang.String) -> onProviderEnabled
     void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
-org.greengin.sciencetoolkit.logic.remote.RemoteAction -> org.greengin.sciencetoolkit.a.c.a:
-    org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
-    void aboutToRun(int) -> a
-    void result(int,java.lang.String) -> a
-    void error(int,java.lang.String) -> b
-org.greengin.sciencetoolkit.logic.remote.RemoteApi -> org.greengin.sciencetoolkit.a.c.b:
-    org.greengin.sciencetoolkit.logic.remote.RemoteApi instance -> e
-    android.content.Context applicationContext -> a
-    boolean logged -> b
-    java.lang.String token -> c
-    org.apache.http.impl.client.DefaultHttpClient httpClient -> d
-    org.greengin.sciencetoolkit.logic.remote.RemoteApi get() -> a
-    void init(android.content.Context) -> a
-    void request(org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity,org.greengin.sciencetoolkit.logic.remote.RemoteAction,boolean) -> a
-    void execute(org.greengin.sciencetoolkit.logic.remote.RemoteAction) -> a
-    void setSession(java.lang.String) -> a
-    void logout() -> b
-    void tryToLogin(org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity) -> a
-org.greengin.sciencetoolkit.logic.remote.RemoteApi$ActionThread -> org.greengin.sciencetoolkit.a.c.c:
-    org.greengin.sciencetoolkit.logic.remote.RemoteAction action -> a
-    org.greengin.sciencetoolkit.logic.remote.RemoteApi this$0 -> b
+    void applicationStatusEvent(boolean) -> a
+    void dataLoggerStatusModified(java.lang.String) -> b
+    void modelNotificationReceived(java.lang.String) -> a
+    void access$0(org.greengin.sciencetoolkit.logic.location.CurrentLocation,boolean) -> a
+org.greengin.sciencetoolkit.logic.location.CurrentLocation$1 -> org.greengin.sciencetoolkit.a.b.b:
+    org.greengin.sciencetoolkit.logic.location.CurrentLocation this$0 -> a
     void run() -> run
-org.greengin.sciencetoolkit.logic.remote.RemoteApi$LoginAction -> org.greengin.sciencetoolkit.a.c.d:
-    boolean login -> a
-    org.greengin.sciencetoolkit.logic.remote.RemoteApi this$0 -> b
+org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction -> org.greengin.sciencetoolkit.a.c.a:
     org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
-    void result(int,org.json.JSONObject) -> a
-org.greengin.sciencetoolkit.logic.remote.RemoteCapableActivity -> org.greengin.sciencetoolkit.a.c.e:
-    org.greengin.sciencetoolkit.logic.remote.RemoteAction remoteOnResumeAction -> o
-    void remoteRequest(org.greengin.sciencetoolkit.logic.remote.RemoteAction) -> a
-    void remoteSetOnResumeAction(org.greengin.sciencetoolkit.logic.remote.RemoteAction) -> b
-    void onResume() -> onResume
-org.greengin.sciencetoolkit.logic.remote.RemoteJsonAction -> org.greengin.sciencetoolkit.a.c.f:
-    void result(int,org.json.JSONObject) -> a
-    void result(int,java.lang.String) -> a
-org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction -> org.greengin.sciencetoolkit.a.c.g:
+    void result(int,org.json.JSONObject,org.json.JSONArray) -> a
+org.greengin.sciencetoolkit.logic.remote.UploadRemoteAction -> org.greengin.sciencetoolkit.a.c.b:
+    android.app.Activity context -> a
+    org.greengin.sciencetoolkit.common.model.Model profile -> b
+    java.lang.String profileId -> c
+    java.lang.String projectId -> d
+    java.io.File series -> e
     org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
-    void result(int,org.json.JSONObject) -> a
-org.greengin.sciencetoolkit.logic.remote.UploadRemoteAction -> org.greengin.sciencetoolkit.a.c.h:
-    org.greengin.sciencetoolkit.model.Model profile -> a
-    java.lang.String profileId -> b
-    java.lang.String projectId -> c
-    java.io.File series -> d
-    org.apache.http.client.methods.HttpRequestBase[] createRequests(java.lang.String) -> a
-    void result(int,org.json.JSONObject) -> a
+    void result(int,org.json.JSONObject,org.json.JSONArray) -> a
     void error(int,java.lang.String) -> b
 org.greengin.sciencetoolkit.logic.sensors.SensorWrapper -> org.greengin.sciencetoolkit.a.d.a:
     java.lang.String id -> a
@@ -8443,7 +9125,7 @@ org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper -> org.gree
     android.hardware.SensorManager sensorManager -> a
     android.hardware.Sensor sensor -> b
     int currentDelay -> c
-    org.greengin.sciencetoolkit.model.Model settings -> d
+    org.greengin.sciencetoolkit.common.model.Model settings -> d
     int valueCount -> e
     boolean isRegistered -> f
     void onInputAdded(boolean,int) -> a
@@ -8464,7 +9146,7 @@ org.greengin.sciencetoolkit.logic.sensors.location.AbstractGpsSensorWrapper -> o
     java.lang.String provider -> c
     int minPeriod -> d
     int minDistance -> e
-    org.greengin.sciencetoolkit.model.Model settings -> f
+    org.greengin.sciencetoolkit.common.model.Model settings -> f
     boolean isAvailable(android.content.Context) -> a
     void updateConfig() -> g
     int getMinDelay() -> e
@@ -8521,7 +9203,7 @@ org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorRunnable -> org.green
     void setLength(int) -> b
 org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper -> org.greengin.sciencetoolkit.a.d.d.b:
     java.lang.String settingsId -> a
-    org.greengin.sciencetoolkit.model.Model settings -> b
+    org.greengin.sciencetoolkit.common.model.Model settings -> b
     org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorRunnable runnable -> c
     float[] values -> d
     boolean isAvailable(android.content.Context) -> a
@@ -8573,221 +9255,71 @@ org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter -> org.gre
 org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter$1 -> org.greengin.sciencetoolkit.a.e.a.b:
     org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter this$0 -> a
     void run() -> run
-org.greengin.sciencetoolkit.model.AbstractModelManager -> org.greengin.sciencetoolkit.b.a:
-    java.util.concurrent.locks.ReentrantLock lock -> a
-    java.util.Timer timer -> b
-    int saveDelay -> c
-    java.lang.String filename -> d
-    android.content.Context applicationContext -> e
-    java.util.Hashtable items -> f
-    void load() -> b
-    void forceSave() -> a
-    void save() -> c
-    org.greengin.sciencetoolkit.model.Model get(java.lang.String,boolean) -> a
-    void remove(java.lang.String) -> b
-    void modelModified(org.greengin.sciencetoolkit.model.Model) -> a
-    void access$0(org.greengin.sciencetoolkit.model.AbstractModelManager) -> a
-org.greengin.sciencetoolkit.model.AbstractModelManager$1 -> org.greengin.sciencetoolkit.b.b:
-    org.greengin.sciencetoolkit.model.AbstractModelManager this$0 -> a
-    void run() -> run
-org.greengin.sciencetoolkit.model.Model -> org.greengin.sciencetoolkit.b.c:
-    org.greengin.sciencetoolkit.model.Model parent -> a
-    java.util.Hashtable entries -> b
-    org.greengin.sciencetoolkit.model.ModelChangeListener listener -> c
-    org.greengin.sciencetoolkit.model.Model cloneModel(org.greengin.sciencetoolkit.model.Model) -> a
-    boolean containsKey(java.lang.String) -> a
-    org.greengin.sciencetoolkit.model.Model getRootParent() -> a
-    void fireModifiedEvent() -> b
-    java.util.Hashtable entries() -> c
-    boolean set(java.lang.String,java.lang.Object,boolean) -> a
-    boolean clearAll(boolean) -> a
-    boolean clear(java.lang.String) -> b
-    boolean clear(java.lang.String,boolean) -> a
-    java.lang.Object get(java.lang.String,java.lang.Object) -> a
-    boolean setInt(java.lang.String,int) -> a
-    boolean setDouble(java.lang.String,double) -> a
-    boolean setString(java.lang.String,java.lang.String) -> a
-    boolean setBool(java.lang.String,boolean) -> b
-    boolean setModel(java.lang.String,org.greengin.sciencetoolkit.model.Model) -> a
-    boolean setInt(java.lang.String,int,boolean) -> a
-    boolean setLong(java.lang.String,long,boolean) -> a
-    boolean setDouble(java.lang.String,double,boolean) -> a
-    boolean setString(java.lang.String,java.lang.String,boolean) -> a
-    boolean setBool(java.lang.String,boolean,boolean) -> a
-    boolean setModel(java.lang.String,org.greengin.sciencetoolkit.model.Model,boolean) -> a
-    java.lang.Integer getInt(java.lang.String) -> c
-    java.lang.Integer getInt(java.lang.String,int) -> b
-    java.lang.Number getNumber(java.lang.String,java.lang.Number) -> a
-    java.lang.Double getDouble(java.lang.String,double) -> b
-    java.lang.Boolean getBool(java.lang.String) -> d
-    java.lang.Boolean getBool(java.lang.String,boolean) -> c
-    java.lang.String getString(java.lang.String) -> e
-    java.lang.String getString(java.lang.String,java.lang.String) -> b
-    boolean copyPrimitives(org.greengin.sciencetoolkit.model.Model,boolean) -> a
-    org.greengin.sciencetoolkit.model.Model getModel(java.lang.String) -> f
-    org.greengin.sciencetoolkit.model.Model getModel(java.lang.String,boolean) -> d
-    org.greengin.sciencetoolkit.model.Model getModel(java.lang.String,boolean,boolean) -> b
-    java.util.Vector getModels() -> d
-    java.util.Vector getModels(java.lang.String) -> g
-    java.lang.Object access$0(org.greengin.sciencetoolkit.model.Model,java.lang.String,java.lang.Object) -> a
-org.greengin.sciencetoolkit.model.Model$ModelComparator -> org.greengin.sciencetoolkit.b.d:
-    java.lang.String key -> a
-    int compare(org.greengin.sciencetoolkit.model.Model,org.greengin.sciencetoolkit.model.Model) -> a
-    int compare(java.lang.Object,java.lang.Object) -> compare
-org.greengin.sciencetoolkit.model.ModelChangeListener -> org.greengin.sciencetoolkit.b.e:
-    void modelModified(org.greengin.sciencetoolkit.model.Model) -> a
-org.greengin.sciencetoolkit.model.ModelOperations -> org.greengin.sciencetoolkit.b.f:
+org.greengin.sciencetoolkit.model.ModelOperations -> org.greengin.sciencetoolkit.b.a:
     int[] delayOptions -> a
     int[] delays -> b
     double fitFateInRange(double,int,java.lang.Double,java.lang.Double) -> a
-    int rate2period(org.greengin.sciencetoolkit.model.Model,java.lang.String,double,java.lang.Double,java.lang.Double) -> a
+    int rate2period(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,double,java.lang.Double,java.lang.Double) -> a
     int getValidDeviceSensorDelayOptions(org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
-org.greengin.sciencetoolkit.model.ProfileManager -> org.greengin.sciencetoolkit.b.g:
+org.greengin.sciencetoolkit.model.ProfileManager -> org.greengin.sciencetoolkit.b.b:
     org.greengin.sciencetoolkit.model.ProfileManager instance -> k
-    org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator listeners -> g
-    org.greengin.sciencetoolkit.model.Model settings -> h
-    org.greengin.sciencetoolkit.model.Model appSettings -> i
+    org.greengin.sciencetoolkit.common.model.events.NotificationListenerAggregator listeners -> g
+    org.greengin.sciencetoolkit.common.model.Model settings -> h
+    org.greengin.sciencetoolkit.common.model.Model appSettings -> i
     java.util.Comparator profileIdComparator -> j
     void init(android.content.Context) -> a
     org.greengin.sciencetoolkit.model.ProfileManager get() -> b
     void initDefaultProfile() -> g
-    boolean profileIdIsActive(java.lang.String) -> c
-    boolean profileIsActive(org.greengin.sciencetoolkit.model.Model) -> b
+    boolean profileIdIsActive(java.lang.String) -> b
+    boolean profileIsActive(org.greengin.sciencetoolkit.common.model.Model) -> b
     void checkDataConsistency() -> h
-    org.greengin.sciencetoolkit.model.Model createEmptyProfile(java.lang.String) -> k
+    org.greengin.sciencetoolkit.common.model.Model createEmptyProfile(java.lang.String) -> j
     void createProfile(java.lang.String,boolean) -> b
-    void deleteProfile(java.lang.String) -> d
-    void switchActiveProfile(java.lang.String) -> e
-    boolean sensorSelectedInExplore(java.lang.String) -> f
-    void removeSensorFromActiveProfile(java.lang.String) -> g
-    org.greengin.sciencetoolkit.model.Model addSensor(org.greengin.sciencetoolkit.model.Model,java.lang.String,boolean) -> a
-    org.greengin.sciencetoolkit.model.Model addSensor(org.greengin.sciencetoolkit.model.Model,java.lang.String,java.lang.String,boolean) -> a
-    void addSensors(org.greengin.sciencetoolkit.model.Model,java.util.Vector) -> a
-    void addSensors(org.greengin.sciencetoolkit.model.Model,java.util.Vector,boolean) -> a
-    void removeSensor(org.greengin.sciencetoolkit.model.Model,java.lang.String) -> a
-    org.greengin.sciencetoolkit.model.Model get(java.lang.String) -> h
-    org.greengin.sciencetoolkit.model.Model getActiveProfile() -> c
-    java.lang.String getActiveProfileId() -> d
-    java.util.Vector getProfileIds() -> e
+    void deleteProfile(java.lang.String) -> c
+    void switchActiveProfile(java.lang.String) -> d
+    boolean sensorSelectedInExplore(java.lang.String) -> e
+    void removeSensorFromActiveProfile(java.lang.String) -> f
+    org.greengin.sciencetoolkit.common.model.Model addSensor(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,boolean) -> a
+    org.greengin.sciencetoolkit.common.model.Model addSensor(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,java.lang.String,boolean) -> a
+    void addSensors(org.greengin.sciencetoolkit.common.model.Model,java.util.Vector) -> a
+    void addSensors(org.greengin.sciencetoolkit.common.model.Model,java.util.Vector,boolean) -> a
+    void removeSensor(org.greengin.sciencetoolkit.common.model.Model,java.lang.String) -> a
+    org.greengin.sciencetoolkit.common.model.Model get(java.lang.String) -> g
+    org.greengin.sciencetoolkit.common.model.Model getActiveProfile() -> d
+    java.lang.String getActiveProfileId() -> e
+    java.util.Vector getProfileIds() -> f
     java.lang.String getNewId() -> i
-    boolean sensorInActiveProfile(java.lang.String) -> i
-    boolean sensorInProfile(java.lang.String,org.greengin.sciencetoolkit.model.Model) -> a
-    java.lang.String getSensorProfileIdInActiveProfile(java.lang.String) -> j
-    java.lang.String getSensorProfileId(java.lang.String,org.greengin.sciencetoolkit.model.Model) -> b
-    void modelModified(org.greengin.sciencetoolkit.model.Model) -> a
+    boolean sensorInActiveProfile(java.lang.String) -> h
+    boolean sensorInProfile(java.lang.String,org.greengin.sciencetoolkit.common.model.Model) -> a
+    java.lang.String getSensorProfileIdInActiveProfile(java.lang.String) -> i
+    java.lang.String getSensorProfileId(java.lang.String,org.greengin.sciencetoolkit.common.model.Model) -> b
+    void modelModified(org.greengin.sciencetoolkit.common.model.Model) -> a
     void updateGlobalSensors() -> j
-    void sensorModified(java.lang.String) -> l
+    void sensorModified(java.lang.String) -> k
     void modelNotificationReceived(java.lang.String) -> a
-    void registerUIListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> a
-    void unregisterUIListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> b
+    void registerUIListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> a
+    void unregisterUIListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> b
+    void registerDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener) -> c
     void updateRemoteProfiles(org.json.JSONObject) -> a
-    int getCurrentVersion() -> f
-    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.model.Model,int) -> a
+    int getCurrentVersion() -> c
+    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model,int) -> a
     void access$0(org.greengin.sciencetoolkit.model.ProfileManager,java.lang.String) -> a
-org.greengin.sciencetoolkit.model.ProfileManager$1 -> org.greengin.sciencetoolkit.b.h:
+org.greengin.sciencetoolkit.model.ProfileManager$1 -> org.greengin.sciencetoolkit.b.c:
     org.greengin.sciencetoolkit.model.ProfileManager this$0 -> a
     void modelNotificationReceived(java.lang.String) -> a
-org.greengin.sciencetoolkit.model.ProfileManager$2 -> org.greengin.sciencetoolkit.b.i:
+org.greengin.sciencetoolkit.model.ProfileManager$2 -> org.greengin.sciencetoolkit.b.d:
     org.greengin.sciencetoolkit.model.ProfileManager this$0 -> a
     int compare(java.lang.String,java.lang.String) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-org.greengin.sciencetoolkit.model.SettingsManager -> org.greengin.sciencetoolkit.b.j:
-    org.greengin.sciencetoolkit.model.SettingsManager instance -> g
-    java.util.Hashtable listeners -> h
-    void init(android.content.Context) -> a
-    org.greengin.sciencetoolkit.model.SettingsManager get() -> b
-    org.greengin.sciencetoolkit.model.Model get(java.lang.String) -> a
-    void modelModified(org.greengin.sciencetoolkit.model.Model) -> a
-    void registerUIListener(java.lang.String,org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> a
-    void unregisterUIListener(java.lang.String,org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> b
-    void registerDirectListener(java.lang.String,org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> c
-    void unregisterDirectListener(java.lang.String,org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> d
-    org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator getAggregator(java.lang.String,boolean) -> b
-    int getCurrentVersion() -> f
-    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.model.Model,int) -> a
-org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener -> org.greengin.sciencetoolkit.b.a.a:
-    void modelNotificationReceived(java.lang.String) -> a
-org.greengin.sciencetoolkit.model.notifications.NotificationListenerAggregator -> org.greengin.sciencetoolkit.b.a.b:
-    java.util.concurrent.locks.ReentrantLock lock -> a
-    java.lang.String filter -> b
-    java.util.Vector directListeners -> c
-    java.util.Vector uilisteners -> d
-    boolean uilisteneractivated -> e
-    android.content.Context applicationContext -> f
-    void fireEvent(java.lang.String) -> a
-    void addDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> a
-    void removeDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> b
-    void addUIListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> c
-    void removeUIListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener) -> d
-    void onReceive(android.content.Context,android.content.Intent) -> onReceive
-org.greengin.sciencetoolkit.model.serialize.ModelDeserializer -> org.greengin.sciencetoolkit.b.b.a:
-    java.util.Hashtable xml2modelMap(org.greengin.sciencetoolkit.model.ModelChangeListener,org.greengin.sciencetoolkit.model.serialize.ModelVersionManager,android.content.Context,java.lang.String) -> a
-    org.w3c.dom.Element loadRootElement(android.content.Context,java.lang.String) -> a
-    void versionCheck(org.greengin.sciencetoolkit.model.serialize.ModelVersionManager,org.w3c.dom.Element,java.util.Hashtable) -> a
-    int getVersion(org.w3c.dom.Element) -> a
-    java.util.Hashtable xml2modelMap(org.w3c.dom.Element,org.greengin.sciencetoolkit.model.ModelChangeListener) -> a
-    org.greengin.sciencetoolkit.model.Model xml2model(org.w3c.dom.Element,org.greengin.sciencetoolkit.model.ModelChangeListener,org.greengin.sciencetoolkit.model.Model) -> a
-org.greengin.sciencetoolkit.model.serialize.ModelSerializer -> org.greengin.sciencetoolkit.b.b.b:
-    void model2xml(org.greengin.sciencetoolkit.model.serialize.ModelVersionManager,java.util.Hashtable,android.content.Context,java.lang.String) -> a
-    org.w3c.dom.Document model2xml(org.greengin.sciencetoolkit.model.serialize.ModelVersionManager,java.util.Hashtable) -> a
-    org.w3c.dom.Element model2xml(org.greengin.sciencetoolkit.model.Model,org.w3c.dom.Document,org.w3c.dom.Element) -> a
-org.greengin.sciencetoolkit.model.serialize.ModelVersionManager -> org.greengin.sciencetoolkit.b.b.c:
-    int getCurrentVersion() -> f
-    void updateRootModel(java.lang.String,org.greengin.sciencetoolkit.model.Model,int) -> a
 org.greengin.sciencetoolkit.ui.about.AboutActivity -> org.greengin.sciencetoolkit.ui.about.AboutActivity:
     void onCreate(android.os.Bundle) -> onCreate
     boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
     void actionStart(android.view.View) -> actionStart
-org.greengin.sciencetoolkit.ui.base.AppSettingsActivity -> org.greengin.sciencetoolkit.ui.base.AppSettingsActivity:
-    org.apache.http.impl.client.DefaultHttpClient http_client -> o
-    void onCreate(android.os.Bundle) -> onCreate
 org.greengin.sciencetoolkit.ui.base.SensorUIData -> org.greengin.sciencetoolkit.ui.base.a:
     java.lang.String[][] LABELS -> a
     int getSensorResource(int) -> a
     int getWeight(int) -> b
     java.lang.String[] getValueLabels(int) -> c
-org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity -> org.greengin.sciencetoolkit.ui.base.b:
-    org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener controlledRotationListener -> p
-    int controlledRotationLastValue -> q
-    boolean controlledRotationActive -> r
-    boolean controlledSettingsHasParent -> s
-    void onCreate(android.os.Bundle) -> onCreate
-    void setupActionBar() -> i
-    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    void onResume() -> onResume
-    void onPause() -> onPause
-    void updateScreenOrientationValue() -> j
-    void updateScreenOrientation() -> k
-    void access$0(org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity) -> a
-org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity$1 -> org.greengin.sciencetoolkit.ui.base.c:
-    org.greengin.sciencetoolkit.ui.base.SettingsControlledActivity this$0 -> a
-    void modelNotificationReceived(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.SwipeActivity -> org.greengin.sciencetoolkit.ui.base.d:
-    org.greengin.sciencetoolkit.ui.base.SwipeActivity$SectionsPagerAdapter mSectionsPagerAdapter -> o
-    org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager mViewPager -> t
-    int getContentViewLayoutId() -> i
-    int getViewPagerLayoutId() -> j
-    int getTabCount() -> k
-    java.lang.CharSequence getTabTitle(int) -> b
-    android.support.v4.app.Fragment createTabFragment(int) -> c
-    int getOnResumeTab() -> l
-    void setOnResumeTab(int) -> d
-    void onCreate(android.os.Bundle) -> onCreate
-    void setPagingEnabled(boolean) -> b
-    void onResume() -> onResume
-    void onTabSelected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> a
-    void onTabUnselected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> b
-    void onTabReselected(android.support.v7.app.ActionBar$Tab,android.support.v4.app.FragmentTransaction) -> c
-org.greengin.sciencetoolkit.ui.base.SwipeActivity$1 -> org.greengin.sciencetoolkit.ui.base.e:
-    org.greengin.sciencetoolkit.ui.base.SwipeActivity this$0 -> a
-    android.support.v7.app.ActionBar val$actionBar -> b
-    void onPageSelected(int) -> a
-org.greengin.sciencetoolkit.ui.base.SwipeActivity$SectionsPagerAdapter -> org.greengin.sciencetoolkit.ui.base.f:
-    android.support.v4.app.Fragment[] fragments -> a
-    org.greengin.sciencetoolkit.ui.base.SwipeActivity this$0 -> b
-    android.support.v4.app.Fragment getItem(int) -> a
-    int getCount() -> b
-    java.lang.CharSequence getPageTitle(int) -> c
 org.greengin.sciencetoolkit.ui.base.animations.Animations -> org.greengin.sciencetoolkit.ui.base.a.a:
     void animateHeight(android.view.View,int) -> a
     void animate(android.view.View,android.view.animation.Animation) -> a
@@ -8799,60 +9331,40 @@ org.greengin.sciencetoolkit.ui.base.animations.HeightAnimation -> org.greengin.s
     void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
     void initialize(int,int,int,int) -> initialize
     boolean willChangeBounds() -> willChangeBounds
-org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckDlg -> org.greengin.sciencetoolkit.ui.base.b.a.a:
-    void confirm(android.content.Context,org.greengin.sciencetoolkit.model.Model,java.lang.String,org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckListener,boolean,int,int) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckDlg$AckDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.a.b:
-    org.greengin.sciencetoolkit.model.Model confirmContainer -> a
-    java.lang.String confirmKey -> b
-    org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckListener listener -> c
-    boolean onlyRememberYes -> d
-    android.widget.CheckBox checkbox -> e
-    android.app.AlertDialog dlg -> f
-    void launch() -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckListener -> org.greengin.sciencetoolkit.ui.base.b.a.c:
-    void ackDecision(boolean) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener -> org.greengin.sciencetoolkit.ui.base.b.b.a:
-    void profileDelete(org.greengin.sciencetoolkit.model.Model) -> a
-    void profileTitleEditComplete(org.greengin.sciencetoolkit.model.Model,java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg -> org.greengin.sciencetoolkit.ui.base.b.b.b:
-    void open(android.content.Context,org.greengin.sciencetoolkit.model.Model,org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg$ProfileDeleteDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.b.c:
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener -> org.greengin.sciencetoolkit.ui.base.b.a.a:
+    void profileDelete(org.greengin.sciencetoolkit.common.model.Model) -> a
+    void profileTitleEditComplete(org.greengin.sciencetoolkit.common.model.Model,java.lang.String) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg -> org.greengin.sciencetoolkit.ui.base.b.a.b:
+    void open(android.content.Context,org.greengin.sciencetoolkit.common.model.Model,org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg$ProfileDeleteDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.a.c:
     android.app.AlertDialog dlg -> a
     org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener listener -> b
-    org.greengin.sciencetoolkit.model.Model profile -> c
+    org.greengin.sciencetoolkit.common.model.Model profile -> c
     void launch() -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg -> org.greengin.sciencetoolkit.ui.base.b.b.d:
-    void open(android.content.Context,org.greengin.sciencetoolkit.model.Model,boolean,org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg$ProfileSensorDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.b.e:
-    org.greengin.sciencetoolkit.model.Model profile -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg -> org.greengin.sciencetoolkit.ui.base.b.a.d:
+    void open(android.content.Context,org.greengin.sciencetoolkit.common.model.Model,boolean,org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg$ProfileSensorDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.a.e:
+    org.greengin.sciencetoolkit.common.model.Model profile -> a
     android.widget.EditText editText -> b
     android.app.AlertDialog dlg -> c
     org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileActionListener listener -> d
     boolean canDelete -> e
-    android.content.Context context -> f
+    boolean isRemote -> f
+    android.content.Context context -> g
     void launch() -> a
     void updateButtons() -> b
     void onClick(android.content.DialogInterface,int) -> onClick
     void afterTextChanged(android.text.Editable) -> afterTextChanged
     void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener -> org.greengin.sciencetoolkit.ui.base.b.c.a:
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener -> org.greengin.sciencetoolkit.ui.base.b.b.a:
     void profileSensorRateDelete(java.lang.String) -> a
     void profileSensorRateEditComplete(boolean,java.lang.String,double,int) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg -> org.greengin.sciencetoolkit.ui.base.b.c.b:
-    void open(android.content.Context,org.greengin.sciencetoolkit.model.Model,org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg$ProfileSensorDeleteDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.c.c:
-    java.lang.String sensorId -> a
-    android.app.AlertDialog dlg -> b
-    org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener listener -> c
-    void launch() -> a
-    void onClick(android.content.DialogInterface,int) -> onClick
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg -> org.greengin.sciencetoolkit.ui.base.b.c.d:
-    void open(android.content.Context,org.greengin.sciencetoolkit.model.Model,org.greengin.sciencetoolkit.model.Model,double,int,org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg$ProfileSensorDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.c.e:
-    org.greengin.sciencetoolkit.model.Model profileSensor -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg -> org.greengin.sciencetoolkit.ui.base.b.b.b:
+    void open(android.content.Context,org.greengin.sciencetoolkit.common.model.Model,org.greengin.sciencetoolkit.common.model.Model,double,int,org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorActionListener) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg$ProfileSensorDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.b.c:
+    org.greengin.sciencetoolkit.common.model.Model profileSensor -> a
     boolean isRemote -> b
     java.lang.String profileSensorId -> c
     android.widget.EditText editRate -> d
@@ -8868,22 +9380,22 @@ org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg$Prof
     void afterTextChanged(android.text.Editable) -> afterTextChanged
     void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener -> org.greengin.sciencetoolkit.ui.base.b.c.f:
-    void seriesDeleted(org.greengin.sciencetoolkit.model.Model,java.io.File) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg -> org.greengin.sciencetoolkit.ui.base.b.c.g:
-    void open(android.content.Context,org.greengin.sciencetoolkit.model.Model,java.io.File,org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg$SeriesDeleteDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.c.h:
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener -> org.greengin.sciencetoolkit.ui.base.b.b.d:
+    void seriesDeleted(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg -> org.greengin.sciencetoolkit.ui.base.b.b.e:
+    void open(android.content.Context,org.greengin.sciencetoolkit.common.model.Model,java.io.File,org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener) -> a
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg$SeriesDeleteDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.b.f:
     android.app.AlertDialog dlg -> a
-    org.greengin.sciencetoolkit.model.Model profile -> b
+    org.greengin.sciencetoolkit.common.model.Model profile -> b
     java.io.File series -> c
     org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesActionListener listener -> d
     void launch() -> a
     void onClick(android.content.DialogInterface,int) -> onClick
-org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener -> org.greengin.sciencetoolkit.ui.base.b.d.a:
+org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener -> org.greengin.sciencetoolkit.ui.base.b.c.a:
     void editTextComplete(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg -> org.greengin.sciencetoolkit.ui.base.b.d.b:
+org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg -> org.greengin.sciencetoolkit.ui.base.b.c.b:
     void open(android.content.Context,int,int,int,java.lang.String,boolean,org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg$EditTextDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.d.c:
+org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg$EditTextDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.c.c:
     android.widget.EditText editText -> a
     android.app.AlertDialog dlg -> b
     org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextActionListener listener -> c
@@ -8894,10 +9406,10 @@ org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg$EditTextDlgBuilder
     void afterTextChanged(android.text.Editable) -> afterTextChanged
     void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionListener -> org.greengin.sciencetoolkit.ui.base.b.e.a:
+org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionListener -> org.greengin.sciencetoolkit.ui.base.b.d.a:
     void sensorsSelected(java.util.Vector) -> a
     boolean sensorIsAvailable(java.lang.String) -> b
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter -> org.greengin.sciencetoolkit.ui.base.b.e.b:
+org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter -> org.greengin.sciencetoolkit.ui.base.b.d.b:
     android.view.LayoutInflater inflater -> a
     java.util.Vector sensors -> b
     java.util.Vector selected -> c
@@ -8910,13 +9422,13 @@ org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter ->
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     java.lang.Object getItem(int) -> getItem
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter$1 -> org.greengin.sciencetoolkit.ui.base.b.e.c:
+org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter$1 -> org.greengin.sciencetoolkit.ui.base.b.d.c:
     org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter this$0 -> a
     int compare(org.greengin.sciencetoolkit.logic.sensors.SensorWrapper,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg -> org.greengin.sciencetoolkit.ui.base.b.e.d:
+org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg -> org.greengin.sciencetoolkit.ui.base.b.d.d:
     void open(android.content.Context,int,int,java.lang.String,boolean,org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorActionListener) -> a
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg$SensorSelectDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.e.e:
+org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg$SensorSelectDlgBuilder -> org.greengin.sciencetoolkit.ui.base.b.d.e:
     android.view.View layout -> a
     android.widget.GridView view -> b
     org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SelectSensorListAdapter adapter -> c
@@ -8930,14 +9442,11 @@ org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg$SensorSele
     void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
     void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-org.greengin.sciencetoolkit.ui.base.events.EventFragment -> org.greengin.sciencetoolkit.ui.base.c.a:
-    org.greengin.sciencetoolkit.ui.base.events.EventManager eventManager -> P
-    void onCreate(android.os.Bundle) -> d
-    void onPause() -> l
-    void onResume() -> k
-    void onDestroy() -> o
-org.greengin.sciencetoolkit.ui.base.events.EventManager -> org.greengin.sciencetoolkit.ui.base.c.b:
-    org.greengin.sciencetoolkit.ui.base.events.EventManagerListener listener -> a
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment -> org.greengin.sciencetoolkit.ui.base.c.a:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager createEventManager() -> C
+    org.greengin.sciencetoolkit.common.ui.base.events.EventManager createEventManager() -> B
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager -> org.greengin.sciencetoolkit.ui.base.c.b:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener listener -> a
     boolean isPaused -> b
     boolean newEvents -> c
     java.util.Vector settingListeners -> d
@@ -8949,37 +9458,37 @@ org.greengin.sciencetoolkit.ui.base.events.EventManager -> org.greengin.sciencet
     java.util.Vector data -> j
     java.util.Vector dataStatus -> k
     java.util.concurrent.locks.ReentrantLock lock -> l
-    org.greengin.sciencetoolkit.ui.base.events.EventManager$SettingsListener settingsListener -> m
-    org.greengin.sciencetoolkit.ui.base.events.EventManager$ProfilesListener profilesListener -> n
-    org.greengin.sciencetoolkit.ui.base.events.EventManager$DataListener dataListener -> o
-    org.greengin.sciencetoolkit.ui.base.events.EventManager$DataStatusListener dataStatusListener -> p
-    void setListener(org.greengin.sciencetoolkit.ui.base.events.EventManagerListener) -> a
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$SettingsListener settingsListener -> m
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$ProfilesListener profilesListener -> n
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$DataListener dataListener -> o
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$DataStatusListener dataStatusListener -> p
+    void setListener(org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener) -> a
     void listenToSettings(java.lang.String) -> a
-    void listenToProfiles() -> a
-    void stopListeningToProfiles() -> b
-    void listenToLoggedData() -> c
-    void stopListeningToLoggedData() -> d
-    void listenToLoggerStatus() -> e
-    void stopListeningToLoggerStatus() -> f
-    void destroy() -> g
+    void listenToProfiles() -> d
+    void stopListeningToProfiles() -> e
+    void listenToLoggedData() -> f
+    void stopListeningToLoggedData() -> g
+    void listenToLoggerStatus() -> h
+    void stopListeningToLoggerStatus() -> i
+    void destroy() -> c
     void addEvent(java.util.Vector,java.lang.String) -> a
-    void pause() -> h
-    void resume() -> i
+    void pause() -> a
+    void resume() -> b
     void notifyEvents(boolean) -> a
-    void access$0(org.greengin.sciencetoolkit.ui.base.events.EventManager,java.util.Vector,java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.events.EventManager$DataListener -> org.greengin.sciencetoolkit.ui.base.c.c:
-    org.greengin.sciencetoolkit.ui.base.events.EventManager this$0 -> a
+    void access$0(org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager,java.util.Vector,java.lang.String) -> a
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$DataListener -> org.greengin.sciencetoolkit.ui.base.c.c:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager this$0 -> a
     void dataLoggerDataModified(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.events.EventManager$DataStatusListener -> org.greengin.sciencetoolkit.ui.base.c.d:
-    org.greengin.sciencetoolkit.ui.base.events.EventManager this$0 -> a
-    void dataLoggerStatusModified(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.events.EventManager$ProfilesListener -> org.greengin.sciencetoolkit.ui.base.c.e:
-    org.greengin.sciencetoolkit.ui.base.events.EventManager this$0 -> a
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$DataStatusListener -> org.greengin.sciencetoolkit.ui.base.c.d:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager this$0 -> a
+    void dataLoggerStatusModified(java.lang.String) -> b
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$ProfilesListener -> org.greengin.sciencetoolkit.ui.base.c.e:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager this$0 -> a
     void modelNotificationReceived(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.events.EventManager$SettingsListener -> org.greengin.sciencetoolkit.ui.base.c.f:
-    org.greengin.sciencetoolkit.ui.base.events.EventManager this$0 -> a
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager$SettingsListener -> org.greengin.sciencetoolkit.ui.base.c.f:
+    org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager this$0 -> a
     void modelNotificationReceived(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.events.EventManagerListener -> org.greengin.sciencetoolkit.ui.base.c.g:
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener -> org.greengin.sciencetoolkit.ui.base.c.g:
     void events(java.util.List,java.util.List,java.util.List,java.util.List,boolean) -> a
     void eventsSettings(java.util.List,boolean) -> a
     void eventsProfiles(java.util.List,boolean) -> b
@@ -8989,100 +9498,41 @@ org.greengin.sciencetoolkit.ui.base.events.EventManagerListener -> org.greengin.
     void eventProfile(java.lang.String,boolean) -> b
     void eventNewData(java.lang.String,boolean) -> c
     void eventDataStatus(java.lang.String,boolean) -> d
-org.greengin.sciencetoolkit.ui.base.modelconfig.CheckEnabledModelFragment -> org.greengin.sciencetoolkit.ui.base.d.a:
-    void onResume() -> k
-    void checkSettingsEnabled() -> B
-    boolean settingsShouldBeEnabled() -> C
-org.greengin.sciencetoolkit.ui.base.modelconfig.DataLoggerDependentModelFragment -> org.greengin.sciencetoolkit.ui.base.d.b:
+org.greengin.sciencetoolkit.ui.base.modelconfig.DataLoggerDependentModelFragment -> org.greengin.sciencetoolkit.ui.base.d.a:
     void onResume() -> k
     void onPause() -> l
     boolean settingsShouldBeEnabled() -> C
-    boolean settingsEnabledWhileLoggingData() -> D
-    void dataLoggerStatusModified(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment -> org.greengin.sciencetoolkit.ui.base.d.c:
-    org.greengin.sciencetoolkit.model.Model model -> P
-    boolean settingsEnabled -> Q
-    android.widget.LinearLayout rootContainer -> R
-    android.view.LayoutInflater inflater -> S
-    org.greengin.sciencetoolkit.model.Model fetchModel() -> E
-    void onAttach(android.app.Activity) -> a
-    android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void createConfigOptions(android.view.View) -> a
-    void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number) -> a
-    void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[],java.lang.String) -> a
-    android.widget.CheckBox addOptionCheckbox(java.lang.String,java.lang.String,java.lang.String,boolean) -> a
-    android.widget.TextView addText(java.lang.String) -> b
-    android.widget.Spinner addOptionSelect(java.lang.String,java.lang.String,java.lang.String,java.util.List,int) -> a
-    void addRow(java.lang.String,java.lang.String,android.view.View) -> a
-    void addRow(java.lang.String,java.lang.String,android.view.View[]) -> a
-    void setSettingsEnabled(boolean) -> e
-    void setSettingsEnabled(android.view.View,boolean) -> a
-    void modelKeyModified(java.lang.String) -> c
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$2 -> org.greengin.sciencetoolkit.ui.base.d.d:
-    org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment this$0 -> a
-    void onCheckedChanged(android.widget.CompoundButton,boolean) -> onCheckedChanged
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$3 -> org.greengin.sciencetoolkit.ui.base.d.e:
-    org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment this$0 -> a
-    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
-    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener -> org.greengin.sciencetoolkit.ui.base.d.f:
-    void modelKeyModified(java.lang.String) -> c
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsFragmentManager -> org.greengin.sciencetoolkit.ui.base.d.g:
+    boolean settingsEnabledWhileLoggingData() -> E
+    void dataLoggerStatusModified(java.lang.String) -> b
+org.greengin.sciencetoolkit.ui.base.modelconfig.SenseItSettingsFragmentManager -> org.greengin.sciencetoolkit.ui.base.d.b:
     void insert(android.support.v4.app.FragmentManager,int,java.lang.String) -> a
     void insert(android.support.v4.app.FragmentManager,int,java.lang.String,java.lang.String) -> a
-    org.greengin.sciencetoolkit.ui.base.modelconfig.settings.AbstractSettingsFragment get(java.lang.String,java.lang.String) -> a
+    org.greengin.sciencetoolkit.common.ui.base.modelconfig.settings.AbstractSettingsFragment get(java.lang.String,java.lang.String) -> a
     java.lang.String getKeyParam(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsNumberWatcher -> org.greengin.sciencetoolkit.ui.base.d.h:
-    org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener listener -> a
-    org.greengin.sciencetoolkit.model.Model settings -> b
-    java.lang.String key -> c
-    java.lang.String unitsKey -> d
-    boolean hasUnits -> e
-    double[] unitMultipliers -> f
-    android.widget.TextView numberEdit -> g
-    boolean number -> h
-    boolean decimal -> i
-    boolean signed -> j
-    java.lang.Number defaultValue -> k
-    java.lang.Number min -> l
-    java.lang.Number max -> m
-    double getUnitMultiplier() -> a
-    double checkValueInRange(double) -> a
-    int checkValueInRange(int) -> a
-    boolean update(android.text.Editable) -> a
-    void afterTextChanged(android.text.Editable) -> afterTextChanged
-    void beforeTextChanged(java.lang.CharSequence,int,int,int) -> beforeTextChanged
-    void onTextChanged(java.lang.CharSequence,int,int,int) -> onTextChanged
-    void onItemSelected(android.widget.AdapterView,android.view.View,int,long) -> onItemSelected
-    void onNothingSelected(android.widget.AdapterView) -> onNothingSelected
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.DeviceSensorConfigViewCreator -> org.greengin.sciencetoolkit.ui.base.d.a.a:
     java.lang.String[] delayLabels -> a
-    void createView(org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
+    void createView(org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.LocationSensorConfigViewCreator -> org.greengin.sciencetoolkit.ui.base.d.a.b:
-    void createView(org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
+    void createView(org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SensorConfigViewCreator -> org.greengin.sciencetoolkit.ui.base.d.a.c:
-    void createView(org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
-    void addEmptyWarning(org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment) -> a
+    void createView(org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
+    void addEmptyWarning(org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment) -> a
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SoundSensorConfigViewCreator -> org.greengin.sciencetoolkit.ui.base.d.a.d:
-    void createView(org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
+    void createView(org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment,android.view.View,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
 org.greengin.sciencetoolkit.ui.base.modelconfig.settings.AbstractSensorSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.a:
     org.greengin.sciencetoolkit.logic.sensors.SensorWrapper sensor -> T
     void onAttach(android.app.Activity) -> a
-    boolean settingsEnabledWhileLoggingData() -> D
-org.greengin.sciencetoolkit.ui.base.modelconfig.settings.AbstractSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.b:
-    org.greengin.sciencetoolkit.model.Model fetchModel() -> E
-org.greengin.sciencetoolkit.ui.base.modelconfig.settings.AppSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.c:
-    void createConfigOptions(android.view.View) -> a
-org.greengin.sciencetoolkit.ui.base.modelconfig.settings.LivePlotSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.d:
+    boolean settingsEnabledWhileLoggingData() -> E
+org.greengin.sciencetoolkit.ui.base.modelconfig.settings.LivePlotSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.b:
     org.greengin.sciencetoolkit.logic.sensors.SensorWrapper sensor -> T
     void onAttach(android.app.Activity) -> a
     void createConfigOptions(android.view.View) -> a
-org.greengin.sciencetoolkit.ui.base.modelconfig.settings.SensorListSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.e:
-    org.greengin.sciencetoolkit.model.Model settings -> T
+org.greengin.sciencetoolkit.ui.base.modelconfig.settings.SensorListSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.c:
+    org.greengin.sciencetoolkit.common.model.Model settings -> T
     void createConfigOptions(android.view.View) -> a
     int compare(org.greengin.sciencetoolkit.logic.sensors.SensorWrapper,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper) -> a
     int compare(java.lang.Object,java.lang.Object) -> compare
-org.greengin.sciencetoolkit.ui.base.modelconfig.settings.SensorSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.f:
+org.greengin.sciencetoolkit.ui.base.modelconfig.settings.SensorSettingsFragment -> org.greengin.sciencetoolkit.ui.base.d.b.d:
     void createConfigOptions(android.view.View) -> a
 org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment -> org.greengin.sciencetoolkit.ui.base.plot.a:
     android.view.View plotPanel -> Q
@@ -9094,13 +9544,13 @@ org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment -> org.gre
     android.view.View sensorBrowserContainer -> W
     org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserLayout sensorBrowser -> X
     void setScaleParams(boolean,boolean) -> a
-    void setTitle(java.lang.String) -> b_
-    int layoutId() -> B
+    void setTitle(java.lang.String) -> d_
+    int layoutId() -> D
     void onAttach(android.app.Activity) -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void createPlot() -> C
-    void destroyPlot() -> D
-    java.text.NumberFormat createDomainNumberFormat() -> E
+    void createPlot() -> E
+    void destroyPlot() -> F
+    java.text.NumberFormat createDomainNumberFormat() -> G
 org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment$PlotScaleGestureDetector -> org.greengin.sciencetoolkit.ui.base.plot.b:
     float rt -> a
     float rh -> b
@@ -9143,11 +9593,11 @@ org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorSeriesWrapper$SensorXYS
 org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment -> org.greengin.sciencetoolkit.ui.base.plot.e:
     android.widget.ImageButton closeButton -> Y
     void onDetach() -> q
-    int layoutId() -> B
+    int layoutId() -> D
     void setHeaderTitle(java.lang.String) -> b
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void close() -> F
-    void openPlot() -> G
+    void close() -> H
+    void openPlot() -> I
     void onClick(android.view.View) -> onClick
 org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserLayout -> org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserLayout:
     java.util.Vector sensorIds -> a
@@ -9178,7 +9628,7 @@ org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorDataWrapper -> org.gre
     long period -> g
     android.content.Context context -> h
     com.androidplot.xy.XYPlot plot -> i
-    org.greengin.sciencetoolkit.model.Model seriesSettings -> j
+    org.greengin.sciencetoolkit.common.model.Model seriesSettings -> j
     void updateViewPeriod() -> b
     void removeOutstandingValues() -> c
     void add(float[]) -> a
@@ -9190,13 +9640,13 @@ org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment -> org.gr
     org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorDataWrapper series -> Z
     org.greengin.sciencetoolkit.logic.streams.DataPipe dataPipe -> aa
     org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter periodFilter -> ab
-    org.greengin.sciencetoolkit.model.Model seriesSettings -> ac
-    void destroyPlot() -> D
+    org.greengin.sciencetoolkit.common.model.Model seriesSettings -> ac
+    void destroyPlot() -> F
     void openPlot(java.lang.String) -> c
     void onResume() -> k
     void onPause() -> l
     void sensorBrowserSelected(java.lang.String) -> a
-    java.text.NumberFormat createDomainNumberFormat() -> E
+    java.text.NumberFormat createDomainNumberFormat() -> G
 org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment$LiveTimePlotDomainFormat -> org.greengin.sciencetoolkit.ui.base.plot.a.c:
     java.text.DecimalFormat df -> a
     org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment this$0 -> b
@@ -9217,11 +9667,11 @@ org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment -> or
     java.util.Vector record -> ac
     org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment$RedrawTimer redrawTimer -> ad
     void onCreate(android.os.Bundle) -> d
-    void close() -> F
+    void close() -> H
     void openPlot(java.lang.String) -> c
-    void tryToInit() -> H
+    void tryToInit() -> J
     void sensorBrowserSelected(java.lang.String) -> a
-    java.text.NumberFormat createDomainNumberFormat() -> E
+    java.text.NumberFormat createDomainNumberFormat() -> G
     void access$0(org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment) -> a
     com.androidplot.xy.XYPlot access$1(org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment) -> b
 org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment$RecordEventManagerListener -> org.greengin.sciencetoolkit.ui.base.plot.b.c:
@@ -9262,10 +9712,10 @@ org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment -> or
     java.io.File seriesFile -> ad
     void onCreate(android.os.Bundle) -> d
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void update() -> F
+    void update() -> H
     void setSensor(java.lang.String) -> b
     void sensorBrowserSelected(java.lang.String) -> a
-    java.text.NumberFormat createDomainNumberFormat() -> E
+    java.text.NumberFormat createDomainNumberFormat() -> G
 org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment$SeriesEventManagerListener -> org.greengin.sciencetoolkit.ui.base.plot.c.c:
     org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment this$0 -> a
     void eventProfile(java.lang.String,boolean) -> b
@@ -9275,41 +9725,12 @@ org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment$Serie
     java.lang.StringBuffer format(double,java.lang.StringBuffer,java.text.FieldPosition) -> format
     java.lang.StringBuffer format(long,java.lang.StringBuffer,java.text.FieldPosition) -> format
     java.lang.Number parse(java.lang.String,java.text.ParsePosition) -> parse
-org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView -> org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView:
-    java.lang.String filter -> a
-    int period -> b
-    java.util.Timer timer -> c
-    boolean running -> d
-    android.content.BroadcastReceiver receiver -> e
-    void init(android.util.AttributeSet) -> a
-    void toggle() -> a
-    void start() -> b
-    void stop() -> c
-    void setBlinking(boolean) -> setBlinking
-    void onAttachedToWindow() -> onAttachedToWindow
-    void onDetachedFromWindow() -> onDetachedFromWindow
-    void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
-    void access$0(org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView) -> a
-org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView$1 -> org.greengin.sciencetoolkit.ui.base.widgets.a:
-    org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView this$0 -> a
-    void onReceive(android.content.Context,android.content.Intent) -> onReceive
-org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView$2 -> org.greengin.sciencetoolkit.ui.base.widgets.b:
-    org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView this$0 -> a
-    void run() -> run
-org.greengin.sciencetoolkit.ui.base.widgets.ButtonPanelLayout -> org.greengin.sciencetoolkit.ui.base.widgets.ButtonPanelLayout:
-    void init() -> a
-    int getVisibleChildCount() -> getVisibleChildCount
-    void onMeasure(int,int) -> onMeasure
-    void onLayout(boolean,int,int,int,int) -> onLayout
-org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager -> org.greengin.sciencetoolkit.ui.base.widgets.StkViewPager:
-    boolean enabled -> a
-    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
-    void setPagingEnabled(boolean) -> setPagingEnabled
 org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity -> org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity:
     int lastTab -> v
     java.lang.String profileId -> u
     void onCreate(android.os.Bundle) -> onCreate
+    boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
     int getOnResumeTab() -> l
     void setOnResumeTab(int) -> d
     int getContentViewLayoutId() -> i
@@ -9320,7 +9741,7 @@ org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity -> org.greengin.sci
 org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter -> org.greengin.sciencetoolkit.ui.dataviewer.a:
     org.greengin.sciencetoolkit.ui.dataviewer.SeriesListListener listener -> a
     android.view.LayoutInflater inflater -> b
-    org.greengin.sciencetoolkit.model.Model profile -> c
+    org.greengin.sciencetoolkit.common.model.Model profile -> c
     boolean isRemote -> d
     java.io.File[] seriesList -> e
     android.content.Context context -> f
@@ -9351,46 +9772,38 @@ org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter$4 -> org.greengin.sc
 org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter$5 -> org.greengin.sciencetoolkit.ui.dataviewer.f:
     org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter this$0 -> a
     void onClick(android.view.View) -> onClick
-org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment -> org.greengin.sciencetoolkit.ui.dataviewer.g:
+org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter$6 -> org.greengin.sciencetoolkit.ui.dataviewer.g:
+    org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter this$0 -> a
+    int compare(java.io.File,java.io.File) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
+org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment -> org.greengin.sciencetoolkit.ui.dataviewer.h:
     org.greengin.sciencetoolkit.ui.dataviewer.SeriesListAdapter adapter -> Q
     java.lang.String profileId -> R
     void onCreate(android.os.Bundle) -> d
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
-    void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
-    boolean onOptionsItemSelected(android.view.MenuItem) -> a
-    void seriesDelete(org.greengin.sciencetoolkit.model.Model,java.io.File) -> b
-    void seriesDeleted(org.greengin.sciencetoolkit.model.Model,java.io.File) -> a
-    void seriesUpload(org.greengin.sciencetoolkit.model.Model,java.io.File) -> c
-    void seriesEdit(org.greengin.sciencetoolkit.model.Model,java.io.File) -> d
-    void seriesSelected(org.greengin.sciencetoolkit.model.Model,java.io.File) -> e
-    void seriesShare(org.greengin.sciencetoolkit.model.Model,java.io.File) -> f
-org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment$EditSeriesTitleManager -> org.greengin.sciencetoolkit.ui.dataviewer.h:
-    org.greengin.sciencetoolkit.model.Model profile -> a
+    void seriesDelete(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> b
+    void seriesDeleted(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> a
+    void seriesUpload(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> c
+    void seriesEdit(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> d
+    void seriesSelected(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> e
+    void seriesShare(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> f
+org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment$EditSeriesTitleManager -> org.greengin.sciencetoolkit.ui.dataviewer.i:
+    org.greengin.sciencetoolkit.common.model.Model profile -> a
     java.io.File series -> b
     org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment this$0 -> c
     void editTextComplete(java.lang.String) -> a
-org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment$EventListener -> org.greengin.sciencetoolkit.ui.dataviewer.i:
+org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment$EventListener -> org.greengin.sciencetoolkit.ui.dataviewer.j:
     org.greengin.sciencetoolkit.ui.dataviewer.SeriesListFragment this$0 -> a
     void eventDataStatus(java.lang.String,boolean) -> d
-org.greengin.sciencetoolkit.ui.dataviewer.SeriesListListener -> org.greengin.sciencetoolkit.ui.dataviewer.j:
-    void seriesDelete(org.greengin.sciencetoolkit.model.Model,java.io.File) -> b
-    void seriesShare(org.greengin.sciencetoolkit.model.Model,java.io.File) -> f
-    void seriesUpload(org.greengin.sciencetoolkit.model.Model,java.io.File) -> c
-    void seriesSelected(org.greengin.sciencetoolkit.model.Model,java.io.File) -> e
-    void seriesEdit(org.greengin.sciencetoolkit.model.Model,java.io.File) -> d
-org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity -> org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity:
-    void onCreate(android.os.Bundle) -> onCreate
-    void onPause() -> onPause
-    void onResume() -> onResume
-org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity$1 -> org.greengin.sciencetoolkit.ui.login.a:
-    org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity this$0 -> a
-    void onProgressChanged(android.webkit.WebView,int) -> onProgressChanged
-org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity$2 -> org.greengin.sciencetoolkit.ui.login.b:
-    org.greengin.sciencetoolkit.ui.login.WebViewLoginActivity this$0 -> a
-    void onPageStarted(android.webkit.WebView,java.lang.String,android.graphics.Bitmap) -> onPageStarted
-    void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+org.greengin.sciencetoolkit.ui.dataviewer.SeriesListListener -> org.greengin.sciencetoolkit.ui.dataviewer.k:
+    void seriesDelete(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> b
+    void seriesShare(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> f
+    void seriesUpload(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> c
+    void seriesSelected(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> e
+    void seriesEdit(org.greengin.sciencetoolkit.common.model.Model,java.io.File) -> d
 org.greengin.sciencetoolkit.ui.main.MainActivity -> org.greengin.sciencetoolkit.ui.main.MainActivity:
-    int lastTab -> u
+    int lastTab -> v
+    org.greengin.sciencetoolkit.ui.main.record.RecordFragment recordFragment -> u
     int getOnResumeTab() -> l
     void setOnResumeTab(int) -> d
     int getContentViewLayoutId() -> i
@@ -9431,31 +9844,32 @@ org.greengin.sciencetoolkit.ui.main.record.RecordFragment -> org.greengin.scienc
     org.greengin.sciencetoolkit.ui.main.record.RecordSensorListAdapter adapter -> R
     org.greengin.sciencetoolkit.ui.main.record.RecordFragment$RecordState state -> S
     java.io.File currentSeries -> T
-    org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView recordingIcon -> U
+    org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView recordingIcon -> U
     android.widget.ImageButton buttonAdd -> V
     android.widget.ImageButton buttonStart -> W
     android.widget.ImageButton buttonStop -> X
-    android.widget.ImageButton buttonDiscard -> Y
-    android.widget.ImageButton buttonKeep -> Z
-    android.widget.LinearLayout recordingPanel -> aa
-    android.widget.LinearLayout seriesPanel -> ab
-    android.widget.TextView recordingLabel -> ac
-    android.widget.TextView recordedLabel -> ad
-    android.view.View projectTitlePanel -> ae
-    android.widget.TextView projectTitleView -> af
+    android.widget.ImageButton buttonView -> Y
+    android.widget.ImageButton buttonDiscard -> Z
+    android.widget.ImageButton buttonKeep -> aa
+    android.widget.LinearLayout recordingPanel -> ab
+    android.widget.LinearLayout seriesPanel -> ac
+    android.widget.TextView recordingLabel -> ad
+    android.widget.TextView recordedLabel -> ae
+    android.view.View projectTitlePanel -> af
+    android.widget.TextView projectTitleView -> ag
     void onCreate(android.os.Bundle) -> d
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
     boolean onOptionsItemSelected(android.view.MenuItem) -> a
-    void startSeries() -> B
+    void startSeries() -> E
     void animateraiseSeriesPanel(boolean) -> e
-    void stopSeries() -> C
-    void discardSeries() -> D
-    void keepSeries() -> E
-    void updateButtonPanel() -> F
-    void updateProfileView() -> G
-    void switchProfile() -> H
-    void updateSamplesCount() -> I
+    void stopSeries() -> F
+    void discardSeries() -> G
+    void keepSeries() -> D
+    void updateButtonPanel() -> H
+    void updateProfileView() -> I
+    void switchProfile() -> J
+    void updateSamplesCount() -> K
     void onClick(android.view.View) -> onClick
     void sensorsSelected(java.util.Vector) -> a
     boolean sensorIsAvailable(java.lang.String) -> b
@@ -9490,7 +9904,7 @@ org.greengin.sciencetoolkit.ui.main.record.RecordSensorListAdapter -> org.greeng
     void updateSensorList() -> a
     void updateSensorList(boolean) -> a
     int getCount() -> getCount
-    org.greengin.sciencetoolkit.model.Model getItem(int) -> a
+    org.greengin.sciencetoolkit.common.model.Model getItem(int) -> a
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     java.lang.Object getItem(int) -> getItem
@@ -9512,8 +9926,8 @@ org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager -> org.greengin.sci
     android.view.View$OnClickListener viewListener -> b
     android.view.View$OnClickListener selectListener -> c
     android.view.View$OnClickListener editListener -> d
-    void setProjectIcons(android.view.View,org.greengin.sciencetoolkit.model.Model) -> a
-    void prepareView(android.view.View,org.greengin.sciencetoolkit.model.Model,boolean,boolean) -> a
+    void setProjectIcons(android.view.View,org.greengin.sciencetoolkit.common.model.Model) -> a
+    void prepareView(android.view.View,org.greengin.sciencetoolkit.common.model.Model,boolean,boolean) -> a
 org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager$EventClickListener -> org.greengin.sciencetoolkit.ui.main.b.c:
     org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager$EventType type -> a
     org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager this$0 -> b
@@ -9536,15 +9950,15 @@ org.greengin.sciencetoolkit.ui.main.share.ShareFragment -> org.greengin.sciencet
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
     boolean onOptionsItemSelected(android.view.MenuItem) -> a
-    void updateProfiles() -> B
+    void updateProfiles() -> D
     void onClick(android.view.View) -> onClick
     void profileSelected(java.lang.String) -> b
     void profileView(java.lang.String) -> c
     void editTextComplete(java.lang.String) -> a
     void profileEdit(java.lang.String) -> d
-    void profileDelete(org.greengin.sciencetoolkit.model.Model) -> a
-    boolean canDeleteProfile(org.greengin.sciencetoolkit.model.Model) -> b
-    void profileTitleEditComplete(org.greengin.sciencetoolkit.model.Model,java.lang.String) -> a
+    void profileDelete(org.greengin.sciencetoolkit.common.model.Model) -> a
+    boolean canDeleteProfile(org.greengin.sciencetoolkit.common.model.Model) -> b
+    void profileTitleEditComplete(org.greengin.sciencetoolkit.common.model.Model,java.lang.String) -> a
     void access$0(org.greengin.sciencetoolkit.ui.main.share.ShareFragment) -> a
 org.greengin.sciencetoolkit.ui.main.share.ShareFragment$EventListener -> org.greengin.sciencetoolkit.ui.main.b.f:
     org.greengin.sciencetoolkit.ui.main.share.ShareFragment this$0 -> a
@@ -9557,7 +9971,9 @@ org.greengin.sciencetoolkit.ui.main.share.ShareListAdapter -> org.greengin.scien
     void updateProfileList(java.lang.String) -> a
     void updateProfileList(java.lang.String,boolean) -> a
     int getCount() -> getCount
-    org.greengin.sciencetoolkit.model.Model getItem(int) -> a
+    org.greengin.sciencetoolkit.common.model.Model getItem(int) -> a
     long getItemId(int) -> getItemId
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
     java.lang.Object getItem(int) -> getItem
+org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity -> org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity:
+    void projectMembershipUpdated() -> i

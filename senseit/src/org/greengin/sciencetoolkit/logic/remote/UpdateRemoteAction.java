@@ -7,11 +7,14 @@ import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 
 public class UpdateRemoteAction extends RemoteJsonAction {
 	
 	@Override
 	public HttpRequestBase[] createRequests(String urlBase) {
+		Log.d("stk profile", "update profiles");
 		return new HttpRequestBase[] { new HttpGet(urlBase + "senseit/profiles") };
 	}
 

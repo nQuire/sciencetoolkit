@@ -23,6 +23,7 @@ public class ProfileDlg {
 		AlertDialog dlg;
 		ProfileActionListener listener;
 		boolean canDelete;
+		boolean isRemote;
 		Context context;
 
 		public ProfileSensorDlgBuilder(Context context, Model profile, boolean canDelete, ProfileActionListener listener) {
@@ -32,14 +33,20 @@ public class ProfileDlg {
 			this.profile = profile;
 			this.canDelete = canDelete;
 			this.context = context;
+			this.isRemote = profile.getBool("is_remote");
 			
 			String title = profile.getString("title");
 
 			editText = new EditText(context);
 			editText.setText(title);
 			editText.addTextChangedListener(this);
-
+			
+			
 			setTitle(title);
+
+			if (isRemote) {
+				editText.setEnabled(false);
+			}
 
 			setView(editText);
 
@@ -54,7 +61,7 @@ public class ProfileDlg {
 		}
 
 		private void updateButtons() {
-			dlg.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(editText.getText().length() > 0);
+			dlg.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!isRemote && editText.getText().length() > 0);
 			dlg.getButton(DialogInterface.BUTTON_NEGATIVE).setEnabled(canDelete);
 		}
 

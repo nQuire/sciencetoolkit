@@ -3597,7 +3597,9 @@ org.apache.http.client.methods.HttpPatch
 org.apache.http.client.methods.HttpPost:
     public static final java.lang.String METHOD_NAME
     67:69:public HttpPost(java.net.URI)
-org.apache.http.client.methods.HttpPut
+org.apache.http.client.methods.HttpPut:
+    public static final java.lang.String METHOD_NAME
+    59:61:public HttpPut(java.net.URI)
 org.apache.http.client.methods.HttpRequestBase:
     107:107:public void started()
     116:117:public void releaseConnection()
@@ -4972,8 +4974,7 @@ org.codehaus.jackson.util.TokenBuffer$Parser
 org.codehaus.jackson.util.TokenBuffer$Segment
 org.codehaus.jackson.util.VersionUtil
 org.greengin.sciencetoolkit.BuildConfig
-org.greengin.sciencetoolkit.R:
-    10:10:public R()
+org.greengin.sciencetoolkit.R
 org.greengin.sciencetoolkit.R$anim
 org.greengin.sciencetoolkit.R$array
 org.greengin.sciencetoolkit.R$attr
@@ -4987,18 +4988,97 @@ org.greengin.sciencetoolkit.R$layout
 org.greengin.sciencetoolkit.R$menu
 org.greengin.sciencetoolkit.R$string
 org.greengin.sciencetoolkit.R$style
-org.greengin.sciencetoolkit.R$styleable:
-    1773:1773:public R$styleable()
-org.greengin.sciencetoolkit.ScienceToolkitApplication:
-    public static final boolean REMOTE_ENABLED
+org.greengin.sciencetoolkit.R$styleable
 org.greengin.sciencetoolkit.VersionManager:
     17:17:public VersionManager()
+org.greengin.sciencetoolkit.common.R:
+    9:9:public R()
+org.greengin.sciencetoolkit.common.R$anim
+org.greengin.sciencetoolkit.common.R$attr
+org.greengin.sciencetoolkit.common.R$bool
+org.greengin.sciencetoolkit.common.R$color
+org.greengin.sciencetoolkit.common.R$dimen
+org.greengin.sciencetoolkit.common.R$drawable:
+    188:188:public R$drawable()
+org.greengin.sciencetoolkit.common.R$id:
+    329:329:public R$id()
+org.greengin.sciencetoolkit.common.R$integer
+org.greengin.sciencetoolkit.common.R$layout:
+    409:409:public R$layout()
+org.greengin.sciencetoolkit.common.R$menu:
+    445:445:public R$menu()
+org.greengin.sciencetoolkit.common.R$string:
+    449:449:public R$string()
+org.greengin.sciencetoolkit.common.R$style
+org.greengin.sciencetoolkit.common.R$styleable:
+    625:625:public R$styleable()
+org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager:
+    39:40:public void unregisterStatusListener(org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusListener)
+org.greengin.sciencetoolkit.common.logic.remote.RemoteAction:
+    16:16:public void close()
+org.greengin.sciencetoolkit.common.logic.remote.RemoteApi:
+    public static final java.lang.String REMOTE_LOGIN_EVENT_FILTER
+    public static final java.lang.String PROTOCOL
+    public static final java.lang.String DOMAIN
+    public static final java.lang.String PATH
+    public static final java.lang.String WELCOME_PATH_SUFFIX
+org.greengin.sciencetoolkit.common.model.Model:
+    44:44:public org.greengin.sciencetoolkit.common.model.Model getParent()
+    104:104:public boolean setLong(java.lang.String,long)
+    152:152:public java.lang.Long getLong(java.lang.String)
+    160:160:public java.lang.Long getLong(java.lang.String,long)
+    168:168:public java.lang.Double getDouble(java.lang.String)
+    234:240:public java.util.Hashtable getStrings()
+org.greengin.sciencetoolkit.common.model.ModelDefaults
+org.greengin.sciencetoolkit.common.model.serialize.ModelDeserializer:
+    21:21:public ModelDeserializer()
+org.greengin.sciencetoolkit.common.model.serialize.ModelSerializer:
+    22:22:public ModelSerializer()
+org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity:
+    public static final java.lang.String SELECT_ACCOUNT
+    protected android.accounts.AccountManager accountManager
+    protected android.content.Intent intent
+    android.accounts.Account[] accounts
+    android.widget.Button selectAccount
+    android.widget.TextView accountLabel
+org.greengin.sciencetoolkit.common.ui.base.Arguments
+org.greengin.sciencetoolkit.common.ui.base.ToastMaker:
+    11:11:public ToastMaker()
+    46:47:public static void se(android.app.Activity,java.lang.String,boolean)
+    50:51:public static void l(android.app.Activity,java.lang.String)
+    58:59:public static void le(android.app.Activity,java.lang.String)
+    62:63:public static void se(android.app.Activity,java.lang.String)
+org.greengin.sciencetoolkit.common.ui.base.events.EventActivity
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment:
+    63:69:protected void addOptionText(java.lang.String,java.lang.String,java.lang.String)
+    76:77:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String)
+    80:81:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[])
+    116:130:protected void addOptionToggle(java.lang.String,java.lang.String,java.lang.String,boolean)
+    168:183:public android.widget.Spinner addOptionSelectByValue(java.lang.String,java.lang.String,java.lang.String,java.util.List,java.lang.String,boolean)
+    217:224:protected org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.TransformSeekBar addOptionSeekbar(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Number,org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.SeekBarTransform)
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$1
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$ByValueItemSelectedListener
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsFragmentManager:
+    12:12:public SettingsFragmentManager()
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsNumberWatcher:
+    31:32:public SettingsNumberWatcher(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelKeyChangeListener)
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView:
+    private static final java.lang.String EVENT_FILTER_PREFIX
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg:
+    13:13:public AckDlg()
+org.greengin.sciencetoolkit.common.ui.base.widgets.colorview.ColorGenerator
+org.greengin.sciencetoolkit.common.ui.base.widgets.colorview.ColorView
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.SeekBarTransform
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.TransformSeekBar
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity:
+    public static final java.lang.String REMOTE_PROJECT_DATA_EVENT_FILTER
 org.greengin.sciencetoolkit.logic.datalogging.DataLogger:
     private static final java.lang.String DATA_LOGGING_NEW_DATA
     private static final java.lang.String DATA_LOGGING_NEW_STATUS
-    234:234:public java.util.HashMap getCurrentSeriesSampleCountMap()
-    247:247:public void deleteAllData()
-    316:317:public boolean getRange(long[],java.lang.String)
+    232:232:public java.util.HashMap getCurrentSeriesSampleCountMap()
+    245:245:public void deleteAllData()
+    314:315:public boolean getRange(long[],java.lang.String)
 org.greengin.sciencetoolkit.logic.datalogging.DataLoggerSerializer:
     79:79:public java.util.HashMap getCountMap()
 org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedAsynchSQLiteWriterRunnable:
@@ -5018,26 +5098,26 @@ org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger:
     private static final java.lang.String DATA_LOGGING_NEW_DATA
     private static final java.lang.String DATA_LOGGING_NEW_STATUS
     java.lang.String profileId
-    org.greengin.sciencetoolkit.model.Model profile
+    org.greengin.sciencetoolkit.common.model.Model profile
     boolean running
-    89:98:public void registerDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
-    101:106:public void unregisterDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
-    109:118:public void registerStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
-    121:125:public void unregisterStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
-    128:128:public boolean isRunning()
-    132:135:private void setProfile(org.greengin.sciencetoolkit.model.Model)
-    138:139:public void start()
-    142:171:private void start(org.greengin.sciencetoolkit.model.Model)
-    174:187:public void stop()
-    190:190:public int getSampleCount(java.lang.String)
-    194:194:public java.util.Hashtable getDetailedSampleCount(java.lang.String)
-    198:199:public void deleteAllData()
-    202:203:public void deleteData(java.lang.String)
-    217:218:public java.io.File exportData(java.lang.String)
-    222:226:private void statusModified()
-    238:238:public android.database.Cursor getListViewCursor(java.lang.String,long,long)
-    242:242:public android.database.Cursor getPlotViewCursor(java.lang.String,java.lang.String,long,long)
-    250:250:public boolean getRange(long[],java.lang.String)
+    88:102:public void registerDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
+    105:111:public void unregisterDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
+    114:128:public void registerStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
+    131:136:public void unregisterStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
+    139:139:public boolean isRunning()
+    143:146:private void setProfile(org.greengin.sciencetoolkit.common.model.Model)
+    149:150:public void start()
+    153:188:private void start(org.greengin.sciencetoolkit.common.model.Model)
+    191:204:public void stop()
+    207:207:public int getSampleCount(java.lang.String)
+    211:211:public java.util.Hashtable getDetailedSampleCount(java.lang.String)
+    215:216:public void deleteAllData()
+    219:220:public void deleteData(java.lang.String)
+    235:236:public java.io.File exportData(java.lang.String)
+    240:246:private void statusModified()
+    260:260:public android.database.Cursor getListViewCursor(java.lang.String,long,long)
+    265:265:public android.database.Cursor getPlotViewCursor(java.lang.String,java.lang.String,long,long)
+    273:273:public boolean getRange(long[],java.lang.String)
 org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLoggingInput
 org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedScienceToolkitSQLiteOpenHelper:
     public static final int DATABASE_VERSION
@@ -5066,12 +5146,9 @@ org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedScienceToolki
     187:189:public android.database.Cursor getPlotViewCursor(java.lang.String,java.lang.String,long,long)
     193:200:public boolean getRange(long[],java.lang.String)
 org.greengin.sciencetoolkit.logic.location.CurrentLocation:
-    51:52:public void stoplocation()
-org.greengin.sciencetoolkit.logic.remote.RemoteAction:
-    16:16:public void close()
-org.greengin.sciencetoolkit.logic.remote.TestRemoteAction
+    boolean locationRequested
 org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction:
-    25:25:public void close()
+    29:29:public void close()
 org.greengin.sciencetoolkit.logic.sensors.SensorWrapper:
     18:18:public boolean isEnabled()
     public abstract float getResolution()
@@ -5088,7 +5165,7 @@ org.greengin.sciencetoolkit.logic.sensors.location.AbstractGpsSensorWrapper:
     67:67:public float getResolution()
     77:77:public float getMaxRange()
 org.greengin.sciencetoolkit.logic.sensors.signal.AbstractSignalSensorWrapper:
-    org.greengin.sciencetoolkit.model.Model settings
+    org.greengin.sciencetoolkit.common.model.Model settings
     float[] values
     15:15:public static boolean isAvailable(android.content.Context)
     31:31:public float getResolution()
@@ -5098,8 +5175,8 @@ org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTRunnable
 org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTWrapper
 org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTWrapper$1
 org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorRunnable:
-    94:94:public int getFreq()
-    113:113:public int getLength()
+    100:100:public int getFreq()
+    120:120:public int getLength()
 org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper:
     public static final java.lang.String STK_SOUND_SENSOR_NEWVALUE
     59:59:public float getResolution()
@@ -5107,39 +5184,20 @@ org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper:
 org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter:
     24:30:public void setPeriod(int)
     33:33:public int getPeriod()
-org.greengin.sciencetoolkit.model.Model:
-    44:44:public org.greengin.sciencetoolkit.model.Model getParent()
-    104:104:public boolean setLong(java.lang.String,long)
-    152:152:public java.lang.Long getLong(java.lang.String)
-    160:160:public java.lang.Long getLong(java.lang.String,long)
-    168:168:public java.lang.Double getDouble(java.lang.String)
-    234:240:public java.util.Hashtable getStrings()
-org.greengin.sciencetoolkit.model.ModelDefaults
 org.greengin.sciencetoolkit.model.ModelOperations:
-    7:7:public ModelOperations()
-    64:69:public static int delayOption2deviceSensorDelay(org.greengin.sciencetoolkit.model.Model,java.lang.String,int,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper)
+    8:8:public ModelOperations()
+    65:70:public static int delayOption2deviceSensorDelay(org.greengin.sciencetoolkit.common.model.Model,java.lang.String,int,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper)
 org.greengin.sciencetoolkit.model.ProfileManager:
     public static final java.lang.String DEFAULT_PROFILE_ID
-    100:100:public boolean profileIdIsDefault(java.lang.String)
-    104:104:public boolean profileIsDefault(org.greengin.sciencetoolkit.model.Model)
-    108:108:public boolean activeProfileIsDefault()
-    278:278:public int getProfileCount()
-    305:305:public java.util.Vector getSensorsInActiveProfile()
-    309:320:public java.util.Vector getSensorsInProfile(org.greengin.sciencetoolkit.model.Model)
-    387:388:public void registerDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener)
-    391:392:public void unregisterDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener)
-org.greengin.sciencetoolkit.model.serialize.ModelDeserializer:
-    21:21:public ModelDeserializer()
-org.greengin.sciencetoolkit.model.serialize.ModelSerializer:
-    22:22:public ModelSerializer()
-org.greengin.sciencetoolkit.ui.base.AppSettingsActivity:
-    public static final java.lang.String SELECT_ACCOUNT
-    protected android.accounts.AccountManager accountManager
-    protected android.content.Intent intent
-    android.accounts.Account[] accounts
-    android.widget.Button selectAccount
-    android.widget.TextView accountLabel
-org.greengin.sciencetoolkit.ui.base.Arguments
+    103:103:public boolean profileIdIsDefault(java.lang.String)
+    107:107:public boolean profileIsDefault(org.greengin.sciencetoolkit.common.model.Model)
+    111:111:public boolean activeProfileIsDefault()
+    281:281:public int getProfileCount()
+    308:308:public java.util.Vector getSensorsInActiveProfile()
+    312:323:public java.util.Vector getSensorsInProfile(org.greengin.sciencetoolkit.common.model.Model)
+    394:395:public void unregisterDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener)
+org.greengin.sciencetoolkit.model.SenseItModelDefaults
+org.greengin.sciencetoolkit.ui.base.SenseItArguments
 org.greengin.sciencetoolkit.ui.base.SensorUIData:
     8:8:public SensorUIData()
     233:265:public static java.lang.String[] getValueUnits(int)
@@ -5148,14 +5206,12 @@ org.greengin.sciencetoolkit.ui.base.animations.Animations:
     public static final int DURATION
     8:8:public Animations()
     13:16:public static int measureHeight(android.view.View)
-org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckDlg:
-    13:13:public AckDlg()
 org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg:
     11:11:public ProfileDeleteDlg()
 org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg:
     13:13:public ProfileDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg:
-    13:13:public ProfileSensorDeleteDlg()
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg
+org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg$ProfileSensorDeleteDlgBuilder
 org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg:
     22:22:public ProfileSensorDlg()
 org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg:
@@ -5164,22 +5220,11 @@ org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg:
     12:12:public EditTextDlg()
 org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg:
     18:18:public SensorSelectDlg()
-org.greengin.sciencetoolkit.ui.base.events.EventActivity
-org.greengin.sciencetoolkit.ui.base.events.EventManager:
-    70:72:public void stopListeningToSettings(java.lang.String)
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment:
-    63:69:protected void addOptionText(java.lang.String,java.lang.String,java.lang.String)
-    76:77:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String)
-    80:81:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[])
-    116:130:protected void addOptionToggle(java.lang.String,java.lang.String,java.lang.String,boolean)
-    168:183:public android.widget.Spinner addOptionSelectByValue(java.lang.String,java.lang.String,java.lang.String,java.util.List,java.lang.String,boolean)
-    217:224:protected org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar addOptionSeekbar(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Number,org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform)
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$1
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$ByValueItemSelectedListener
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsFragmentManager:
-    13:13:public SettingsFragmentManager()
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsNumberWatcher:
-    30:31:public SettingsNumberWatcher(org.greengin.sciencetoolkit.model.Model,java.lang.String,org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener)
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventActivity
+org.greengin.sciencetoolkit.ui.base.events.SenseItEventManager:
+    71:73:public void stopListeningToSettings(java.lang.String)
+org.greengin.sciencetoolkit.ui.base.modelconfig.SenseItSettingsFragmentManager:
+    16:16:public SenseItSettingsFragmentManager()
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.DeviceSensorConfigViewCreator:
     14:14:public DeviceSensorConfigViewCreator()
 org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.LocationSensorConfigViewCreator:
@@ -5211,13 +5256,5 @@ org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment:
     99:99:protected java.lang.String getDomainLabel()
 org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment$SeriesTimePlotDomainFormat:
     private static final long serialVersionUID
-org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView:
-    private static final java.lang.String EVENT_FILTER_PREFIX
-org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorGenerator
-org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorView
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar
 org.greengin.sciencetoolkit.ui.main.record.RecordFragment:
     boolean canUploadSeries
-    204:212:private void uploadSeries()

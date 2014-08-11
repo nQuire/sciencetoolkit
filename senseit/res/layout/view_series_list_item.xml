@@ -30,19 +30,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/project_button_delete" />
 
-    <ImageButton
-        android:id="@+id/series_config"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/share_profile_button_size"
-        android:layout_height="@dimen/share_profile_button_size"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/series_discard"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/button_label_delete"
-        android:scaleType="fitXY"
-        android:src="@drawable/project_button_config" />
+    
 
     <ImageButton
         android:id="@+id/series_share"
@@ -51,12 +39,26 @@
         android:layout_height="@dimen/share_profile_button_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/series_config"
+        android:layout_toLeftOf="@id/series_discard"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_upload"
         android:scaleType="fitXY"
         android:src="@drawable/project_button_share" />
+    
+    <ImageButton
+        android:id="@+id/series_config"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="@dimen/share_profile_button_size"
+        android:layout_height="@dimen/share_profile_button_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/share_profile_button_margin"
+        android:layout_toLeftOf="@id/series_share"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/button_label_delete"
+        android:scaleType="fitXY"
+        android:src="@drawable/project_button_config" />
 
     <ImageButton
         android:id="@+id/series_upload"
@@ -65,7 +67,7 @@
         android:layout_height="@dimen/share_profile_button_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/share_profile_button_margin"
-        android:layout_toLeftOf="@id/series_share"
+        android:layout_toLeftOf="@id/series_config"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:contentDescription="@string/button_label_upload"

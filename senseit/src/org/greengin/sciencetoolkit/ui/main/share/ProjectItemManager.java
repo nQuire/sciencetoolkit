@@ -51,7 +51,9 @@ public class ProjectItemManager {
 		activeLabel.setText(active ? R.string.share_project_active : R.string.share_project_inactive);
 		activeLabel.setTextColor(profileView.getResources().getColor(active ? R.color.active_project_label : R.color.inactive_project_label));
 		
-		ImageButton activateButton = (ImageButton) profileView.findViewById(R.id.profile_activate);
+		ImageButton viewButton = (ImageButton) profileView.findViewById(R.id.profile_button_data);
+		
+/*		ImageButton activateButton = (ImageButton) profileView.findViewById(R.id.profile_activate);
 		ImageView activeIcon = (ImageView) profileView.findViewById(R.id.profile_active_big);
 		if (ProfileManager.get().profileIdIsActive(profileId)) {
 			activateButton.setVisibility(View.GONE);
@@ -60,18 +62,18 @@ public class ProjectItemManager {
 			activateButton.setEnabled(DataLogger.get().isIdle());
 			activeIcon.setVisibility(View.GONE);
 			activateButton.setVisibility(View.VISIBLE);
-		}
+		}*/
 
 		ImageButton configButton = (ImageButton) profileView.findViewById(R.id.profile_config);
 		configButton.setEnabled(DataLogger.get().isIdle() || !ProfileManager.get().profileIdIsActive(profileId));
 		
-		profileView.setOnClickListener(viewListener);
+		viewButton.setOnClickListener(viewListener);
 		configButton.setOnClickListener(editListener);
-		activateButton.setOnClickListener(selectListener);
+		profileView.setOnClickListener(selectListener);
 
-		profileView.setTag(profileId);
+		viewButton.setTag(profileId);
 		configButton.setTag(profileId);
-		activateButton.setTag(profileId);
+		profileView.setTag(profileId);
 
 		String dataText;
 		switch (count) {

@@ -28,12 +28,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.content.BroadcastReceiver;
 
-public abstract class ProjectBrowserActivity extends RemoteCapableActivity implements ProjectMembershipListener {
+public abstract class ProjectBrowserActivity extends RemoteCapableActivity
+		implements ProjectMembershipListener {
 
 	public static final String REMOTE_PROJECT_DATA_EVENT_FILTER = "REMOTE_PROJECT_DATA_EVENT_FILTER";
-	
+
 	String projectType;
-	
+
 	ProjectBrowserListAdapter adapter;
 	BroadcastReceiver loginEventReceiver;
 	BroadcastReceiver projectsEventReceiver;
@@ -41,12 +42,12 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 	TextView status;
 	Button loginToggle;
 	ListView list;
-	
+
 	public ProjectBrowserActivity(String projectType) {
 		super();
 		this.projectType = projectType;
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +68,6 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 				adapter.notifyDataSetChanged();
 			}
 		};
-
 
 		adapter = new ProjectBrowserListAdapter(this, LayoutInflater.from(this));
 
@@ -113,8 +113,12 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 	public void onResume() {
 		super.onResume();
 
-		LocalBroadcastManager.getInstance(this).registerReceiver(loginEventReceiver, new IntentFilter(RemoteApi.REMOTE_LOGIN_EVENT_FILTER));
-		LocalBroadcastManager.getInstance(this).registerReceiver(projectsEventReceiver, new IntentFilter(REMOTE_PROJECT_DATA_EVENT_FILTER));
+		LocalBroadcastManager.getInstance(this).registerReceiver(
+				loginEventReceiver,
+				new IntentFilter(RemoteApi.REMOTE_LOGIN_EVENT_FILTER));
+		LocalBroadcastManager.getInstance(this).registerReceiver(
+				projectsEventReceiver,
+				new IntentFilter(REMOTE_PROJECT_DATA_EVENT_FILTER));
 		updateView();
 
 		if (RemoteApi.get().isLogged()) {
@@ -125,19 +129,25 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 	@Override
 	public void onPause() {
 		super.onPause();
-		LocalBroadcastManager.getInstance(this).unregisterReceiver(loginEventReceiver);
-		LocalBroadcastManager.getInstance(this).unregisterReceiver(projectsEventReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(
+				loginEventReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(
+				projectsEventReceiver);
 	}
 
 	@Override
 	public void projectMembershipAction(long projectId, boolean join) {
-		remoteRequest(new ProjectMembershipAction(join ? "join" : "leave", projectId));
+		remoteRequest(new ProjectMembershipAction(join ? "join" : "leave",
+				projectId));
 	}
 
 	private void updateView() {
 		if (RemoteApi.get().isLogged()) {
 			loginToggle.setText(R.string.project_browser_logout);
-			status.setText(String.format(getResources().getString(R.string.project_browser_logged_in), RemoteApi.get().getUsername()));
+			status.setText(String.format(
+					getResources()
+							.getString(R.string.project_browser_logged_in),
+					RemoteApi.get().getUsername()));
 			list.setVisibility(View.VISIBLE);
 			adapter.notifyDataSetChanged();
 		} else {
@@ -149,7 +159,6 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 		findViewById(R.id.project_browser_header).invalidate();
 		Log.d("stk projects", "updated");
 	}
-	
 
 	/**
 	 * 
@@ -179,18 +188,21 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 			HttpRequestBase[] requests = new HttpRequestBase[1];
 
 			if (action == null) {
-				requests[0] = new HttpGet(String.format("%sprojects/%s", urlBase, projectType));
+				requests[0] = new HttpGet(String.format("%sprojects/%s",
+						urlBase, projectType));
 			} else {
-				requests[0] = new HttpPut(String.format("%sprojects/%s/%d/%s", urlBase, projectType, projectId, action));
+				requests[0] = new HttpPut(String.format("%sprojects/%s/%d/%s",
+						urlBase, projectType, projectId, action));
 			}
 
 			return requests;
 		}
 
 		@Override
-		public void result(int request, JSONObject shouldbenull, JSONArray result) {
+		public void result(int request, JSONObject shouldbenull,
+				JSONArray result) {
 			Log.d("stk remote", "projects: " + result.length());
-			
+
 			Vector<ProjectData> projects = new Vector<ProjectData>();
 
 			try {
@@ -211,14 +223,12 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity imple
 
 			adapter.updateProjectList(projects);
 			Intent i = new Intent(REMOTE_PROJECT_DATA_EVENT_FILTER);
-			LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+			LocalBroadcastManager.getInstance(getApplicationContext())
+					.sendBroadcast(i);
 
-			if (action != null) {
-				projectMembershipUpdated();
-			}
+			projectMembershipUpdated();
 		}
 	}
-	
-	protected abstract void projectMembershipUpdated();
 
+	protected abstract void projectMembershipUpdated();
 }

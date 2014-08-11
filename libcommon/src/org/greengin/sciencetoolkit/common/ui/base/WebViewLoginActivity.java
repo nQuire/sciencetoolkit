@@ -64,6 +64,7 @@ public class WebViewLoginActivity extends ApplicationStatusActivity {
 
 			@Override
 			public void onReceivedError(WebView view, int errorCod, String description, String failingUrl) {
+				RemoteApi.get().loginActionComplete();
 			}
 		});
 

@@ -82,7 +82,7 @@ public class ImagesFragment extends SpotItEventFragment implements ImageListener
 
 	@Override
 	public void imageUpload(Model observation) {
-		((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(observation));		
+		((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), observation));		
 	}
 
 	@Override

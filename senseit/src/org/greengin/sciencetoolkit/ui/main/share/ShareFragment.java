@@ -120,17 +120,20 @@ public class ShareFragment extends SenseItEventFragment implements OnClickListen
 					R.string.new_project_dlg_message,
 					R.string.new_project_dlg_oklabel, "", true, this);
 		} else if (v == buttonUpdateProject) {
-			((RemoteCapableActivity) getActivity())
-					.remoteRequest(new UpdateRemoteAction());
+			Intent intent = new Intent(getActivity(),
+					SenseItProjectBrowserActivity.class);
+			startActivity(intent);
 		}
 	}
 
 	@Override
 	public void profileSelected(String profileId) {
-		if (DataLogger.get().isIdle() && profileId != null
-				&& !ProfileManager.get().profileIdIsActive(profileId)) {
-			ProfileManager.get().switchActiveProfile(profileId);
-			// this.updateProfiles();
+		if (DataLogger.get().isIdle() && profileId != null) {
+			if (ProfileManager.get().profileIdIsActive(profileId)) {
+				profileView(profileId);
+			} else {
+				ProfileManager.get().switchActiveProfile(profileId);
+			}
 		}
 	}
 

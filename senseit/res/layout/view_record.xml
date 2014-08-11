@@ -89,28 +89,8 @@
                     android:text="@string/record_series_stop" />
             </LinearLayout>
 
-            <!--
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/record_series_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/transparent"
-                    android:contentDescription="@string/record_series_view"
-                    android:src="@drawable/series_button_view" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/record_series_view" />
-            </LinearLayout>
-            -->
+            
+            
         </org.greengin.sciencetoolkit.common.ui.base.widgets.ButtonPanelLayout>
     </LinearLayout>
 
@@ -228,6 +208,31 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/record_series_keep" />
             </LinearLayout>
+            
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/record_series_view"
+                    android:layout_width="@dimen/record_button_size"
+                    android:layout_height="@dimen/record_button_size"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/record_series_view"
+                    android:src="@drawable/series_button_view"
+                    android:scaleType="fitXY" />
+                    
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/record_series_view" />
+            </LinearLayout>
+            
         </org.greengin.sciencetoolkit.common.ui.base.widgets.ButtonPanelLayout>
     </LinearLayout>
 

@@ -57,20 +57,7 @@ public class SeriesListFragment extends SenseItEventFragment implements SeriesLi
 		return rootView;
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.data_viewer, menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
+	
 	private class EventListener extends SenseItEventManagerListener {
 		@Override
 		public void eventDataStatus(String event, boolean whilePaused) {
@@ -94,7 +81,7 @@ public class SeriesListFragment extends SenseItEventFragment implements SeriesLi
 
 	@Override
 	public void seriesUpload(Model profile, File series) {
-		((RemoteCapableActivity) getActivity()).remoteRequest(new UploadRemoteAction(profile, series));
+		((RemoteCapableActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), profile, series));
 	}
 
 	@Override

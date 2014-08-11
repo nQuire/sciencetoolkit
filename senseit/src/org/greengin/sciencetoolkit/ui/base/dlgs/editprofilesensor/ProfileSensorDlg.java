@@ -109,7 +109,8 @@ public class ProfileSensorDlg {
 					}
 				}
 			} else if (which == DialogInterface.BUTTON_NEGATIVE) {
-				ProfileSensorDeleteDlg.open(context, profileSensor, listener);
+				listener.profileSensorRateDelete(profileSensor.getString("sensorid"));
+				//ProfileSensorDeleteDlg.open(context, profileSensor, listener);
 			}
 			dlg.dismiss();
 		}

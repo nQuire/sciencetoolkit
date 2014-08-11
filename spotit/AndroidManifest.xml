@@ -22,7 +22,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
     <application
         android:name="org.greengin.sciencetoolkit.spotit.SpotItApplication"

@@ -3,6 +3,7 @@ package org.greengin.sciencetoolkit.ui.main.explore;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.common.ui.base.ToastMaker;
 import org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
 import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
@@ -92,7 +93,7 @@ public class ExploreFragment extends SenseItEventFragment implements OnItemClick
 		String sensorId = (String) view.getTag();
 		if (ProfileManager.get().sensorSelectedInExplore(sensorId)) {
 			String text = String.format(getResources().getString(R.string.explore_sensor_added_to_recording), SensorWrapperManager.get().getSensor(sensorId).getName());
-			Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+			ToastMaker.s(getActivity(), text);
 		}
 		fragment.openPlot(sensorId);
 	}

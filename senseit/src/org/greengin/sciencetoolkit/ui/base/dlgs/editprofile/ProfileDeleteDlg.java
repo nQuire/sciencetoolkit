@@ -26,8 +26,8 @@ public class ProfileDeleteDlg {
 			this.listener = listener;
 			this.profile = profile;
 
-			setTitle(context.getString(R.string.delete_profile_sensor_dlg_title));
-			setMessage(String.format(context.getString(R.string.delete_profile_sensor_dlg_msg), profile.getString("title")));
+			setTitle(context.getString(R.string.delete_profile_dlg_title));
+			setMessage(String.format(context.getString(R.string.delete_profile_dlg_msg), profile.getString("title")));
 
 			setPositiveButton(context.getResources().getString(R.string.button_label_delete), this);
 			setNeutralButton(context.getResources().getString(R.string.button_label_cancel), this);

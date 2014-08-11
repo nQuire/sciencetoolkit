@@ -58,11 +58,11 @@ public class MainActivity extends SwipeActivity {
 	public Fragment createTabFragment(int position) {
 		switch (position) {
 		case 0:
-			return new ProjectsFragment();
+			return new SpotItFragment();
 		case 1:
 			return new ImagesFragment();
 		case 2:
-			return new SpotItFragment();
+			return new ProjectsFragment();
 		default:
 			return null;
 		}

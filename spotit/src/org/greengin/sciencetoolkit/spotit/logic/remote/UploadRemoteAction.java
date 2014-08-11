@@ -10,18 +10,22 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteJsonAction;
 import org.greengin.sciencetoolkit.common.model.Model;
+import org.greengin.sciencetoolkit.common.ui.base.ToastMaker;
 import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.util.Log;
 
 public class UploadRemoteAction extends RemoteJsonAction {
+	Activity context;
 	Model project;
 	Model observation;
 
-	public UploadRemoteAction(Model observation) {
+	public UploadRemoteAction(Activity context, Model observation) {
+		this.context = context;
 		this.observation = observation;
 		this.project = this.observation.getParent().getParent();
 	}
@@ -63,19 +67,25 @@ public class UploadRemoteAction extends RemoteJsonAction {
 			String id = result.getString("newItemId"); 
 			if (id != null) {
 				DataManager.get().markAsSent(project, observation, 2);
+				ToastMaker.l(context, "Data uploaded successfully!");
 			} else {
 				error(request, result.getString("create"));
 			}
 		} catch (JSONException e) {
-			error(request, "json");
+			error(request, "The server did not allow uploading data at this point.");
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void error(int request, String error) {
-		Log.d("stk remote", "error: " + error);
+		String msg = null;
+		if ("nologin".equals(error)) {
+			msg = "It was not possible to upload the data because you are not logged in.";
+		} else {
+			msg = error;
+		}
+		ToastMaker.le(context, msg);
 		DataManager.get().markAsSent(project, observation, 0);
 	}
-
 }

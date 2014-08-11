@@ -72,7 +72,7 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 
 		String sensorId = profileSensor.getString("sensorid", null);
 		this.sensor = sensorId != null ? SensorWrapperManager.get().getSensor(sensorId) : null;
-		this.setHeaderTitle(sensor != null ? sensor.getName() : "");
+		this.setHeaderTitle(sensor != null ? "Recorded values:\n" + sensor.getName() : "");
 
 		this.sensorBrowserContainer.setVisibility(View.GONE);
 

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 
 public class MainActivity extends SwipeActivity {
 	private static int lastTab = -1;
+	RecordFragment recordFragment = null;
 	
 	public MainActivity() {
 		super(false);
@@ -22,6 +23,9 @@ public class MainActivity extends SwipeActivity {
 
 	@Override
 	public void setOnResumeTab(int position) {
+		if (lastTab == 1 && position != 1 && recordFragment != null) {
+			recordFragment.keepSeries();
+		}
 		lastTab = position;		
 	}
 
@@ -46,7 +50,7 @@ public class MainActivity extends SwipeActivity {
 		case 0:
 			return new ExploreFragment();
 		case 1:
-			return new RecordFragment();
+			return recordFragment = new RecordFragment();
 		case 2:
 			return new ShareFragment();
 		default:

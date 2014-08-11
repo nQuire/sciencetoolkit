@@ -8,9 +8,9 @@
     <string name="menu_item_application_about">About</string>
 
     <!-- main activity -->
-    <string name="main_activity_tab_1">Projects</string>
+    <string name="main_activity_tab_1">Spot it!</string>
     <string name="main_activity_tab_2">Images</string>
-    <string name="main_activity_tab_3">Spot it!</string>
+    <string name="main_activity_tab_3">Projects</string>
 
     <!-- projects tab -->
     <string name="projects_header">Projects</string>

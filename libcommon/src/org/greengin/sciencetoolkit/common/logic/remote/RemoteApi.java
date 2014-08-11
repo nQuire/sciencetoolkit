@@ -88,15 +88,18 @@ public class RemoteApi {
 	public void resumeRequests(RemoteCapableActivity activity) {
 		Log.d("stk remote", "resume requests " + activity.getClass().getName());
 
-		if (logged) {
-			if (queue.size() > 0 && !running) {
+		if (queue.size() > 0 && !running) {
+			if (logged) {
 				executeOne();
 			}
 		} 
 	}
 	
-	private void loginActionComplete() {
+	public void loginActionComplete() {
 		if (!logged) {
+			for (RemoteAction action : queue) {
+				action.error(-1, "nologin");
+			}
 			queue.clear();
 		}
 	}
@@ -213,6 +216,11 @@ public class RemoteApi {
 			Intent i = new Intent(REMOTE_LOGIN_EVENT_FILTER);
 			LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(i);
 			
+			loginActionComplete();
+		}
+		
+		@Override 
+		public void error(int request, String msg) {
 			loginActionComplete();
 		}
 	}
