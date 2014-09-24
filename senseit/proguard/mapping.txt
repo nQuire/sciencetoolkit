@@ -9861,15 +9861,16 @@ org.greengin.sciencetoolkit.ui.main.record.RecordFragment -> org.greengin.scienc
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> a
     void onCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
     boolean onOptionsItemSelected(android.view.MenuItem) -> a
-    void startSeries() -> E
+    void startSeries() -> F
     void animateraiseSeriesPanel(boolean) -> e
-    void stopSeries() -> F
-    void discardSeries() -> G
+    void stopSeries() -> G
+    void discardSeries() -> H
     void keepSeries() -> D
-    void updateButtonPanel() -> H
-    void updateProfileView() -> I
-    void switchProfile() -> J
-    void updateSamplesCount() -> K
+    void viewSeries() -> E
+    void updateButtonPanel() -> I
+    void updateProfileView() -> J
+    void switchProfile() -> K
+    void updateSamplesCount() -> L
     void onClick(android.view.View) -> onClick
     void sensorsSelected(java.util.Vector) -> a
     boolean sensorIsAvailable(java.lang.String) -> b

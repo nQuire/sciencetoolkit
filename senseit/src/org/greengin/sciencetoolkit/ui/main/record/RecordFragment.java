@@ -245,6 +245,15 @@ public class RecordFragment extends SenseItEventFragment implements
 		}
 	}
 
+	public void viewSeries() {
+		keepSeries();
+		Intent intent = new Intent(getActivity(), DataViewerActivity.class);
+		intent.putExtra(SenseItArguments.ARG_PROFILE, ProfileManager.get()
+				.getActiveProfileId());
+		startActivity(intent);
+
+	}
+
 	private void updateButtonPanel() {
 		buttonStart.setEnabled(state == RecordState.IDLE
 				&& ProfileManager.get().getActiveProfile()
@@ -343,13 +352,7 @@ public class RecordFragment extends SenseItEventFragment implements
 		 */else if (v == buttonDiscard) {
 			discardSeries();
 		} else if (v == buttonView) {
-			ProfileManager.get().getActiveProfile()
-					.getModel("dataviewer", true)
-					.setString("series", currentSeries.getName());
-			Intent intent = new Intent(getActivity(), DataViewerActivity.class);
-			intent.putExtra(SenseItArguments.ARG_PROFILE, ProfileManager.get()
-					.getActiveProfileId());
-			startActivity(intent);
+			viewSeries();
 		}
 
 	}
