@@ -26,7 +26,7 @@ public abstract class RemoteJsonAction extends RemoteAction {
 		
 		if (jobj == null && jarray == null) {
 			Log.e("stk remote", result);
-			this.error(request, "json");
+			this.error(request, "There was a problem connecting to the server.");
 		} else {
 			this.result(request, jobj, jarray);
 		}

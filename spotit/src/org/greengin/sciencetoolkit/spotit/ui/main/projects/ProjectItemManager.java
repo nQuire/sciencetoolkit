@@ -3,13 +3,11 @@ package org.greengin.sciencetoolkit.spotit.ui.main.projects;
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.spotit.R;
 import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
-import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 import org.greengin.sciencetoolkit.spotit.ui.base.dlgs.ProjectDeleteDlg;
 
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProjectItemManager {
@@ -41,19 +39,9 @@ public class ProjectItemManager {
 		activeLabel.setText(active ? R.string.project_active : R.string.project_inactive);
 		activeLabel.setTextColor(projectView.getResources().getColor(active ? R.color.active_project_label : R.color.inactive_project_label));
 		
-		ImageButton activateButton = (ImageButton) projectView.findViewById(R.id.profile_activate);
-		ImageView activeIcon = (ImageView) projectView.findViewById(R.id.profile_active_big);
-		if (ProjectManager.get().projectIdIsActive(projectId)) {
-			activateButton.setVisibility(View.GONE);
-			activeIcon.setVisibility(View.VISIBLE);
-		} else {
-			activateButton.setEnabled(true);
-			activeIcon.setVisibility(View.GONE);
-			activateButton.setVisibility(View.VISIBLE);
-		}
 
-		activateButton.setOnClickListener(selectListener);
-		activateButton.setTag(project);
+		projectView.setOnClickListener(selectListener);
+		projectView.setTag(project);
 		
 		ImageButton deleteButton = (ImageButton) projectView.findViewById(R.id.project_delete);
 		deleteButton.setEnabled(!active);

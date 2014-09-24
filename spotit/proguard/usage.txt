@@ -46,6 +46,7 @@ android.support.v4.app.BackStackRecord:
     350:353:public java.lang.CharSequence getBreadCrumbTitle()
     357:360:public java.lang.CharSequence getBreadCrumbShortTitle()
     379:380:public android.support.v4.app.FragmentTransaction add(android.support.v4.app.Fragment,java.lang.String)
+    384:385:public android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)
     434:439:public android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment)
     443:448:public android.support.v4.app.FragmentTransaction hide(android.support.v4.app.Fragment)
     452:457:public android.support.v4.app.FragmentTransaction show(android.support.v4.app.Fragment)
@@ -53,6 +54,7 @@ android.support.v4.app.BackStackRecord:
     484:488:public android.support.v4.app.FragmentTransaction setCustomAnimations(int,int,int,int)
     492:493:public android.support.v4.app.FragmentTransaction setTransition(int)
     497:498:public android.support.v4.app.FragmentTransaction setTransitionStyle(int)
+    502:508:public android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)
     512:512:public boolean isAddToBackStackAllowed()
     525:527:public android.support.v4.app.FragmentTransaction setBreadCrumbTitle(int)
     531:533:public android.support.v4.app.FragmentTransaction setBreadCrumbTitle(java.lang.CharSequence)
@@ -78,6 +80,7 @@ android.support.v4.app.Fragment:
     623:623:public final java.lang.String getString(int)
     636:636:public final varargs java.lang.String getString(int,java.lang.Object[])
     650:650:public final android.support.v4.app.FragmentManager getFragmentManager()
+    658:670:public final android.support.v4.app.FragmentManager getChildFragmentManager()
     678:678:public final android.support.v4.app.Fragment getParentFragment()
     703:703:public final boolean isRemoving()
     714:714:public final boolean isInLayout()
@@ -183,6 +186,7 @@ android.support.v4.app.FragmentTransaction:
     public static final int TRANSIT_FRAGMENT_CLOSE
     public static final int TRANSIT_FRAGMENT_FADE
     public abstract android.support.v4.app.FragmentTransaction add(android.support.v4.app.Fragment,java.lang.String)
+    public abstract android.support.v4.app.FragmentTransaction add(int,android.support.v4.app.Fragment)
     public abstract android.support.v4.app.FragmentTransaction replace(int,android.support.v4.app.Fragment,java.lang.String)
     public abstract android.support.v4.app.FragmentTransaction remove(android.support.v4.app.Fragment)
     public abstract android.support.v4.app.FragmentTransaction hide(android.support.v4.app.Fragment)
@@ -191,6 +195,7 @@ android.support.v4.app.FragmentTransaction:
     public abstract android.support.v4.app.FragmentTransaction setCustomAnimations(int,int,int,int)
     public abstract android.support.v4.app.FragmentTransaction setTransition(int)
     public abstract android.support.v4.app.FragmentTransaction setTransitionStyle(int)
+    public abstract android.support.v4.app.FragmentTransaction addToBackStack(java.lang.String)
     public abstract boolean isAddToBackStackAllowed()
     public abstract android.support.v4.app.FragmentTransaction setBreadCrumbTitle(int)
     public abstract android.support.v4.app.FragmentTransaction setBreadCrumbTitle(java.lang.CharSequence)
@@ -2284,20 +2289,13 @@ android.support.v7.widget.SuggestionsAdapter:
     static final int INVALID_INDEX
     124:124:public int getQueryRefinement()
     172:174:public void close()
-com.androidplot.LineRegion:
-    38:38:public static java.lang.Number measure(java.lang.Number,java.lang.Number)
-    42:42:public java.lang.Number length()
-    55:55:public boolean intersects(com.androidplot.LineRegion)
-com.androidplot.Plot:
-    private static final java.lang.String XML_ATTR_PREFIX
-    private static final java.lang.String ATTR_TITLE
-    private static final java.lang.String ATTR_RENDER_MODE
-    248:250:public Plot(android.content.Context,android.util.AttributeSet)
-    269:271:public Plot(android.content.Context,android.util.AttributeSet,int)
-    431:440:public synchronized boolean removeSeries(com.androidplot.Series,java.lang.Class)
-    471:475:public void clear()
-    766:770:public void setPlotMargins(float,float,float,float)
-    780:784:public void setPlotPadding(float,float,float,float)
+com.androidplot.LineRegion
+com.androidplot.Plot
+com.androidplot.Plot$1
+com.androidplot.Plot$BorderStyle
+com.androidplot.Plot$BufferedCanvas
+com.androidplot.Plot$RenderMode
+com.androidplot.PlotListener
 com.androidplot.R
 com.androidplot.R$anim
 com.androidplot.R$attr
@@ -2311,159 +2309,64 @@ com.androidplot.R$layout
 com.androidplot.R$string
 com.androidplot.R$style
 com.androidplot.R$styleable
-com.androidplot.exception.PlotRenderException:
-    21:22:public PlotRenderException(java.lang.String)
+com.androidplot.Series
+com.androidplot.exception.PlotRenderException
 com.androidplot.pie.PieChart
 com.androidplot.pie.PieRenderer
 com.androidplot.pie.PieRenderer$DonutMode
 com.androidplot.pie.PieWidget
 com.androidplot.pie.Segment
 com.androidplot.pie.SegmentFormatter
+com.androidplot.ui.AnchorPosition
+com.androidplot.ui.BoxModel
 com.androidplot.ui.BoxModelable
-com.androidplot.ui.DynamicTableModel:
-    private java.lang.Float cellWidth
-    private java.lang.Float cellHeight
-    private com.androidplot.ui.TableModel$CellSizingMethod rowSizingMethod
-    private com.androidplot.ui.TableModel$CellSizingMethod columnSizingMethod
-    155:156:public void setNumRows(int)
-    163:164:public void setNumColumns(int)
+com.androidplot.ui.DynamicTableModel
+com.androidplot.ui.DynamicTableModel$TableModelIterator
 com.androidplot.ui.FixedTableModel
 com.androidplot.ui.FixedTableModel$FixedTableModelIterator
-com.androidplot.ui.Formatter:
-    43:44:public com.androidplot.ui.Formatter configure(android.content.Context,int)
-com.androidplot.ui.LayoutManager:
-    167:167:public boolean isDrawOutlinesEnabled()
-    175:175:public android.graphics.Paint getOutlinePaint()
-    179:180:public void setOutlinePaint(android.graphics.Paint)
-    183:183:public boolean isDrawAnchorsEnabled()
-    203:204:public void setMarginPaint(android.graphics.Paint)
-    219:220:public void setPaddingPaint(android.graphics.Paint)
-    223:223:public boolean isDrawOutlineShadowsEnabled()
-    238:238:public android.graphics.Paint getOutlineShadowPaint()
-    242:243:public void setOutlineShadowPaint(android.graphics.Paint)
-com.androidplot.ui.LayoutMetric:
-    55:57:public void setValue(float)
-    public abstract float getPixelValue(float)
-    66:68:public void setLayoutType(java.lang.Enum)
-com.androidplot.ui.PositionMetric:
-    1:1:public bridge synthetic void setValue(float)
-    1:1:public bridge synthetic void setLayoutType(java.lang.Enum)
+com.androidplot.ui.Formatter
+com.androidplot.ui.LayoutManager
+com.androidplot.ui.LayoutMetric
+com.androidplot.ui.PositionMetric
+com.androidplot.ui.PositionMetric$LayoutMode
+com.androidplot.ui.PositionMetric$Origin
+com.androidplot.ui.PositionMetrics
 com.androidplot.ui.RenderBundle
 com.androidplot.ui.Resizable
-com.androidplot.ui.SeriesAndFormatterList:
-    89:89:public java.lang.Object setFormatter(com.androidplot.Series,java.lang.Object)
-com.androidplot.ui.SeriesRenderer:
-    39:40:public void setPlot(com.androidplot.Plot)
-com.androidplot.ui.SizeMetric:
-    1:1:public bridge synthetic void setValue(float)
-    1:1:public bridge synthetic void setLayoutType(java.lang.Enum)
-com.androidplot.ui.SizeMetrics:
-    47:50:public SizeMetrics(com.androidplot.ui.SizeMetric,com.androidplot.ui.SizeMetric)
-    57:58:public void setHeightMetric(com.androidplot.ui.SizeMetric)
-    83:83:public android.graphics.RectF getRoundedRect(android.graphics.RectF)
-    88:89:public void setWidthMetric(com.androidplot.ui.SizeMetric)
+com.androidplot.ui.SeriesAndFormatterList
+com.androidplot.ui.SeriesRenderer
+com.androidplot.ui.SizeLayoutType
+com.androidplot.ui.SizeMetric
+com.androidplot.ui.SizeMetrics
+com.androidplot.ui.TableModel
+com.androidplot.ui.TableModel$Axis
 com.androidplot.ui.TableModel$CellSizingMethod
+com.androidplot.ui.TableOrder
 com.androidplot.ui.TableSizingMethod
-com.androidplot.ui.XPositionMetric:
-    1:1:public bridge synthetic void setValue(float)
-    1:1:public bridge synthetic void setLayoutType(java.lang.Enum)
-com.androidplot.ui.YPositionMetric:
-    1:1:public bridge synthetic void setValue(float)
-    1:1:public bridge synthetic void setLayoutType(java.lang.Enum)
+com.androidplot.ui.TextOrientationType
+com.androidplot.ui.XLayoutStyle
+com.androidplot.ui.XPositionMetric
+com.androidplot.ui.YLayoutStyle
+com.androidplot.ui.YPositionMetric
 com.androidplot.ui.widget.EmptyWidget
-com.androidplot.ui.widget.TextLabelWidget:
-    42:43:public TextLabelWidget(com.androidplot.ui.LayoutManager,com.androidplot.ui.SizeMetrics)
-    46:48:public TextLabelWidget(com.androidplot.ui.LayoutManager,java.lang.String,com.androidplot.ui.SizeMetrics,com.androidplot.ui.TextOrientationType)
-    147:154:public void setLabelPaint(android.graphics.Paint)
-    157:157:public com.androidplot.ui.TextOrientationType getOrientation()
-    161:165:public void setOrientation(com.androidplot.ui.TextOrientationType)
-    168:168:public boolean isAutoPackEnabled()
-    172:176:public void setAutoPackEnabled(boolean)
-com.androidplot.ui.widget.Widget:
-    45:46:public Widget(com.androidplot.ui.LayoutManager,com.androidplot.ui.SizeMetric,com.androidplot.ui.SizeMetric)
-    60:60:public com.androidplot.ui.AnchorPosition getAnchor()
-    64:65:public void setAnchor(com.androidplot.ui.AnchorPosition)
-    77:78:public void position(float,com.androidplot.ui.XLayoutStyle,float,com.androidplot.ui.YLayoutStyle)
-    117:117:public boolean containsPoint(android.graphics.PointF)
-    126:127:public void setWidth(float)
-    130:131:public void setWidth(float,com.androidplot.ui.SizeLayoutType)
-    134:135:public void setHeight(float)
-    138:139:public void setHeight(float,com.androidplot.ui.SizeLayoutType)
-    142:142:public com.androidplot.ui.SizeMetric getWidthMetric()
-    178:178:public float getMarginTop()
-    186:186:public float getMarginBottom()
-    191:191:public float getPaddingLeft()
-    196:197:public void setPaddingLeft(float)
-    201:201:public float getPaddingTop()
-    206:207:public void setPaddingTop(float)
-    211:211:public float getPaddingRight()
-    216:217:public void setPaddingRight(float)
-    221:221:public float getPaddingBottom()
-    226:227:public void setPaddingBottom(float)
-    235:235:public float getMarginLeft()
-    239:240:public void setMarginLeft(float)
-    243:243:public float getMarginRight()
-    365:365:public android.graphics.Paint getBorderPaint()
-    369:370:public void setBorderPaint(android.graphics.Paint)
-    385:386:public void setClippingEnabled(boolean)
-    393:394:public void setVisible(boolean)
-com.androidplot.util.Configurator:
-    protected static final java.lang.String CFG_ELEMENT_NAME
-    259:281:public static void configure(android.content.Context,java.lang.Object,int)
-com.androidplot.util.FontUtils:
-    22:22:public FontUtils()
-com.androidplot.util.ListOrganizer:
-    43:51:public boolean moveAbove(java.lang.Object,java.lang.Object)
-    57:64:public boolean moveBeneath(java.lang.Object,java.lang.Object)
-    71:74:public boolean moveToBottom(java.lang.Object)
-    79:90:public boolean moveUp(java.lang.Object)
-    94:105:public boolean moveDown(java.lang.Object)
-    114:115:public void addToBottom(java.lang.Object)
+com.androidplot.ui.widget.TextLabelWidget
+com.androidplot.ui.widget.Widget
+com.androidplot.util.Configurator
+com.androidplot.util.DisplayDimensions
+com.androidplot.util.FontUtils
+com.androidplot.util.ListOrganizer
 com.androidplot.util.MultiSynch
 com.androidplot.util.MultiSynch$Action
 com.androidplot.util.PaintUtils
-com.androidplot.util.PixelUtils:
-    private static final float FLOAT_INT_AVG_NUDGE
-    32:32:public PixelUtils()
-    84:84:public static android.graphics.RectF sink(android.graphics.RectF)
-    88:88:public static android.graphics.RectF nearestPixRect(float,float,float,float)
-    124:124:public static float fractionToPixH(float)
-    134:134:public static float fractionToPixW(float)
+com.androidplot.util.PixelUtils
+com.androidplot.util.PixelUtils$InternalDimension
 com.androidplot.util.PlotStatistics
 com.androidplot.util.Redrawer
-com.androidplot.util.ValPixConverter:
-    private static final int ZERO
-    25:25:public ValPixConverter()
-com.androidplot.util.ZHash:
-    40:40:public int size()
-    49:49:public java.util.List getKeysAsList()
-    59:67:public synchronized void addToTop(java.lang.Object,java.lang.Object)
-    76:84:public synchronized void addToBottom(java.lang.Object,java.lang.Object)
-    87:90:public synchronized boolean moveToTop(java.lang.Object)
-    95:101:public synchronized boolean moveAbove(java.lang.Object,java.lang.Object)
-    106:112:public synchronized boolean moveBeneath(java.lang.Object,java.lang.Object)
-    117:120:public synchronized boolean moveToBottom(java.lang.Object)
-    125:128:public synchronized boolean moveUp(java.lang.Object)
-    133:136:public synchronized boolean moveDown(java.lang.Object)
-    150:150:public java.util.List keys()
-    155:160:public synchronized boolean remove(java.lang.Object)
-com.androidplot.util.ZIndexable:
-    public abstract boolean moveToTop(java.lang.Object)
-    public abstract boolean moveAbove(java.lang.Object,java.lang.Object)
-    public abstract boolean moveBeneath(java.lang.Object,java.lang.Object)
-    public abstract boolean moveToBottom(java.lang.Object)
-    public abstract boolean moveUp(java.lang.Object)
-    public abstract boolean moveDown(java.lang.Object)
-com.androidplot.util.ZLinkedList:
-    40:40:public boolean moveAbove(java.lang.Object,java.lang.Object)
-    45:45:public boolean moveBeneath(java.lang.Object,java.lang.Object)
-    50:50:public boolean moveToBottom(java.lang.Object)
-    55:55:public boolean moveUp(java.lang.Object)
-    60:60:public boolean moveDown(java.lang.Object)
-    69:70:public void addToBottom(java.lang.Object)
-com.androidplot.xy.AxisValueLabelFormatter:
-    23:25:public AxisValueLabelFormatter(int)
-    32:33:public void setColor(int)
+com.androidplot.util.ValPixConverter
+com.androidplot.util.ZHash
+com.androidplot.util.ZIndexable
+com.androidplot.util.ZLinkedList
+com.androidplot.xy.AxisValueLabelFormatter
 com.androidplot.xy.BarFormatter
 com.androidplot.xy.BarRenderer
 com.androidplot.xy.BarRenderer$Bar
@@ -2473,191 +2376,40 @@ com.androidplot.xy.BarRenderer$BarRenderStyle
 com.androidplot.xy.BarRenderer$BarWidthStyle
 com.androidplot.xy.BezierLineAndPointFormatter
 com.androidplot.xy.BezierLineAndPointRenderer
-com.androidplot.xy.LineAndPointFormatter:
-    private static final float DEFAULT_LINE_STROKE_WIDTH_DP
-    private static final float DEFAULT_VERTEX_STROKE_WIDTH_DP
-    134:136:public void enableShadows()
-    139:141:public void disableShadows()
-    148:149:public void setLinePaint(android.graphics.Paint)
-    156:157:public void setVertexPaint(android.graphics.Paint)
-    164:165:public void setFillPaint(android.graphics.Paint)
-com.androidplot.xy.PointLabelFormatter:
-    private static final float DEFAULT_H_OFFSET_DP
-    private static final float DEFAULT_V_OFFSET_DP
-    private static final float DEFAULT_TEXT_SIZE_SP
-com.androidplot.xy.RectRegion:
-    56:56:public boolean containsPoint(android.graphics.PointF)
-    60:60:public boolean containsValue(java.lang.Number,java.lang.Number)
-    74:74:public boolean intersects(com.androidplot.xy.RectRegion)
-    95:97:public boolean intersects(android.graphics.RectF,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.Number)
-    147:148:public void setMinX(double)
-    155:156:public void setMaxX(java.lang.Number)
-    163:164:public void setMinY(java.lang.Number)
-    171:172:public void setMaxY(java.lang.Number)
+com.androidplot.xy.BoundaryMode
+com.androidplot.xy.FillDirection
+com.androidplot.xy.LineAndPointFormatter
+com.androidplot.xy.LineAndPointFormatter$1
+com.androidplot.xy.LineAndPointRenderer
+com.androidplot.xy.PointLabelFormatter
+com.androidplot.xy.PointLabeler
+com.androidplot.xy.RectRegion
 com.androidplot.xy.SimpleXYSeries
 com.androidplot.xy.SimpleXYSeries$ArrayFormat
 com.androidplot.xy.StepFormatter
 com.androidplot.xy.StepRenderer
-com.androidplot.xy.ValueMarker:
-    private com.androidplot.xy.ValueMarker$TextOrientation textOrientation
-    34:35:public void setText(java.lang.String)
-    79:84:public ValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.PositionMetric,android.graphics.Paint,android.graphics.Paint)
-    87:90:public ValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.PositionMetric,int,int)
-    97:98:public void setValue(java.lang.Number)
-    105:106:public void setLinePaint(android.graphics.Paint)
-    113:114:public void setTextPaint(android.graphics.Paint)
-    125:125:public com.androidplot.xy.ValueMarker$TextOrientation getTextOrientation()
-    134:135:public void setTextOrientation(com.androidplot.xy.ValueMarker$TextOrientation)
-    142:142:public int getTextMargin()
-    146:147:public void setTextMargin(int)
-    154:155:public void setTextPosition(com.androidplot.ui.PositionMetric)
+com.androidplot.xy.ValueMarker
 com.androidplot.xy.ValueMarker$TextOrientation
-com.androidplot.xy.XValueMarker:
-    31:32:public XValueMarker(java.lang.Number,java.lang.String)
-    43:44:public XValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.YPositionMetric,android.graphics.Paint,android.graphics.Paint)
-    56:57:public XValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.YPositionMetric,int,int)
+com.androidplot.xy.XValueMarker
+com.androidplot.xy.XYAxisType
+com.androidplot.xy.XYFramingModel
 com.androidplot.xy.XYGraphBounds
-com.androidplot.xy.XYGraphWidget:
-    private static final int MARKER_LABEL_SPACING
-    private static final int CURSOR_LABEL_SPACING
-    private static final java.lang.String TAG
-    43:44:public void setRangeLabelOrientation(float)
-    51:52:public void setDomainLabelOrientation(float)
-    178:178:public com.androidplot.util.ZIndexable getAxisValueLabelRegions()
-    192:193:public void addAxisValueLabelRegion(com.androidplot.xy.RectRegion,com.androidplot.xy.AxisValueLabelFormatter)
-    207:210:public void addDomainAxisValueLabelRegion(double,double,com.androidplot.xy.AxisValueLabelFormatter)
-    223:225:public void addRangeAxisValueLabelRegion(double,double,com.androidplot.xy.AxisValueLabelFormatter)
-    247:252:public com.androidplot.xy.AxisValueLabelFormatter getAxisValueLabelFormatterForVal(double,double)
-    327:327:public java.lang.Double getYVal(android.graphics.PointF)
-    353:353:public java.lang.Double getXVal(android.graphics.PointF)
-    839:840:protected void drawPoint(android.graphics.Canvas,android.graphics.PointF,android.graphics.Paint)
-    843:843:public float getDomainLabelWidth()
-    847:848:public void setDomainLabelWidth(float)
-    851:851:public float getRangeLabelWidth()
-    855:856:public void setRangeLabelWidth(float)
-    859:859:public float getDomainLabelVerticalOffset()
-    863:864:public void setDomainLabelVerticalOffset(float)
-    867:867:public float getDomainLabelHorizontalOffset()
-    871:872:public void setDomainLabelHorizontalOffset(float)
-    875:875:public float getRangeLabelHorizontalOffset()
-    879:880:public void setRangeLabelHorizontalOffset(float)
-    883:883:public float getRangeLabelVerticalOffset()
-    887:888:public void setRangeLabelVerticalOffset(float)
-    895:896:public void setGridBackgroundPaint(android.graphics.Paint)
-    899:899:public android.graphics.Paint getDomainLabelPaint()
-    903:904:public void setDomainLabelPaint(android.graphics.Paint)
-    907:907:public android.graphics.Paint getRangeLabelPaint()
-    911:912:public void setRangeLabelPaint(android.graphics.Paint)
-    926:927:public void setDomainGridLinePaint(android.graphics.Paint)
-    948:949:public void setDomainSubGridLinePaint(android.graphics.Paint)
-    956:957:public void setRangeGridLinePaint(android.graphics.Paint)
-    971:972:public void setRangeSubGridLinePaint(android.graphics.Paint)
-    993:993:public int getDomainLabelTickExtension()
-    997:998:public void setDomainLabelTickExtension(int)
-    1001:1001:public int getRangeLabelTickExtension()
-    1005:1006:public void setRangeLabelTickExtension(int)
-    1025:1026:public void setGridPaddingTop(float)
-    1029:1029:public float getGridPaddingBottom()
-    1033:1034:public void setGridPaddingBottom(float)
-    1037:1037:public float getGridPaddingLeft()
-    1041:1042:public void setGridPaddingLeft(float)
-    1045:1045:public float getGridPaddingRight()
-    1049:1050:public void setGridPaddingRight(float)
-    1053:1053:public float getGridPaddingTop()
-    1057:1061:public void setGridPadding(float,float,float,float)
-    1068:1069:public void setDomainOriginLinePaint(android.graphics.Paint)
-    1076:1077:public void setRangeOriginLinePaint(android.graphics.Paint)
-    1080:1080:public android.graphics.Paint getDomainOriginLabelPaint()
-    1084:1085:public void setDomainOriginLabelPaint(android.graphics.Paint)
-    1088:1088:public android.graphics.Paint getRangeOriginLabelPaint()
-    1092:1093:public void setRangeOriginLabelPaint(android.graphics.Paint)
-    1129:1129:public android.graphics.Paint getCursorLabelPaint()
-    1133:1134:public void setCursorLabelPaint(android.graphics.Paint)
-    1141:1142:public void setCursorLabelBackgroundPaint(android.graphics.Paint)
-    1149:1150:public void setDrawMarkersEnabled(boolean)
-    1153:1153:public boolean isRangeAxisLeft()
-    1157:1158:public void setRangeAxisLeft(boolean)
-    1161:1161:public boolean isDomainAxisBottom()
-    1165:1166:public void setDomainAxisBottom(boolean)
-    1178:1210:public void setRangeAxisPosition(boolean,boolean,int,java.lang.String)
-    1222:1251:public void setDomainAxisPosition(boolean,boolean,int,java.lang.String)
+com.androidplot.xy.XYGraphWidget
 com.androidplot.xy.XYGraphWidget$XYPlotOrientation
-com.androidplot.xy.XYLegendWidget:
-    218:219:public void setTextPaint(android.graphics.Paint)
-    222:222:public boolean isDrawIconBackgroundEnabled()
-    226:227:public void setDrawIconBackgroundEnabled(boolean)
-    230:230:public boolean isDrawIconBorderEnabled()
-    234:235:public void setDrawIconBorderEnabled(boolean)
-    238:238:public com.androidplot.ui.TableModel getTableModel()
-    242:242:public com.androidplot.ui.SizeMetrics getIconSizeMetrics()
-    251:252:public void setIconSizeMetrics(com.androidplot.ui.SizeMetrics)
+com.androidplot.xy.XYLegendWidget
 com.androidplot.xy.XYLegendWidget$CellType
-com.androidplot.xy.XYPlot:
-    private static final int DEFAULT_LEGEND_WIDGET_H_DP
-    private static final int DEFAULT_LEGEND_WIDGET_ICON_SIZE_DP
-    private static final int DEFAULT_GRAPH_WIDGET_H_DP
-    private static final int DEFAULT_GRAPH_WIDGET_W_DP
-    private static final int DEFAULT_DOMAIN_LABEL_WIDGET_H_DP
-    private static final int DEFAULT_DOMAIN_LABEL_WIDGET_W_DP
-    private static final int DEFAULT_RANGE_LABEL_WIDGET_H_DP
-    private static final int DEFAULT_RANGE_LABEL_WIDGET_W_DP
-    private static final int DEFAULT_LEGEND_WIDGET_Y_OFFSET_DP
-    private static final int DEFAULT_LEGEND_WIDGET_X_OFFSET_DP
-    private static final int DEFAULT_GRAPH_WIDGET_Y_OFFSET_DP
-    private static final int DEFAULT_GRAPH_WIDGET_X_OFFSET_DP
-    private static final int DEFAULT_DOMAIN_LABEL_WIDGET_Y_OFFSET_DP
-    private static final int DEFAULT_DOMAIN_LABEL_WIDGET_X_OFFSET_DP
-    private static final int DEFAULT_RANGE_LABEL_WIDGET_Y_OFFSET_DP
-    private static final int DEFAULT_RANGE_LABEL_WIDGET_X_OFFSET_DP
-    private static final int DEFAULT_GRAPH_WIDGET_TOP_MARGIN_DP
-    private static final int DEFAULT_GRAPH_WIDGET_RIGHT_MARGIN_DP
-    private static final int DEFAULT_PLOT_LEFT_MARGIN_DP
-    private static final int DEFAULT_PLOT_RIGHT_MARGIN_DP
-    private static final int DEFAULT_PLOT_BOTTOM_MARGIN_DP
-    146:147:public XYPlot(android.content.Context,java.lang.String,com.androidplot.Plot$RenderMode)
-    150:151:public XYPlot(android.content.Context,android.util.AttributeSet)
-    154:156:public XYPlot(android.content.Context,android.util.AttributeSet,int)
-    252:256:public void setGridPadding(float,float,float,float)
-    276:279:public boolean containsPoint(float,float)
-    290:290:public boolean containsPoint(android.graphics.PointF)
-    298:299:public void setCursorPosition(float,float)
-    302:302:public java.lang.Number getYVal(android.graphics.PointF)
-    306:306:public java.lang.Number getXVal(android.graphics.PointF)
-    310:310:private boolean isXValWithinView(double)
-    531:532:public void centerOnDomainOrigin(java.lang.Number)
-    543:560:public void centerOnDomainOrigin(java.lang.Number,java.lang.Number,com.androidplot.xy.BoundaryMode)
-    568:569:public void centerOnRangeOrigin(java.lang.Number)
-    581:598:public void centerOnRangeOrigin(java.lang.Number,java.lang.Number,com.androidplot.xy.BoundaryMode)
-    745:747:public void setDomainStep(com.androidplot.xy.XYStepMode,double)
-    766:768:public void setRangeStep(com.androidplot.xy.XYStepMode,double)
-    862:863:public synchronized void setDomainBoundaries(java.lang.Number,java.lang.Number,com.androidplot.xy.BoundaryMode)
-    887:888:public synchronized void setRangeBoundaries(java.lang.Number,java.lang.Number,com.androidplot.xy.BoundaryMode)
-    900:902:public synchronized void setRangeBoundaries(java.lang.Number,com.androidplot.xy.BoundaryMode,java.lang.Number,com.androidplot.xy.BoundaryMode)
-    1115:1115:public boolean isDrawDomainOriginEnabled()
-    1123:1123:public boolean isDrawRangeOriginEnabled()
-    1151:1155:public com.androidplot.xy.YValueMarker removeMarker(com.androidplot.xy.YValueMarker)
-    1165:1167:public int removeMarkers()
-    1176:1178:public int removeYMarkers()
-    1188:1188:public boolean addMarker(com.androidplot.xy.XValueMarker)
-    1198:1202:public com.androidplot.xy.XValueMarker removeMarker(com.androidplot.xy.XValueMarker)
-    1212:1214:public int removeXMarkers()
+com.androidplot.xy.XYLegendWidget$RegionEntryComparator
+com.androidplot.xy.XYPlot
 com.androidplot.xy.XYPlotZoomPan
 com.androidplot.xy.XYPlotZoomPan$State
-com.androidplot.xy.XYRegionFormatter:
-    43:48:public XYRegionFormatter(android.content.Context,int)
-    50:56:public XYRegionFormatter(int)
-    59:59:public int getColor()
-    63:64:public void setColor(int)
-com.androidplot.xy.XYSeriesFormatter:
-    33:34:public void addRegion(com.androidplot.xy.RectRegion,com.androidplot.xy.XYRegionFormatter)
-    37:38:public void removeRegion(com.androidplot.xy.RectRegion)
-com.androidplot.xy.XYStep:
-    38:38:public double getStepCount()
-com.androidplot.xy.XYStepCalculator:
-    26:26:public XYStepCalculator()
-com.androidplot.xy.YValueMarker:
-    44:45:public YValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.XPositionMetric,android.graphics.Paint,android.graphics.Paint)
-    56:57:public YValueMarker(java.lang.Number,java.lang.String,com.androidplot.ui.XPositionMetric,int,int)
+com.androidplot.xy.XYRegionFormatter
+com.androidplot.xy.XYSeries
+com.androidplot.xy.XYSeriesFormatter
+com.androidplot.xy.XYSeriesRenderer
+com.androidplot.xy.XYStep
+com.androidplot.xy.XYStepCalculator
+com.androidplot.xy.XYStepMode
+com.androidplot.xy.YValueMarker
 com.fasterxml.jackson.core.Base64Variant
 com.fasterxml.jackson.core.Base64Variants
 com.fasterxml.jackson.core.FormatSchema
@@ -3597,7 +3349,9 @@ org.apache.http.client.methods.HttpPatch
 org.apache.http.client.methods.HttpPost:
     public static final java.lang.String METHOD_NAME
     67:69:public HttpPost(java.net.URI)
-org.apache.http.client.methods.HttpPut
+org.apache.http.client.methods.HttpPut:
+    public static final java.lang.String METHOD_NAME
+    59:61:public HttpPut(java.net.URI)
 org.apache.http.client.methods.HttpRequestBase:
     107:107:public void started()
     116:117:public void releaseConnection()
@@ -3992,6 +3746,7 @@ org.apache.http.entity.mime.MultipartEntityBuilder:
     88:89:public org.apache.http.entity.mime.MultipartEntityBuilder setStrictMode()
     93:94:public org.apache.http.entity.mime.MultipartEntityBuilder setBoundary(java.lang.String)
     98:99:public org.apache.http.entity.mime.MultipartEntityBuilder setCharset(java.nio.charset.Charset)
+    126:126:public org.apache.http.entity.mime.MultipartEntityBuilder addTextBody(java.lang.String,java.lang.String)
     131:131:public org.apache.http.entity.mime.MultipartEntityBuilder addBinaryBody(java.lang.String,byte[],org.apache.http.entity.ContentType,java.lang.String)
     136:136:public org.apache.http.entity.mime.MultipartEntityBuilder addBinaryBody(java.lang.String,byte[])
     141:141:public org.apache.http.entity.mime.MultipartEntityBuilder addBinaryBody(java.lang.String,java.io.File,org.apache.http.entity.ContentType,java.lang.String)
@@ -4971,253 +4726,149 @@ org.codehaus.jackson.util.TokenBuffer$1
 org.codehaus.jackson.util.TokenBuffer$Parser
 org.codehaus.jackson.util.TokenBuffer$Segment
 org.codehaus.jackson.util.VersionUtil
-org.greengin.sciencetoolkit.BuildConfig
-org.greengin.sciencetoolkit.R:
-    10:10:public R()
-org.greengin.sciencetoolkit.R$anim
-org.greengin.sciencetoolkit.R$array
-org.greengin.sciencetoolkit.R$attr
-org.greengin.sciencetoolkit.R$bool
-org.greengin.sciencetoolkit.R$color
-org.greengin.sciencetoolkit.R$dimen
-org.greengin.sciencetoolkit.R$drawable
-org.greengin.sciencetoolkit.R$id
-org.greengin.sciencetoolkit.R$integer
-org.greengin.sciencetoolkit.R$layout
-org.greengin.sciencetoolkit.R$menu
-org.greengin.sciencetoolkit.R$string
-org.greengin.sciencetoolkit.R$style
-org.greengin.sciencetoolkit.R$styleable:
-    1773:1773:public R$styleable()
-org.greengin.sciencetoolkit.ScienceToolkitApplication:
-    public static final boolean REMOTE_ENABLED
-org.greengin.sciencetoolkit.VersionManager:
-    17:17:public VersionManager()
-org.greengin.sciencetoolkit.logic.datalogging.DataLogger:
-    private static final java.lang.String DATA_LOGGING_NEW_DATA
-    private static final java.lang.String DATA_LOGGING_NEW_STATUS
-    234:234:public java.util.HashMap getCurrentSeriesSampleCountMap()
-    247:247:public void deleteAllData()
-    316:317:public boolean getRange(long[],java.lang.String)
-org.greengin.sciencetoolkit.logic.datalogging.DataLoggerSerializer:
-    79:79:public java.util.HashMap getCountMap()
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedAsynchSQLiteWriterRunnable:
-    25:30:public void addData(java.lang.String,java.lang.String,java.lang.String)
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedAsynchSQLiteWriterRunnable$ProfileSensorTimeValue:
-    final synthetic org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedAsynchSQLiteWriterRunnable this$0
-    72:77:public DeprecatedAsynchSQLiteWriterRunnable$ProfileSensorTimeValue(org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedAsynchSQLiteWriterRunnable,java.lang.String,java.lang.String,java.lang.String)
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedCsvManager:
-    12:12:public DeprecatedCsvManager()
-    69:70:public static java.lang.String[] fileList()
-    83:83:private static boolean isCsvFile(java.lang.String)
-    87:94:public static void deleteFiles(java.util.List)
-    97:104:public static java.io.File getFile(java.lang.String)
-    82:82:static synthetic boolean access$0(java.lang.String)
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedCsvManager$1
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger:
-    private static final java.lang.String DATA_LOGGING_NEW_DATA
-    private static final java.lang.String DATA_LOGGING_NEW_STATUS
-    java.lang.String profileId
-    org.greengin.sciencetoolkit.model.Model profile
-    boolean running
-    89:98:public void registerDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
-    101:106:public void unregisterDataListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerDataListener)
-    109:118:public void registerStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
-    121:125:public void unregisterStatusListener(org.greengin.sciencetoolkit.logic.datalogging.DataLoggerStatusListener)
-    128:128:public boolean isRunning()
-    132:135:private void setProfile(org.greengin.sciencetoolkit.model.Model)
-    138:139:public void start()
-    142:171:private void start(org.greengin.sciencetoolkit.model.Model)
-    174:187:public void stop()
-    190:190:public int getSampleCount(java.lang.String)
-    194:194:public java.util.Hashtable getDetailedSampleCount(java.lang.String)
-    198:199:public void deleteAllData()
-    202:203:public void deleteData(java.lang.String)
-    217:218:public java.io.File exportData(java.lang.String)
-    222:226:private void statusModified()
-    238:238:public android.database.Cursor getListViewCursor(java.lang.String,long,long)
-    242:242:public android.database.Cursor getPlotViewCursor(java.lang.String,java.lang.String,long,long)
-    250:250:public boolean getRange(long[],java.lang.String)
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLoggingInput
-org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedScienceToolkitSQLiteOpenHelper:
-    public static final int DATABASE_VERSION
-    public static final java.lang.String DATABASE_NAME
-    public static final java.lang.String SENSORS_TABLE_NAME
-    public static final java.lang.String SENSORS_TABLE_CREATE
-    public static final java.lang.String SENSORS_TABLE_QUERY_WHERE_E2I
-    public static final java.lang.String SENSORS_TABLE_QUERY_WHERE_I2E
-    public static final java.lang.String DATA_TABLE_NAME
-    public static final java.lang.String DATA_TABLE_CREATE
-    public static final java.lang.String DATA_TABLE_QUERY_COUNT_COLUMNS_BY_SENSOR_GROUP_BY
-    public static final java.lang.String DATA_TABLE_QUERY_WHERE_PROFILE
-    public static final java.lang.String DATA_TABLE_QUERY_WHERE_PROFILE_RANGE
-    public static final java.lang.String DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR_RANGE
-    public static final java.lang.String DATA_TABLE_QUERY_WHERE_PROFILE_SENSOR
-    public static final java.lang.String DATA_TABLE_DELETE_ALL
-    public static final java.lang.String DATA_TABLE_DELETE_PROFILE
-    76:92:protected java.lang.String getInternalSensorId(java.lang.String)
-    115:115:public int dataCount()
-    119:134:public java.util.Hashtable detailedDataCount(java.lang.String)
-    139:149:public int dataCount(java.lang.String)
-    154:156:public void save(java.lang.String,java.lang.String,java.lang.String)
-    159:166:public void emptyData(java.lang.String)
-    174:175:public android.database.Cursor getDataCursor(java.lang.String)
-    180:182:public android.database.Cursor getListViewCursor(java.lang.String,long,long)
-    187:189:public android.database.Cursor getPlotViewCursor(java.lang.String,java.lang.String,long,long)
-    193:200:public boolean getRange(long[],java.lang.String)
-org.greengin.sciencetoolkit.logic.location.CurrentLocation:
-    51:52:public void stoplocation()
-org.greengin.sciencetoolkit.logic.remote.RemoteAction:
+org.greengin.sciencetoolkit.common.R:
+    9:9:public R()
+org.greengin.sciencetoolkit.common.R$anim
+org.greengin.sciencetoolkit.common.R$attr
+org.greengin.sciencetoolkit.common.R$bool
+org.greengin.sciencetoolkit.common.R$color
+org.greengin.sciencetoolkit.common.R$dimen
+org.greengin.sciencetoolkit.common.R$drawable:
+    188:188:public R$drawable()
+org.greengin.sciencetoolkit.common.R$id:
+    329:329:public R$id()
+org.greengin.sciencetoolkit.common.R$integer
+org.greengin.sciencetoolkit.common.R$layout:
+    409:409:public R$layout()
+org.greengin.sciencetoolkit.common.R$menu:
+    445:445:public R$menu()
+org.greengin.sciencetoolkit.common.R$string:
+    449:449:public R$string()
+org.greengin.sciencetoolkit.common.R$style
+org.greengin.sciencetoolkit.common.R$styleable
+org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager:
+    29:29:public boolean isAwake()
+    33:36:public void registerStatusListener(org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusListener)
+    39:40:public void unregisterStatusListener(org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusListener)
+org.greengin.sciencetoolkit.common.logic.location.LocationTracker
+org.greengin.sciencetoolkit.common.logic.remote.RemoteAction:
     16:16:public void close()
-org.greengin.sciencetoolkit.logic.remote.TestRemoteAction
-org.greengin.sciencetoolkit.logic.remote.UpdateRemoteAction:
-    25:25:public void close()
-org.greengin.sciencetoolkit.logic.sensors.SensorWrapper:
-    18:18:public boolean isEnabled()
-    public abstract float getResolution()
-    public abstract float getMaxRange()
-org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager:
-    public static final int CUSTOM_SENSOR_TYPE_SOUND
-    public static final int CUSTOM_SENSOR_TYPE_GPS_LOCATION
-    public static final int CUSTOM_SENSOR_TYPE_GSM
-    public static final int CUSTOM_SENSOR_TYPE_CDMA
-org.greengin.sciencetoolkit.logic.sensors.device.DeviceSensorWrapper:
-    117:117:public float getResolution()
-    137:137:public float getMaxRange()
-org.greengin.sciencetoolkit.logic.sensors.location.AbstractGpsSensorWrapper:
-    67:67:public float getResolution()
-    77:77:public float getMaxRange()
-org.greengin.sciencetoolkit.logic.sensors.signal.AbstractSignalSensorWrapper:
-    org.greengin.sciencetoolkit.model.Model settings
-    float[] values
-    15:15:public static boolean isAvailable(android.content.Context)
-    31:31:public float getResolution()
-    41:41:public float getMaxRange()
-org.greengin.sciencetoolkit.logic.sensors.sound.FFT
-org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTRunnable
-org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTWrapper
-org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorFFTWrapper$1
-org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorRunnable:
-    94:94:public int getFreq()
-    113:113:public int getLength()
-org.greengin.sciencetoolkit.logic.sensors.sound.SoundSensorWrapper:
-    public static final java.lang.String STK_SOUND_SENSOR_NEWVALUE
-    59:59:public float getResolution()
-    69:69:public float getMaxRange()
-org.greengin.sciencetoolkit.logic.streams.filters.FixedRateDataFilter:
-    24:30:public void setPeriod(int)
-    33:33:public int getPeriod()
-org.greengin.sciencetoolkit.model.Model:
-    44:44:public org.greengin.sciencetoolkit.model.Model getParent()
-    104:104:public boolean setLong(java.lang.String,long)
+org.greengin.sciencetoolkit.common.logic.remote.RemoteApi:
+    public static final java.lang.String REMOTE_LOGIN_EVENT_FILTER
+    public static final java.lang.String PROTOCOL
+    public static final java.lang.String DOMAIN
+    public static final java.lang.String PATH
+    public static final java.lang.String WELCOME_PATH_SUFFIX
+org.greengin.sciencetoolkit.common.model.Model:
+    29:36:public org.greengin.sciencetoolkit.common.model.Model cloneModel(org.greengin.sciencetoolkit.common.model.Model)
+    40:40:public boolean containsKey(java.lang.String)
+    72:79:public boolean clearAll(boolean)
+    84:84:public boolean clear(java.lang.String)
+    88:92:public boolean clear(java.lang.String,boolean)
+    108:108:public boolean setDouble(java.lang.String,double)
+    116:116:public boolean setBool(java.lang.String,boolean)
+    120:120:public boolean setModel(java.lang.String,org.greengin.sciencetoolkit.common.model.Model)
+    148:148:public java.lang.Integer getInt(java.lang.String)
     152:152:public java.lang.Long getLong(java.lang.String)
     160:160:public java.lang.Long getLong(java.lang.String,long)
+    164:164:public java.lang.Number getNumber(java.lang.String,java.lang.Number)
     168:168:public java.lang.Double getDouble(java.lang.String)
+    172:172:public java.lang.Double getDouble(java.lang.String,double)
+    176:176:public java.lang.Boolean getBool(java.lang.String)
+    180:180:public java.lang.Boolean getBool(java.lang.String,boolean)
+    192:207:public boolean copyPrimitives(org.greengin.sciencetoolkit.common.model.Model,boolean)
+    211:211:public org.greengin.sciencetoolkit.common.model.Model getModel(java.lang.String)
     234:240:public java.util.Hashtable getStrings()
-org.greengin.sciencetoolkit.model.ModelDefaults
-org.greengin.sciencetoolkit.model.ModelOperations:
-    7:7:public ModelOperations()
-    64:69:public static int delayOption2deviceSensorDelay(org.greengin.sciencetoolkit.model.Model,java.lang.String,int,org.greengin.sciencetoolkit.logic.sensors.SensorWrapper)
-org.greengin.sciencetoolkit.model.ProfileManager:
-    public static final java.lang.String DEFAULT_PROFILE_ID
-    100:100:public boolean profileIdIsDefault(java.lang.String)
-    104:104:public boolean profileIsDefault(org.greengin.sciencetoolkit.model.Model)
-    108:108:public boolean activeProfileIsDefault()
-    278:278:public int getProfileCount()
-    305:305:public java.util.Vector getSensorsInActiveProfile()
-    309:320:public java.util.Vector getSensorsInProfile(org.greengin.sciencetoolkit.model.Model)
-    387:388:public void registerDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener)
-    391:392:public void unregisterDirectListener(org.greengin.sciencetoolkit.model.notifications.ModelNotificationListener)
-org.greengin.sciencetoolkit.model.serialize.ModelDeserializer:
+    254:254:public java.util.Vector getModels(java.lang.String)
+org.greengin.sciencetoolkit.common.model.ModelDefaults
+org.greengin.sciencetoolkit.common.model.serialize.ModelDeserializer:
     21:21:public ModelDeserializer()
-org.greengin.sciencetoolkit.model.serialize.ModelSerializer:
+org.greengin.sciencetoolkit.common.model.serialize.ModelSerializer:
     22:22:public ModelSerializer()
-org.greengin.sciencetoolkit.ui.base.AppSettingsActivity:
+org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity:
     public static final java.lang.String SELECT_ACCOUNT
     protected android.accounts.AccountManager accountManager
     protected android.content.Intent intent
     android.accounts.Account[] accounts
     android.widget.Button selectAccount
     android.widget.TextView accountLabel
-org.greengin.sciencetoolkit.ui.base.Arguments
-org.greengin.sciencetoolkit.ui.base.SensorUIData:
-    8:8:public SensorUIData()
-    233:265:public static java.lang.String[] getValueUnits(int)
-    270:279:public static java.lang.String getValueLabelStr(int)
-org.greengin.sciencetoolkit.ui.base.animations.Animations:
-    public static final int DURATION
-    8:8:public Animations()
-    13:16:public static int measureHeight(android.view.View)
-org.greengin.sciencetoolkit.ui.base.dlgs.ack.AckDlg:
-    13:13:public AckDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDeleteDlg:
-    11:11:public ProfileDeleteDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofile.ProfileDlg:
-    13:13:public ProfileDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDeleteDlg:
-    13:13:public ProfileSensorDeleteDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.ProfileSensorDlg:
-    22:22:public ProfileSensorDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.editprofilesensor.SeriesDeleteDlg:
-    14:14:public SeriesDeleteDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.edittext.EditTextDlg:
-    12:12:public EditTextDlg()
-org.greengin.sciencetoolkit.ui.base.dlgs.sensorselect.SensorSelectDlg:
-    18:18:public SensorSelectDlg()
-org.greengin.sciencetoolkit.ui.base.events.EventActivity
-org.greengin.sciencetoolkit.ui.base.events.EventManager:
-    70:72:public void stopListeningToSettings(java.lang.String)
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment:
+org.greengin.sciencetoolkit.common.ui.base.Arguments
+org.greengin.sciencetoolkit.common.ui.base.SwipeActivity:
+    59:60:public void setPagingEnabled(boolean)
+org.greengin.sciencetoolkit.common.ui.base.ToastMaker:
+    11:11:public ToastMaker()
+    38:39:public static void s(android.app.Activity,java.lang.String,boolean)
+    46:47:public static void se(android.app.Activity,java.lang.String,boolean)
+    54:55:public static void s(android.app.Activity,java.lang.String)
+    62:63:public static void se(android.app.Activity,java.lang.String)
+org.greengin.sciencetoolkit.common.ui.base.events.EventActivity
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment:
     63:69:protected void addOptionText(java.lang.String,java.lang.String,java.lang.String)
+    72:73:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number)
     76:77:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String)
     80:81:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[])
+    84:113:public void addOptionNumber(java.lang.String,java.lang.String,java.lang.String,boolean,boolean,java.lang.Number,java.lang.Number,java.lang.Number,java.lang.String[],double[],java.lang.String)
     116:130:protected void addOptionToggle(java.lang.String,java.lang.String,java.lang.String,boolean)
+    133:149:protected android.widget.CheckBox addOptionCheckbox(java.lang.String,java.lang.String,java.lang.String,boolean)
+    153:164:public android.widget.TextView addText(java.lang.String)
     168:183:public android.widget.Spinner addOptionSelectByValue(java.lang.String,java.lang.String,java.lang.String,java.util.List,java.lang.String,boolean)
-    217:224:protected org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar addOptionSeekbar(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Number,org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform)
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$1
-org.greengin.sciencetoolkit.ui.base.modelconfig.ModelFragment$ByValueItemSelectedListener
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsFragmentManager:
-    13:13:public SettingsFragmentManager()
-org.greengin.sciencetoolkit.ui.base.modelconfig.SettingsNumberWatcher:
-    30:31:public SettingsNumberWatcher(org.greengin.sciencetoolkit.model.Model,java.lang.String,org.greengin.sciencetoolkit.ui.base.modelconfig.ModelKeyChangeListener)
-org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.DeviceSensorConfigViewCreator:
-    14:14:public DeviceSensorConfigViewCreator()
-org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.LocationSensorConfigViewCreator:
-    8:8:public LocationSensorConfigViewCreator()
-org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SensorConfigViewCreator:
-    9:9:public SensorConfigViewCreator()
-org.greengin.sciencetoolkit.ui.base.modelconfig.sensors.SoundSensorConfigViewCreator:
-    9:9:public SoundSensorConfigViewCreator()
-org.greengin.sciencetoolkit.ui.base.plot.AbstractXYSensorPlotFragment:
-    49:49:protected java.lang.String getDomainLabel()
-org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserLayout:
-    java.util.Hashtable viewPos
-org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment:
-    33:33:protected java.lang.String getDomainLabel()
-    82:86:public void updatePlot()
-org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment$LiveTimePlotDomainFormat:
-    private static final long serialVersionUID
-org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorDataWrapper:
-    long period
-org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment:
-    boolean plotActive
-    55:55:protected java.lang.String getDomainLabel()
-org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment$RecordTimePlotDomainFormat:
-    private static final long serialVersionUID
-org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorDataWrapper:
-    59:60:public void update()
-    63:64:private void updateSeries()
-org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment:
-    99:99:protected java.lang.String getDomainLabel()
-org.greengin.sciencetoolkit.ui.base.plot.series.SeriesXYSensorPlotFragment$SeriesTimePlotDomainFormat:
-    private static final long serialVersionUID
-org.greengin.sciencetoolkit.ui.base.widgets.BlinkingImageView:
-    private static final java.lang.String EVENT_FILTER_PREFIX
-org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorGenerator
-org.greengin.sciencetoolkit.ui.base.widgets.colorview.ColorView
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.SeekBarTransform
-org.greengin.sciencetoolkit.ui.base.widgets.seekbar.TransformSeekBar
-org.greengin.sciencetoolkit.ui.main.record.RecordFragment:
-    boolean canUploadSeries
-    204:212:private void uploadSeries()
+    217:224:protected org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.TransformSeekBar addOptionSeekbar(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.Number,org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.SeekBarTransform)
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$1
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$2
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelFragment$ByValueItemSelectedListener
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.ModelKeyChangeListener
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsFragmentManager:
+    12:12:public SettingsFragmentManager()
+org.greengin.sciencetoolkit.common.ui.base.modelconfig.SettingsNumberWatcher
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView$1
+org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView$2
+org.greengin.sciencetoolkit.common.ui.base.widgets.ButtonPanelLayout
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg$AckDlgBuilder
+org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckListener
+org.greengin.sciencetoolkit.common.ui.base.widgets.colorview.ColorGenerator
+org.greengin.sciencetoolkit.common.ui.base.widgets.colorview.ColorView
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.NumberModelSeekBarTransformWrapper
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.SeekBarTransform
+org.greengin.sciencetoolkit.common.ui.base.widgets.seekbar.TransformSeekBar
+org.greengin.sciencetoolkit.common.ui.remote.ProjectBrowserActivity:
+    public static final java.lang.String REMOTE_PROJECT_DATA_EVENT_FILTER
+org.greengin.sciencetoolkit.spotit.BuildConfig
+org.greengin.sciencetoolkit.spotit.R
+org.greengin.sciencetoolkit.spotit.R$anim
+org.greengin.sciencetoolkit.spotit.R$attr
+org.greengin.sciencetoolkit.spotit.R$bool
+org.greengin.sciencetoolkit.spotit.R$color
+org.greengin.sciencetoolkit.spotit.R$dimen
+org.greengin.sciencetoolkit.spotit.R$drawable
+org.greengin.sciencetoolkit.spotit.R$id
+org.greengin.sciencetoolkit.spotit.R$integer
+org.greengin.sciencetoolkit.spotit.R$layout
+org.greengin.sciencetoolkit.spotit.R$menu
+org.greengin.sciencetoolkit.spotit.R$string
+org.greengin.sciencetoolkit.spotit.R$style
+org.greengin.sciencetoolkit.spotit.R$styleable
+org.greengin.sciencetoolkit.spotit.SpotItApplication:
+    public static final boolean REMOTE_ENABLED
+org.greengin.sciencetoolkit.spotit.VersionManager:
+    7:7:public VersionManager()
+org.greengin.sciencetoolkit.spotit.logic.remote.UpdateRemoteAction:
+    26:26:public void close()
+org.greengin.sciencetoolkit.spotit.model.ProjectManager:
+    122:122:public int getProjectCount()
+    150:151:public void registerDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener)
+    154:155:public void unregisterDirectListener(org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener)
+org.greengin.sciencetoolkit.spotit.ui.base.dlgs.ProjectDeleteDlg:
+    12:12:public ProjectDeleteDlg()
+org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventActivity
+org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManager:
+    65:67:public void stopListeningToSettings(java.lang.String)
+org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener:
+    46:46:public void eventDataStatus(java.lang.String,boolean)
+org.greengin.sciencetoolkit.spotit.ui.main.MainActivity:
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
+org.greengin.sciencetoolkit.spotit.ui.main.images.ImagesGridAdapter:
+    java.lang.String selectedProjectId
+org.greengin.sciencetoolkit.spotit.ui.main.projects.ProjectsFragment:
+    android.widget.ImageButton buttonAddProject

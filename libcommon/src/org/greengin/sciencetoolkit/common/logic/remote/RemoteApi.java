@@ -27,7 +27,7 @@ public class RemoteApi {
 	public static final String REMOTE_LOGIN_EVENT_FILTER = "REMOTE_EVENT_FILTER";
 
 	public static final String PROTOCOL = "http";
-	public static final String DOMAIN = "nquire-it.org.uk";
+	public static final String DOMAIN = "www.nquire-it.org";
 	public static final String PATH = "/";
 	public static final String WELCOME_PATH_SUFFIX = "welcome";
 

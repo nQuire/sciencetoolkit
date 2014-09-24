@@ -117,8 +117,9 @@ public class ProjectsFragment extends SpotItEventFragment implements
 	@Override
 	public void onClick(View v) {
 		if (v == buttonUpdateProject) {
-			((RemoteCapableActivity) getActivity())
-					.remoteRequest(new UpdateRemoteAction());
+			Intent intent = new Intent(getActivity(),
+					SpotItProjectBrowserActivity.class);
+			startActivity(intent);
 		}
 	}
 }

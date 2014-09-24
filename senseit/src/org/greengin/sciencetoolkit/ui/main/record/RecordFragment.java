@@ -19,7 +19,7 @@ import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.record.RecordXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.dataviewer.DataViewerActivity;
-import org.greengin.sciencetoolkit.common.ui.base.Arguments;
+import org.greengin.sciencetoolkit.common.ui.base.ToastMaker;
 import org.greengin.sciencetoolkit.common.ui.base.widgets.BlinkingImageView;
 import org.greengin.sciencetoolkit.ui.main.share.ProjectItemManager;
 
@@ -216,6 +216,7 @@ public class RecordFragment extends SenseItEventFragment implements
 			this.currentSeries = null;
 			updateButtonPanel();
 			animateraiseSeriesPanel(false);
+			ToastMaker.s(getActivity(), "Series discarded");
 		}
 	}
 
@@ -240,6 +241,7 @@ public class RecordFragment extends SenseItEventFragment implements
 			this.currentSeries = null;
 			updateButtonPanel();
 			animateraiseSeriesPanel(false);
+			ToastMaker.s(getActivity(), "Series saved");
 		}
 	}
 
@@ -341,8 +343,12 @@ public class RecordFragment extends SenseItEventFragment implements
 		 */else if (v == buttonDiscard) {
 			discardSeries();
 		} else if (v == buttonView) {
+			ProfileManager.get().getActiveProfile()
+					.getModel("dataviewer", true)
+					.setString("series", currentSeries.getName());
 			Intent intent = new Intent(getActivity(), DataViewerActivity.class);
-			intent.putExtra(SenseItArguments.ARG_PROFILE, ProfileManager.get().getActiveProfileId());
+			intent.putExtra(SenseItArguments.ARG_PROFILE, ProfileManager.get()
+					.getActiveProfileId());
 			startActivity(intent);
 		}
 

@@ -63,31 +63,5 @@
         android:scaleType="fitXY"
         android:src="@drawable/project_button_delete" />
     
-    <ImageButton
-        android:id="@+id/profile_activate"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/button_in_list"
-        android:layout_height="@dimen/button_in_list"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/projects_item_button_margin"
-        android:layout_toLeftOf="@id/project_delete"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/button_label_set"
-        android:scaleType="fitXY"
-        android:src="@drawable/project_button_activate" />
-
-    <ImageView
-        android:id="@+id/profile_active_big"
-        android:layout_width="@dimen/button_in_list"
-        android:layout_height="@dimen/button_in_list"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/projects_item_button_margin"
-        android:layout_toLeftOf="@id/project_delete"
-        android:adjustViewBounds="true"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/button_label_set"
-        android:scaleType="fitXY"
-        android:src="@drawable/icon_active" />
 
 </RelativeLayout>

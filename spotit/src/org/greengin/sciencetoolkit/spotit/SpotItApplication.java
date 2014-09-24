@@ -22,8 +22,6 @@ public class SpotItApplication extends Application {
 		DataManager.init(context);
 		ApplicationStatusManager.init(context);
 
-		// CurrentLocation.init(context);
-
 		RemoteApi.init(context);
 
 		VersionManager.check(context);
