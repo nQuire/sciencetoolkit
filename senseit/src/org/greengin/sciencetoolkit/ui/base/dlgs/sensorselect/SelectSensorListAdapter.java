@@ -95,7 +95,7 @@ public class SelectSensorListAdapter extends BaseAdapter {
 		view.setTag(id);
 
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
-		icon.setImageResource(SensorUIData.getSensorResource(sensor.getType()));
+		icon.setImageResource(SensorUIData.getSensorIconResource(sensor.getType()));
 		icon.setColorFilter(selected.contains(id) ? null : bwfilter);
 
 		TextView text = (TextView) view.findViewById(R.id.sensor_name);

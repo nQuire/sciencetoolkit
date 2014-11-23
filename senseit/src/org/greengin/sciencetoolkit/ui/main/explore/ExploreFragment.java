@@ -6,6 +6,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.common.ui.base.ToastMaker;
 import org.greengin.sciencetoolkit.common.ui.base.widgets.ack.AckDlg;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.ui.base.dlgs.sensorinfo.SensorInfoDlg;
 import org.greengin.sciencetoolkit.ui.base.events.SenseItEventFragment;
 import org.greengin.sciencetoolkit.ui.base.events.SenseItEventManagerListener;
 import org.greengin.sciencetoolkit.ui.base.plot.live.LiveXYSensorPlotFragment;
@@ -20,9 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
-public class ExploreFragment extends SenseItEventFragment implements OnItemClickListener {
+public class ExploreFragment extends SenseItEventFragment implements OnItemClickListener, OnItemLongClickListener {
 
 	ExploreSensorListAdapter adapter;
 	LiveXYSensorPlotFragment fragment;
@@ -49,6 +51,7 @@ public class ExploreFragment extends SenseItEventFragment implements OnItemClick
 		getChildFragmentManager().beginTransaction().add(R.id.explore_view, fragment).addToBackStack(null).commit();
 
 		grid.setOnItemClickListener(this);
+		grid.setOnItemLongClickListener(this);
 
 		return rootView;
 	}
@@ -95,6 +98,13 @@ public class ExploreFragment extends SenseItEventFragment implements OnItemClick
 			ToastMaker.s(getActivity(), text);
 		}
 		fragment.openPlot(sensorId);
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		String sensorId = (String) view.getTag();
+		SensorInfoDlg.open(getActivity(), SensorWrapperManager.get().getSensor(sensorId));
+		return true;
 	}
 
 }

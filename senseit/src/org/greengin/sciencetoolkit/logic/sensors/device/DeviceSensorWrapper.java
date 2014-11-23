@@ -19,6 +19,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	Model settings;
 	int valueCount;
 	boolean isRegistered;
+	float[] lastValue = null;
 
 	public DeviceSensorWrapper(Sensor sensor, SensorManager sensorManager) {
 		super(sensor.getType());
@@ -129,6 +130,7 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		lastValue = event.values;
 		this.fireInput(event.values, this.valueCount);
 	}
 
@@ -145,5 +147,10 @@ public class DeviceSensorWrapper extends SensorWrapper implements SensorEventLis
 	@Override
 	public void modelNotificationReceived(String msg) {
 		this.updateDelay();
+	}
+	
+	@Override
+	public float[] lastValue() {
+		return lastValue;
 	}
 }

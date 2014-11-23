@@ -78,7 +78,7 @@ public class SensorUIData {
 	 */
 
 	@SuppressWarnings("deprecation")
-	public static int getSensorResource(int type) {
+	public static int getSensorIconResource(int type) {
 		switch (type) {
 		case Sensor.TYPE_ACCELEROMETER:
 			return R.drawable.sensor_acc;
@@ -129,6 +129,116 @@ public class SensorUIData {
 			return R.drawable.sensor_gsm;
 		default:
 			return R.drawable.sensor_ste;
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static int getSensorSmallIconResource(int type) {
+		switch (type) {
+		case Sensor.TYPE_ACCELEROMETER:
+			return R.drawable.sensor_small_acc;
+		case Sensor.TYPE_LINEAR_ACCELERATION:
+			return R.drawable.sensor_small_lacc;
+		case Sensor.TYPE_GRAVITY:
+			return R.drawable.sensor_small_gra;
+		case Sensor.TYPE_PROXIMITY:
+			return R.drawable.sensor_small_pro;
+		case Sensor.TYPE_SIGNIFICANT_MOTION:
+			return R.drawable.sensor_small_sigmot;
+		case Sensor.TYPE_STEP_COUNTER:
+			return R.drawable.sensor_small_ste;
+		case Sensor.TYPE_STEP_DETECTOR:
+			return R.drawable.sensor_small_sted;
+		case Sensor.TYPE_AMBIENT_TEMPERATURE:
+		case Sensor.TYPE_TEMPERATURE:
+			return R.drawable.sensor_small_tmp;
+		case Sensor.TYPE_GAME_ROTATION_VECTOR:
+			return R.drawable.sensor_small_rot_gam;
+		case Sensor.TYPE_ROTATION_VECTOR:
+			return R.drawable.sensor_small_rot;
+		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+			return R.drawable.sensor_small_rot_geo;
+		case Sensor.TYPE_GYROSCOPE:
+			return R.drawable.sensor_small_gyr;
+		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
+			return R.drawable.sensor_small_gyr_u;
+		case Sensor.TYPE_LIGHT:
+			return R.drawable.sensor_small_lgt;
+		case Sensor.TYPE_MAGNETIC_FIELD:
+			return R.drawable.sensor_small_mag;
+		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+			return R.drawable.sensor_small_mag_u;
+		case Sensor.TYPE_ORIENTATION:
+			return R.drawable.sensor_small_ori;
+		case Sensor.TYPE_PRESSURE:
+			return R.drawable.sensor_small_pre;
+		case Sensor.TYPE_RELATIVE_HUMIDITY:
+			return R.drawable.sensor_small_hum;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
+			return R.drawable.sensor_small_snd;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
+			return R.drawable.sensor_small_gps;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return R.drawable.sensor_small_cdma;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+			return R.drawable.sensor_small_gsm;
+		default:
+			return R.drawable.sensor_small_ste;
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static int getSensorHelpResource(int type) {
+		switch (type) {
+		case Sensor.TYPE_ACCELEROMETER:
+			return R.string.help_sensor_acc;
+		case Sensor.TYPE_LINEAR_ACCELERATION:
+			return R.string.help_sensor_lacc;
+		case Sensor.TYPE_GRAVITY:
+			return R.string.help_sensor_gra;
+		case Sensor.TYPE_PROXIMITY:
+			return R.string.help_sensor_pro;
+		case Sensor.TYPE_SIGNIFICANT_MOTION:
+			return R.string.help_sensor_sigmot;
+		case Sensor.TYPE_STEP_COUNTER:
+			return R.string.help_sensor_ste;
+		case Sensor.TYPE_STEP_DETECTOR:
+			return R.string.help_sensor_sted;
+		case Sensor.TYPE_AMBIENT_TEMPERATURE:
+		case Sensor.TYPE_TEMPERATURE:
+			return R.string.help_sensor_tmp;
+		case Sensor.TYPE_GAME_ROTATION_VECTOR:
+			return R.string.help_sensor_rot_gam;
+		case Sensor.TYPE_ROTATION_VECTOR:
+			return R.string.help_sensor_rot;
+		case Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+			return R.string.help_sensor_rot_geo;
+		case Sensor.TYPE_GYROSCOPE:
+			return R.string.help_sensor_gyr;
+		case Sensor.TYPE_GYROSCOPE_UNCALIBRATED:
+			return R.string.help_sensor_gyr_u;
+		case Sensor.TYPE_LIGHT:
+			return R.string.help_sensor_lgt;
+		case Sensor.TYPE_MAGNETIC_FIELD:
+			return R.string.help_sensor_mag;
+		case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+			return R.string.help_sensor_mag_u;
+		case Sensor.TYPE_ORIENTATION:
+			return R.string.help_sensor_ori;
+		case Sensor.TYPE_PRESSURE:
+			return R.string.help_sensor_pre;
+		case Sensor.TYPE_RELATIVE_HUMIDITY:
+			return R.string.help_sensor_hum;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_SOUND:
+			return R.string.help_sensor_snd;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GPS_LOCATION:
+			return R.string.help_sensor_gps;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_CDMA:
+			return R.string.help_sensor_cdma;
+		case SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM:
+			return R.string.help_sensor_gsm;
+		default:
+			return R.string.help_sensor_ste;
 		}
 	}
 

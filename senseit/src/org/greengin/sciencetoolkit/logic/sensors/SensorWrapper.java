@@ -29,4 +29,6 @@ public abstract class SensorWrapper extends DataOutput {
 	abstract public int getMinDelay();
 
 	abstract public float getMaxRange();
+	
+	abstract public float[] lastValue();
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="help_sensor_acc">
+<![CDATA[acc
+        ]]>
+    </string>
+
+    <string name="help_sensor_cdma">
+<![CDATA[cdma
+        ]]>
+    </string>
+
+    <string name="help_sensor_gps">
+<![CDATA[gps
+        ]]>
+    </string>
+
+    <string name="help_sensor_gra">
+<![CDATA[gra
+        ]]>
+    </string>
+
+    <string name="help_sensor_gsm">
+<![CDATA[gsm
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr">
+<![CDATA[gyr
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr_u">
+<![CDATA[gyr_u
+        ]]>
+    </string>
+
+    <string name="help_sensor_hum">
+<![CDATA[hum
+        ]]>
+    </string>
+
+    <string name="help_sensor_lacc">
+<![CDATA[lacc
+        ]]>
+    </string>
+
+    <string name="help_sensor_lgt">
+<![CDATA[lgt
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag">
+<![CDATA[mag
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag_u">
+<![CDATA[mag_u
+        ]]>
+    </string>
+
+    <string name="help_sensor_ori">
+<![CDATA[ori
+        ]]>
+    </string>
+
+    <string name="help_sensor_pre">
+<![CDATA[pre
+        ]]>
+    </string>
+
+    <string name="help_sensor_pro">
+<![CDATA[pro
+        ]]>
+    </string>
+
+    <string name="help_sensor_sigmot">
+<![CDATA[sigmot
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot">
+<![CDATA[rot
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_gam">
+<![CDATA[rot_gam
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_geo">
+<![CDATA[rot_geo
+        ]]>
+    </string>
+
+    <string name="help_sensor_snd">
+<![CDATA[snd
+        ]]>
+    </string>
+
+    <string name="help_sensor_ste">
+<![CDATA[ste
+        ]]>
+    </string>
+
+    <string name="help_sensor_sted">
+<![CDATA[sted
+        ]]>
+    </string>
+
+    <string name="help_sensor_tmp">
+<![CDATA[tmp
+        ]]>
+    </string>
+
+</resources>

@@ -75,7 +75,7 @@ public class SensorBrowserLayout extends ViewGroup implements OnTouchListener {
 			View view = inflater.inflate(R.layout.panel_sensor_browser_item, null);
 			view.setTag(sensorId);
 			((TextView) view.findViewById(R.id.sensor_name)).setText(sensor.getName());
-			((ImageView) view.findViewById(R.id.sensor_icon)).setImageResource(SensorUIData.getSensorResource(sensor.getType()));
+			((ImageView) view.findViewById(R.id.sensor_icon)).setImageResource(SensorUIData.getSensorIconResource(sensor.getType()));
 			this.addView(view);
 			view.setOnTouchListener(this);
 			sensorViews.put(sensorId, view);

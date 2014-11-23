@@ -8,6 +8,7 @@ import org.greengin.sciencetoolkit.logic.datalogging.DataLogger;
 import org.greengin.sciencetoolkit.logic.datalogging.deprecated.DeprecatedDataLogger;
 import org.greengin.sciencetoolkit.logic.location.CurrentLocation;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.logic.signal.SignalStrengthManager;
 import org.greengin.sciencetoolkit.model.ProfileManager;
 
 import android.app.Application;
@@ -31,6 +32,8 @@ public class ScienceToolkitApplication extends Application {
         CurrentLocation.init(context);
         
         RemoteApi.init(context);
+        
+        SignalStrengthManager.init(context);
 
         VersionManager.check(context);
     }

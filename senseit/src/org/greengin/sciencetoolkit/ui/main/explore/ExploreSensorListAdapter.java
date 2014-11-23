@@ -74,7 +74,7 @@ public class ExploreSensorListAdapter extends BaseAdapter {
 		view.setTag(sensor.getId());
 
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
-		icon.setImageResource(SensorUIData.getSensorResource(sensor.getType()));
+		icon.setImageResource(SensorUIData.getSensorIconResource(sensor.getType()));
 
 		TextView text = (TextView) view.findViewById(R.id.sensor_name);
 		text.setText(sensor.getName());

@@ -103,4 +103,9 @@ public class SoundSensorFFTWrapper extends SensorWrapper implements ModelNotific
 		this.runnable.setLength(settings.getInt("record_period", SenseItModelDefaults.SOUND_SENSOR_PERIOD));
 	}
 
+	@Override
+	public float[] lastValue() {
+		return values;
+	}
+
 }

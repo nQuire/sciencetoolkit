@@ -26,5 +26,4 @@ public class DataLoggingInput implements DataInput {
 		this.valueRecord.add(new TimeValue(System.currentTimeMillis(), values));
 		this.serializer.save(sensorId, profileSensorId, values, valueCount);
 	}
-
 }

@@ -28,5 +28,4 @@ public class DeprecatedDataLoggingInput implements DataInput {
 		}
 		helper.save(profileId, sensorId, bf.toString());
 	}
-
 }

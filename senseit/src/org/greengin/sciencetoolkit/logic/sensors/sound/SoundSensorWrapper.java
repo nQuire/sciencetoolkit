@@ -36,7 +36,7 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 		this.settings = SettingsManager.get().get(settingsId);
 		this.runnable.setLength(settings.getInt("record_period", SenseItModelDefaults.SOUND_SENSOR_PERIOD));
 
-		values = new float[1];
+		values = new float[]{0};
 
 		LocalBroadcastManager.getInstance(applicationContext).registerReceiver(new BroadcastReceiver() {
 			@Override
@@ -100,6 +100,11 @@ public class SoundSensorWrapper extends SensorWrapper implements ModelNotificati
 	@Override
 	public void modelNotificationReceived(String msg) {
 		this.runnable.setLength(settings.getInt("record_period", SenseItModelDefaults.SOUND_SENSOR_PERIOD));
+	}
+	
+	@Override
+	public float[] lastValue() {
+		return values;
 	}
 
 }

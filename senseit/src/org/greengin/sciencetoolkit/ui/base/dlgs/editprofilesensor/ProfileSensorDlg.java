@@ -36,12 +36,10 @@ public class ProfileSensorDlg {
 		List<SensorWrapper> sensorOptions;
 		AlertDialog dlg;
 		ProfileSensorActionListener listener;
-		Context context;
 
 		public ProfileSensorDlgBuilder(Context context, Model profile, Model profileSensor, double defaultRate, int defaultUnits, ProfileSensorActionListener listener) {
 			super(context);
 			
-			this.context = context;
 			this.listener = listener;
 			this.profileSensor = profileSensor;
 			this.profileSensorId = profileSensor.getString("id");

@@ -108,7 +108,7 @@ public class RecordSensorListAdapter extends BaseAdapter {
 		
 		ImageView icon = (ImageView) view.findViewById(R.id.sensor_icon);
 
-		icon.setImageResource(SensorUIData.getSensorResource(sensorType));
+		icon.setImageResource(SensorUIData.getSensorIconResource(sensorType));
 
 		TextView sensorNameView = (TextView) view.findViewById(R.id.sensor_name);
 		sensorNameView.setText(sensorName);

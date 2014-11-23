@@ -10,10 +10,12 @@ import android.location.LocationListener;
 public class LocationGpsSensorWrapper extends AbstractGpsSensorWrapper implements LocationListener {
 
 	float[] values;
+	boolean found;
 	
 	public LocationGpsSensorWrapper(Context applicationContext) {
 		super(applicationContext);
 		values = new float[2];
+		found = false;
 	}
 
 	@Override
@@ -36,7 +38,13 @@ public class LocationGpsSensorWrapper extends AbstractGpsSensorWrapper implement
 	public void onLocationChanged(Location location) {
 		values[0] = (float) location.getLatitude();
 		values[1] = (float) location.getLongitude();
+		found = true;
 		
 		this.fireInput(values, 2);
+	}
+	
+	@Override
+	public float[] lastValue() {
+		return found ? values : null;
 	}
 }

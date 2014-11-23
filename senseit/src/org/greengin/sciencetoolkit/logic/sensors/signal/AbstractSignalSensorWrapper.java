@@ -4,12 +4,13 @@ import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.common.model.events.ModelNotificationListener;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.logic.signal.SignalStrengthListener;
+import org.greengin.sciencetoolkit.logic.signal.SignalStrengthManager;
 
 import android.content.Context;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+import android.util.Log;
 
-public abstract class AbstractSignalSensorWrapper extends SensorWrapper implements ModelNotificationListener {
+public abstract class AbstractSignalSensorWrapper extends SensorWrapper implements ModelNotificationListener, SignalStrengthListener {
 
 	public static boolean isAvailable(Context applicationContext) {
 		return true;
@@ -17,13 +18,10 @@ public abstract class AbstractSignalSensorWrapper extends SensorWrapper implemen
 
 	Model settings;
 	float[] values;
-	TelephonyManager manager;
 	
-	PhoneStateListener listener;
-
 	public AbstractSignalSensorWrapper(Context applicationContext) {
 		super (SensorWrapperManager.CUSTOM_SENSOR_TYPE_GSM);
-		manager = (TelephonyManager) applicationContext.getSystemService(Context.TELEPHONY_SERVICE);
+		values = new float[] {0};
 	}
 
 	@Override
@@ -43,14 +41,28 @@ public abstract class AbstractSignalSensorWrapper extends SensorWrapper implemen
 
 	public void onInputAdded(boolean first, int inputCount) {
 		if (first) {
-			manager.listen(listener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+			SignalStrengthManager.get().addListener(this);
+			fire();
 		}
 	}
 
 	public void onInputRemoved(boolean empty, int inputCount) {
 		if (empty) {
-			manager.listen(listener, PhoneStateListener.LISTEN_NONE);
+			SignalStrengthManager.get().removeListener(this);
 		}
+	}
+	
+	protected abstract String network();
+
+	@Override
+	public void signalStrengthChange() {
+		fire();
+	}
+	
+	private void fire() {
+		values[0] = SignalStrengthManager.get().getSignalStrength(network());
+		fireInput(values, 1);
+		Log.d("stk signal", "sensor " + network() + " " + values[0]);
 	}
 
 	@Override
@@ -62,4 +74,8 @@ public abstract class AbstractSignalSensorWrapper extends SensorWrapper implemen
 	public void modelNotificationReceived(String msg) {
 	}
 	
+	@Override
+	public float[] lastValue() {
+		return values;
+	}
 }

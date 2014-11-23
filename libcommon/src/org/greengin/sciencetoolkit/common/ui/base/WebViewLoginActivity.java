@@ -6,7 +6,6 @@ import org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusActiv
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -31,16 +30,8 @@ public class WebViewLoginActivity extends ApplicationStatusActivity {
 			}
 		});
 		webview.setWebViewClient(new WebViewClient() {
-			@Override
-			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				setTitle(url);
-			}
-
-			@Override
-			public void onPageFinished(WebView view, String url) {
+			private void checkPage(String url) {
 				if (url.endsWith(RemoteApi.WELCOME_PATH_SUFFIX)) {
-					Log.d("stk webview", "page finished: " + url);
-
 					CookieSyncManager.getInstance().sync();
 					// Get the cookie from cookie jar.
 					String cookie = CookieManager.getInstance().getCookie(url);
@@ -52,23 +43,34 @@ public class WebViewLoginActivity extends ApplicationStatusActivity {
 					for (int i = 0; i < pairs.length; ++i) {
 						String[] parts = pairs[i].split("=", 2);
 						// If token is found, return it to the calling activity.
-						if (parts.length == 2 && parts[0].equalsIgnoreCase("JSESSIONID")) {
-							Log.d("stk webview", "jsession received");
-							RemoteApi.get().setSession(parts[1]);
+						if (parts.length == 2 && "JSESSIONID".equalsIgnoreCase(parts[0].trim())) {
+							RemoteApi.get().setSession(parts[1].trim());
 							finish();
-							Log.d("stk webview", "finished");
 						}
 					}
 				}
 			}
 
 			@Override
-			public void onReceivedError(WebView view, int errorCod, String description, String failingUrl) {
+			public void onPageStarted(WebView view, String url, Bitmap favicon) {
+				setTitle(url);
+				checkPage(url);
+			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				checkPage(url);
+			}
+
+			@Override
+			public void onReceivedError(WebView view, int errorCod,
+					String description, String failingUrl) {
 				RemoteApi.get().loginActionComplete();
 			}
 		});
 
-		webview.loadUrl(RemoteApi.PROTOCOL + "://" + RemoteApi.DOMAIN + RemoteApi.PATH + "social/google/login");
+		webview.loadUrl(RemoteApi.PROTOCOL + "://" + RemoteApi.DOMAIN
+				+ RemoteApi.PATH + "social/google/login");
 
 		webview.getSettings().setJavaScriptEnabled(true);
 		webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);

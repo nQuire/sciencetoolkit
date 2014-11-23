@@ -28,7 +28,7 @@ public class DataPipe {
 			last.addInput(filter);
 			last = filter;
 		}
-		last.addInput(end);		
+		last.addInput(end);	
 	}
 	
 	public void detach() {
