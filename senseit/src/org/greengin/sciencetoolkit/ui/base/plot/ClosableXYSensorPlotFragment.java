@@ -1,6 +1,9 @@
 package org.greengin.sciencetoolkit.ui.base.plot;
 
 import org.greengin.sciencetoolkit.R;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
+import org.greengin.sciencetoolkit.logic.sensors.SensorWrapperManager;
+import org.greengin.sciencetoolkit.ui.base.dlgs.sensorinfo.SensorInfoDlg;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +17,10 @@ public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotF
 
 
 	protected ImageButton closeButton;
+	protected ImageButton helpButton;
 
+	
+	protected abstract String getSensorId();
 	
 	@Override
 	public void onDetach() {
@@ -35,6 +41,8 @@ public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotF
 		View plotPanel = super.onCreateView(inflater, container, savedInstanceState);
 		closeButton = (ImageButton) plotPanel.findViewById(R.id.plot_close);
 		closeButton.setOnClickListener(this);
+		helpButton = (ImageButton) plotPanel.findViewById(R.id.sensor_help);
+		helpButton.setOnClickListener(this);
 		this.close();
 		return plotPanel;
 	}
@@ -53,6 +61,12 @@ public abstract class ClosableXYSensorPlotFragment extends AbstractXYSensorPlotF
 	public void onClick(View v) {
 		if (v == closeButton) {
 			close();
+		} else if (v == helpButton) {
+			String sensorId = getSensorId();
+			SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
+			if (sensor != null) {
+				SensorInfoDlg.open(getActivity(), sensor);				
+			}
 		}
 	}
 }

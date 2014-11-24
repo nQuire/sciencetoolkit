@@ -32,8 +32,6 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 	boolean plotActive;
 	Vector<TimeValue> record;
 	RedrawTimer redrawTimer;
-
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -197,5 +195,10 @@ public class RecordXYSensorPlotFragment extends ClosableXYSensorPlotFragment imp
 				}
 			}
 		}
+	}
+
+	@Override
+	protected String getSensorId() {
+		return sensor != null ? sensor.getId() : null;
 	}
 }

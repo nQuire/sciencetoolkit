@@ -17,17 +17,16 @@ import org.greengin.sciencetoolkit.model.SenseItModelDefaults;
 import org.greengin.sciencetoolkit.ui.base.plot.ClosableXYSensorPlotFragment;
 import org.greengin.sciencetoolkit.ui.base.plot.SensorBrowserListener;
 
-public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment implements SensorBrowserListener {
-	
+public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment
+		implements SensorBrowserListener {
 
-
+	SensorWrapper sensor;
 	LiveXYSensorDataWrapper series;
-	
+
 	DataPipe dataPipe;
 	FixedRateDataFilter periodFilter;
 	protected Model seriesSettings;
 
-	
 	@Override
 	protected String getDomainLabel() {
 		return "Seconds ago";
@@ -45,16 +44,20 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 
 	public void openPlot(String sensorId) {
 		super.openPlot();
-		
+
 		setTitle(getResources().getString(R.string.plot_live_label));
-		
-		SensorWrapper sensor = SensorWrapperManager.get().getSensor(sensorId);
+
+		sensor = SensorWrapperManager.get().getSensor(sensorId);
 		this.seriesSettings = SettingsManager.get().get("liveplot:" + sensorId);
-		this.series = new LiveXYSensorDataWrapper(plot, sensor, seriesSettings, getActivity());
-		
+		this.series = new LiveXYSensorDataWrapper(plot, sensor, seriesSettings,
+				getActivity());
+
 		this.setHeaderTitle("Live values:\n" + sensor.getName());
-		
-		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
+
+		int period = ModelOperations.rate2period(seriesSettings, "sample_rate",
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE,
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN,
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter = new FixedRateDataFilter(period);
 		this.dataPipe = new DataPipe(sensor);
 		this.dataPipe.addFilter(this.periodFilter);
@@ -62,8 +65,9 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 		this.dataPipe.attach();
 
 		this.series.initSeries(plot);
-		
-		this.sensorBrowser.setSensors(this, SensorWrapperManager.get().getShownSensorIds(), sensorId);
+
+		this.sensorBrowser.setSensors(this, SensorWrapperManager.get()
+				.getShownSensorIds(), sensorId);
 	}
 
 	@Override
@@ -76,12 +80,14 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 		super.onPause();
 	}
 
-
 	public void updatePlot() {
-		//this.updateSeriesConfig(false);
+		// this.updateSeriesConfig(false);
 		((LiveXYSensorDataWrapper) this.series).updateViewPeriod();
 
-		int period = ModelOperations.rate2period(seriesSettings, "sample_rate", SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
+		int period = ModelOperations.rate2period(seriesSettings, "sample_rate",
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE,
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN,
+				SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		this.periodFilter.setPeriod(period);
 	}
 
@@ -95,8 +101,7 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 	protected NumberFormat createDomainNumberFormat() {
 		return new LiveTimePlotDomainFormat();
 	}
-	
-	
+
 	private class LiveTimePlotDomainFormat extends NumberFormat {
 
 		private static final long serialVersionUID = -1726050106365327017L;
@@ -128,6 +133,11 @@ public class LiveXYSensorPlotFragment extends ClosableXYSensorPlotFragment imple
 		public Number parse(String arg0, ParsePosition arg1) {
 			return null;
 		}
+	}
+
+	@Override
+	protected String getSensorId() {
+		return sensor != null ? sensor.getId() : null;
 	}
 
 }

@@ -5,8 +5,6 @@ import java.util.TimerTask;
 
 import org.greengin.sciencetoolkit.logic.streams.DataInputOutput;
 
-import android.util.Log;
-
 public class FixedRateDataFilter extends DataInputOutput {
 
 	float[] currentValue;
@@ -37,7 +35,6 @@ public class FixedRateDataFilter extends DataInputOutput {
 
 	@Override
 	public void value(float[] values, int valueCount) {
-		Log.d("stk signal", "fr " + values[0] + " " + valueCount);
 		for (int i = 0; i < valueCount; i++) {
 			this.currentValue[i] = values[i];
 		}
@@ -67,8 +64,6 @@ public class FixedRateDataFilter extends DataInputOutput {
 			timer.scheduleAtFixedRate(new TimerTask() {
 				@Override
 				public void run() {
-					Log.d("stk signal", "start " + hasData + " " + currentValue[0] + " " + currentValueCount);
-
 					if (hasData) {
 						fireInput(currentValue, currentValueCount);
 					}

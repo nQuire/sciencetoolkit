@@ -7,6 +7,7 @@ import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -29,8 +30,8 @@ public class SensorInfoDlg {
 			View layout = LayoutInflater.from(context).inflate(
 					R.layout.dlg_sensor_info, null);
 			info = (TextView) layout.findViewById(R.id.sensor_info);
-			info.setText(context.getString(SensorUIData
-					.getSensorHelpResource(sensor.getType())));
+			info.setText(Html.fromHtml(context.getString(SensorUIData
+					.getSensorHelpResource(sensor.getType()))));
 
 			setTitle(sensor.getName());
 			setIcon(SensorUIData.getSensorSmallIconResource(sensor.getType()));
