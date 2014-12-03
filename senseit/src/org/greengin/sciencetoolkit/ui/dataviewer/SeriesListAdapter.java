@@ -13,6 +13,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
@@ -30,6 +31,7 @@ public class SeriesListAdapter extends BaseAdapter {
 	Context context;
 
 	OnClickListener uploadListener;
+	OnLongClickListener resetUploadListener;
 	OnClickListener discardListener;
 	OnClickListener editListener;
 	OnClickListener selectListener;
@@ -69,6 +71,14 @@ public class SeriesListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				SeriesListAdapter.this.listener.seriesUpload(profile,
+						(File) v.getTag());
+			}
+		};
+
+		this.resetUploadListener= new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				return SeriesListAdapter.this.listener.seriesResetUpload(profile,
 						(File) v.getTag());
 			}
 		};
@@ -161,11 +171,12 @@ public class SeriesListAdapter extends BaseAdapter {
 		uploadButton.setTag(series);
 		if (newView) {
 			uploadButton.setOnClickListener(uploadListener);
+			view.setOnLongClickListener(resetUploadListener);
 		}
 
 		if (isRemote) {
-			uploadButton.setEnabled(seriesUploadStatus == 0);
 			editButton.setEnabled(seriesUploadStatus == 0);
+			uploadButton.setEnabled(seriesUploadStatus == 0);
 			uploadButton.setVisibility(View.VISIBLE);
 		} else {
 			uploadButton.setVisibility(View.GONE);

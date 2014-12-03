@@ -10,4 +10,5 @@ public interface SeriesListListener {
 	void seriesUpload(Model profile, File series);
 	void seriesSelected(Model profile, File series);
 	void seriesEdit(Model profile, File series);
+	boolean seriesResetUpload(Model profile, File series);
 }

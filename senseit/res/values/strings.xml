@@ -46,7 +46,9 @@
     <string name="delete_profile_sensor_dlg_msg">Do you want to remove %1$s from this project?</string>
     <string name="delete_profile_dlg_title">Remove project</string>
     <string name="delete_profile_dlg_msg">Do you want to remove project %1$s and all its recorded data from this device?</string>
-
+    <string name="reset_upload_dlg_title">Reset upload status</string>
+    <string name="reset_upload_dlg_msg">Do you want to reset this series, so that you can upload it again?</string>
+    
     <!-- main activity - share tab -->
     <string name="share_projects_header">PROJECTS</string>
     <string name="share_project_active">[Active project]</string>
