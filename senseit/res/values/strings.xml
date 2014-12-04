@@ -4,95 +4,95 @@
     <string name="app_name">Sense-it</string>
 
     <!-- main activity -->
-    <string name="main_activity_tab_1">Explore</string>
-    <string name="main_activity_tab_2">Record</string>
-    <string name="main_activity_tab_3">Share</string>
+    <string name="main_activity_tab_1">Explorar</string>
+    <string name="main_activity_tab_2">Registrar</string>
+    <string name="main_activity_tab_3">Compartir</string>
 
     <!-- main activity - explore tab -->
     <string name="explore_sensor_icon_description">Sensor icon</string>
-    <string name="explore_sensor_added_to_recording">Sensor %1$s has been added to the RECORD tab.</string>
-    <string name="explore_confirm_hidden_sensors_title">More sensors!</string>
-    <string name="explore_confirm_hidden_sensors_msg">For the complete list of available sensors in this device, go to "Show/hide sensors" in the top-right corner menu.</string>
+    <string name="explore_sensor_added_to_recording">Se agregó el sensor %1$s a la pestaña REGISTRAR.</string>
+    <string name="explore_confirm_hidden_sensors_title">¡Más sensores!</string>
+    <string name="explore_confirm_hidden_sensors_msg">Para una lista completa de los sensores disponibles en este dispositivo, ir a "Mostrar/ocultar sensores" en el menú sobre la esquina superior derecha.</string>
 
     <!-- main activity - explore tab - settings -->
-    <string name="sensor_list_settings_activity_title">Show/hide sensors</string>
+    <string name="sensor_list_settings_activity_title">Mostrar/ocultar sensores</string>
 
     <!-- main activity - record tab -->
-    <string name="record_project_title_label">Project: </string>
-    <string name="selected_sensors">SELECTED SENSORS</string>
-    <string name="sampling_rate">Sampling rate: </string>
+    <string name="record_project_title_label">Proyecto: </string>
+    <string name="selected_sensors">SENSORES SELECCIONADOS</string>
+    <string name="sampling_rate">Frecuencia de muestreo: </string>
     <string name="sampling_rate_sec">%1$s/s</string>
     <string name="sampling_rate_min">%1$s/min</string>
-    <string name="sampling_rate_hour">%1$s/hour</string>
-    <string name="no_sensor_selected">&lt;select specific sensor&gt;</string>
-    <string name="record_series_start">Start</string>
-    <string name="record_series_stop">Stop</string>
-    <string name="record_series_view">View data</string>
-    <string name="record_series_discard">Discard</string>
-    <string name="record_series_keep">Save</string>
-    <string name="record_series_share">Share</string>
-    <string name="record_series_upload">Upload</string>
-    <string name="add_profile_sensor_title">Add sensors</string>
-    <string name="add_profile_sensor_msg">Select sensors for data recording.</string>
-    <string name="add_profile_sensor_oklabel0">Add selected</string>
-    <string name="add_profile_sensor_oklabel1">Add 1 sensor</string>
-    <string name="add_profile_sensor_oklabelmany">Add %1d sensors</string>
-    <string name="profile_sensor_not_selected">&lt;no sensor selected&gt;</string>
-    <string name="recording_1">Recording: 1 sample</string>
-    <string name="recording_many">Recording: %1d samples</string>
-    <string name="recorded_1">Recorded series: 1 sample</string>
-    <string name="recorded_many">Recorded series: %1d samples</string>
-    <string name="delete_profile_sensor_dlg_title">Remove sensor</string>
-    <string name="delete_profile_sensor_dlg_msg">Do you want to remove %1$s from this project?</string>
-    <string name="delete_profile_dlg_title">Remove project</string>
-    <string name="delete_profile_dlg_msg">Do you want to remove project %1$s and all its recorded data from this device?</string>
-    <string name="reset_upload_dlg_title">Reset upload status</string>
-    <string name="reset_upload_dlg_msg">Do you want to reset this series, so that you can upload it again?</string>
+    <string name="sampling_rate_hour">%1$s/hora</string>
+    <string name="no_sensor_selected">&lt;elegir sensor específico&gt;</string>
+    <string name="record_series_start">Comenzar</string>
+    <string name="record_series_stop">Parar</string>
+    <string name="record_series_view">Ver datos</string>
+    <string name="record_series_discard">Descartar</string>
+    <string name="record_series_keep">Guardar</string>
+    <string name="record_series_share">Compartir</string>
+    <string name="record_series_upload">Subir/string>
+    <string name="add_profile_sensor_title">Agregar sensores</string>
+    <string name="add_profile_sensor_msg">Elegir sensores para el registro de datos.</string>
+    <string name="add_profile_sensor_oklabel0">Agregar el seleccionado</string>
+    <string name="add_profile_sensor_oklabel1">Agregar 1 sensor</string>
+    <string name="add_profile_sensor_oklabelmany">Agregar %1d sensores</string>
+    <string name="profile_sensor_not_selected">&lt;no hay sensor seleccionado&gt;</string>
+    <string name="recording_1">Recgistrando: 1 muestra</string>
+    <string name="recording_many">Registrando: %1d muestras</string>
+    <string name="recorded_1">Registrando series: 1 muestra</string>
+    <string name="recorded_many">Registrando series: %1d muestras</string>
+    <string name="delete_profile_sensor_dlg_title">Remover sensor</string>
+    <string name="delete_profile_sensor_dlg_msg">¿Quiere quitar el sensor %1$s de este proyecto?</string>
+    <string name="delete_profile_dlg_title">Eliminar proyecto</string>
+    <string name="delete_profile_dlg_msg">¿Quiere eliminar el proyecto %1$s de este dispositivo y todos los datos registrados?</string>
+    <string name="reset_upload_dlg_title">Resetear el estado de la subida</string>
+    <string name="reset_upload_dlg_msg">¿Quiere resetear esta serie y así poder subirla de nuevo?</string>
     
     <!-- main activity - share tab -->
-    <string name="share_projects_header">PROJECTS</string>
-    <string name="share_project_active">[Active project]</string>
-    <string name="share_project_inactive">[Inactive]</string>
-    <string name="default_profile_title">Default project</string>
-    <string name="switch_profile_header">Switch active project?</string>
-    <string name="switch_profile">Switch</string>
-    <string name="project_type_device">Local project</string>
-    <string name="project_type_cloud">Remote project</string>
-    <string name="project_type_geolocated">Geolocated project</string>
-    <string name="new_project_dlg_title">Create new project</string>
-    <string name="new_project_dlg_message">Input the name for your new project.</string>
-    <string name="new_project_dlg_oklabel">Create</string>
+    <string name="share_projects_header">PROYECTOS</string>
+    <string name="share_project_active">[Proyecto activo]</string>
+    <string name="share_project_inactive">[Inactivo]</string>
+    <string name="default_profile_title">Proyecto por defecto</string>
+    <string name="switch_profile_header">¿Cambiar proyecto activo?</string>
+    <string name="switch_profile">Cambiar</string>
+    <string name="project_type_device">Proyecto local</string>
+    <string name="project_type_cloud">Proyecto remoto</string>
+    <string name="project_type_geolocated">Proyecto geolocalizado</string>
+    <string name="new_project_dlg_title">Crear nuevo proyecto</string>
+    <string name="new_project_dlg_message">Ingresar el nombre del nuevo proyecto.</string>
+    <string name="new_project_dlg_oklabel">Crear</string>
 
     <!-- plot -->
-    <string name="plot_live_label">LIVE VALUES</string>
-    <string name="plot_recording_label">RECORDING IN PROGRESS</string>
+    <string name="plot_live_label">VALORES EN VIVO</string>
+    <string name="plot_recording_label">REGISTRACIÓN EN PROCESO</string>
 
     <!-- data count -->
-    <string name="data_count_none">No data</string>
-    <string name="data_count_one">1 sample</string>
-    <string name="data_count_many">%1d samples</string>
-    <string name="series_count_none">No series</string>
-    <string name="series_count_one">1 series</string>
+    <string name="data_count_none">Sin datos</string>
+    <string name="data_count_one">1 muestra</string>
+    <string name="data_count_many">%1d muestras</string>
+    <string name="series_count_none">Sin series</string>
+    <string name="series_count_one">1 serie</string>
     <string name="series_count_many">%1d series</string>
 
 
     <!-- menu items -->
-    <string name="menu_item_sensor_select">Show/hide sensors</string>
-    <string name="menu_item_application_about">About Sense-it</string>
-    <string name="menu_item_application_connect">Connect</string>
+    <string name="menu_item_sensor_select">Mostrar/ocultar sensores</string>
+    <string name="menu_item_application_about">Acerca de Sense-it</string>
+    <string name="menu_item_application_connect">Conectar</string>
 
     <!-- seconds picker dlg -->
-    <string name="dialog_seconds_picker_title">Set time</string>
+    <string name="dialog_seconds_picker_title">Setear tiempo</string>
     <string name="dialog_seconds_picker_time_separator">:</string>
     <string name="dialog_seconds_picker_time_ms_separator">.</string>
 
     <!-- rate -->
-    <string name="sample_rate_dlg_msg">Select the sampling rate for this sensor, or remove it from this list.</string>
-    <string name="sample_rate_label">Sample rate: </string>
+    <string name="sample_rate_dlg_msg">Seleccionar la frecuencia de muestreo para este sensor, o quitarlo de esta lista.</string>
+    <string name="sample_rate_label">Frecuencia de muestreo: </string>
     <string name="sample_rate_separator"> / </string>
-    <string name="sample_rate_ok">Update</string>
-    <string name="sample_rate_delete">Remove</string>
-    <string name="sample_rate_prompt">Select units</string>
+    <string name="sample_rate_ok">Actualizar</string>
+    <string name="sample_rate_delete">Quitar</string>
+    <string name="sample_rate_prompt">Seleccionar unidades</string>
 
     <string-array name="sample_rate_units">
         <item>sec</item>
@@ -101,23 +101,23 @@
     </string-array>
 
     <!-- data viewer -->
-    <string name="data_viewer_activity_title">Data viewer</string>
-    <string name="data_viewer_tab_1">Plot</string>
+    <string name="data_viewer_activity_title">Visor de datos</string>
+    <string name="data_viewer_tab_1">Gráfico</string>
     <string name="data_viewer_tab_2">Series</string>
-    <string name="series_edit_name_title">Series title</string>
-    <string name="series_edit_name_msg">Edit title for this series of data.</string>
-    <string name="series_delete_dlg_title">Remove series</string>
-    <string name="series_delete_dlg_msg">Do you want to remove series %1$s from this device?</string>
-    <string name="series_share_title">Share recorded series</string>
-    <string name="series_share_subject">Sense-it series: %1s</string>
-    <string name="series_share_body">Recorded series in CSV format attached.</string>
+    <string name="series_edit_name_title">Título de la serie</string>
+    <string name="series_edit_name_msg">Editar el título de esta serie de datos.</string>
+    <string name="series_delete_dlg_title">Remover series</string>
+    <string name="series_delete_dlg_msg">¿Quiere quitar la serie %1$s de este dispositivo?</string>
+    <string name="series_share_title">Serie registrada compartida</string>
+    <string name="series_share_subject">Serie de Sense-it: %1s</string>
+    <string name="series_share_body">Series registradas en formato CSV adjunto.</string>
 
     
     
 
     <!-- about -->
     <string name="about_version">Sense-it 1.0 Beta 1</string>
-    <string name="about_subtitle">A sensor app for Android</string>
+    <string name="about_subtitle">Una app de sensores para Android</string>
     <string name="about_cr">
 <![CDATA[Copyright © 2014, 
         <a href="http://www.open.ac.uk">The Open University</a>. All rights reserved.<br/>
@@ -126,19 +126,19 @@
     </string>
     <string name="about_link">www.nquire.info</string>
     <string name="about_text">
-<![CDATA[The Sense-it app is provided by 
+<![CDATA[Sense-it app es provista por 
         <a href="http://www.open.ac.uk">The Open University</a>, UK, 
         a company incorporated by Royal Charter in England and Wales. 
-        Our main office is at Walton Hall, Milton Keynes MK7 6AA. 
-        If you wish to contact us, send a letter to the above address or an email to 
+        Nuestra oficina principal está en Walton Hall, Milton Keynes MK7 6AA. 
+        Si desea contactarnos, envíe una carta a la dirección de arriba o un email a 
         <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
         
-        We exclude any warranty, express or implied, as to the quality, accuracy, timeliness, 
-        completeness, performance, fitness for a particular purpose of the application or any of its contents. 
-        We will not be liable for any damages (including without limitation damages for loss of profit, 
-        revenue or anticipated savings) arising in contract, tort or otherwise from the use of or 
-        inability to use the application or any of its contents or from any action taken 
-        (or refrained from being taken) as a result of using the application or any such contents. 
+        Excluimos toda garantía, expresa o implícita, en cuanto a la calidad, exactitud, puntualidad,
+         integridad, rendimiento, aptitud para un propósito particular de la aplicación o cualquiera de sus contenidos.
+         No nos hacemos responsables de cualquier daño (incluyendo sin limitación daños por pérdida de beneficios,
+         ingresos o ahorros anticipados) que surjan por contrato, agravio o de otra manera por el uso de o
+         incapacidad para utilizar la aplicación o cualquiera de sus contenidos ni de ninguna acción tomada
+         (o abstenido de ser llevado) como un resultado del uso de la aplicación o cualquiera de dichos contenidos. 
         ]]>
     </string>
 
