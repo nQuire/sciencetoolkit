@@ -26,8 +26,8 @@ public class AboutActivity extends SettingsControlledActivity {
 		TextView about = (TextView) findViewById(R.id.about_text);
 		about.setText(Html.fromHtml(getString(R.string.about_text)));
 		
-		TextView cr = (TextView) findViewById(R.id.about_cr);
-		cr.setText(Html.fromHtml(getString(R.string.about_cr)));
+		TextView disclaimer = (TextView) findViewById(R.id.about_disclaimer);
+		disclaimer.setText(Html.fromHtml(getString(R.string.about_disclaimer)));
 	}
 
 	@Override

@@ -2,11 +2,14 @@ package org.greengin.sciencetoolkit.ui.main;
 
 import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.common.ui.base.SwipeActivity;
+import org.greengin.sciencetoolkit.ui.about.AboutActivity;
 import org.greengin.sciencetoolkit.ui.main.explore.ExploreFragment;
 import org.greengin.sciencetoolkit.ui.main.record.RecordFragment;
 import org.greengin.sciencetoolkit.ui.main.share.ShareFragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 
 public class MainActivity extends SwipeActivity {
 	private static int lastTab = -1;
@@ -70,6 +73,18 @@ public class MainActivity extends SwipeActivity {
 		default:
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == R.id.action_application_about) {
+			Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 
