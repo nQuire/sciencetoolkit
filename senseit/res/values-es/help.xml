@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="help_sensor_acc">
+<![CDATA[Mide la aceleración en m/s<small><sup>2</sup></small> que es aplicada a un dispositivo en los tres ejes físicos (x, y, z), includia la fuerza gravitatoria.
+        ]]>
+    </string>
+
+    <string name="help_sensor_cdma">
+<![CDATA[Mide la fuerza de la señal de la red CDMA.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gps">
+<![CDATA[Registar la latitud y altitud desde el dispositivo GPS.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gra">
+<![CDATA[Mide la aceleración de la gravedad en m/s<small><sup>2</sup></small> que es aplicada a un dispositivo en los tres ejes físicos (x, y, z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_gsm">
+<![CDATA[Mide la fuerza de la señal de la red GSM.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr">
+<![CDATA[Mide la velocidad de rotación del dispositivo en radianes alrededor de los tres ejes físicos (x, y, z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr_u">
+<![CDATA[Mide la velocidad de rotación del dispositivo en radianes alrededor de los tres ejes físicos (x, y, z). En contraste con el sensor del Giroscopio, este sensor no realiza la compensación gyro-drift en sus valores.
+        ]]>
+    </string>
+
+    <string name="help_sensor_hum">
+<![CDATA[Mide la humedad relativa ambiente en porciento (%).
+        ]]>
+    </string>
+
+    <string name="help_sensor_lacc">
+<![CDATA[Mide la aceleración en m/s<small><sup>2</sup></small> que es aplicada a un dispositivo en los tres ejes físicos (x, y, z) excluyendo la fuerza de gravedad.
+        ]]>
+    </string>
+
+    <string name="help_sensor_lgt">
+<![CDATA[Mide el nivel de luz ambiente (iluminación) en lx.
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag">
+<![CDATA[Mide el campo geomagnético en el ambiente para los tres ejes físicos (x, y, z) en μT.
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag_u">
+<![CDATA[Mide el campo geomagnético para los tres ejes físicos (x, y, z) en μT. En contraste con un sensor de campo magnético calibrado, las distorciones en el campo magnético producidas por el dispositivo no son tomadas en cuenta por este sensor.
+        ]]>
+    </string>
+
+    <string name="help_sensor_ori">
+<![CDATA[Mide la rotación en grados de un dispositivo alrededor de los tres ejes físicos (x, y, z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_pre">
+<![CDATA[Mide la presión del aire en el ambiente en hPa ó mbar.
+        ]]>
+    </string>
+
+    <string name="help_sensor_pro">
+<![CDATA[Mide la proximidad de un objeto en cm relativa a la pantalla del dispositivo. 
+        ]]>
+    </string>
+
+    <string name="help_sensor_sigmot">
+<![CDATA[Este sensor dispara un evento cuando detecta un movimiento significativo en el dispositivo.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot">
+<![CDATA[Mide la orientación del dispositivo brindando los tres elementos del vector de rotación del dispositivo.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_gam">
+<![CDATA[Mide la orientación de un dispositivo brindando los tres elementos del vector de rotación del dispositivo. En contraste con el sensor de rotación, este sensor no usa el campo geomagnético. Como resultado, los valores orientativos pueden cambiar con el tiempo.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_geo">
+<![CDATA[Mide la orientación de un dispositivo brindando los tres elementos del vector de rotación del dispositivo. Este sensor utiliza un magnetómetro en vez de un giroscopio. Como resultado, este sensor usa menor poder que los otros vectores de rotación. De todos modos, es más ruidoso y funcionará mejor en el exterior de un ambiente.
+        ]]>
+    </string>
+
+    <string name="help_sensor_snd">
+<![CDATA[Mide el nivel de sonido ambiente en dB. 
+        ]]>
+    </string>
+
+    <string name="help_sensor_ste">
+<![CDATA[Mide la cantidad de pasos que da el usuario desde la última vez que se reinició mientras estaba activado.
+        ]]>
+    </string>
+
+    <string name="help_sensor_sted">
+<![CDATA[Este sensor dispara un evento cada vez que el usuario da un paso.
+        ]]>
+    </string>
+
+    <string name="help_sensor_tmp">
+<![CDATA[Mide la temperatura ambiente en grados Celsius (°C).
+        ]]>
+    </string>
+</resources>

@@ -3,8 +3,8 @@
 
     <string name="app_name">Spot-it</string>
     <string name="menu_item_application_settings">Configuración</string>
-    <string name="app_settings_activity_title">Configuración global</string>
-    <string name="web_logging_activity_title">Configuración global</string>
+    <string name="app_settings_activity_title">Configuración Global</string>
+    <string name="web_logging_activity_title">Configuración Global</string>
     <string name="title_activity_project_browser">Navegador Proyecto Compartido</string>
     
     <!-- button commons -->
@@ -18,13 +18,13 @@
 
     <!-- ack -->
     <string name="ack_remember_decision">No mostrar esto otra vez.</string>
-    <string name="ack_remember_yes">No requerir confirmación otra vez.</string>
+    <string name="ack_remember_yes">No requerir confirmación nuevamente.</string>
 
     <!-- project browser -->
     <string name="project_browser_not_logged">No ha iniciado sesión.</string>
     <string name="project_browser_logged_in">Sesión iniciada como: %1s.</string>
-    <string name="project_browser_login">Iniciar sesión</string>
-    <string name="project_browser_logout">Cerrar sesisón</string>
+    <string name="project_browser_login">Inicar sesión</string>
+    <string name="project_browser_logout">Cerrar sesión</string>
     <string name="project_browser_join">Unirse</string>
     <string name="project_browser_leave">Abandonar</string>
     <string name="project_browser_projects">Proyectos:</string>
