@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="help_sensor_acc">
+<![CDATA[Measures the acceleration force in m/s<small><sup>2</sup></small> that is applied to a device on all three physical axes (x, y, and z), including the force of gravity.
+        ]]>
+    </string>
+
+    <string name="help_sensor_cdma">
+<![CDATA[Measures the signal strengh of the CDMA network.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gps">
+<![CDATA[Records latitude and altitude from the device\'s GPS.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gra">
+<![CDATA[Measures the force of gravity in m/s<small><sup>2</sup></small> that is applied to a device on all three physical axes (x, y, z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_gsm">
+<![CDATA[Measures the signal strengh of the GSM network.
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr">
+<![CDATA[Measures a device\'s rate of rotation in rad/s around each of the three physical axes (x, y, and z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_gyr_u">
+<![CDATA[Measures a device\'s rate of rotation in rad/s around each of the three physical axes (x, y, and z). In contrast with a calibrated Gyroscope sensor, this sensor does not perform gyro-drift compensation on it values.
+        ]]>
+    </string>
+
+    <string name="help_sensor_hum">
+<![CDATA[Measures the relative ambient humidity in percent (%).
+        ]]>
+    </string>
+
+    <string name="help_sensor_lacc">
+<![CDATA[Measures the acceleration force in m/s<small><sup>2</sup></small> that is applied to a device on all three physical axes (x, y, and z), excluding the force of gravity.
+        ]]>
+    </string>
+
+    <string name="help_sensor_lgt">
+<![CDATA[Measures the ambient light level (illumination) in lx.
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag">
+<![CDATA[Measures the ambient geomagnetic field for all three physical axes (x, y, z) in μT.
+        ]]>
+    </string>
+
+    <string name="help_sensor_mag_u">
+<![CDATA[Measures the geomagnetic field for all three physical axes (x, y, z) in μT. In contrast with a calibrated Magnetic field sensor, distortions on the magnetic field produced by the device are not taken into account by this sensor.
+        ]]>
+    </string>
+
+    <string name="help_sensor_ori">
+<![CDATA[Measures degrees of rotation that a device makes around all three physical axes (x, y, z).
+        ]]>
+    </string>
+
+    <string name="help_sensor_pre">
+<![CDATA[Measures the ambient air pressure in hPa or mbar.
+        ]]>
+    </string>
+
+    <string name="help_sensor_pro">
+<![CDATA[Measures the proximity of an object in cm relative to the view screen of a device. 
+        ]]>
+    </string>
+
+    <string name="help_sensor_sigmot">
+<![CDATA[This sensor triggers and event when a significant motion on the device is detected.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot">
+<![CDATA[Measures the orientation of a device by providing the three elements of the device\'s rotation vector.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_gam">
+<![CDATA[Measures the orientation of a device by providing the three elements of the device\'s rotation vector. In contrast with a Rotation sensor, this sensor does not use the use the geomagnetic field. As a result, the orientation values may drift over time.
+        ]]>
+    </string>
+
+    <string name="help_sensor_rot_geo">
+<![CDATA[Measures the orientation of a device by providing the three elements of the device\'s rotation vector. This sensor uses a magnetometer instead of a gyroscope. As a result, this sensor uses lower power than the other rotation vectors. However, it is more noisy and will work best outdoors.
+        ]]>
+    </string>
+
+    <string name="help_sensor_snd">
+<![CDATA[Measures the ambient sound level in dB. 
+        ]]>
+    </string>
+
+    <string name="help_sensor_ste">
+<![CDATA[Measures the number of steps taken by the user since the last reboot while activated.
+        ]]>
+    </string>
+
+    <string name="help_sensor_sted">
+<![CDATA[This sensor triggers an event each time a step is taken by the user.
+        ]]>
+    </string>
+
+    <string name="help_sensor_tmp">
+<![CDATA[Measures the ambient room temperature in degrees Celsius (°C).
+        ]]>
+    </string>
+</resources>

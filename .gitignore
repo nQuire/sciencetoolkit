@@ -1,21 +1,23 @@
 .metadata
-
-android-support-v7-appcompat
+keystore
 
 senseit/res/drawable/sensor_*
 senseit/res/drawable/button_*
-senseit/bin
-senseit/gen
-senseit/.settings
 
+senseit/.idea
+senseit/.gradle
+senseit/gradlew
+senseit/gradlew.bat
+senseit/local.properties
+senseit/build
 
-libandroidplot/bin
-libandroidplot/gen
-libandroidplot/.settings
+senseit/senseit/libs
+senseit/senseit/build
+senseit/senseit/*.apk
 
-libcommon/bin
-libcommon/gen
-libcommon/.settings
+senseit/libcommon/build
+senseit/androidplot/build
+
 
 spotit/bin
 spotit/gen

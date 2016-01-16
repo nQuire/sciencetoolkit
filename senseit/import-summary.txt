@@ -1,0 +1,800 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From libcommon:
+* .google_apis\
+* .google_apis\plus-v1r110lv1.16.0-rc\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\LICENSE.txt
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\classpath-include
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\descriptor.json
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc-javadoc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\gplus-16.png
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\gplus-32.png
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-api-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-api-client-android-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-android-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-gson-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-jackson-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-jackson2-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-oauth-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\gson-2.1-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\jackson-core-2.1.3-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\jackson-core-asl-1.9.11-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-android-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-android-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-android-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-android-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-gson-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-gson-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson2-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson2-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-oauth-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-oauth-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\gson-2.1.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\gson-2.1.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-2.1.3.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-2.1.3.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-asl-1.9.11.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-asl-1.9.11.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jsr305-1.3.9.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\proguard-google-api-client.txt
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\readme.html
+From nQuireScienceToolkit:
+* .google_apis\
+* .google_apis\plus-v1r110lv1.16.0-rc\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\LICENSE.txt
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\classpath-include
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\descriptor.json
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc-javadoc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\google-api-services-plus-v1-rev110-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\gplus-16.png
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\icons\gplus-32.png
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-api-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-api-client-android-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-android-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-gson-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-jackson-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-http-client-jackson2-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\google-oauth-client-1.16.0-rc-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\gson-2.1-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\jackson-core-2.1.3-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs-sources\jackson-core-asl-1.9.11-sources.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-android-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-api-client-android-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-android-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-android-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-gson-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-gson-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson2-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-http-client-jackson2-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-oauth-client-1.16.0-rc.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\google-oauth-client-1.16.0-rc.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\gson-2.1.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\gson-2.1.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-2.1.3.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-2.1.3.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-asl-1.9.11.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jackson-core-asl-1.9.11.jar.properties
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\libs\jsr305-1.3.9.jar
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\proguard-google-api-client.txt
+* .google_apis\plus-v1r110lv1.16.0-rc\plus\readme.html
+From sense-it:
+* .idea\
+* .idea\.name
+* .idea\compiler.xml
+* .idea\copyright\
+* .idea\copyright\profiles_settings.xml
+* .idea\misc.xml
+* .idea\modules.xml
+* .idea\vcs.xml
+* .idea\workspace.xml
+* build.gradle
+* gradle\
+* gradle\wrapper\
+* gradle\wrapper\gradle-wrapper.jar
+* gradle\wrapper\gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* libcommon\
+* libcommon\build.gradle
+* libcommon\lint.xml
+* libcommon\proguard-google-api-client.txt
+* libcommon\proguard-project.txt
+* libcommon\src\
+* libcommon\src\main\
+* libcommon\src\main\AndroidManifest.xml
+* libcommon\src\main\java\
+* libcommon\src\main\java\org\
+* libcommon\src\main\java\org\greengin\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\appstatus\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\appstatus\ApplicationStatusActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\appstatus\ApplicationStatusListener.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\appstatus\ApplicationStatusManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\location\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\location\LocationTracker.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\remote\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\remote\RemoteAction.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\remote\RemoteApi.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\logic\remote\RemoteJsonAction.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\AbstractModelManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\Model.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\ModelChangeListener.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\ModelDefaults.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\SettingsManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\events\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\events\ModelNotificationListener.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\events\NotificationListenerAggregator.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\serialize\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\serialize\ModelDeserializer.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\serialize\ModelSerializer.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\model\serialize\ModelVersionManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\AppSettingsActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\Arguments.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\RemoteCapableActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\SettingsControlledActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\SwipeActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\ToastMaker.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\WebViewLoginActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\events\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\events\EventActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\events\EventFragment.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\events\EventManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\CheckEnabledModelFragment.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\ModelFragment.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\ModelKeyChangeListener.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\SettingsFragmentManager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\SettingsNumberWatcher.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\settings\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\settings\AbstractSettingsFragment.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\modelconfig\settings\AppSettingsFragment.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\BlinkingImageView.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\ButtonPanelLayout.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\StkViewPager.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\ack\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\ack\AckDlg.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\ack\AckListener.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\colorview\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\colorview\ColorGenerator.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\colorview\ColorView.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\seekbar\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\seekbar\NumberModelSeekBarTransformWrapper.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\seekbar\SeekBarTransform.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\base\widgets\seekbar\TransformSeekBar.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\remote\
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\remote\ProjectBrowserActivity.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\remote\ProjectBrowserListAdapter.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\remote\ProjectData.java
+* libcommon\src\main\java\org\greengin\sciencetoolkit\common\ui\remote\ProjectMembershipListener.java
+* libcommon\src\main\res\
+* libcommon\src\main\res\drawable-hdpi\
+* libcommon\src\main\res\drawable-hdpi\ic_action_collapse.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_discard.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_edit.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_expand.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_overflow.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_save.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_search.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_settings.png
+* libcommon\src\main\res\drawable-hdpi\ic_action_upload.png
+* libcommon\src\main\res\drawable-mdpi\
+* libcommon\src\main\res\drawable-mdpi\ic_action_collapse.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_discard.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_edit.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_expand.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_overflow.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_save.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_search.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_settings.png
+* libcommon\src\main\res\drawable-mdpi\ic_action_upload.png
+* libcommon\src\main\res\drawable-xhdpi\
+* libcommon\src\main\res\drawable-xhdpi\ic_action_collapse.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_discard.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_edit.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_expand.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_overflow.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_save.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_search.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_settings.png
+* libcommon\src\main\res\drawable-xhdpi\ic_action_upload.png
+* libcommon\src\main\res\drawable-xxhdpi\
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_collapse.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_discard.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_edit.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_expand.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_overflow.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_save.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_search.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_settings.png
+* libcommon\src\main\res\drawable-xxhdpi\ic_action_upload.png
+* libcommon\src\main\res\drawable\
+* libcommon\src\main\res\drawable\.directory
+* libcommon\src\main\res\drawable\icon_active.png
+* libcommon\src\main\res\drawable\item_list_background.xml
+* libcommon\src\main\res\drawable\project_activate.png
+* libcommon\src\main\res\drawable\project_activate_disabled.png
+* libcommon\src\main\res\drawable\project_activate_pressed.png
+* libcommon\src\main\res\drawable\project_add.png
+* libcommon\src\main\res\drawable\project_add_disabled.png
+* libcommon\src\main\res\drawable\project_add_pressed.png
+* libcommon\src\main\res\drawable\project_button_activate.xml
+* libcommon\src\main\res\drawable\project_button_add.xml
+* libcommon\src\main\res\drawable\project_button_close.xml
+* libcommon\src\main\res\drawable\project_button_cloud.xml
+* libcommon\src\main\res\drawable\project_button_config.xml
+* libcommon\src\main\res\drawable\project_button_data.xml
+* libcommon\src\main\res\drawable\project_button_delete.xml
+* libcommon\src\main\res\drawable\project_button_help.xml
+* libcommon\src\main\res\drawable\project_button_share.xml
+* libcommon\src\main\res\drawable\project_button_switch.xml
+* libcommon\src\main\res\drawable\project_button_view.xml
+* libcommon\src\main\res\drawable\project_close.png
+* libcommon\src\main\res\drawable\project_close_disabled.png
+* libcommon\src\main\res\drawable\project_close_pressed.png
+* libcommon\src\main\res\drawable\project_cloud.png
+* libcommon\src\main\res\drawable\project_cloud_disabled.png
+* libcommon\src\main\res\drawable\project_cloud_pressed.png
+* libcommon\src\main\res\drawable\project_config.png
+* libcommon\src\main\res\drawable\project_config_disabled.png
+* libcommon\src\main\res\drawable\project_config_pressed.png
+* libcommon\src\main\res\drawable\project_data.png
+* libcommon\src\main\res\drawable\project_data_pressed.png
+* libcommon\src\main\res\drawable\project_delete.png
+* libcommon\src\main\res\drawable\project_delete_disabled.png
+* libcommon\src\main\res\drawable\project_delete_pressed.png
+* libcommon\src\main\res\drawable\project_help.png
+* libcommon\src\main\res\drawable\project_help_disabled.png
+* libcommon\src\main\res\drawable\project_help_pressed.png
+* libcommon\src\main\res\drawable\project_share.png
+* libcommon\src\main\res\drawable\project_share_disabled.png
+* libcommon\src\main\res\drawable\project_share_pressed.png
+* libcommon\src\main\res\drawable\project_switch.png
+* libcommon\src\main\res\drawable\project_switch_disabled.png
+* libcommon\src\main\res\drawable\project_switch_pressed.png
+* libcommon\src\main\res\drawable\project_view.png
+* libcommon\src\main\res\drawable\project_view_disabled.png
+* libcommon\src\main\res\drawable\project_view_pressed.png
+* libcommon\src\main\res\drawable\toast_error_shape.xml
+* libcommon\src\main\res\drawable\toast_shape.xml
+* libcommon\src\main\res\layout\
+* libcommon\src\main\res\layout\dlg_ack.xml
+* libcommon\src\main\res\layout\panel_settings.xml
+* libcommon\src\main\res\layout\settings_row_label.xml
+* libcommon\src\main\res\layout\view_app_settings.xml
+* libcommon\src\main\res\layout\view_project_browser.xml
+* libcommon\src\main\res\layout\view_project_browser_item.xml
+* libcommon\src\main\res\layout\widget_darker_line.xml
+* libcommon\src\main\res\layout\widget_lighter_line.xml
+* libcommon\src\main\res\layout\widget_lighter_line_mu.xml
+* libcommon\src\main\res\layout\widget_lighter_line_nm.xml
+* libcommon\src\main\res\menu\
+* libcommon\src\main\res\menu\project_browser.xml
+* libcommon\src\main\res\menu\settings_menu.xml
+* libcommon\src\main\res\values\
+* libcommon\src\main\res\values\attrs.xml
+* libcommon\src\main\res\values\colors.xml
+* libcommon\src\main\res\values\dimens.xml
+* libcommon\src\main\res\values\strings.xml
+* libcommon\src\main\res\values\styles.xml
+* nQuireScienceToolkit\
+* nQuireScienceToolkit\build.gradle
+* nQuireScienceToolkit\lint.xml
+* nQuireScienceToolkit\proguard-google-api-client.txt
+* nQuireScienceToolkit\proguard-project.txt
+* nQuireScienceToolkit\src\
+* nQuireScienceToolkit\src\main\
+* nQuireScienceToolkit\src\main\AndroidManifest.xml
+* nQuireScienceToolkit\src\main\java\
+* nQuireScienceToolkit\src\main\java\com\
+* nQuireScienceToolkit\src\main\java\com\androidplot\
+* nQuireScienceToolkit\src\main\java\com\androidplot\LineRegion.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\Plot.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\PlotListener.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\Series.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\exception\
+* nQuireScienceToolkit\src\main\java\com\androidplot\exception\PlotRenderException.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\PieChart.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\PieRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\PieWidget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\Segment.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\pie\SegmentFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\AnchorPosition.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\BoxModel.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\BoxModelable.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\DynamicTableModel.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\FixedTableModel.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\Formatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\LayoutManager.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\LayoutMetric.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\PositionMetric.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\PositionMetrics.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\RenderBundle.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\Resizable.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\SeriesAndFormatterList.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\SeriesRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\SizeLayoutType.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\SizeMetric.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\SizeMetrics.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\TableModel.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\TableOrder.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\TableSizingMethod.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\TextOrientationType.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\XLayoutStyle.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\XPositionMetric.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\YLayoutStyle.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\YPositionMetric.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\widget\
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\widget\EmptyWidget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\widget\TextLabelWidget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\ui\widget\Widget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\Configurator.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\DisplayDimensions.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\FontUtils.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\ListOrganizer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\MultiSynch.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\PaintUtils.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\PixelUtils.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\PlotStatistics.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\Redrawer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\ValPixConverter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\ZHash.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\ZIndexable.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\util\ZLinkedList.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\AxisValueLabelFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\BarFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\BarRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\BezierLineAndPointFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\BezierLineAndPointRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\BoundaryMode.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\FillDirection.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\LineAndPointFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\LineAndPointRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\PointLabelFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\PointLabeler.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\RectRegion.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\SimpleXYSeries.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\StepFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\StepRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\ValueMarker.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XValueMarker.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYAxisType.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYFramingModel.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYGraphBounds.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYGraphWidget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYLegendWidget.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYPlot.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYPlotZoomPan.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYRegionFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYSeries.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYSeriesFormatter.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYSeriesRenderer.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYStep.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYStepCalculator.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\XYStepMode.java
+* nQuireScienceToolkit\src\main\java\com\androidplot\xy\YValueMarker.java
+* nQuireScienceToolkit\src\main\res\
+* nQuireScienceToolkit\src\main\res\values\
+* nQuireScienceToolkit\src\main\res\values\styles.xml
+* proguard-google-api-client.txt
+* proguard-project.txt
+* senseit\
+* senseit\build.gradle
+* senseit\libs\
+* senseit\libs\google-api-client-1.16.0-rc.jar
+* senseit\libs\google-api-client-android-1.16.0-rc.jar
+* senseit\libs\google-api-services-plus-v1-rev110-1.16.0-rc.jar
+* senseit\libs\google-http-client-1.16.0-rc.jar
+* senseit\libs\google-http-client-android-1.16.0-rc.jar
+* senseit\libs\google-http-client-jackson-1.16.0-rc.jar
+* senseit\libs\google-http-client-jackson2-1.16.0-rc.jar
+* senseit\libs\google-oauth-client-1.16.0-rc.jar
+* senseit\libs\httpclient-4.3.1.jar
+* senseit\libs\httpcore-4.3.jar
+* senseit\libs\httpmime-4.3.1.jar
+* senseit\libs\jackson-core-2.1.3.jar
+* senseit\libs\jackson-core-asl-1.9.11.jar
+* senseit\libs\jsr305-1.3.9.jar
+* senseit\lint.xml
+* senseit\src\
+* senseit\src\main\
+* senseit\src\main\AndroidManifest.xml
+* senseit\src\main\java\
+* senseit\src\main\java\org\
+* senseit\src\main\java\org\greengin\
+* senseit\src\main\java\org\greengin\sciencetoolkit\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ScienceToolkitApplication.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\VersionManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLogger.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLoggerDataListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLoggerFileManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLoggerSerializer.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLoggerStatusListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\DataLoggingInput.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\DeprecatedAsynchSQLiteWriterRunnable.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\DeprecatedCsvManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\DeprecatedDataLogger.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\DeprecatedDataLoggingInput.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\datalogging\deprecated\DeprecatedScienceToolkitSQLiteOpenHelper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\location\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\location\CurrentLocation.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\remote\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\remote\UpdateRemoteAction.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\remote\UploadRemoteAction.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\SensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\SensorWrapperManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\TimeValue.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\device\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\device\DeviceSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\location\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\location\AbstractGpsSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\location\LocationGpsSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\signal\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\signal\AbstractSignalSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\signal\CdmaSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\signal\GsmSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\FFT.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\SoundSensorFFTRunnable.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\SoundSensorFFTWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\SoundSensorRunnable.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\sensors\sound\SoundSensorWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\signal\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\signal\SignalStrengthListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\signal\SignalStrengthManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\DataInput.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\DataInputOutput.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\DataOutput.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\DataPipe.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\filters\
+* senseit\src\main\java\org\greengin\sciencetoolkit\logic\streams\filters\FixedRateDataFilter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\model\
+* senseit\src\main\java\org\greengin\sciencetoolkit\model\ModelOperations.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\model\ProfileManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\model\SenseItModelDefaults.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\about\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\about\AboutActivity.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\SenseItArguments.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\SensorUIData.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\animations\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\animations\Animations.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\animations\HeightAnimation.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\ResetUploadStatusDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofile\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofile\ProfileActionListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofile\ProfileDeleteDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofile\ProfileDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\ProfileSensorActionListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\ProfileSensorDeleteDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\ProfileSensorDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\SeriesActionListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\editprofilesensor\SeriesDeleteDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\edittext\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\edittext\EditTextActionListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\edittext\EditTextDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorinfo\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorinfo\SensorInfoDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorselect\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorselect\SelectSensorActionListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorselect\SelectSensorListAdapter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\dlgs\sensorselect\SensorSelectDlg.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\events\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\events\SenseItEventActivity.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\events\SenseItEventFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\events\SenseItEventManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\events\SenseItEventManagerListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\DataLoggerDependentModelFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\SenseItSettingsFragmentManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\sensors\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\sensors\DeviceSensorConfigViewCreator.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\sensors\LocationSensorConfigViewCreator.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\sensors\SensorConfigViewCreator.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\sensors\SoundSensorConfigViewCreator.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\settings\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\settings\AbstractSensorSettingsFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\settings\LivePlotSettingsFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\settings\SensorListSettingsFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\modelconfig\settings\SensorSettingsFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\AbstractXYSensorPlotFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\AbstractXYSensorSeriesWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\ClosableXYSensorPlotFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\SensorBrowserLayout.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\SensorBrowserListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\live\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\live\LiveXYSensorDataWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\live\LiveXYSensorPlotFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\record\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\record\RecordXYSensorDataWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\record\RecordXYSensorPlotFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\series\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\series\SeriesXYSensorDataWrapper.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\base\plot\series\SeriesXYSensorPlotFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\dataviewer\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\dataviewer\DataViewerActivity.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\dataviewer\SeriesListAdapter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\dataviewer\SeriesListFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\dataviewer\SeriesListListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\MainActivity.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\explore\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\explore\ExploreFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\explore\ExploreSensorListAdapter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\explore\SensorListSettingsActivity.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\record\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\record\RecordFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\record\RecordSensorListAdapter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\record\RecordSensorListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\share\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\share\ProjectItemEventListener.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\share\ProjectItemManager.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\share\ShareFragment.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\main\share\ShareListAdapter.java
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\remote\
+* senseit\src\main\java\org\greengin\sciencetoolkit\ui\remote\SenseItProjectBrowserActivity.java
+* senseit\src\main\res\
+* senseit\src\main\res\drawable-hdpi\
+* senseit\src\main\res\drawable-hdpi\.directory
+* senseit\src\main\res\drawable-hdpi\ic_action_collapse.png
+* senseit\src\main\res\drawable-hdpi\ic_action_discard.png
+* senseit\src\main\res\drawable-hdpi\ic_action_edit.png
+* senseit\src\main\res\drawable-hdpi\ic_action_expand.png
+* senseit\src\main\res\drawable-hdpi\ic_action_overflow.png
+* senseit\src\main\res\drawable-hdpi\ic_action_save.png
+* senseit\src\main\res\drawable-hdpi\ic_action_search.png
+* senseit\src\main\res\drawable-hdpi\ic_action_settings.png
+* senseit\src\main\res\drawable-hdpi\ic_action_upload.png
+* senseit\src\main\res\drawable-hdpi\ic_launcher.png
+* senseit\src\main\res\drawable-mdpi\
+* senseit\src\main\res\drawable-mdpi\ic_action_collapse.png
+* senseit\src\main\res\drawable-mdpi\ic_action_discard.png
+* senseit\src\main\res\drawable-mdpi\ic_action_edit.png
+* senseit\src\main\res\drawable-mdpi\ic_action_expand.png
+* senseit\src\main\res\drawable-mdpi\ic_action_overflow.png
+* senseit\src\main\res\drawable-mdpi\ic_action_save.png
+* senseit\src\main\res\drawable-mdpi\ic_action_search.png
+* senseit\src\main\res\drawable-mdpi\ic_action_settings.png
+* senseit\src\main\res\drawable-mdpi\ic_action_upload.png
+* senseit\src\main\res\drawable-mdpi\ic_launcher.png
+* senseit\src\main\res\drawable-xhdpi\
+* senseit\src\main\res\drawable-xhdpi\ic_action_collapse.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_discard.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_edit.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_expand.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_overflow.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_save.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_search.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_settings.png
+* senseit\src\main\res\drawable-xhdpi\ic_action_upload.png
+* senseit\src\main\res\drawable-xhdpi\ic_launcher.png
+* senseit\src\main\res\drawable-xxhdpi\
+* senseit\src\main\res\drawable-xxhdpi\ic_action_collapse.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_discard.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_edit.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_expand.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_overflow.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_save.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_search.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_settings.png
+* senseit\src\main\res\drawable-xxhdpi\ic_action_upload.png
+* senseit\src\main\res\drawable-xxhdpi\ic_launcher.png
+* senseit\src\main\res\drawable\
+* senseit\src\main\res\drawable\.directory
+* senseit\src\main\res\drawable\color_view_shape.xml
+* senseit\src\main\res\drawable\dark_button_background.xml
+* senseit\src\main\res\drawable\ic_overflow.png
+* senseit\src\main\res\drawable\icon_project_delete_disabled.png
+* senseit\src\main\res\drawable\nquire.png
+* senseit\src\main\res\drawable\q.png
+* senseit\src\main\res\drawable\recording.png
+* senseit\src\main\res\drawable\series_button_close.xml
+* senseit\src\main\res\drawable\series_button_discard.xml
+* senseit\src\main\res\drawable\series_button_record.xml
+* senseit\src\main\res\drawable\series_button_save.xml
+* senseit\src\main\res\drawable\series_button_share.xml
+* senseit\src\main\res\drawable\series_button_stop.xml
+* senseit\src\main\res\drawable\series_button_upload.xml
+* senseit\src\main\res\drawable\series_button_view.xml
+* senseit\src\main\res\drawable\series_close.png
+* senseit\src\main\res\drawable\series_discard.png
+* senseit\src\main\res\drawable\series_discard_pressed.png
+* senseit\src\main\res\drawable\series_record.png
+* senseit\src\main\res\drawable\series_record_disabled.png
+* senseit\src\main\res\drawable\series_record_pressed.png
+* senseit\src\main\res\drawable\series_save.png
+* senseit\src\main\res\drawable\series_save_pressed.png
+* senseit\src\main\res\drawable\series_share.png
+* senseit\src\main\res\drawable\series_share_pressed.png
+* senseit\src\main\res\drawable\series_stop.png
+* senseit\src\main\res\drawable\series_stop_disabled.png
+* senseit\src\main\res\drawable\series_stop_pressed.png
+* senseit\src\main\res\drawable\series_upload.png
+* senseit\src\main\res\drawable\series_upload_disabled.png
+* senseit\src\main\res\drawable\series_upload_pressed.png
+* senseit\src\main\res\drawable\series_view.png
+* senseit\src\main\res\drawable\series_view_pressed.png
+* senseit\src\main\res\drawable\type_cloud.png
+* senseit\src\main\res\drawable\type_device.png
+* senseit\src\main\res\drawable\type_geolocated.png
+* senseit\src\main\res\layout\
+* senseit\src\main\res\layout\dlg_sample_rate.xml
+* senseit\src\main\res\layout\dlg_select_sensors.xml
+* senseit\src\main\res\layout\dlg_sensor_for_type.xml
+* senseit\src\main\res\layout\dlg_sensor_info.xml
+* senseit\src\main\res\layout\panel_plot.xml
+* senseit\src\main\res\layout\panel_plot_closable.xml
+* senseit\src\main\res\layout\panel_sensor_browser.xml
+* senseit\src\main\res\layout\panel_sensor_browser_item.xml
+* senseit\src\main\res\layout\view_data.xml
+* senseit\src\main\res\layout\view_explore_choose_sensors.xml
+* senseit\src\main\res\layout\view_explore_sensors.xml
+* senseit\src\main\res\layout\view_explore_sensors_item.xml
+* senseit\src\main\res\layout\view_main.xml
+* senseit\src\main\res\layout\view_record.xml
+* senseit\src\main\res\layout\view_record_item.xml
+* senseit\src\main\res\layout\view_series_list.xml
+* senseit\src\main\res\layout\view_series_list_item.xml
+* senseit\src\main\res\layout\view_share.xml
+* senseit\src\main\res\layout\view_share_item.xml
+* senseit\src\main\res\layout\view_welcome.xml
+* senseit\src\main\res\menu\
+* senseit\src\main\res\menu\data_viewer.xml
+* senseit\src\main\res\menu\record.xml
+* senseit\src\main\res\menu\sensor_list.xml
+* senseit\src\main\res\menu\settings_menu.xml
+* senseit\src\main\res\menu\share.xml
+* senseit\src\main\res\menu\welcome.xml
+* senseit\src\main\res\values-sw600dp\
+* senseit\src\main\res\values-sw600dp\dimens.xml
+* senseit\src\main\res\values-sw720dp-land\
+* senseit\src\main\res\values-sw720dp-land\dimens.xml
+* senseit\src\main\res\values-w820dp\
+* senseit\src\main\res\values-w820dp\dimens.xml
+* senseit\src\main\res\values\
+* senseit\src\main\res\values\colors.xml
+* senseit\src\main\res\values\dimens.xml
+* senseit\src\main\res\values\help.xml
+* senseit\src\main\res\values\strings.xml
+* settings.gradle
+* todo.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+google-http-client-gson-1.16.0-rc.jar => com.google.http-client:google-http-client-gson:1.20.0
+gson-2.1.jar => com.google.code.gson:gson:2.1
+
+Potentially Missing Dependency:
+-------------------------------
+When we replaced the following .jar files with a Gradle dependency, we
+inferred the dependency version number from the filename. This
+specific version may not actually be available from the repository.
+If you get a build error stating that the dependency is missing, edit
+the version number to for example "+" to pick up the latest version
+instead. (This may require you to update your code if the library APIs
+have changed.)
+
+gson-2.1.jar => version 2.1 in com.google.code.gson:gson:2.1
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In libcommon:
+* AndroidManifest.xml => libcommon\src\main\AndroidManifest.xml
+* lint.xml => libcommon\lint.xml
+* proguard-google-api-client.txt => libcommon\proguard-google-api-client.txt
+* proguard-project.txt => libcommon\proguard-project.txt
+* res\ => libcommon\src\main\res\
+* src\ => libcommon\src\main\java\
+In nQuireScienceToolkit:
+* AndroidManifest.xml => nQuireScienceToolkit\src\main\AndroidManifest.xml
+* lint.xml => nQuireScienceToolkit\lint.xml
+* proguard-google-api-client.txt => nQuireScienceToolkit\proguard-google-api-client.txt
+* proguard-project.txt => nQuireScienceToolkit\proguard-project.txt
+* res\ => nQuireScienceToolkit\src\main\res\
+* src\ => nQuireScienceToolkit\src\main\java\
+In sense-it:
+* AndroidManifest.xml => senseit\src\main\AndroidManifest.xml
+* libs\google-api-client-1.16.0-rc.jar => senseit\libs\google-api-client-1.16.0-rc.jar
+* libs\google-api-client-android-1.16.0-rc.jar => senseit\libs\google-api-client-android-1.16.0-rc.jar
+* libs\google-api-services-plus-v1-rev110-1.16.0-rc.jar => senseit\libs\google-api-services-plus-v1-rev110-1.16.0-rc.jar
+* libs\google-http-client-1.16.0-rc.jar => senseit\libs\google-http-client-1.16.0-rc.jar
+* libs\google-http-client-android-1.16.0-rc.jar => senseit\libs\google-http-client-android-1.16.0-rc.jar
+* libs\google-http-client-jackson-1.16.0-rc.jar => senseit\libs\google-http-client-jackson-1.16.0-rc.jar
+* libs\google-http-client-jackson2-1.16.0-rc.jar => senseit\libs\google-http-client-jackson2-1.16.0-rc.jar
+* libs\google-oauth-client-1.16.0-rc.jar => senseit\libs\google-oauth-client-1.16.0-rc.jar
+* libs\httpclient-4.3.1.jar => senseit\libs\httpclient-4.3.1.jar
+* libs\httpcore-4.3.jar => senseit\libs\httpcore-4.3.jar
+* libs\httpmime-4.3.1.jar => senseit\libs\httpmime-4.3.1.jar
+* libs\jackson-core-2.1.3.jar => senseit\libs\jackson-core-2.1.3.jar
+* libs\jackson-core-asl-1.9.11.jar => senseit\libs\jackson-core-asl-1.9.11.jar
+* libs\jsr305-1.3.9.jar => senseit\libs\jsr305-1.3.9.jar
+* lint.xml => senseit\lint.xml
+* res\ => senseit\src\main\res\
+* src\ => senseit\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

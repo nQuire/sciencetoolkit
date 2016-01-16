@@ -1,0 +1,7 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppBaseTheme" parent="@style/Theme.Base.AppCompat"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
+</resources>
