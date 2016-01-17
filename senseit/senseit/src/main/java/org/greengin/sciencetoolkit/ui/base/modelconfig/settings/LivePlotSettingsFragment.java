@@ -26,7 +26,7 @@ public class LivePlotSettingsFragment extends DataLoggerDependentModelFragment {
 		addOptionNumber("sample_rate", "Sample rate", "The number of samples per second.", true, false, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MIN, SenseItModelDefaults.LIVEPLOT_SAMPLING_RATE_MAX);
 		addOptionNumber("view_period", "Sample window", "Period of time shown.", true, false, SenseItModelDefaults.LIVEPLOT_VIEW_PERIOD, .1, 100);
 
-		String[] labels = SensorUIData.getValueLabels(sensor.getType());
+		String[] labels = SensorUIData.getValueLabels(this.getActivity(), sensor.getType());
 		for (int i = 0; i < sensor.getValueCount(); i++) {
 			addOptionCheckbox("show:" + i, "Show '" + labels[i] + "'", "Show or hide a plot series.", true);
 		}

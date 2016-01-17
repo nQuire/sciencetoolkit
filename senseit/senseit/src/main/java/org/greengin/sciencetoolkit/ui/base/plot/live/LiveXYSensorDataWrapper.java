@@ -27,7 +27,7 @@ public class LiveXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper imple
 	Model seriesSettings;
 	
 	public LiveXYSensorDataWrapper(XYPlot plot, SensorWrapper sensor, Model settings, Context context) {
-		super(sensor);
+		super(context, sensor);
 		this.context = context;
 		this.values = new LinkedList<TimeValue>();
 		this.plot = plot;

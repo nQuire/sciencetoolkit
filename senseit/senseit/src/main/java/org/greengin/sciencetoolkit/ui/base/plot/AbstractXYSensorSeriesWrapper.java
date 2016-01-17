@@ -4,6 +4,7 @@ import org.greengin.sciencetoolkit.R;
 import org.greengin.sciencetoolkit.logic.sensors.SensorWrapper;
 import org.greengin.sciencetoolkit.ui.base.SensorUIData;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import com.androidplot.xy.LineAndPointFormatter;
@@ -20,7 +21,7 @@ public abstract class AbstractXYSensorSeriesWrapper {
 	protected int valueCount;
 	String[] seriesTitle;
 
-	public AbstractXYSensorSeriesWrapper(SensorWrapper sensor) {
+	public AbstractXYSensorSeriesWrapper(Context context, SensorWrapper sensor) {
 
 		valueCount = sensor.getValueCount();
 		showSeries = new boolean[valueCount];
@@ -31,7 +32,7 @@ public abstract class AbstractXYSensorSeriesWrapper {
 			seriesList[i] = new SensorXYSeries(i);
 		}
 
-		seriesTitle = SensorUIData.getValueLabels(sensor.getType());
+		seriesTitle = SensorUIData.getValueLabels(context, sensor.getType());
 	}
 
 	public void removeFromPlot(XYPlot plot) {

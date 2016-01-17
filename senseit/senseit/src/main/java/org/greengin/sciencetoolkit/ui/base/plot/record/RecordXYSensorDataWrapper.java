@@ -20,7 +20,7 @@ public class RecordXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper {
 	Vector<TimeValue> record;
 	
 	public RecordXYSensorDataWrapper(SensorWrapper sensor, Context context, Vector<TimeValue> record) {
-		super(sensor);
+		super(context, sensor);
 		this.context = context;
 		this.record = record;
 	}
