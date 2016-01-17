@@ -21,7 +21,7 @@ public class SeriesXYSensorDataWrapper extends AbstractXYSensorSeriesWrapper {
 	Vector<TimeValue> values;
 
 	public SeriesXYSensorDataWrapper(XYPlot plot, File series, String profileSensorId, SensorWrapper sensor) {
-		super(sensor);
+		super(plot.getContext(), sensor);
 
 		this.plot = plot;
 		this.profileSensorId = profileSensorId;
