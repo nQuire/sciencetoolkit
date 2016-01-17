@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Spot-it</string>
+    <string name="menu_item_application_settings">Configuración</string>
+    <string name="app_settings_activity_title">Configuración Global</string>
+    <string name="web_logging_activity_title">Configuración Global</string>
+    <string name="title_activity_project_browser">Navegador Proyecto Compartido</string>
+    
+    <!-- button commons -->
+    <string name="button_label_set">Setear</string>
+    <string name="button_label_ok">OK</string>
+    <string name="button_label_cancel">Cancelar</string>
+    <string name="button_label_upload">Subir</string>
+    <string name="button_label_delete">Eliminar</string>
+    <string name="button_label_view">Ver</string>
+    <string name="button_label_close">Cerrar</string>
+
+    <!-- ack -->
+    <string name="ack_remember_decision">No mostrar esto otra vez.</string>
+    <string name="ack_remember_yes">No requerir confirmación nuevamente.</string>
+
+    <!-- project browser -->
+    <string name="project_browser_not_logged">No ha iniciado sesión.</string>
+    <string name="project_browser_logged_in">Sesión iniciada como: %1s.</string>
+    <string name="project_browser_login">Inicar sesión</string>
+    <string name="project_browser_logout">Cerrar sesión</string>
+    <string name="project_browser_join">Unirse</string>
+    <string name="project_browser_leave">Abandonar</string>
+    <string name="project_browser_projects">Proyectos:</string>
+    <string name="action_settings">Configuración</string>
+
+</resources>
