@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="sensor_label_x">x</string>
+    <string name="sensor_label_y">y</string>
+    <string name="sensor_label_z">z</string>
+    <string name="sensor_label_temperature">Temperatura</string>
+    <string name="sensor_label_light">Nivel de luz</string>
+    <string name="sensor_label_pressure">Presión</string>
+    <string name="sensor_label_proximity">Nivel de proximidad de luz</string>
+    <string name="sensor_label_humidity">Humedad relativa</string>
+    <string name="sensor_label_sound">Nivel de sonido</string>
+    <string name="sensor_label_max_freq">Frec. máx.</string>
+    <string name="sensor_label_latitude">Latitud</string>
+    <string name="sensor_label_longitude">Longitud</string>
+    <string name="sensor_label_strength">Fuerza</string>
+</resources>
