@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sense-it</string><string name="about_disclaimer"><![CDATA[
+<p>L\'application Sense-it est fournie par
+        <a href="http://www.open.ac.uk">The Open University</a>, UK,
+        une companie incorporée par Royal Charter en Angleterre et au Pays de Galles.
+        Notre bureau principale est situé à Walton Hall, Milton Keynes MK7 6AA.
+        Si vous souhaitez nous contacter, envoyez nous une lettre à l\'adresse ci-dessus ou un email à
+        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.</p>
+
+<p>We exclude any warranty, express or implied, as to the quality, accuracy, timeliness,
+        completeness, performance, fitness for a particular purpose of the application or any of its contents.
+        We will not be liable for any damages (including without limitation damages for loss of profit,
+        revenue or anticipated savings) arising in contract, tort or otherwise from the use of or
+        inability to use the application or any of its contents or from any action taken
+        (or refrained from being taken) as a result of using the application or any such contents.</p>
+
+        <p>Copyright © 2014, <a href="http://www.open.ac.uk">The Open University</a>. All rights reserved.</p>
+        ]]></string><string name="about_text"><![CDATA[
+<p>Auteurs: Christothea Herodotou, Mike Sharples and Eloy Villasclaras. Développé avec un financement de
+<a href="http://www.nominettrust.org.uk/">Nominet Trust</a> project <i>nQuire: Young Citizen Inquiry</i></p>
+<p>Ce logiciel est distribué sous licence GPLV3. Le code source est disponible à
+<a href="https://github.com/nQuire/sense-it-web">https://github.com/nQuire/sense-it-web</a></p>
+<p>Visitez la plateforme nQuire-it liée pour des missions scientifiques: <a href="www.nquire-it.org">www.nquire-it.org</p>
+]]></string>
+        <string name="about_version">Sense-it 1.1 Beta 14</string>
+        <string name="add_profile_sensor_msg">Choisir les capteurs pour enregistrer les données.</string>
+        <string name="add_profile_sensor_oklabel0">Ajouter la selection</string>
+        <string name="add_profile_sensor_oklabel1">Ajouter un capteur</string>
+        <string name="add_profile_sensor_oklabelmany">Ajouter %1d capteurs</string>
+        <string name="add_profile_sensor_title">Ajouter des capteurs</string>
+        <string name="data_count_many">%1d échantillons</string>
+        <string name="data_count_none">Pas de données</string>
+        <string name="data_count_one">Un échantillon</string>
+        <string name="data_viewer_activity_title">Visualisateur des données</string>
+        <string name="data_viewer_tab_1">Afficher</string>
+        <string name="data_viewer_tab_2">Séries</string>
+        <string name="default_profile_title">Projet par défaut</string>
+        <string name="delete_profile_dlg_msg">Voulez-vous supprimer le projet %1$s ainsi que toutes les données relevées de cet appareil ?</string>
+        <string name="delete_profile_dlg_title">Supprimier le projet</string>
+        <string name="delete_profile_sensor_dlg_msg">Voulez-vous supprimer %1$s de ce projet ?</string>
+        <string name="delete_profile_sensor_dlg_title">Supprimer le capteur</string>
+        <string name="dialog_seconds_picker_title">Régler le temps</string>
+        <string name="explore_confirm_hidden_sensors_msg">Pour une liste exaustive des capteurs disponibles sur cet appareil, allez dans "Afficher/masquer les capteurs" dans le menu en haut à droite.</string>
+        <string name="explore_confirm_hidden_sensors_title">Plus de capteurs !</string>
+        <string name="explore_sensor_added_to_recording">Le capteur %1$s a été ajouté à l\'onglet MESURER.</string>
+        <string name="dialog_seconds_picker_time_ms_separator">.</string>
+        <string name="explore_sensor_icon_description">Icône du capteur</string><string name="help_sensor_acc"><![CDATA[Mesure la force d\'accélération en m/s<small><sup>2</sup></small> qui est appliquée à un appareil sur les trois axes physiques (x, y, and z), y compris la force de pesenteur.
+        ]]></string><string name="help_sensor_cdma"><![CDATA[Mesure la puissance du signal du réseau CDMA.
+        ]]></string><string name="help_sensor_gps"><![CDATA[Mesure la latitude et l\'altitude depuis le module GPS de l\'appareil.
+        ]]></string><string name="help_sensor_gra"><![CDATA[Mesure la force de pesenteur en m/s<small><sup>2</sup></small> appliquée sur les trois axes phisques (x, y, z) de l\'appareil.
+        ]]></string><string name="help_sensor_gsm"><![CDATA[Mesure la puissance du signal du réseau GSM.
+        ]]></string>
+        <string name="dialog_seconds_picker_time_separator">:</string><string name="help_sensor_gyr"><![CDATA[Mesure la vitesse de rotation de l\'appareil in rad/s autour des trois axes physiques (x, y, et z).
+        ]]></string><string name="help_sensor_gyr_u"><![CDATA[Mesure la vitesse de rotation de l\'appareil en rad/s autour des trois axes physiques (x, y, et z). Par contraste avec un capteur gyroscopique calibré, the capteur ne compense pas la déviation gyroscopique de ses valeurs.
+        ]]></string><string name="help_sensor_hum"><![CDATA[Mesure l\'humidité ambiante en pourcent (%).
+        ]]></string><string name="help_sensor_lacc"><![CDATA[Mesure la force d\'accélération m/s<small><sup>2</sup></small> qui est appliquée à l\'apprareil sur ses trois axes physiques (x, y, et z), en excluant la force de la pesenteur.
+        ]]></string><string name="help_sensor_lgt"><![CDATA[Mesure le niveau de luminosité ambiant en lx.
+        ]]></string><string name="help_sensor_mag"><![CDATA[Mesure le champ magnétique terrestre sur les trois axes physiques (x, y, z) en μT.
+        ]]></string><string name="help_sensor_mag_u"><![CDATA[Mesure le champ magnétique terrestre sur les trois axes physiques (x, y, z) en μT. Par contraste avec le capteur magnétique calibré, les distortions du champ magnétique produit par l\'appareil ne sont pas pris en compte par ce capteur.
+        ]]></string><string name="help_sensor_ori"><![CDATA[Mesure les degrés de rotation que l\'appareil fait autour des trois axes physiques (x, y, z).
+        ]]></string><string name="help_sensor_pre"><![CDATA[Mesure la pression atmosphérique ambiante en hPa ou mbar.
+        ]]></string><string name="help_sensor_pro"><![CDATA[Mesure la distance d\'un objet, en cm, relativement à l\'écran de l\'appareil.
+        ]]></string><string name="help_sensor_rot"><![CDATA[Mesure l\'orientation de l\'appareil en fournissant les trois éléments de son vecteur de rotation.
+        ]]></string><string name="help_sensor_rot_gam"><![CDATA[Mesure l\'orientation de l\'appareil en fournissant les trois éléments de son vecteur de rotation. Contrairement au capteur de rotation, ce capteur n\'utilise pas le champ magnétique terrestre. Ainsi, la valeur de l\'orientation peut dériver avec le temps.
+        ]]></string><string name="help_sensor_rot_geo"><![CDATA[Mesure l\'orientation de l\'appareil en fournissant les trois éléments de son vecteur de rotation. Ce capteur utilise le capteur de champ magnétique à la place du gyroscope. Ainsi, ce capteur consomme moins que les autres capteurs de rotation. Cependant, il est plus sujet au bruit et fonctionne mieux à l\'extérieur.
+        ]]></string><string name="help_sensor_sigmot"><![CDATA[Ce capteur déclanche un événement lorsqu\'un mouvement significatif est détecté.
+        ]]></string><string name="help_sensor_snd"><![CDATA[Mesure le volume du son ambiant en dB.
+        ]]></string><string name="help_sensor_ste"><![CDATA[Mesure le nombre de pas fait par l\'utilisateur depuis le dernier redémarrage tant qu\'il est activé.
+        ]]></string><string name="help_sensor_sted"><![CDATA[Ce capteur déclanche un évènement à chaque fois que l\'utilisateur fait un pas.
+        ]]></string><string name="help_sensor_tmp"><![CDATA[Mesure la température ambiante en degrés Celsius (°C).
+        ]]></string>
+        <string name="main_activity_tab_1">Explorer</string>
+        <string name="main_activity_tab_2">Mesurer</string>
+        <string name="main_activity_tab_3">Partager</string>
+        <string name="menu_item_application_about">A propos de Sense-it</string>
+        <string name="menu_item_application_connect">Se connecter</string>
+        <string name="menu_item_sensor_select">Afficher/masquer les capteurs</string>
+        <string name="new_project_dlg_message">Fournir le nom de votre nouveau projet.</string>
+        <string name="new_project_dlg_oklabel">Créer</string>
+        <string name="new_project_dlg_title">Créer un nouveau projet</string>
+        <string name="no_sensor_selected"><![CDATA[<sélectionner un capteur>]]></string>
+        <string name="plot_live_label">Valeurs en temps réel</string>
+        <string name="plot_recording_label">Mesures en cours</string>
+        <string name="profile_sensor_not_selected"><![CDATA[<pas de capteur sélectionné>]]></string>
+        <string name="project_type_cloud">Supprimer le projet</string>
+        <string name="project_type_device">Projet local</string>
+        <string name="project_type_geolocated">Projet géolocalisé</string>
+        <string name="record_project_title_label">Projet :</string>
+        <string name="record_series_discard">Supprimer</string>
+        <string name="record_series_keep">Sauvegarder</string>
+        <string name="record_series_share">Partager</string>
+        <string name="record_series_start">Démarrer</string>
+        <string name="record_series_stop">Arrêter</string>
+        <string name="record_series_view">Voir les données</string>
+        <string name="recorded_1">Séries engistrées : 1 échantillon</string>
+        <string name="recorded_many">Séries enregistrées : %1d échantillons</string>
+        <string name="recording_1">Mesure : 1 échantillon</string>
+        <string name="recording_many">Mesure : %1d échantillons</string>
+        <string name="reset_upload_dlg_msg">Voulez-vous recommencer cette série, vous permettant ainsi de la téléverser à nouveau ?</string>
+        <string name="record_series_upload">Téléverser</string>
+        <string name="reset_upload_dlg_title">Réinitialiser le statut du téléversement</string>
+        <string name="sample_rate_delete">Supprimer</string>
+        <string name="sample_rate_dlg_msg">Selectionner la vitesse d\'échantillonnage pour ce capteur, ou le supprimer de cette liste.</string>
+        <string name="sample_rate_label">Vitesse d\'échantillonnage :</string>
+        <string name="sample_rate_ok">Mettre à jour</string>
+        <string name="sample_rate_prompt">Choisir les unités</string>
+        <string name="sample_rate_separator">/</string>
+        <string name="sampling_rate">Fréquence d\'échantillonnage</string>
+        <string name="sampling_rate_hour">%1$s/heure</string>
+        <string name="sampling_rate_min">%1$s/min</string>
+        <string name="sampling_rate_sec">%1$s/s</string>
+        <string name="selected_sensors">CAPTEURS SÉLÉCTIONNÉS</string>
+        <string name="sensor_label_humidity">Humidité rel.</string>
+        <string name="sensor_label_latitude">Latitude</string>
+        <string name="sensor_label_light">Luminosité</string>
+        <string name="sensor_label_longitude">Longitude</string>
+        <string name="sensor_label_max_freq">Freq. max.</string>
+        <string name="sensor_label_pressure">Pression</string>
+        <string name="sensor_label_proximity">Luminosité proche</string>
+        <string name="sensor_label_sound">Niveau sonore</string>
+        <string name="sensor_label_strength">Force</string>
+        <string name="sensor_label_temperature">Température</string>
+        <string name="sensor_label_x">x</string>
+        <string name="sensor_label_y">y</string>
+        <string name="sensor_label_z">z</string>
+        <string name="sensor_list_settings_activity_title">Afficher/masquer les capteurs</string>
+        <string name="series_count_many">%1d séries</string>
+        <string name="series_count_none">Pas de séries</string>
+        <string name="series_count_one">1 série</string>
+        <string name="series_delete_dlg_msg">Voulez vous supprimer la série %1$s de cet appareil ?</string>
+        <string name="series_delete_dlg_title">Supprimer série</string>
+        <string name="series_edit_name_msg">Modifier le titre pour cette série de données.</string>
+        <string name="series_edit_name_title">Titre de la série</string>
+        <string name="series_share_body">Séries mesurées attachées au format CSV.</string>
+        <string name="series_share_subject">Série Sense-it: %1s</string>
+        <string name="series_share_title">Partager les séries mesurées</string>
+        <string name="share_project_active">[Projet actif]</string>
+        <string name="share_project_inactive">[Inactif]</string>
+        <string name="share_projects_header">PROJETS</string>
+        <string name="switch_profile">Changer</string>
+        <string name="switch_profile_header">Changer de projet actif ?</string>
+</resources>
