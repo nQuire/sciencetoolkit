@@ -1,0 +1,4 @@
+include ':libcommon'
+include ':androidplot'
+include ':senseit'
+include ':spotit'

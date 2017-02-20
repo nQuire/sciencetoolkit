@@ -5,7 +5,7 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "org.greengin.sciencetoolkit"
+        applicationId "org.greengin.sciencetoolkit.spotit"
         minSdkVersion 8
         targetSdkVersion 20
     }
@@ -26,7 +26,5 @@ android {
 
 dependencies {
     compile "com.android.support:appcompat-v7:20.0.+"
-
     compile project(':libcommon')
-    compile project(':androidplot')
 }

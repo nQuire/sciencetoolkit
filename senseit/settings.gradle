@@ -1,3 +1,0 @@
-include ':libcommon'
-include ':androidplot'
-include ':senseit'

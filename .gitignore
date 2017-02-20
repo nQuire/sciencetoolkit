@@ -4,23 +4,21 @@ keystore
 senseit/res/drawable/sensor_*
 senseit/res/drawable/button_*
 
-senseit/.idea
-senseit/.gradle
-senseit/gradlew
-senseit/gradlew.bat
-senseit/local.properties
+.idea
+.gradle
+*.iml
+gradlew
+gradlew.bat
+local.properties
+build
+
+senseit/libs
 senseit/build
+senseit/*.apk
 
-senseit/senseit/libs
-senseit/senseit/build
-senseit/senseit/*.apk
-
-senseit/libcommon/build
-senseit/androidplot/build
-
-
-spotit/bin
-spotit/gen
-spotit/.settings
+libcommon/build
+androidplot/build
+spotit/build
+spotit/*.apk
 
 

@@ -1,7 +1,0 @@
-<View xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/lighter_line_height"
-    android:layout_marginTop="@dimen/lighter_line_margin"
-    android:layout_marginBottom="@dimen/lighter_line_margin"
-    android:background="@color/lighter_line" />
