@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Spot-it</string>
+    
+    <!-- menu -->
+    <string name="menu_item_application_connect">Conectac</string>
+    <string name="menu_item_application_about">Acerca</string>
+
+    <!-- main activity -->
+    <string name="main_activity_tab_1">Spot it!</string>
+    <string name="main_activity_tab_2">Imágenes</string>
+    <string name="main_activity_tab_3">Proyectos</string>
+
+    <!-- projects tab -->
+    <string name="projects_header">Proyectos</string>
+    <string name="project_active">[Projecto activo]</string>
+    <string name="project_inactive">[Inactivo]</string>
+    <string name="data_count_none">No hay imágenes</string>
+    <string name="data_count_one">1 imagen</string>
+    <string name="data_count_many">%1d imágenes</string>
+    <string name="delete_project_dlg_title">Eliminar proyecto</string>
+    <string name="delete_project_dlg_msg">¿Quieres eliminar el projecto %1$s de este dispositivo?</string>
+
+</resources>
