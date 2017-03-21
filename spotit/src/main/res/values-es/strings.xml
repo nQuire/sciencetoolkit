@@ -4,7 +4,8 @@
     <string name="app_name">Spot-it</string>
     
     <!-- menu -->
-    <string name="menu_item_application_connect">Conectac</string>
+    <string name="menu_item_application_connect">Conectar</string>
+    <string name="menu_item_application_logout">Desconectar</string>
     <string name="menu_item_application_about">Acerca</string>
 
     <!-- main activity -->
@@ -12,7 +13,7 @@
     <string name="main_activity_tab_2">Imágenes</string>
     <string name="main_activity_tab_3">Proyectos</string>
 
-    <!-- projects tab -->
+    <!-- projects_logged_out tab -->
     <string name="projects_header">Proyectos</string>
     <string name="project_active">[Projecto activo]</string>
     <string name="project_inactive">[Inactivo]</string>

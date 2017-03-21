@@ -5,6 +5,7 @@
     
     <!-- menu -->
     <string name="menu_item_application_connect">Connect</string>
+    <string name="menu_item_application_logout">Logout</string>
     <string name="menu_item_application_about">About</string>
 
     <!-- main activity -->
@@ -12,7 +13,7 @@
     <string name="main_activity_tab_2">Images</string>
     <string name="main_activity_tab_3">Projects</string>
 
-    <!-- projects tab -->
+    <!-- projects_logged_out tab -->
     <string name="projects_header">Projects</string>
     <string name="project_active">[Active project]</string>
     <string name="project_inactive">[Inactive]</string>

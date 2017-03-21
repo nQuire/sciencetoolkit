@@ -2,13 +2,10 @@ package org.greengin.sciencetoolkit.spotit.ui.main.projects;
 
 import java.util.List;
 
-import org.greengin.sciencetoolkit.common.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.common.model.Model;
-import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
-import org.greengin.sciencetoolkit.spotit.logic.remote.UpdateRemoteAction;
 import org.greengin.sciencetoolkit.spotit.R;
 import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
-import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventFragment;
+import org.greengin.sciencetoolkit.spotit.ui.base.SpotItBaseFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
 import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
 
@@ -24,7 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class ProjectsFragment extends SpotItEventFragment implements
+public class ProjectsFragment extends SpotItBaseFragment implements
 		ProjectItemEventListener, OnClickListener {
 
 	ProjectItemManager itemManager;
@@ -72,7 +69,7 @@ public class ProjectsFragment extends SpotItEventFragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		int menuResource = R.menu.projects;
+		int menuResource = R.menu.projects_logged_out;
 		inflater.inflate(menuResource, menu);
 	}
 

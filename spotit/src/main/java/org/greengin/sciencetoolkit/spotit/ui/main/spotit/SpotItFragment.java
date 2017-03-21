@@ -1,7 +1,7 @@
 package org.greengin.sciencetoolkit.spotit.ui.main.spotit;
 
 import org.greengin.sciencetoolkit.spotit.R;
-import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventFragment;
+import org.greengin.sciencetoolkit.spotit.ui.base.SpotItBaseFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
 import org.greengin.sciencetoolkit.spotit.ui.main.MainActivity;
 import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
@@ -17,7 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-public class SpotItFragment extends SpotItEventFragment implements OnClickListener {
+public class SpotItFragment extends SpotItBaseFragment implements OnClickListener {
 	
 	
 
@@ -52,7 +52,7 @@ public class SpotItFragment extends SpotItEventFragment implements OnClickListen
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		int menuResource = R.menu.projects;
+		int menuResource = R.menu.projects_logged_out;
 		inflater.inflate(menuResource, menu);
 	}
 

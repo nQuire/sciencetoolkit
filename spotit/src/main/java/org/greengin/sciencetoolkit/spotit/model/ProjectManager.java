@@ -39,12 +39,12 @@ public class ProjectManager extends AbstractModelManager implements
 	Comparator<String> projectIdComparator;
 
 	private ProjectManager(Context applicationContext) {
-		super(applicationContext, "projects.xml", 500);
-		settings = SettingsManager.get().get("projects");
+		super(applicationContext, "projects_logged_out_logged_out.xml", 500);
+		settings = SettingsManager.get().get("projects_logged_out");
 		appSettings = SettingsManager.get().get("app");
 		listeners = new NotificationListenerAggregator(applicationContext,
-				"projects:notifications");
-		SettingsManager.get().registerDirectListener("projects", this);
+				"projects_logged_out:notifications");
+		SettingsManager.get().registerDirectListener("projects_logged_out", this);
 		checkDataConsistency();
 
 		projectIdComparator = new Comparator<String>() {

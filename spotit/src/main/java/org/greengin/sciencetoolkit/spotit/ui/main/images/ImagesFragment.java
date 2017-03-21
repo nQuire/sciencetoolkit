@@ -1,20 +1,17 @@
 package org.greengin.sciencetoolkit.spotit.ui.main.images;
 
-import java.io.File;
 import java.util.List;
 
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.spotit.R;
-import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.greengin.sciencetoolkit.spotit.logic.remote.UploadRemoteAction;
-import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventFragment;
+import org.greengin.sciencetoolkit.spotit.ui.base.SpotItBaseFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
 import org.greengin.sciencetoolkit.spotit.ui.main.MainActivity;
 import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +21,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 
-public class ImagesFragment extends SpotItEventFragment implements ImageListener, ImageActionListener {
+public class ImagesFragment extends SpotItBaseFragment implements ImageListener, ImageActionListener {
 
 	ImagesGridAdapter adapter;
 
@@ -59,7 +56,7 @@ public class ImagesFragment extends SpotItEventFragment implements ImageListener
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		int menuResource = R.menu.projects;
+		int menuResource = R.menu.projects_logged_out;
 		inflater.inflate(menuResource, menu);
 	}
 
