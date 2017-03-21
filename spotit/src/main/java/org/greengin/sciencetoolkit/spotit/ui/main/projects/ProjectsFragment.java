@@ -2,6 +2,7 @@ package org.greengin.sciencetoolkit.spotit.ui.main.projects;
 
 import java.util.List;
 
+import org.greengin.sciencetoolkit.common.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
 import org.greengin.sciencetoolkit.spotit.logic.remote.UpdateRemoteAction;

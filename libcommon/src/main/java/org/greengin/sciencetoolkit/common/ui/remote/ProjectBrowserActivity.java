@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.greengin.sciencetoolkit.common.R;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteApi;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteJsonAction;
+import org.greengin.sciencetoolkit.common.ui.base.AppSettingsActivity;
 import org.greengin.sciencetoolkit.common.ui.base.RemoteCapableActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -104,6 +105,10 @@ public abstract class ProjectBrowserActivity extends RemoteCapableActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(), AppSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (id == R.id.action_application_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);

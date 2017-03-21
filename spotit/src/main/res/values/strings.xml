@@ -22,4 +22,8 @@
     <string name="delete_project_dlg_title">Remove project</string>
     <string name="delete_project_dlg_msg">Do you want to remove project %1$s from this device?</string>
 
+    <!-- images tab -->
+    <string name="image_delete_dlg_title">Remove image</string>
+    <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
+
 </resources>
