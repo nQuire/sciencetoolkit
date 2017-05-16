@@ -22,5 +22,7 @@
     <string name="data_count_many">%1d imágenes</string>
     <string name="delete_project_dlg_title">Eliminar proyecto</string>
     <string name="delete_project_dlg_msg">¿Quieres eliminar el projecto %1$s de este dispositivo?</string>
+    <string name="image_delete_dlg_title">Eliminar imagen</string>
+    <string name="image_delete_dlg_msg">Quieres eliminar la imagen %1$s de este dispositivo?</string>
 
 </resources>

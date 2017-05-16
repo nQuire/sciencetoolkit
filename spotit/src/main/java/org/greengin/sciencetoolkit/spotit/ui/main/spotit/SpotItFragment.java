@@ -50,25 +50,6 @@ public class SpotItFragment extends SpotItBaseFragment implements OnClickListene
 		return rootView;
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		int menuResource = R.menu.projects_logged_out;
-		inflater.inflate(menuResource, menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_application_connect:
-			Intent intent = new Intent(getActivity(),
-					SpotItProjectBrowserActivity.class);
-			startActivity(intent);
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
 
 	private class EventListener extends SpotItEventManagerListener {
 
