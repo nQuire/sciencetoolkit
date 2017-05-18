@@ -4,14 +4,9 @@ import org.greengin.sciencetoolkit.spotit.R;
 import org.greengin.sciencetoolkit.spotit.ui.base.SpotItBaseFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
 import org.greengin.sciencetoolkit.spotit.ui.main.MainActivity;
-import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -58,11 +53,11 @@ public class SpotItFragment extends SpotItBaseFragment implements OnClickListene
 	@Override
 	public void onClick(View v) {
 		if (v == buttonSpotIt) {
-			caputerImage();
+			captureImage();
 		}
 	}
 	
-	private void caputerImage() {
+	private void captureImage() {
 		((MainActivity) getActivity()).captureImage();
 	}
 }

@@ -13,7 +13,7 @@
     <string name="main_activity_tab_2">Imágenes</string>
     <string name="main_activity_tab_3">Proyectos</string>
 
-    <!-- projects_logged_out tab -->
+    <!-- projects tab -->
     <string name="projects_header">Proyectos</string>
     <string name="project_active">[Projecto activo]</string>
     <string name="project_inactive">[Inactivo]</string>

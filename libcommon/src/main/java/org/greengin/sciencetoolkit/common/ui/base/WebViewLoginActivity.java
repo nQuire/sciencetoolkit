@@ -74,6 +74,8 @@ public class WebViewLoginActivity extends ApplicationStatusActivity {
 
 		webview.getSettings().setJavaScriptEnabled(true);
 		webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+		webview.getSettings().setDomStorageEnabled(true);
+		webview.getSettings().setUserAgentString("Mozilla/5.0 Google");
 		setContentView(webview);
 	}
 

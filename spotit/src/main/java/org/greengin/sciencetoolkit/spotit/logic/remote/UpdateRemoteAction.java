@@ -12,7 +12,7 @@ public class UpdateRemoteAction extends RemoteJsonAction {
 	
 	@Override
 	public HttpRequestBase[] createRequests(String urlBase) {
-		return new HttpRequestBase[] { new HttpGet(urlBase + "spotit/projects_logged_out") };
+		return new HttpRequestBase[] { new HttpGet(urlBase + "spotit/projects") };
 	}
 
 	@Override

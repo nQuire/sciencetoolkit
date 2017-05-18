@@ -23,60 +23,59 @@ import android.widget.GridView;
 
 public class ImagesFragment extends SpotItBaseFragment implements ImageListener, ImageActionListener {
 
-	ImagesGridAdapter adapter;
+    ImagesGridAdapter adapter;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		eventManager.setListener(new EventListener());
+        eventManager.setListener(new EventListener());
 
-		eventManager.listenToSettings("profiles");
-		eventManager.listenToLoggedData();
-		eventManager.listenToProfiles();
+        eventManager.listenToSettings("profiles");
+        eventManager.listenToLoggedData();
+        eventManager.listenToProfiles();
 
-		setHasOptionsMenu(true);
-	}
+        setHasOptionsMenu(true);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-		View rootView = inflater.inflate(R.layout.view_images, container,
-				false);
+        View rootView = inflater.inflate(R.layout.view_images, container,
+                false);
 
-		this.adapter = new ImagesGridAdapter(inflater, this);
+        this.adapter = new ImagesGridAdapter(inflater, this);
 
-		GridView list = (GridView) rootView.findViewById(R.id.image_list);
-		list.setAdapter(adapter);
+        GridView list = (GridView) rootView.findViewById(R.id.image_list);
+        list.setAdapter(adapter);
 
-		return rootView;
-	}
-
-
-	private class EventListener extends SpotItEventManagerListener {
-		@Override
-		public void eventsNewData(List<String> dataEvents, boolean whilePaused) {
-			adapter.updateData();
-		}
-	}
-
-	@Override
-	public void imageUpload(Model observation) {
-		((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), observation));		
-	}
-
-	@Override
-	public void imageDelete(Model observation) {
-		ImageDeleteDlg.open(getActivity(), observation, this);
-	}
+        return rootView;
+    }
 
 
+    private class EventListener extends SpotItEventManagerListener {
+        @Override
+        public void events(List<String> settingsEvents, List<String> projectEvents, List<String> dataEvents, boolean whilePaused) {
+            adapter.updateData();
+        }
+    }
 
-	@Override
-	public void imageDeleted(Model observation) {
-		return;
-	}
-	
+    @Override
+    public void imageUpload(Model observation) {
+        ((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), observation));
+    }
+
+    @Override
+    public void imageDelete(Model observation) {
+        ImageDeleteDlg.open(getActivity(), observation, this);
+    }
+
+
+    @Override
+    public void imageDeleted(Model observation) {
+        return;
+    }
+
 }
