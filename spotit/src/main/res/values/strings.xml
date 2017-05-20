@@ -26,6 +26,8 @@
     <!-- images tab -->
     <string name="image_delete_dlg_title">Remove image</string>
     <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
+    <string name="image_header_no_project">No project selected</string>
+    <string name="image_header_project">Images for project \"%1s\"</string>
 
     <!-- about -->
     <string name="about_version">Spot-it 0.1 Beta 1</string>

@@ -27,7 +27,7 @@ public class ProjectsFragment extends SpotItBaseFragment implements
 	ProjectItemManager itemManager;
 	ProjectsListAdapter adapter;
 
-	ImageButton buttonAddProject;
+	//ImageButton buttonAddProject;
 	ImageButton buttonUpdateProject;
 
 	@Override

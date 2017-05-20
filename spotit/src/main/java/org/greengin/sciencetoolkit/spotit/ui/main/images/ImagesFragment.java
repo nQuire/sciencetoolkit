@@ -4,26 +4,25 @@ import java.util.List;
 
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.spotit.R;
+import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.greengin.sciencetoolkit.spotit.logic.remote.UploadRemoteAction;
+import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 import org.greengin.sciencetoolkit.spotit.ui.base.SpotItBaseFragment;
 import org.greengin.sciencetoolkit.spotit.ui.base.events.SpotItEventManagerListener;
 import org.greengin.sciencetoolkit.spotit.ui.main.MainActivity;
-import org.greengin.sciencetoolkit.spotit.ui.remote.SpotItProjectBrowserActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 
 public class ImagesFragment extends SpotItBaseFragment implements ImageListener, ImageActionListener {
 
     ImagesGridAdapter adapter;
+    TextView headerText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,25 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
         GridView list = (GridView) rootView.findViewById(R.id.image_list);
         list.setAdapter(adapter);
 
+        headerText = (TextView) rootView.findViewById(R.id.images_header);
+
+        updateView();
         return rootView;
     }
 
+    private void updateView() {
+        Model project = ProjectManager.get().getActiveProject();
+        if (project != null) {
+            headerText.setText(getResources().getString(R.string.image_header_project, project.getString("title")));
+        } else {
 
+            headerText.setText(getText(R.string.image_header_no_project));
+        }
+    }
     private class EventListener extends SpotItEventManagerListener {
         @Override
         public void events(List<String> settingsEvents, List<String> projectEvents, List<String> dataEvents, boolean whilePaused) {
+            updateView();
             adapter.updateData();
         }
     }
@@ -75,7 +86,7 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
 
     @Override
     public void imageDeleted(Model observation) {
-        return;
+        DataManager.get().deleteData(observation);
     }
 
 }
