@@ -99,6 +99,7 @@ public class MainActivity extends SwipeActivity {
 			String uri = newFile;
 			newFile = null;
 			DataManager.get().newData(uri);
+			setTab(1);
 		}
 	}
 

@@ -82,6 +82,10 @@ public abstract class SwipeActivity extends SettingsControlledActivity implement
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 	}
 
+	public void setTab(int position) {
+		getSupportActionBar().setSelectedNavigationItem(position);
+	}
+
 	public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		Fragment[] fragments;
