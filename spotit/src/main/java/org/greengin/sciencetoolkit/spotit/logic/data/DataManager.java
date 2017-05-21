@@ -35,7 +35,7 @@ public class DataManager {
 
     public int dataCount(String projectId) {
         Model project = ProjectManager.get().get(projectId);
-        Model data = project.getModel("data");
+        Model data = project.getModel("data", true);
         return data.entries().size();
     }
 

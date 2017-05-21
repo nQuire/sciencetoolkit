@@ -61,7 +61,6 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
         if (project != null) {
             headerText.setText(getResources().getString(R.string.image_header_project, project.getString("title")));
         } else {
-
             headerText.setText(getText(R.string.image_header_no_project));
         }
     }

@@ -24,5 +24,36 @@
     <string name="delete_project_dlg_msg">¿Quieres eliminar el projecto %1$s de este dispositivo?</string>
     <string name="image_delete_dlg_title">Eliminar imagen</string>
     <string name="image_delete_dlg_msg">Quieres eliminar la imagen %1$s de este dispositivo?</string>
+    <string name="image_header_no_project">Ningún proyecto seleccionado</string>
+    <string name="image_header_project">Imágenes para el proyecto \"%1s\"</string>
 
+    <!-- about -->
+    <string name="about_version">Spot-it 0.1 Beta 2</string>
+    <string name="about_text">
+<![CDATA[
+<p>Autores: Christothea Herodotou, Mike Sharples y Eloy Villasclaras.</p>
+<p>Esta aplicación se distribuye bajo la licencia GPLV3. El código fuente está disponible en
+<a href="https://github.com/nQuire/sense-it-web">https://github.com/nQuire/sense-it-web</a></p>
+<p>Para ver proyectos científicos relacionados visite la plataforma nQuire-it:
+<a href="www.nquire-it.org">www.nquire-it.org</p>
+]]>
+    </string>
+    <string name="about_disclaimer">
+<![CDATA[Spot-it app es provista por
+        <a href="http://www.open.ac.uk">The Open University</a>, UK,
+        a company incorporated by Royal Charter in England and Wales.
+        Nuestra oficina principal está en Walton Hall, Milton Keynes MK7 6AA.
+        Si desea contactarnos, envíe una carta a la dirección de arriba o un email a
+        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
+
+        Excluimos toda garantía, expresa o implícita, en cuanto a la calidad, exactitud, puntualidad,
+         integridad, rendimiento, aptitud para un propósito particular de la aplicación o cualquiera de sus contenidos.
+         No nos hacemos responsables de cualquier daño (incluyendo sin limitación daños por pérdida de beneficios,
+         ingresos o ahorros anticipados) que surjan por contrato, agravio o de otra manera por el uso de o
+         incapacidad para utilizar la aplicación o cualquiera de sus contenidos ni de ninguna acción tomada
+         (o abstenido de ser llevado) como un resultado del uso de la aplicación o cualquiera de dichos contenidos.
+
+        <p>Copyright © 2014-17, <a href="http://www.open.ac.uk">The Open University</a>. Todos los derechos reservados.</p>
+        ]]>
+    </string>
 </resources>
