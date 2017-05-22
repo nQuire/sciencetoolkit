@@ -6,4 +6,5 @@ import java.io.File;
 
 public interface ImageActionListener {
 	void imageDeleted(Model observation);
+	void imageUploaded(Model observation);
 }

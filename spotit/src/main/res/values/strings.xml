@@ -24,10 +24,14 @@
     <string name="delete_project_dlg_msg">Do you want to remove project %1$s from this device?</string>
 
     <!-- images tab -->
-    <string name="image_delete_dlg_title">Remove image</string>
-    <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
     <string name="image_header_no_project">No project selected</string>
     <string name="image_header_project">Images for project \"%1s\"</string>
+    <string name="image_delete_dlg_title">Remove image</string>
+    <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
+    <string name="image_upload_dlg_title">Upload image</string>
+    <string name="image_upload_dlg_msg">Do you want to upload image %1$s?</string>
+    <string name="edit_title_label">Title:</string>
+    <string name="edit_title_hint">Enter image title</string>
 
     <!-- capture tab -->
     <string name="capture_no_project">No project selected</string>

@@ -20,72 +20,69 @@ import android.app.Activity;
 import android.util.Log;
 
 public class UploadRemoteAction extends RemoteJsonAction {
-	Activity context;
-	Model project;
-	Model observation;
+    Activity context;
+    Model project;
+    Model observation;
 
-	public UploadRemoteAction(Activity context, Model observation) {
-		this.context = context;
-		this.observation = observation;
-		this.project = this.observation.getParent().getParent();
-	}
+    public UploadRemoteAction(Activity context, Model observation) {
+        this.context = context;
+        this.observation = observation;
+        this.project = this.observation.getParent().getParent();
+        DataManager.get().markAsSent(project, observation, 1);
+    }
 
-	@Override
-	public HttpRequestBase[] createRequests(String urlBase) {
-		File image = new File(observation.getString("uri"));
-		if (image.exists() && image.isFile()) {
+    @Override
+    public HttpRequestBase[] createRequests(String urlBase) {
+        File image = new File(observation.getString("uri"));
+        if (image.exists() && image.isFile()) {
+            String title = observation.getString("title");
+            if (title.length() == 0) {
+                title = image.getName();
+            }
 
-			HttpPost post = new HttpPost(String.format(
-					"%sproject/%s/spotit/data", urlBase,
-					project.getString("id")));
+            HttpPost post = new HttpPost(String.format(
+                    "%sproject/%s/spotit/data", urlBase,
+                    project.getString("id")));
 
-			MultipartEntityBuilder entityBuilder = MultipartEntityBuilder
-					.create();
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder
+                    .create();
 
-			entityBuilder.addTextBody("title", image.getName(),
-					ContentType.TEXT_PLAIN);
-			entityBuilder
-					.addTextBody("description", "", ContentType.TEXT_PLAIN);
-			entityBuilder
-					.addTextBody("geolocation", "", ContentType.TEXT_PLAIN);
+            entityBuilder.addTextBody("title", title, ContentType.TEXT_PLAIN);
+            entityBuilder.addTextBody("description", "", ContentType.TEXT_PLAIN);
+            entityBuilder.addTextBody("geolocation", "", ContentType.TEXT_PLAIN);
 
-			entityBuilder.addPart("image", new FileBody(image));
-			HttpEntity entity = entityBuilder.build();
-			post.setEntity(entity);
-			return new HttpRequestBase[] { post };
-		}
+            entityBuilder.addPart("image", new FileBody(image));
+            HttpEntity entity = entityBuilder.build();
+            post.setEntity(entity);
+            return new HttpRequestBase[]{post};
+        }
 
-		return new HttpRequestBase[] {};
+        return new HttpRequestBase[]{};
 
-	}
+    }
 
-	@Override
-	public void result(int request, JSONObject result, JSONArray array) {
-		Log.d("stk remote", "result: " + result.toString());
+    @Override
+    public void result(int request, JSONObject result, JSONArray array) {
+        Log.d("stk remote", "result: " + result.toString());
 
-		try {
-			String id = result.getString("newItemId"); 
-			if (id != null) {
-				DataManager.get().markAsSent(project, observation, 2);
-				ToastMaker.l(context, "Data uploaded successfully!");
-			} else {
-				error(request, result.getString("create"));
-			}
-		} catch (JSONException e) {
-			error(request, "The server did not allow uploading data at this point.");
-			e.printStackTrace();
-		}
-	}
+        try {
+            String id = result.getString("newItemId");
+            if (id != null) {
+                DataManager.get().markAsSent(project, observation, 2);
+                ToastMaker.l(context, "Data uploaded successfully!");
+            } else {
+                error(request, result.getString("create"));
+            }
+        } catch (JSONException e) {
+            error(request, "The server did not allow uploading data at this point.");
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void error(int request, String error) {
-		String msg = null;
-		if ("nologin".equals(error)) {
-			msg = "It was not possible to upload the data because you are not logged in.";
-		} else {
-			msg = error;
-		}
-		ToastMaker.le(context, msg);
-		DataManager.get().markAsSent(project, observation, 0);
-	}
+    @Override
+    public void error(int request, String error) {
+        String msg = "nologin".equals(error) ? "It was not possible to upload the data because you are not logged in." : error;
+        ToastMaker.le(context, msg);
+        DataManager.get().markAsSent(project, observation, 0);
+    }
 }

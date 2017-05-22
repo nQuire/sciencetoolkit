@@ -26,7 +26,6 @@ public class ImagesGridAdapter extends BaseAdapter {
 	ImageListener listener;
 	LayoutInflater inflater;
 	Vector<Model> data;
-	String selectedProjectId;
 	HashMap<String, CachedImage> cache;
 
 	public ImagesGridAdapter(LayoutInflater inflater, ImageListener listener) {

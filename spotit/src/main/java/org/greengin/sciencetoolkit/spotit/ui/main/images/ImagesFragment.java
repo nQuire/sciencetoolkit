@@ -64,6 +64,7 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
             headerText.setText(getText(R.string.image_header_no_project));
         }
     }
+
     private class EventListener extends SpotItEventManagerListener {
         @Override
         public void events(List<String> settingsEvents, List<String> projectEvents, List<String> dataEvents, boolean whilePaused) {
@@ -74,7 +75,7 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
 
     @Override
     public void imageUpload(Model observation) {
-        ((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), observation));
+        ImageUploadDlg.open(getActivity(), observation, this);
     }
 
     @Override
@@ -86,6 +87,11 @@ public class ImagesFragment extends SpotItBaseFragment implements ImageListener,
     @Override
     public void imageDeleted(Model observation) {
         DataManager.get().deleteData(observation);
+    }
+
+    @Override
+    public void imageUploaded(Model observation) {
+        ((MainActivity) getActivity()).remoteRequest(new UploadRemoteAction(getActivity(), observation));
     }
 
 }
