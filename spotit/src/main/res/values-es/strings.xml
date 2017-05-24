@@ -56,10 +56,9 @@
         <p>Copyright © 2014-17, <a href="http://www.open.ac.uk">The Open University</a>. Todos los derechos reservados.</p>
         ]]>
     </string>
-    <string name="capture_image_project">Capturar imagen para el proyecto \"%1s\"</string>
-    <string name="capture_no_project">Ningún proyecto seleccionado</string>
+    <string name="capture_image">Capturar nueva imagen</string>
     <string name="edit_title_hint">Título de imagen</string>
     <string name="edit_title_label">Título:</string>
-    <string name="image_upload_dlg_msg">Quieres publicar la imagen %1$s?</string>
+    <string name="image_upload_dlg_msg">Quieres publicar la imagen dentro del proyecto \"%1$s\"?</string>
     <string name="image_upload_dlg_title">Publicar imagen</string>
 </resources>

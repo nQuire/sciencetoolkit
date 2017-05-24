@@ -93,7 +93,6 @@ public class MainActivity extends SwipeActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE
 				&& resultCode == RESULT_OK && newFile != null) {
 			String uri = newFile;

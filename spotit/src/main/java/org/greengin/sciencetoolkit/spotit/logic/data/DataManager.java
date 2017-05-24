@@ -34,7 +34,7 @@ public class DataManager {
     }
 
     public int dataCount(String projectId) {
-        Model project = ProjectManager.get().get(projectId);
+        Model project = ProjectManager.get().getProject(projectId);
         Model data = project.getModel("data", true);
         return data.entries().size();
     }
@@ -52,18 +52,15 @@ public class DataManager {
     }
 
     public void newData(String uri) {
-        Model project = ProjectManager.get().getActiveProject();
-        if (project != null && uri != null) {
-            Model item = project.getModel("data", true, true).getModel(uri,
-                    true, true);
-            item.setString("uri", uri);
-            item.setLong("date", System.currentTimeMillis());
-            ProjectManager.get().forceSave();
-            fireStatusModified("newdata");
-        }
+        Model item = ProjectManager.get().getNewImageContainer().getModel(uri, true, true);
+
+        item.setString("uri", uri);
+        item.setLong("date", System.currentTimeMillis());
+        ProjectManager.get().forceSave();
+        fireStatusModified("newdata");
     }
 
-    public void markAsSent(Model project, Model observation, int status) {
+    public void markAsSent(Model observation, int status) {
         if (observation != null) {
             observation.setInt("uploaded", status, true);
             ProjectManager.get().forceSave();
@@ -72,18 +69,29 @@ public class DataManager {
     }
 
     public void deleteData(Model observation) {
-        Model project = ProjectManager.get().getActiveProject();
-        if (project != null) {
+        Model parent = observation.getParent();
+        if (parent != null) {
             String uri = observation.getString("uri");
-            Model data = project.getModel("data");
-            data.clear(uri);
-            fireStatusModified("newdata");
+            parent.clear(uri);
             File file = new File(uri);
+            fireStatusModified("newdata");
             try {
                 file.delete();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean imageSent(Model observation) {
+        Model project = ProjectManager.get().getActiveProject();
+        if (observation != null && project != null) {
+            String uri = observation.getString("uri");
+            ProjectManager.get().getNewImageContainer().clear(uri);
+            project.getModel("data", true).setModel(uri, observation);
+            DataManager.get().markAsSent(observation, 2);
+            return true;
+        }
+        return false;
     }
 }

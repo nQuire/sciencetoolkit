@@ -17,9 +17,9 @@
     <string name="projects_header">Projects</string>
     <string name="project_active">[Active project]</string>
     <string name="project_inactive">[Inactive]</string>
-    <string name="data_count_none">No images</string>
-    <string name="data_count_one">1 image</string>
-    <string name="data_count_many">%1d images</string>
+    <string name="data_count_none">No images uploaded</string>
+    <string name="data_count_one">1 image uploaded</string>
+    <string name="data_count_many">%1d images uploaded</string>
     <string name="delete_project_dlg_title">Remove project</string>
     <string name="delete_project_dlg_msg">Do you want to remove project %1$s from this device?</string>
 
@@ -29,13 +29,12 @@
     <string name="image_delete_dlg_title">Remove image</string>
     <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
     <string name="image_upload_dlg_title">Upload image</string>
-    <string name="image_upload_dlg_msg">Do you want to upload image %1$s?</string>
+    <string name="image_upload_dlg_msg">Do you want to upload image to project \"%1$s\"?</string>
     <string name="edit_title_label">Title:</string>
     <string name="edit_title_hint">Enter image title</string>
 
     <!-- capture tab -->
-    <string name="capture_no_project">No project selected</string>
-    <string name="capture_image_project">Take image for project \"%1s\"</string>
+    <string name="capture_image">Take new image</string>
 
     <!-- about -->
     <string name="about_version">Spot-it 0.1 Beta 3</string>

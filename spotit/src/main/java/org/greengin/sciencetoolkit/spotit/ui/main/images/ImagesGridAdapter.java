@@ -1,6 +1,7 @@
 package org.greengin.sciencetoolkit.spotit.ui.main.images;
 
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import org.greengin.sciencetoolkit.common.model.Model;
@@ -32,13 +33,19 @@ public class ImagesGridAdapter extends BaseAdapter {
 		this.inflater = inflater;
 		this.cache = new HashMap<String, CachedImage>();
 		this.listener = listener;
+        this.data = new Vector<Model>();
 		updateData();
 	}
 
 	public void updateData() {
+		data.clear();
+		data.addAll(ProjectManager.get().getNewImageContainer().getModels("date", true));
+
 		Model project = ProjectManager.get().getActiveProject();
-		data = project != null ? project.getModel("data", true).getModels("date", true)
-				: new Vector<Model>();
+		if (project != null) {
+			data.addAll(project.getModel("data", true).getModels("date", true));
+		}
+
 		notifyDataSetChanged();
 	}
 
@@ -59,6 +66,7 @@ public class ImagesGridAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Model project = ProjectManager.get().getActiveProject();
 		Model imageData = data.get(position);
 
 		boolean newView = convertView == null;
@@ -87,7 +95,9 @@ public class ImagesGridAdapter extends BaseAdapter {
 		upload.setTag(imageData);
 		discard.setTag(imageData);
 		
-		upload.setEnabled(imageData.getInt("uploaded", 0) == 0);
+		upload.setEnabled(project != null && imageData.getInt("uploaded", 0) == 0);
+		int drawable = imageData.getInt("uploaded", 0) == 1 ? R.drawable.ic_action_upload : R.drawable.project_button_cloud;
+		upload.setImageDrawable(parent.getResources().getDrawable(drawable));
 		
 		CachedImage cached = cache.get(imageData.getString("uri"));
 		if (cached == null) {

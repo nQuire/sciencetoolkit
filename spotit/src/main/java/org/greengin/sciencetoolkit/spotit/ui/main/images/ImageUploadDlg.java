@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.greengin.sciencetoolkit.common.model.Model;
 import org.greengin.sciencetoolkit.spotit.R;
+import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 
 public class ImageUploadDlg {
 
@@ -37,7 +38,8 @@ public class ImageUploadDlg {
             View view = LayoutInflater.from(context).inflate(R.layout.dlg_upload_image, null);
 
             TextView text = (TextView) view.findViewById(R.id.image_upload_dlg_msg);
-            text.setText(String.format(context.getString(R.string.image_upload_dlg_msg), observation.getString("name")));
+            text.setText(String.format(context.getString(R.string.image_upload_dlg_msg),
+                    ProjectManager.get().getActiveProject().getString("title")));
 
             String title = observation.getString("title");
             titleEdit = (EditText) view.findViewById(R.id.upload_img_title);

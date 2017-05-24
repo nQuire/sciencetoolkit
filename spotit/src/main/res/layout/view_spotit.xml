@@ -19,7 +19,7 @@
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         android:drawableTop="@drawable/blue_camera_button"
-        android:text="!!!"
+        android:text="@string/capture_image"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" />
 

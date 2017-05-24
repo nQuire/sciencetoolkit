@@ -19,183 +19,182 @@ import android.content.Context;
 import android.util.Log;
 
 public class ProjectManager extends AbstractModelManager implements
-		ModelNotificationListener {
+        ModelNotificationListener {
 
-	private static ProjectManager instance;
+    private static ProjectManager instance;
 
-	public static void init(Context applicationContext) {
-		instance = new ProjectManager(applicationContext);
-	}
+    public static void init(Context applicationContext) {
+        instance = new ProjectManager(applicationContext);
+    }
 
-	public static ProjectManager get() {
-		return instance;
-	}
+    public static ProjectManager get() {
+        return instance;
+    }
 
-	NotificationListenerAggregator listeners;
+    NotificationListenerAggregator listeners;
 
-	Model settings;
-	Model appSettings;
+    Model settings;
+    Model appSettings;
 
-	Comparator<String> projectIdComparator;
+    Comparator<Model> projectIdComparator;
 
-	private ProjectManager(Context applicationContext) {
-		super(applicationContext, "projects.xml", 500);
-		settings = SettingsManager.get().get("projects");
-		appSettings = SettingsManager.get().get("app");
-		listeners = new NotificationListenerAggregator(applicationContext,
-				"projects:notifications");
-		SettingsManager.get().registerDirectListener("projects", this);
-		checkDataConsistency();
+    private ProjectManager(Context applicationContext) {
+        super(applicationContext, "projects.xml", 500);
+        settings = SettingsManager.get().get("projects");
+        appSettings = SettingsManager.get().get("app");
+        listeners = new NotificationListenerAggregator(applicationContext,
+                "projects:notifications");
+        SettingsManager.get().registerDirectListener("projects", this);
+        checkDataConsistency();
 
-		projectIdComparator = new Comparator<String>() {
-			@Override
-			public int compare(String lhs, String rhs) {
-				try {
-					return Integer.parseInt(rhs) - Integer.parseInt(lhs);
-				} catch (Exception e) {
-					return 0;
-				}
-			}
-		};
-	}
+        projectIdComparator = new Comparator<Model>() {
+            @Override
+            public int compare(Model lhs, Model rhs) {
+                try {
+                    return Integer.parseInt(rhs.getString("id")) - Integer.parseInt(lhs.getString("id"));
+                } catch (Exception e) {
+                    return 0;
+                }
+            }
+        };
+    }
 
-	public boolean projectIdIsActive(String id) {
-		return id != null && id.equals(getActiveProjectId());
-	}
+    public boolean projectIdIsActive(String id) {
+        return id != null && id.equals(getActiveProjectId());
+    }
 
-	public boolean projectIsActive(Model profile) {
-		return profile != null && projectIdIsActive(profile.getString("id"));
-	}
+    public boolean projectIsActive(Model profile) {
+        return profile != null && projectIdIsActive(profile.getString("id"));
+    }
 
-	private void checkDataConsistency() {
-		for (Entry<String, Model> entry : items.entrySet()) {
-			String id = entry.getKey();
-			Model model = entry.getValue();
+    private void checkDataConsistency() {
+        for (Entry<String, Model> entry : items.entrySet()) {
+            String id = entry.getKey();
+            Model model = entry.getValue();
 
-			if (id.length() == 0) {
-				Log.d("stk profiles", "empty id");
-			} else {
-				if (!id.equals(model.getString("id"))) {
-					Log.d("stk profiles", "conflicting ids: " + id + " "
-							+ model.getString("id"));
-				}
-			}
-		}
-	}
+            if (id.length() == 0) {
+                Log.d("stk profiles", "empty id");
+            } else {
+                if (!id.equals(model.getString("id"))) {
+                    Log.d("stk profiles", "conflicting ids: " + id + " "
+                            + model.getString("id"));
+                }
+            }
+        }
+    }
 
-	public void deleteProject(String projectId) {
-		Model removed = super.remove(projectId);
-		listeners.fireEvent("list");
-		DataManager.get().deleteProjectData(removed);
-	}
+    public void deleteProject(String projectId) {
+        Model removed = super.remove(projectId);
+        listeners.fireEvent("list");
+        DataManager.get().deleteProjectData(removed);
+    }
 
-	public void switchActiveProject(String projectId) {
-		if (projectId != null
-				&& !projectId.equals(settings.getString("current_project"))) {
-			settings.setString("current_project", projectId);
-		}
-	}
+    public void switchActiveProject(String projectId) {
+        if (projectId != null
+                && !projectId.equals(settings.getString("current_project"))) {
+            settings.setString("current_project", projectId);
+        }
+    }
 
-	public Model get(String key) {
-		return get(key, false);
-	}
+    public Model getNewImageContainer() {
+        return get("images", true);
+    }
 
-	public Model getActiveProject() {
-		return get(getActiveProjectId());
-	}
+    public Model getProject(String key) {
+        return get("projects", true).getModel(key, false);
+    }
 
-	public String getActiveProjectId() {
-		return settings.getString("current_project");
-	}
+    public Model getActiveProject() {
+        return getProject(getActiveProjectId());
+    }
 
-	public Vector<String> getProjectIds() {
-		Vector<String> profiles = new Vector<String>();
-		for (String id : items.keySet()) {
-			profiles.add(id);
-		}
+    public String getActiveProjectId() {
+        return settings.getString("current_project");
+    }
 
-		Collections.sort(profiles, projectIdComparator);
-		return profiles;
-	}
+    public Vector<Model> getProjects() {
+        Vector<Model> profiles = get("projects", true).getModels();
+        Collections.sort(profiles, projectIdComparator);
+        return profiles;
+    }
 
-	public int getProjectCount() {
-		return this.items.size();
-	}
+    public int getProjectCount() {
+        return this.items.size();
+    }
 
-	@Override
-	public void modelModified(Model model) {
-		super.modelModified(model);
+    @Override
+    public void modelModified(Model model) {
+        super.modelModified(model);
 
-		if (model != null) {
-			Model profile = model.getRootParent();
-			String profileId = profile.getString("id", null);
-			listeners.fireEvent(profileId);
-		}
-	}
+        if (model != null) {
+            Model profile = model.getRootParent();
+            String profileId = profile.getString("id", null);
+            listeners.fireEvent(profileId);
+        }
+    }
 
-	@Override
-	public void modelNotificationReceived(String msg) {
-		listeners.fireEvent("switch");
-	}
+    @Override
+    public void modelNotificationReceived(String msg) {
+        listeners.fireEvent("switch");
+    }
 
-	public void registerUIListener(ModelNotificationListener listener) {
-		listeners.addUIListener(listener);
-	}
+    public void registerUIListener(ModelNotificationListener listener) {
+        listeners.addUIListener(listener);
+    }
 
-	public void unregisterUIListener(ModelNotificationListener listener) {
-		listeners.removeUIListener(listener);
-	}
+    public void unregisterUIListener(ModelNotificationListener listener) {
+        listeners.removeUIListener(listener);
+    }
 
-	public void registerDirectListener(ModelNotificationListener listener) {
-		listeners.addDirectListener(listener);
-	}
+    public void registerDirectListener(ModelNotificationListener listener) {
+        listeners.addDirectListener(listener);
+    }
 
-	public void unregisterDirectListener(ModelNotificationListener listener) {
-		listeners.removeDirectListener(listener);
-	}
+    public void unregisterDirectListener(ModelNotificationListener listener) {
+        listeners.removeDirectListener(listener);
+    }
 
-	public void updateRemoteProjects(JSONObject remoteData) {
-		try {
-			Iterator<?> projectIt = remoteData.keys();
-			while (projectIt.hasNext()) {
+    public void updateRemoteProjects(JSONObject remoteData) {
+        try {
+            Iterator<?> projectIt = remoteData.keys();
+            while (projectIt.hasNext()) {
 
-				String jsonProjectId = (String) projectIt.next();
-				JSONObject jsonProjectObj = remoteData
-						.getJSONObject(jsonProjectId);
+                String jsonProjectId = (String) projectIt.next();
+                JSONObject jsonProjectObj = remoteData
+                        .getJSONObject(jsonProjectId);
 
-				String jsonProjectTitle = jsonProjectObj.getString("title");
-				String jsonProjectDescription = jsonProjectObj
-						.getString("description");
+                String jsonProjectTitle = jsonProjectObj.getString("title");
+                String jsonProjectDescription = jsonProjectObj
+                        .getString("description");
 
-				Model project = get(jsonProjectId);
-				if (project == null) {
-					project = new Model(this);
-					items.put(jsonProjectId, project);
-					project.setString("id", jsonProjectId, true);
-				}
+                Model project = getProject(jsonProjectId);
+                if (project == null) {
+                    project = new Model(this);
+                    project.setString("id", jsonProjectId, true);
+                    get("projects", true).setModel(jsonProjectId, project, true);
+                }
 
-				project.setString("title", jsonProjectTitle, true);
-				project.setString("description", jsonProjectDescription, true);
-				project.setBool("requires_location",
-						jsonProjectObj.getBoolean("geolocated"), true);
+                project.setString("title", jsonProjectTitle, true);
+                project.setString("description", jsonProjectDescription, true);
+                project.setBool("requires_location",
+                        jsonProjectObj.getBoolean("geolocated"), true);
+            }
 
-			}
+            this.forceSave();
+            listeners.fireEvent("list");
 
-			this.forceSave();
-			listeners.fireEvent("list");
+        } catch (JSONException e) {
+            Log.d("stk remote update", e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-		} catch (JSONException e) {
-			Log.d("stk remote update", e.getMessage());
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public int getCurrentVersion() {
+        return 0;
+    }
 
-	@Override
-	public int getCurrentVersion() {
-		return 0;
-	}
-
-	@Override
-	public void updateRootModel(String key, Model model, int version) {
-	}
+    @Override
+    public void updateRootModel(String key, Model model, int version) {
+    }
 }

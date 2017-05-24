@@ -13,61 +13,61 @@ import android.widget.BaseAdapter;
 
 public class ProjectsListAdapter extends BaseAdapter {
 
-	LayoutInflater inflater;
-	ProjectItemManager manager;
-	Vector<Model> projects;
-	String selectedProjectId;
-	
+    LayoutInflater inflater;
+    ProjectItemManager manager;
+    Vector<Model> projects;
+    String selectedProjectId;
 
-	public ProjectsListAdapter(LayoutInflater inflater, ProjectItemManager manager) {
-		this.inflater = inflater;
-		this.manager = manager;
-		this.projects = new Vector<Model>();
-		updateProfileList(null, false);
-	}
 
-	public void updateProfileList(String selectedProfileId) {
-		updateProfileList(selectedProfileId, true);
-	}
+    public ProjectsListAdapter(LayoutInflater inflater, ProjectItemManager manager) {
+        this.inflater = inflater;
+        this.manager = manager;
+        this.projects = new Vector<Model>();
+        updateProfileList(null, false);
+    }
 
-	public void updateProfileList(String selectedProjectId, boolean notify) {
-		this.selectedProjectId = selectedProjectId;
-		projects.clear();
-		for (String projectId : ProjectManager.get().getProjectIds()) {
-			projects.add(ProjectManager.get().get(projectId));
-		}
+    public void updateProfileList(String selectedProfileId) {
+        updateProfileList(selectedProfileId, true);
+    }
 
-		if (notify) {
-			this.notifyDataSetChanged();
-		}
-	}
+    public void updateProfileList(String selectedProjectId, boolean notify) {
+        this.selectedProjectId = selectedProjectId;
+        projects.clear();
+        for (Model project : ProjectManager.get().getProjects()) {
+            projects.add(project);
+        }
 
-	@Override
-	public int getCount() {
-		return projects.size();
-	}
+        if (notify) {
+            this.notifyDataSetChanged();
+        }
+    }
 
-	@Override
-	public Model getItem(int position) {
-		return projects.get(position);
-	}
+    @Override
+    public int getCount() {
+        return projects.size();
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public Model getItem(int position) {
+        return projects.get(position);
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		Model project = projects.get(position);
-		String projectId = project.getString("id");
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-		boolean newView = convertView == null;
-		View view = newView ? inflater.inflate(R.layout.view_projects_item, parent, false) : convertView;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Model project = projects.get(position);
+        String projectId = project.getString("id");
 
-		manager.prepareView(view, project, ProjectManager.get().projectIdIsActive(projectId), projectId.equals(selectedProjectId));
+        boolean newView = convertView == null;
+        View view = newView ? inflater.inflate(R.layout.view_projects_item, parent, false) : convertView;
 
-		return view;
-	}
+        manager.prepareView(view, project, ProjectManager.get().projectIdIsActive(projectId), projectId.equals(selectedProjectId));
+
+        return view;
+    }
 
 }
