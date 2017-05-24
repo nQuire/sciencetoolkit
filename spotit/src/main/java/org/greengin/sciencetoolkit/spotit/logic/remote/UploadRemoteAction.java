@@ -69,7 +69,11 @@ public class UploadRemoteAction extends RemoteJsonAction {
             String id = result.getString("newItemId");
             if (id != null) {
                 DataManager.get().markAsSent(project, observation, 2);
-                ToastMaker.l(context, "Data uploaded successfully!");
+                context.runOnUiThread(new Runnable() {
+                    public void run() {
+                        ToastMaker.l(context, "Data uploaded successfully!");
+                    }
+                });
             } else {
                 error(request, result.getString("create"));
             }
@@ -81,8 +85,13 @@ public class UploadRemoteAction extends RemoteJsonAction {
 
     @Override
     public void error(int request, String error) {
-        String msg = "nologin".equals(error) ? "It was not possible to upload the data because you are not logged in." : error;
-        ToastMaker.le(context, msg);
+        final String msg = "nologin".equals(error) ? "It was not possible to upload the data because you are not logged in." : error;
+        context.runOnUiThread(new Runnable() {
+            public void run() {
+                ToastMaker.le(context, msg);
+            }
+        });
+
         DataManager.get().markAsSent(project, observation, 0);
     }
 }
