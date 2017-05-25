@@ -51,13 +51,15 @@ public class DataManager {
         listeners.fireEvent(event);
     }
 
-    public void newData(String uri) {
+    public Model newData(String uri) {
         Model item = ProjectManager.get().getNewImageContainer().getModel(uri, true, true);
 
         item.setString("uri", uri);
         item.setLong("date", System.currentTimeMillis());
         ProjectManager.get().forceSave();
         fireStatusModified("newdata");
+
+        return item;
     }
 
     public void markAsSent(Model observation, int status) {
