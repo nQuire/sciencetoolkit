@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import org.greengin.sciencetoolkit.common.model.Model;
+import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.spotit.R;
 import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
 
@@ -26,6 +28,7 @@ public class ImageUploadDlg {
         Model observation;
         ImageActionListener listener;
         EditText titleEdit;
+        CheckBox uploadEdit;
 
         public ImageUploadDlgBuilder(Context context, Model observation, ImageActionListener listener) {
             super(context);
@@ -41,9 +44,13 @@ public class ImageUploadDlg {
             text.setText(String.format(context.getString(R.string.image_upload_dlg_msg),
                     ProjectManager.get().getActiveProject().getString("title")));
 
+
             String title = observation.getString("title");
             titleEdit = (EditText) view.findViewById(R.id.upload_img_title);
             titleEdit.setText(title);
+
+            uploadEdit = (CheckBox) view.findViewById(R.id.upload_img_geolocation);
+            uploadEdit.setChecked(SettingsManager.get().get("projects").getModel("geoOptIn", true).getBool(ProjectManager.get().getActiveProjectId()));
 
             setPositiveButton(context.getResources().getString(R.string.button_label_upload), this);
             setNeutralButton(context.getResources().getString(R.string.button_label_cancel), this);
@@ -60,8 +67,10 @@ public class ImageUploadDlg {
             String text = titleEdit.getText().toString();
             observation.setString("title", text);
 
+            SettingsManager.get().get("projects").getModel("geoOptIn", true).setBool(ProjectManager.get().getActiveProjectId(), uploadEdit.isChecked());
+
             if (which == DialogInterface.BUTTON_POSITIVE) {
-                listener.imageUploaded(observation);
+                listener.imageUploaded(observation, uploadEdit.isChecked());
             }
             dlg.dismiss();
         }

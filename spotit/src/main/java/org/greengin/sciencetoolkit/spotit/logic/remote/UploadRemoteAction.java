@@ -10,6 +10,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteJsonAction;
 import org.greengin.sciencetoolkit.common.model.Model;
+import org.greengin.sciencetoolkit.common.model.SettingsManager;
 import org.greengin.sciencetoolkit.common.ui.base.ToastMaker;
 import org.greengin.sciencetoolkit.spotit.logic.data.DataManager;
 import org.greengin.sciencetoolkit.spotit.model.ProjectManager;
@@ -23,21 +24,28 @@ import android.util.Log;
 public class UploadRemoteAction extends RemoteJsonAction {
     Activity context;
     Model observation;
+    boolean uploadLocation;
 
-    public UploadRemoteAction(Activity context, Model observation) {
+    public UploadRemoteAction(Activity context, Model observation, boolean uploadLocation) {
         this.context = context;
         this.observation = observation;
-        DataManager.get().markAsSent(observation, 1);
+        this.uploadLocation = uploadLocation;
     }
 
     @Override
     public HttpRequestBase[] createRequests(String urlBase) {
         File image = new File(observation.getString("uri"));
-        if (image.exists() && image.isFile() && ProjectManager.get().getActiveProject() != null) {
+        Model project = ProjectManager.get().getActiveProject();
+
+        if (image.exists() && image.isFile() && project != null) {
+            DataManager.get().markAsSent(observation, 1);
+
             String title = observation.getString("title");
             if (title.length() == 0) {
                 title = image.getName();
             }
+
+            String location = uploadLocation ? observation.getString("location") : "";
 
             HttpPost post = new HttpPost(String.format(
                     "%sproject/%s/spotit/data", urlBase,
@@ -48,7 +56,7 @@ public class UploadRemoteAction extends RemoteJsonAction {
 
             entityBuilder.addTextBody("title", title, ContentType.TEXT_PLAIN);
             entityBuilder.addTextBody("description", "", ContentType.TEXT_PLAIN);
-            entityBuilder.addTextBody("geolocation", "", ContentType.TEXT_PLAIN);
+            entityBuilder.addTextBody("geolocation", location, ContentType.TEXT_PLAIN);
 
             entityBuilder.addPart("image", new FileBody(image));
             HttpEntity entity = entityBuilder.build();
@@ -57,7 +65,6 @@ public class UploadRemoteAction extends RemoteJsonAction {
         }
 
         return new HttpRequestBase[]{};
-
     }
 
     @Override

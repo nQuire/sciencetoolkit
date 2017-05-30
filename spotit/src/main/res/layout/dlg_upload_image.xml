@@ -17,7 +17,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,6 +30,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/edit_title_hint" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <CheckBox
+            android:id="@+id/upload_img_geolocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/image_upload_geolocation_label" />
     </LinearLayout>
 
 

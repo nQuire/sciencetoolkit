@@ -30,6 +30,7 @@
     <string name="image_delete_dlg_msg">Do you want to remove image %1$s from this device?</string>
     <string name="image_upload_dlg_title">Upload image</string>
     <string name="image_upload_dlg_msg">Do you want to upload image to project \"%1$s\"?</string>
+    <string name="image_upload_geolocation_label">Upload geolocation</string>
     <string name="edit_title_label">Title:</string>
     <string name="edit_title_hint">Enter image title</string>
 
@@ -37,10 +38,10 @@
     <string name="capture_image">Take new image</string>
 
     <!-- about -->
-    <string name="about_version">Spot-it 0.1 Beta 4</string>
+    <string name="about_version">Spot-it 0.1 Beta 5</string>
     <string name="about_text">
 <![CDATA[
-<p>Authors: Christothea Herodotou, Mike Sharples and Eloy Villasclaras.</p>
+<p>Developers: Mike Sharples, Eloy Villasclaras, Christothea Herodotou.</p>
 <p>This software is distributed under a GPLV3 licence. Source code available at
 <a href="https://github.com/nQuire/sense-it-web">https://github.com/nQuire/sense-it-web</a></p>
 <p>Visit the linked nQuire-it platform for science missions: <a href="www.nquire-it.org">www.nquire-it.org</p>
