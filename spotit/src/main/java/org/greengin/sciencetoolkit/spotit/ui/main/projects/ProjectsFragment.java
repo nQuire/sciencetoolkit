@@ -90,7 +90,7 @@ public class ProjectsFragment extends SpotItBaseFragment implements
 	@Override
 	public void projectDelete(Model project) {
 		if (!ProjectManager.get().projectIsActive(project)) {
-			ProjectManager.get().deleteProject(project.getString("id"));
+			ProjectManager.get().deleteProject(project);
 		}
 	}
 

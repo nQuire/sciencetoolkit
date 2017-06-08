@@ -112,7 +112,7 @@
     <string name="series_share_body">Recorded series in CSV format attached.</string>
 
     <!-- about -->
-    <string name="about_version">Sense-it 1.1 Beta 14</string>
+    <string name="about_version">Sense-it 1.2 Beta 20</string>
     <string name="about_text">
 <![CDATA[
 <p>Authors: Christothea Herodotou, Mike Sharples and Eloy Villasclaras. Developed with funding from

@@ -83,10 +83,12 @@ public class ProjectManager extends AbstractModelManager implements
         }
     }
 
-    public void deleteProject(String projectId) {
-        Model removed = super.remove(projectId);
-        listeners.fireEvent("list");
-        DataManager.get().deleteProjectData(removed);
+    public void deleteProject(Model project) {
+        boolean removed = get("projects", true).clear(project.getString("id"));
+        if (removed) {
+            listeners.fireEvent("list");
+            DataManager.get().deleteProjectData(project);
+        }
     }
 
     public void switchActiveProject(String projectId) {

@@ -28,7 +28,7 @@
     <string name="image_header_project">Imágenes para el proyecto \"%1s\"</string>
 
     <!-- about -->
-    <string name="about_version">Spot-it 0.1 Beta 6</string>
+    <string name="about_version">Spot-it 0.1 Beta 7</string>
     <string name="about_text">
 <![CDATA[
 <p>Autores: Christothea Herodotou, Mike Sharples y Eloy Villasclaras.</p>
