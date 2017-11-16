@@ -36,6 +36,7 @@
 
     <!-- capture tab -->
     <string name="capture_image">Take new image</string>
+    <string name="browse_gallery">Browse gallery</string>
 
     <!-- about -->
     <string name="about_version">Spot-it 0.1 Beta 7</string>

@@ -12,7 +12,6 @@
 
     <Button
         android:layout_centerHorizontal="true"
-        
         android:id="@+id/spotit_camera"
         android:layout_centerInParent="true"
         android:adjustViewBounds="true"
@@ -20,6 +19,17 @@
         android:scaleType="fitXY"
         android:drawableTop="@drawable/blue_camera_button"
         android:text="@string/capture_image"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/spotit_gallery"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        android:drawableLeft="@drawable/ic_action_picture"
+        android:text="@string/browse_gallery"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" />
 

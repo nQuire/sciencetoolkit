@@ -24,8 +24,18 @@
     <string name="delete_project_dlg_msg">¿Quieres eliminar el projecto %1$s de este dispositivo?</string>
     <string name="image_delete_dlg_title">Eliminar imagen</string>
     <string name="image_delete_dlg_msg">¿Quieres eliminar la imagen %1$s de este dispositivo?</string>
+    <string name="image_upload_dlg_title">Publicar imagen</string>
+    <string name="image_upload_dlg_msg">¿Quieres publicar la imagen en el proyecto %1$s?</string>
+    <string name="edit_title_label">Título:</string>
+    <string name="edit_title_hint">Escribe el título de la imagen</string>
+
     <string name="image_header_no_project">Ningún proyecto seleccionado</string>
     <string name="image_header_project">Imágenes para el proyecto \"%1s\"</string>
+
+    <!-- capture tab -->
+    <string name="capture_no_project">Ningún proyecto seleccionado</string>
+    <string name="capture_image_project">Capturar imagen para el proyecto \"%1s\"</string>
+    <string name="browse_gallery">Explorar galería</string>
 
     <!-- about -->
     <string name="about_version">Spot-it 0.1 Beta 7</string>
@@ -57,9 +67,5 @@
         ]]>
     </string>
     <string name="capture_image">Capturar nueva imagen</string>
-    <string name="edit_title_hint">Título de imagen</string>
-    <string name="edit_title_label">Título:</string>
     <string name="image_upload_geolocation_label">Compartir geolocalización</string>
-    <string name="image_upload_dlg_msg">¿Quieres publicar la imagen dentro del proyecto \"%1$s\"?</string>
-    <string name="image_upload_dlg_title">Publicar imagen</string>
 </resources>
