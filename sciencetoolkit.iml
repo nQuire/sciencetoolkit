@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="sciencetoolkit" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <!--
+    Sense-it - the Android app for nQuire-it.
+
+    Copyright © 2013-2019 The Open University (IET-OU).
+  -->
   <component name="FacetManager">
     <facet type="java-gradle" name="Java-Gradle">
       <configuration>
