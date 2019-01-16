@@ -18,7 +18,7 @@ _Sense-it_ is released under the GPLv3 licence. See [LICENSE][] for more details
 
 ---
 
-Contributors:  [@evilfier][].
+Contributors:  [@evilfier][] (developer), [thea][], [mike][].
 
 ---
 [©][c] 2013-2019 [The Open University][ou] ([Institute of Educational Technology][iet]).
@@ -37,5 +37,7 @@ Contributors:  [@evilfier][].
     "GNU General Public License 3.0 onwards [GPL-3.0+]"
 [gpl-icon]: https://img.shields.io/badge/license-GLP--3.0%2B-blue.svg
 [@evilfier]: https://github.com/evilfer "Eloy Villasclaras Fernandez"
+[thea]: https://iet.open.ac.uk/profiles/christothea.herodotou "Dr Christothea Herodotou"
+[mike]: https://iet.open.ac.uk/people/mike.sharples "Prof Mike Sharples"
 
 [End]: //.
