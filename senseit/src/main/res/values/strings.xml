@@ -116,20 +116,20 @@
     <string name="about_text">
 <![CDATA[
 <p>Authors: Christothea Herodotou, Mike Sharples and Eloy Villasclaras. Developed with funding from
-<a href="http://www.nominettrust.org.uk/">Nominet Trust</a> project <i>nQuire: Young Citizen Inquiry</i></p>
+<a href="https://www.nominettrust.org.uk">Nominet Trust</a> project <i>nQuire: Young Citizen Inquiry</i></p>
 <p>This software is distributed under a GPLV3 licence. Source code available at
-<a href="https://github.com/nQuire/sense-it-web">https://github.com/nQuire/sense-it-web</a></p>
-<p>Visit the linked nQuire-it platform for science missions: <a href="www.nquire-it.org">www.nquire-it.org</p>
+<a href="https://github.com/nQuire/sciencetoolkit">https://github.com/nQuire/sciencetoolkit</a></p>
+<p>Visit the linked nQuire-it platform for science missions: <a href="http://www.nquire-it.org">www.nquire-it.org</p>
 ]]>
     </string>
     <string name="about_disclaimer">
 <![CDATA[
 <p>The Sense-it app is provided by
-        <a href="http://www.open.ac.uk">The Open University</a>, UK,
+        <a href="https://www.open.ac.uk">The Open University</a>, UK,
         a company incorporated by Royal Charter in England and Wales.
         Our main office is at Walton Hall, Milton Keynes MK7 6AA.
         If you wish to contact us, send a letter to the above address or an email to
-        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.</p>
+        <a href="mailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.</p>
 
 <p>We exclude any warranty, express or implied, as to the quality, accuracy, timeliness,
         completeness, performance, fitness for a particular purpose of the application or any of its contents.
@@ -138,7 +138,7 @@
         inability to use the application or any of its contents or from any action taken
         (or refrained from being taken) as a result of using the application or any such contents.</p>
 
-        <p>Copyright © 2014-17, <a href="http://www.open.ac.uk">The Open University</a>. All rights reserved.</p>
+        <p>Copyright © 2014-19, <a href="https://www.open.ac.uk">The Open University</a>. All rights reserved.</p>
         ]]>
     </string>
 

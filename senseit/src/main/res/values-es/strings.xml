@@ -48,7 +48,7 @@
     <string name="delete_profile_dlg_msg">¿Quiere eliminar el proyecto %1$s de este dispositivo y todos los datos registrados?</string>
     <string name="reset_upload_dlg_title">Resetear el estado de la subida</string>
     <string name="reset_upload_dlg_msg">¿Quiere resetear esta serie y así poder subirla de nuevo?</string>
-    
+
     <!-- main activity - share tab -->
     <string name="share_projects_header">PROYECTOS</string>
     <string name="share_project_active">[Proyecto activo]</string>
@@ -112,28 +112,28 @@
     <string name="series_share_subject">Serie de Sense-it: %1s</string>
     <string name="series_share_body">Series registradas en formato CSV adjunto.</string>
 
-    
-    
+
+
 
     <!-- about -->
     <string name="about_version">Sense-it 1.2 Beta 20</string>
     <string name="about_text">
         <![CDATA[
 <p>Autores: Christothea Herodotou, Mike Sharples y Eloy Villasclaras. Desarrollada dentro del proyecto
-<i>nQuire: Young Citizen Inquiry</i>, financiado por <a href="http://www.nominettrust.org.uk/">Nominet Trust</a>.</p>
+<i>nQuire: Young Citizen Inquiry</i>, financiado por <a href="https://www.nominettrust.org.uk/">Nominet Trust</a>.</p>
 <p>Esta aplicación se distribuye bajo la licencia GPLV3. El código fuente está disponible en
-<a href="https://github.com/nQuire/sense-it-web">https://github.com/nQuire/sense-it-web</a></p>
+<a href="https://github.com/nQuire/sciencetoolkit">https://github.com/nQuire/sciencetoolkit</a></p>
 <p>Para ver proyectos científicos relacionados visite la plataforma nQuire-it:
 <a href="www.nquire-it.org">www.nquire-it.org</p>
 ]]>
     </string>
         <string name="about_disclaimer">
             <![CDATA[Sense-it app es provista por
-        <a href="http://www.open.ac.uk">The Open University</a>, UK,
+        <a href="https://www.open.ac.uk">The Open University</a>, UK,
         a company incorporated by Royal Charter in England and Wales.
         Nuestra oficina principal está en Walton Hall, Milton Keynes MK7 6AA.
         Si desea contactarnos, envíe una carta a la dirección de arriba o un email a
-        <a href="emailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
+        <a href="mailto:data.protection@open.ac.uk">data.protection@open.ac.uk</a>.<br/><br/>
 
         Excluimos toda garantía, expresa o implícita, en cuanto a la calidad, exactitud, puntualidad,
          integridad, rendimiento, aptitud para un propósito particular de la aplicación o cualquiera de sus contenidos.
@@ -142,7 +142,7 @@
          incapacidad para utilizar la aplicación o cualquiera de sus contenidos ni de ninguna acción tomada
          (o abstenido de ser llevado) como un resultado del uso de la aplicación o cualquiera de dichos contenidos.
 
-        <p>Copyright © 2014-17, <a href="http://www.open.ac.uk">The Open University</a>. Todos los derechos reservados.</p>
+        <p>Copyright © 2014-19, <a href="https://www.open.ac.uk">The Open University</a>. Todos los derechos reservados.</p>
         ]]>
         </string>
 
