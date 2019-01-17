@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit"
-    android:versionCode="52"
-    android:versionName="1.2 Beta 20" >
+    android:versionCode="53"
+    android:versionName="1.2 Beta 21" >
     <!--
       Sense-it - the Android app for nQuire-it.
 
@@ -25,10 +25,6 @@
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="false" />
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="20" />
 
     <application
         android:name="org.greengin.sciencetoolkit.ScienceToolkitApplication"
@@ -87,7 +83,7 @@
         </activity>
         <activity
             android:name="org.greengin.sciencetoolkit.ui.remote.SenseItProjectBrowserActivity"
-            android:label="@string/title_activity_project_browser" >
+            android:label="@string/title_activity_project_browser"
             android:parentActivityName="org.greengin.sciencetoolkit.ui.main.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

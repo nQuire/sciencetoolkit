@@ -1,5 +1,6 @@
 package org.greengin.sciencetoolkit.common.logic.remote;
 
+
 import org.apache.http.client.methods.HttpRequestBase;
 
 public abstract class RemoteAction {

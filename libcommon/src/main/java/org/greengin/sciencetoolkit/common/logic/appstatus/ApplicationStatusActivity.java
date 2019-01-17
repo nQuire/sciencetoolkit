@@ -1,8 +1,8 @@
 package org.greengin.sciencetoolkit.common.logic.appstatus;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public class ApplicationStatusActivity extends ActionBarActivity {
+public class ApplicationStatusActivity extends AppCompatActivity {
 	
 	@Override
 	protected void onResume() {

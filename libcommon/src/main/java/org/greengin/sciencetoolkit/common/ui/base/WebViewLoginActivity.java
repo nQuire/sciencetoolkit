@@ -31,7 +31,7 @@ public class WebViewLoginActivity extends ApplicationStatusActivity {
 		});
 		webview.setWebViewClient(new WebViewClient() {
 			private void checkPage(String url) {
-				if (url.contains(RemoteApi.WELCOME_PATH)) {
+				if (url.contains(RemoteApi.WELCOME_PATH) || url.contains(RemoteApi.WELCOME_PATH_2)) {
 					CookieSyncManager.getInstance().sync();
 					// Get the cookie from cookie jar.
 					String cookie = CookieManager.getInstance().getCookie(url);

@@ -30,6 +30,7 @@ public class RemoteApi {
 	public static final String DOMAIN = "www.nquire-it.org";
 	public static final String PATH = "/";
 	public static final String WELCOME_PATH = "social/welcome";
+	public static final String WELCOME_PATH_2 = "#/profile";
 
 	private static RemoteApi instance;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.greengin.sciencetoolkit.spotit"
-    android:versionCode="7"
-    android:versionName="Beta 7" >
+    android:versionCode="9"
+    android:versionName="Beta 9" >
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -20,10 +20,6 @@
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="false" />
-
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="20" />
 
     <application
         android:name="org.greengin.sciencetoolkit.spotit.SpotItApplication"
