@@ -1,5 +1,11 @@
 package org.greengin.sciencetoolkit;
 
+/**
+ * Sense-it Android app.
+ *
+ * License: GPL-3.0+ (https://gnu.org/licenses/gpl.html)
+ * © 2013-2019 The Open University (IET-OU).
+ */
 
 import org.greengin.sciencetoolkit.common.logic.appstatus.ApplicationStatusManager;
 import org.greengin.sciencetoolkit.common.logic.remote.RemoteApi;
@@ -19,23 +25,23 @@ public class ScienceToolkitApplication extends Application {
     public void onCreate(){
         super.onCreate();
         Context context = this.getApplicationContext();
-        
+
         SettingsManager.init(context);
         SensorWrapperManager.init(context);
         ProfileManager.init(context);
-        
+
         DeprecatedDataLogger.init(context);
         DataLogger.init(context);
-        
+
         ApplicationStatusManager.init(context);
-        
+
         CurrentLocation.init(context);
-        
+
         RemoteApi.init(context);
-        
+
         SignalStrengthManager.init(context);
 
         VersionManager.check(context);
     }
-    
+
 }

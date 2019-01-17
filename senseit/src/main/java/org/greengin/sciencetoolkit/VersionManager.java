@@ -1,5 +1,12 @@
 package org.greengin.sciencetoolkit;
 
+/**
+ * Sense-it Android app.
+ *
+ * License: GNU GPL-3.0+ (https://gnu.org/licenses/gpl.html)
+ * © 2013-2019 The Open University (IET-OU).
+ */
+
 import java.util.HashMap;
 import java.util.Map.Entry;
 
